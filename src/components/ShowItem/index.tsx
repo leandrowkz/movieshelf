@@ -18,12 +18,12 @@ export function ShowItem({ show, className }: Props) {
       <div className={styles.poster}>
         <img src={poster} alt={show.title} />
       </div>
-      <div className={styles.title}>
-        <Heading title={show.title} level={3} />
+      <div className={styles.header}>
+        <Heading title={show.title} level={3} className={styles.title} />
         <Rating score={show.vote_average} className={styles.rating} />
       </div>
       <div className={styles.categories}>
-        {show.genres.map((genre, index) => (
+        {show.genres?.map((genre, index) => (
           <span className={styles.category}>
             {index > 0 ? <span>&nbsp;/&nbsp;</span> : ''}
             {genre.name}

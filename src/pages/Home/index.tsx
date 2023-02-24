@@ -5,12 +5,13 @@ import { Page } from 'src/components/Page'
 import { ShowList } from 'src/components/ShowList'
 
 export function Home () {
-  const movie = require('../../services/movie.json')
+  const shows = require('../../services/movies.json')
+
   return (
     <Page>
       <Header />
-      <Banner />
-      <ShowList title="Most popular" shows={[movie,movie,movie,movie,movie,movie,movie,]} />
+      <Banner shows={shows} />
+      <ShowList title="Most popular" shows={shows} />
     </Page>
   )
 }

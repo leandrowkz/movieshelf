@@ -1,6 +1,6 @@
 :root {
   /* Page */
-  --container-width: 1200px;
+  --container-width: 70vw;
 
   /* Header */
   --header-height: 100px;
@@ -26,6 +26,9 @@
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   --font-color-muted: #9ca6ad;
+
+  /* Shows */
+  --show-item-size: 14vw;
 }
 
 body {

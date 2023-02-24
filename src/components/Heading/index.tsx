@@ -10,7 +10,7 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 export function Heading({ title, level = 1, isThin = false, className }: Props) {
   const classes = classNames({
-    className,
+    [`${className}`]: true,
     [`${styles[`heading${level}`]}`]: true,
     [styles.headingThin] : isThin,
   })
