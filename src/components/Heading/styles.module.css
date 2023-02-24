@@ -1,17 +1,17 @@
 .heading1 {
-  font-size: 56px;
+  font-size: var(--font-size-extra-large);
   font-weight: bold;
   margin-bottom: 24px;
 }
 
 .heading2 {
-  font-size: 32px;
+  font-size: var(--font-size-large);
   margin-bottom: 16px;
   font-weight: bold;
 }
 
 .heading3 {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   margin-bottom: 8px;
   font-weight: bold;
 }

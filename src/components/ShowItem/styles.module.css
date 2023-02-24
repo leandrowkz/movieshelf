@@ -1,0 +1,39 @@
+.container {
+  width: 100%;
+  max-width: 200px;
+  height: 300px;
+}
+
+.poster {
+  height: 250px;
+  width: auto;
+  overflow: hidden;
+  border-radius: var(--radius-extra-large);
+}
+
+.poster img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.title {
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.rating {
+  font-size: var(--font-size-small);
+}
+
+.categories {
+  margin-top: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: var(--font-size-small);
+  color: var(--font-color-muted);
+}
+
+

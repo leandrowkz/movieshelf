@@ -1,6 +1,6 @@
 .banner {
-  width: var(--container-width);
-  margin: 36px auto 86px auto;
+  width: 100%;
+  margin-bottom: var(--spacer-extra-large);
 }
 
 .heading {

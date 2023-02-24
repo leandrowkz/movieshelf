@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
+import classNames from 'classnames'
 
-type Props = {
+interface Props extends ComponentPropsWithoutRef<'div'> {
   title: string
-  level: 1 | 2 | 3 | '1' | '2' | '3'
+  level: 1 | 2 | 3
   isThin?: boolean
 }
 
-export function Heading({ title, level = 1, isThin = false }: Props) {
-  const classes = `${styles[`heading${level}`]} ${isThin ? styles.headingThin : ''}`
+export function Heading({ title, level = 1, isThin = false, className }: Props) {
+  const classes = classNames({
+    className,
+    [`${styles[`heading${level}`]}`]: true,
+    [styles.headingThin] : isThin,
+  })
 
   return (
     <div className={classes}>
