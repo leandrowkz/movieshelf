@@ -1,7 +1,8 @@
 import React from 'react'
+import { Header } from 'src/components/Header'
 
 export function Home () {
   return (
-    <h1>Hello</h1>
+    <Header />
   )
 }

@@ -1,3 +1,8 @@
+:root {
+  --container-width: 1200px;
+  --header-height: 100px;
+}
+
 body {
   margin: 0;
   padding: 0;
