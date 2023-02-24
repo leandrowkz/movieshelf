@@ -1,0 +1,10 @@
+.banner {
+  width: var(--container-width);
+  margin: 36px auto 86px auto;
+}
+
+.heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
