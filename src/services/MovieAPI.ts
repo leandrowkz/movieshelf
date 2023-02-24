@@ -5,8 +5,8 @@ export class MovieAPI extends BaseAPI {
   private accessToken: string
 
   constructor() {
-    super(process.env.API_URL || '')
-    const accessToken = process.env.API_ACCESS_TOKEN || false
+    super(process.env.REACT_APP_API_URL || '')
+    const accessToken = process.env.REACT_APP_API_ACCESS_TOKEN || false
 
     if (!accessToken) {
       throw Error('Missing API access token.')
