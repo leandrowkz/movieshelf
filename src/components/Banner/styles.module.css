@@ -23,14 +23,6 @@
   position: relative;
 }
 
-.poster:before {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: '';
-  background-color: rgba(0,0,0,.2);
-}
-
 .poster img {
   object-fit: cover;
   width: 100%;

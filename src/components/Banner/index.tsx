@@ -3,7 +3,6 @@ import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { Movie } from 'src/types/Movie'
 import classNames from 'classnames'
-import { Link } from 'react-router-dom'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[],
