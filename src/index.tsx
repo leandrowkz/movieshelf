@@ -4,11 +4,14 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/root'
 import './assets/styles.css';
 import reportWebVitals from './reportWebVitals';
+import { MovieContextProvider } from './store/MovieContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <MovieContextProvider>
+      <RouterProvider router={router} />
+    </MovieContextProvider>
   </React.StrictMode>
 );
 
