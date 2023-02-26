@@ -1,5 +1,6 @@
 import { Movie } from 'src/types/Movie'
 import { BaseAPI } from './BaseAPI'
+import { APIResponseList } from 'src/types/APIResponseList'
 
 export class MovieAPI extends BaseAPI {
   private accessToken: string
@@ -15,6 +16,12 @@ export class MovieAPI extends BaseAPI {
     this.accessToken = accessToken
   }
 
+  private getPath(path: string, queryString?: Record<string, string | number>) {
+    const params = new URLSearchParams({ ...queryString, api_key: this.accessToken })
+
+    return `${path}${params.toString()}`
+  }
+
   public async fetchMovie(id: number): Promise<Movie> {
     const path = this.getPath(`/movie/${id}`)
 
@@ -27,7 +34,9 @@ export class MovieAPI extends BaseAPI {
     }
     const path = this.getPath(`/discover/movie`, filters)
 
-    return this.get<Movie[]>(path)
+    const response = await this.get<APIResponseList<Movie>>(path)
+
+    return response.results
   }
 
   public async fetchMovieListMostPopular(page: number = 1): Promise<Movie[]> {
@@ -35,18 +44,16 @@ export class MovieAPI extends BaseAPI {
 
     const path = this.getPath('/movie/popular', filters)
 
-    return this.get<Movie[]>(path)
+    const response = await this.get<APIResponseList<Movie>>(path)
+
+    return response.results
   }
 
   public async fetchMovieListTrending(): Promise<Movie[]> {
     const path = this.getPath('/trending/movie/week')
 
-    return this.get<Movie[]>(path)
-  }
+    const response = await this.get<APIResponseList<Movie>>(path)
 
-  private getPath(path: string, queryString?: Record<string, string | number>) {
-    const params = new URLSearchParams({ ...queryString, api_key: this.accessToken })
-
-    return `${path}${params.toString()}`
+    return response.results
   }
 }
