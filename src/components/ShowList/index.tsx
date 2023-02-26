@@ -20,7 +20,7 @@ export function ShowList({ shows, title }: Props) {
 
   const list = (
     <div className={styles.items}>
-      {shows.map(show => (<ShowItem show={show} className={styles.show} />))}
+      {shows.map(show => (<ShowItem key={show.id} show={show} className={styles.show} />))}
     </div>
   )
 

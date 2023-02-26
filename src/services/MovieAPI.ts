@@ -19,7 +19,7 @@ export class MovieAPI extends BaseAPI {
   private getPath(path: string, queryString?: Record<string, string | number>) {
     const params = new URLSearchParams({ ...queryString, api_key: this.accessToken })
 
-    return `${path}${params.toString()}`
+    return `${path}?${params.toString()}`
   }
 
   public async fetchMovie(id: number): Promise<Movie> {

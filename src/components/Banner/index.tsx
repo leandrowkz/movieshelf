@@ -14,14 +14,14 @@ export function Banner({ shows, className }: Props) {
   return (
     <section className={classes}>
       <div className={styles.heading}>
-        <Heading title="Recommended&nbsp;" level={1} />
-        <Heading title="to you" level={1} isThin />
+        <Heading title="Trending&nbsp;" level={1} />
+        <Heading title="now" level={1} isThin />
       </div>
       {shows.map(show => {
         const poster = `https://image.tmdb.org/t/p/w500/${show.backdrop_path}`
 
         return (
-          <div className={styles.slide}>
+          <div key={show.id} className={styles.slide}>
             <div className={styles.poster}>
               <img src={poster} alt={show.title}  />
             </div>

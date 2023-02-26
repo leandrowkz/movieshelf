@@ -1,38 +1,38 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
+import React, { PropsWithChildren, createContext, useCallback, useMemo, useState } from 'react'
 import { MovieAPI } from 'src/services/MovieAPI'
 import { Movie } from 'src/types/Movie'
 
 type MovieState = {
   trending: Movie[],
   mostPopular: Movie[],
-  fetchTrending: (() => void) | null,
-  fetchMostPopular: (() => void) | null,
+  fetchTrending: () => void,
+  fetchMostPopular: () => void,
 }
 
 export const MovieContext = createContext<MovieState>({
   trending: [],
   mostPopular: [],
-  fetchTrending: null,
-  fetchMostPopular: null,
+  fetchTrending: () => {},
+  fetchMostPopular: () => {},
 })
 
 export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   const [trending, setTrending] = useState<Movie[]>([])
   const [mostPopular, setMostPopular] = useState<Movie[]>([])
 
-  const api = new MovieAPI()
+  const api = useMemo(() => new MovieAPI(), [])
 
-  const fetchTrending = async () => {
+  const fetchTrending = useCallback(async () => {
     const data = await api.fetchMovieListTrending()
 
     setTrending(data)
-  }
+  }, [api])
 
-  const fetchMostPopular = async () => {
+  const fetchMostPopular = useCallback(async () => {
     const data = await api.fetchMovieListMostPopular()
 
     setMostPopular(data)
-  }
+  }, [api])
 
   const state = {
     trending,
