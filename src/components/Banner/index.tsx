@@ -32,8 +32,23 @@ export function Banner({ shows, className }: Props) {
     return <></>
   }
 
-  console.log(show, shows)
   const poster = `https://image.tmdb.org/t/p/w500/${show.backdrop_path}`
+  const countShows = shows.length
+
+  const bullets = []
+  for (let i = 0; i < countShows; i++) {
+    const bulletClass = classNames(styles.bullet, { [`${styles.bulletActive}`]: i === currentSlide })
+    const bullet = (
+      <div
+        key={`bullet-${i}`}
+        className={bulletClass}
+        onClick={() => setCurrentSlide(i)}
+      >
+      </div>
+    )
+
+    bullets.push(bullet)
+  }
 
   return (
     <section className={classes}>
@@ -49,6 +64,9 @@ export function Banner({ shows, className }: Props) {
           <Heading title={show.title} level={1} className={styles.title} />
           <div className={styles.overview}>{show.overview}</div>
         </div>
+      </div>
+      <div className={styles.bullets}>
+        {bullets}
       </div>
     </section>
   )

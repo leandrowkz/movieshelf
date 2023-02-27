@@ -1,4 +1,8 @@
 :root {
+  /* Colors */
+  --color-primary: #D7272D;
+  --color-gray-light: #9CA6AD;
+
   /* Page */
   --container-width: 70vw;
 
@@ -17,6 +21,9 @@
   --spacer-large: 32px;
   --spacer-extra-large: 64px;
 
+  /* Transitions */
+  --transition-ease-out: all .5s ease-out;
+
   /* Fonts */
   --font-size-base: 18px;
   --font-size-small: 14px;
@@ -25,7 +32,7 @@
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  --font-color-muted: #9ca6ad;
+  --font-color-muted: var(--color-gray-light);
 
   /* Shows */
   --show-item-size: 14vw;

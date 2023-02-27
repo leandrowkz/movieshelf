@@ -1,4 +1,4 @@
-.banner {
+.container {
   width: 100%;
   margin-bottom: var(--spacer-extra-large);
 }
@@ -11,7 +11,6 @@
 
 .slide {
   width: 100%;
-  margin-bottom: var(--spacer-extra-large);
   position: relative;
 }
 
@@ -67,4 +66,35 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.bullets {
+  margin-top: var(--spacer-large);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bullet {
+  opacity: .5;
+  height: 14px;
+  width: 14px;
+  background-color: var(--color-primary);
+  border-radius: 14px;
+  cursor: pointer;
+  margin-right: var(--spacer-small);
+  -webkit-transition: var(--transition-ease-out);
+  -moz-transition: var(--transition-ease-out);
+  -o-transition: var(--transition-ease-out);
+  transition: var(--transition-ease-out);
+}
+
+.bullet:hover {
+  opacity: 1;
+}
+
+.bulletActive {
+  opacity: 1;
+  width: 40px !important;
+  border-radius: 10px;
 }
