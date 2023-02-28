@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Banner } from 'src/components/Banner'
 import { Header } from 'src/components/Header'
 import { Page } from 'src/components/Page'
-import { ShowList } from 'src/components/ShowList'
+import { ShowCarousel } from 'src/components/ShowCarousel'
 import { MovieContext } from 'src/store/MovieContext'
 
 export function Home () {
@@ -10,20 +10,24 @@ export function Home () {
   const {
     trending,
     mostPopular,
+    bestComedies,
     fetchTrending,
     fetchMostPopular,
+    fetchBestComedies,
   } = useContext(MovieContext)
 
   useEffect(() => {
     fetchMostPopular()
     fetchTrending()
-  }, [fetchMostPopular, fetchTrending])
+    fetchBestComedies()
+  }, [fetchMostPopular, fetchTrending, fetchBestComedies])
 
   return (
     <Page>
       <Header />
       <Banner shows={trending} />
-      <ShowList title="Most popular" shows={mostPopular} />
+      <ShowCarousel title="Most popular" shows={mostPopular} />
+      <ShowCarousel title="Best comedies" shows={bestComedies} />
     </Page>
   )
 }

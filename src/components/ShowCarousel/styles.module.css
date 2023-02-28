@@ -1,0 +1,39 @@
+.carousel {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.pages {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  -ms-scroll-snap-type: mandatory;
+  scroll-snap-points-x: repeat(100%);
+  -ms-scroll-snap-points-x: repeat(100%);
+}
+
+.page {
+  scroll-snap-align: center;
+  min-width: 100%;
+  min-height: 100%;
+  margin-right: var(--spacer-large);
+  gap: var(--spacer-large);
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.show {
+  flex: 1;
+  margin-bottom: var(--spacer-large);
+  width: auto !important;
+}

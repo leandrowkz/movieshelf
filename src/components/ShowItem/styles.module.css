@@ -1,6 +1,5 @@
 .container {
   width: var(--show-item-size);
-  /* height: 300px; */
   aspect-ratio: 1 / 1.5;
 }
 
@@ -9,7 +8,7 @@
   max-height: 260px;
   width: auto;
   overflow: hidden;
-  border-radius: var(--radius-extra-large);
+  border-radius: var(--radius-large);
 }
 
 .poster img {

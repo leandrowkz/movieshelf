@@ -28,9 +28,10 @@ export class MovieAPI extends BaseAPI {
     return this.get<Movie>(path)
   }
 
-  public async fetchMovieListByGenre(genres: number[]): Promise<Movie[]> {
+  public async fetchMovieListByGenre(genres: number[], additionalFilters = {}): Promise<Movie[]> {
     const filters = {
-      with_genres: genres.join(',')
+      with_genres: genres.join(','),
+      ...additionalFilters
     }
     const path = this.getPath(`/discover/movie`, filters)
 

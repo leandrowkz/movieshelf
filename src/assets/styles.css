@@ -35,7 +35,7 @@
   --font-color-muted: var(--color-gray-light);
 
   /* Shows */
-  --show-item-size: 14vw;
+  --show-item-size: 15%;
 }
 
 body {
