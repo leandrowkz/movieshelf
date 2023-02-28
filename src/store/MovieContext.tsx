@@ -41,7 +41,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   }, [api])
 
   const fetchBestComedies = useCallback(async () => {
-    const data = await api.fetchMovieListByGenre([MovieGenre.COMEDY], {  'vote_average.gte': 8 })
+    const data = await api.fetchMovieListByGenre([MovieGenre.COMEDY], {  'vote_average.gte': 7.5 })
 
     setBestComedies(data)
   }, [api])

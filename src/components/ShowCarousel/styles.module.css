@@ -9,7 +9,8 @@
 }
 
 .pages {
-  position: relative;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -22,12 +23,10 @@
 
 .page {
   scroll-snap-align: center;
-  min-width: 100%;
-  min-height: 100%;
+  flex: 0 0 85%;
   margin-right: var(--spacer-large);
   gap: var(--spacer-large);
-  flex: 1;
-  display: flex;
+  display: inline-flex;
   align-items: flex-start;
   justify-content: space-between;
 }
@@ -35,5 +34,4 @@
 .show {
   flex: 1;
   margin-bottom: var(--spacer-large);
-  width: auto !important;
 }

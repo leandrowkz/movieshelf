@@ -11,7 +11,7 @@ type Props = {
 }
 
 export function ShowCarousel({ shows, title }: Props) {
-  const ITEMS_PER_PAGE = 4;
+  const ITEMS_PER_PAGE = 5;
 
   const header = (
     <div className={styles.header}>
@@ -22,8 +22,8 @@ export function ShowCarousel({ shows, title }: Props) {
   const pagesCount = Math.floor(shows.length / ITEMS_PER_PAGE)
   const pagesList: Movie[][] = []
 
-  for (let i = 0; i < shows.length; i += pagesCount) {
-    pagesList.push(shows.slice(i, i + pagesCount))
+  for (let page = 1; page <= pagesCount; page++) {
+    pagesList.push(shows.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE));
   }
 
   const pages = (
