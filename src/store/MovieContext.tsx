@@ -5,32 +5,37 @@ import { MovieGenre } from 'src/types/MovieGenre'
 import { Nullable } from 'src/types/Nullable'
 
 type MovieState = {
+  movieDetails: Nullable<Movie>,
   trending: Movie[],
   mostPopular: Movie[],
   bestComedies: Movie[],
-  movieDetails: Nullable<Movie>,
+  scifiAndFantasy: Movie[],
+  fetchMovieDetails: (movieId: number) => void,
   fetchTrending: () => void,
   fetchMostPopular: () => void,
   fetchBestComedies: () => void,
-  fetchMovieDetails: (movieId: number) => void,
+  fetchScifiAndFantasy: () => void,
 }
 
 export const MovieContext = createContext<MovieState>({
+  movieDetails: null,
   trending: [],
   mostPopular: [],
   bestComedies: [],
-  movieDetails: null,
+  scifiAndFantasy: [],
+  fetchMovieDetails: () => {},
   fetchTrending: () => {},
   fetchMostPopular: () => {},
   fetchBestComedies: () => {},
-  fetchMovieDetails: () => {},
+  fetchScifiAndFantasy: () => {},
 })
 
 export const MovieContextProvider = ({ children }: PropsWithChildren) => {
+  const [movieDetails, setMovieDetails] = useState<Nullable<Movie>>(null)
   const [trending, setTrending] = useState<Movie[]>([])
   const [mostPopular, setMostPopular] = useState<Movie[]>([])
   const [bestComedies, setBestComedies] = useState<Movie[]>([])
-  const [movieDetails, setMovieDetails] = useState<Nullable<Movie>>(null)
+  const [scifiAndFantasy, setScifiAndFantasy] = useState<Movie[]>([])
 
   const api = useMemo(() => new MovieAPI(), [])
 
@@ -52,6 +57,12 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     setBestComedies(data)
   }, [api])
 
+  const fetchScifiAndFantasy = useCallback(async () => {
+    const data = await api.fetchMovieListByGenre([MovieGenre.SCIENCE_FICTION, MovieGenre.FANTASY])
+
+    setScifiAndFantasy(data)
+  }, [api])
+
   const fetchMovieDetails = useCallback(async (movieId: number) => {
     const data = await api.fetchMovieDetails(movieId)
 
@@ -59,14 +70,16 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   }, [api])
 
   const state = {
+    movieDetails,
     trending,
     mostPopular,
     bestComedies,
-    movieDetails,
+    scifiAndFantasy,
+    fetchMovieDetails,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
-    fetchMovieDetails,
+    fetchScifiAndFantasy,
   }
 
   return (

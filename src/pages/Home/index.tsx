@@ -11,16 +11,19 @@ export function Home () {
     trending,
     mostPopular,
     bestComedies,
+    scifiAndFantasy,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
+    fetchScifiAndFantasy,
   } = useContext(MovieContext)
 
   useEffect(() => {
     fetchMostPopular()
     fetchTrending()
     fetchBestComedies()
-  }, [fetchMostPopular, fetchTrending, fetchBestComedies])
+    fetchScifiAndFantasy()
+  }, [fetchMostPopular, fetchTrending, fetchBestComedies, fetchScifiAndFantasy])
 
   return (
     <Page>
@@ -28,6 +31,7 @@ export function Home () {
       <Banner shows={trending} />
       <ShowCarousel title="Most popular" shows={mostPopular} />
       <ShowCarousel title="Best comedies" shows={bestComedies} />
+      <ShowCarousel title="Sci-Fi & Fantasy" shows={scifiAndFantasy} />
     </Page>
   )
 }
