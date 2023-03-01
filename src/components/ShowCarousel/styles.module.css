@@ -23,7 +23,7 @@
 
 .page {
   scroll-snap-align: center;
-  flex: 0 0 85%;
+  flex: 0 0 90%;
   margin-right: var(--spacer-large);
   gap: var(--spacer-large);
   display: inline-flex;

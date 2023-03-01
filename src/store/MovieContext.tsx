@@ -2,29 +2,35 @@ import React, { PropsWithChildren, createContext, useCallback, useMemo, useState
 import { MovieAPI } from 'src/services/MovieAPI'
 import { Movie } from 'src/types/Movie'
 import { MovieGenre } from 'src/types/MovieGenre'
+import { Nullable } from 'src/types/Nullable'
 
 type MovieState = {
   trending: Movie[],
   mostPopular: Movie[],
   bestComedies: Movie[],
+  movieDetails: Nullable<Movie>,
   fetchTrending: () => void,
   fetchMostPopular: () => void,
   fetchBestComedies: () => void,
+  fetchMovieDetails: (movieId: number) => void,
 }
 
 export const MovieContext = createContext<MovieState>({
   trending: [],
   mostPopular: [],
   bestComedies: [],
+  movieDetails: null,
   fetchTrending: () => {},
   fetchMostPopular: () => {},
   fetchBestComedies: () => {},
+  fetchMovieDetails: () => {},
 })
 
 export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   const [trending, setTrending] = useState<Movie[]>([])
   const [mostPopular, setMostPopular] = useState<Movie[]>([])
   const [bestComedies, setBestComedies] = useState<Movie[]>([])
+  const [movieDetails, setMovieDetails] = useState<Nullable<Movie>>(null)
 
   const api = useMemo(() => new MovieAPI(), [])
 
@@ -46,13 +52,21 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     setBestComedies(data)
   }, [api])
 
+  const fetchMovieDetails = useCallback(async (movieId: number) => {
+    const data = await api.fetchMovieDetails(movieId)
+
+    setMovieDetails(data)
+  }, [api])
+
   const state = {
     trending,
     mostPopular,
     bestComedies,
+    movieDetails,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
+    fetchMovieDetails,
   }
 
   return (
