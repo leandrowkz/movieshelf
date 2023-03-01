@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { BaseSyntheticEvent, ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
 import { Movie } from 'src/types/Movie'
 import { Heading } from '../Heading'
@@ -14,13 +14,21 @@ export function ShowItem({ show, className }: Props) {
   const classes = classNames(className, styles.container)
   const poster = `https://image.tmdb.org/t/p/w300/${show.poster_path}`
 
+  const hideBrokenImage = (event: BaseSyntheticEvent) => {
+    const { target } = event
+
+    if (target) {
+      target.style.display = 'none'
+    }
+  }
+
   return (
     <div className={classes}>
-      <div className={styles.poster}>
-        <Link to={`/movies/${show.id}`}>
-          <img src={poster} alt={show.title} />
-        </Link>
-      </div>
+      <Link to={`/movies/${show.id}`}>
+        <div className={styles.poster}>
+          <img src={poster} alt={show.title} onError={hideBrokenImage} />
+        </div>
+      </Link>
       <div className={styles.header}>
         <Heading title={show.title} level={3} className={styles.title} />
         <Rating score={show.vote_average} className={styles.rating} />

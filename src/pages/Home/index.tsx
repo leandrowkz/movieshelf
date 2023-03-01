@@ -8,14 +8,18 @@ import { MovieContext } from 'src/store/MovieContext'
 export function Home () {
   // const shows = require('../../services/movies.json')
   const {
+    family,
     trending,
     mostPopular,
     bestComedies,
     scifiAndFantasy,
+    topRatedDocumentaries,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
     fetchScifiAndFantasy,
+    fetchFamily,
+    fetchTopRatedDocumentaries,
   } = useContext(MovieContext)
 
   useEffect(() => {
@@ -23,7 +27,16 @@ export function Home () {
     fetchTrending()
     fetchBestComedies()
     fetchScifiAndFantasy()
-  }, [fetchMostPopular, fetchTrending, fetchBestComedies, fetchScifiAndFantasy])
+    fetchFamily()
+    fetchTopRatedDocumentaries()
+  }, [
+    fetchMostPopular,
+    fetchTrending,
+    fetchBestComedies,
+    fetchScifiAndFantasy,
+    fetchFamily,
+    fetchTopRatedDocumentaries,
+  ])
 
   return (
     <Page>
@@ -31,7 +44,9 @@ export function Home () {
       <Banner shows={trending} />
       <ShowCarousel title="Most popular" shows={mostPopular} />
       <ShowCarousel title="Best comedies" shows={bestComedies} />
-      <ShowCarousel title="Sci-Fi & Fantasy" shows={scifiAndFantasy} />
+      <ShowCarousel title="Sci-Fi & fantasy" shows={scifiAndFantasy} />
+      <ShowCarousel title="Family" shows={family} />
+      <ShowCarousel title="Top rated documentaries" shows={topRatedDocumentaries} />
     </Page>
   )
 }
