@@ -3,6 +3,8 @@ import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { Movie } from 'src/types/Movie'
 import classNames from 'classnames'
+import { Button } from '../Button'
+import { Link } from 'react-router-dom'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[],
@@ -60,9 +62,14 @@ export function Banner({ shows, className }: Props) {
         <div className={styles.poster}>
           <img src={poster} alt={show.title}  />
         </div>
-        <div className={styles.controls}>
+        <div className={styles.info}>
           <Heading title={show.title} level={1} className={styles.title} />
-          <div className={styles.overview}>{show.overview}</div>
+          <div className={styles.controls}>
+            <div className={styles.overview}>{show.overview}</div>
+            <Link to={`/movies/${show.id}`}>
+              <Button pill size="large">Check it out 🎥 </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <div className={styles.bullets}>

@@ -34,6 +34,14 @@
   sans-serif;
   --font-color-muted: var(--color-gray-light);
 
+  /* Buttons */
+  --button-small-height: 44px;
+  --button-small-padding: 0 var(--spacer-small);
+  --button-medium-height: 58px;
+  --button-medium-padding: 0 var(--spacer-base);
+  --button-large-height: 76px;
+  --button-large-padding: 0 var(--spacer-large);
+
   /* Shows */
   --show-item-size: 15%;
 }
