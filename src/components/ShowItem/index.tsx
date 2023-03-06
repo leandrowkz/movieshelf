@@ -5,6 +5,7 @@ import { Heading } from '../Heading'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
+import { MovieHelper } from 'src/services/MovieHelper'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: Movie
@@ -12,7 +13,7 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 export function ShowItem({ show, className }: Props) {
   const classes = classNames(className, styles.container)
-  const poster = `https://image.tmdb.org/t/p/w300/${show.poster_path}`
+  const poster = MovieHelper.getImageUrl(show.poster_path, 300)
 
   const hideBrokenImage = (event: BaseSyntheticEvent) => {
     const { target } = event

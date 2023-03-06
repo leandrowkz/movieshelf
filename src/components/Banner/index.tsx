@@ -5,6 +5,7 @@ import { Movie } from 'src/types/Movie'
 import classNames from 'classnames'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom'
+import { MovieHelper } from 'src/services/MovieHelper'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[],
@@ -34,7 +35,7 @@ export function Banner({ shows, className }: Props) {
     return <></>
   }
 
-  const poster = `https://image.tmdb.org/t/p/w500/${show.backdrop_path}`
+  const poster = MovieHelper.getImageUrl(show.backdrop_path, 500)
   const countShows = shows.length
 
   const bullets = []
