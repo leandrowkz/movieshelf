@@ -32,6 +32,7 @@
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
+  --font-color-base: #222;
   --font-color-muted: var(--color-gray-light);
 
   /* Buttons */

@@ -1,6 +1,6 @@
-.backdrop {
+/* .backdrop {
   z-index: -1;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -16,11 +16,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, .6); */
+  /* background-color: rgba(0, 0, 0, .6);
   background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, .7) 10%, rgba(0, 0, 0, .7) 100%);
 }
 
 .backdrop > img {
   aspect-ratio: contain;
   width: 100%;
+} */
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  line-height: 0;
+  /* transform: rotate(180deg); */
+}
+
+.backdrop svg {
+  position: absolute;
+  display: block;
+  /* bottom: -103px; */
+  width: calc(109% + 1.3px);
+  height: 163px;
+  transform: rotateY(180deg);
+}
+
+.shapeFill {
+  fill: #FFFFFF;
 }

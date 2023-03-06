@@ -1,17 +1,15 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-import styles from './styles.module.css'
-import classNames from 'classnames'
+import { Text } from '../Text'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   score: number
+  size?: 'small' | 'medium' | 'large'
 }
 
-export function Rating({ score, className }: Props) {
-  const classes = classNames(className, styles.rating)
-
+export function Rating({ score, size = 'medium', className }: Props) {
   return (
-    <div className={classes}>
+    <Text className={className} size={size} isMuted>
       ★ {score.toFixed(1)}
-    </div>
+    </Text>
   )
 }
