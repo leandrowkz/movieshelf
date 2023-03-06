@@ -67,11 +67,12 @@
   position: relative;
   line-height: 1.5;
   font-size: calc(var(--font-size-base) + 20%);
-  flex: 0 0 70%;
+  flex: 0 1 70%;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  padding-right: var(--spacer-base);
 }
 
 .bullets {

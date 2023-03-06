@@ -12,7 +12,7 @@
   font-weight: 500;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
-
+  white-space: nowrap;
 }
 
 .small {
