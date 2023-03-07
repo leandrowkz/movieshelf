@@ -4,6 +4,7 @@ import { MovieCountry } from './MovieCountry'
 import { MovieLanguage } from './MovieLanguage'
 import { Language } from './Language'
 import { MovieStatus } from './MovieStatus'
+import { MovieVideo } from './MovieVideo'
 
 export type Movie = {
   id: number,
@@ -29,6 +30,7 @@ export type Movie = {
   tagline: string,
   title: string,
   video: boolean,
+  videos: { results: MovieVideo[] },
   vote_average: number,
   vote_count: number,
 }
