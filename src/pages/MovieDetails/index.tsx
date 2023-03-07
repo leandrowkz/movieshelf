@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Header } from 'src/components/Header'
 import { Page } from 'src/components/Page'
-import { ShowBackdrop } from 'src/components/ShowBackdrop'
 import { MovieContext } from 'src/store/MovieContext'
-import styles from './styles.module.css'
 import { Heading } from 'src/components/Heading'
 import { Text } from 'src/components/Text'
 import { Rating } from 'src/components/Rating'
+import { MovieHelper } from 'src/services/MovieHelper'
+import styles from './styles.module.css'
 
 export function MovieDetails (): JSX.Element {
   const {
@@ -20,21 +20,28 @@ export function MovieDetails (): JSX.Element {
     fetchMovieDetails(Number(movieId))
   }, [movieId, fetchMovieDetails])
 
+  if (!movieDetails) {
+    return <></>;
+  }
+
+  const img = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500);
+  const { title, overview, vote_average: rating } = movieDetails
+
+  const styles = {
+
+  }
+
   return (
     <Page>
-      <Header />
-      {movieDetails && (
-        <section className={styles.section}>
-          <div>
-            {movieDetails && <ShowBackdrop show={movieDetails} />}
-          </div>
-          <section className={styles.movieInfo}>
-            <Heading level={1} title={movieDetails.title} />
-            <Text isParagraph>{movieDetails.overview}</Text>
-            <Rating score={movieDetails.vote_average} size="large" />
-          </section>
-        </section>
-      )}
+      <section className={styles.movieInfo} style={ { background}}>
+        <Header />
+        <div className={styles.backdrop}>
+          <img src={img} alt={title} />
+        </div>
+        <Heading level={1} title={title} />
+        <Text isParagraph>{overview}</Text>
+        <Rating score={rating} size="large" />
+      </section>
     </Page>
   )
 }
