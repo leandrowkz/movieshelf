@@ -23,7 +23,7 @@ export class MovieAPI extends BaseAPI {
   }
 
   public async fetchMovieDetails(id: number): Promise<Movie> {
-    const path = this.getPath(`/movie/${id}`, { append_to_response: 'videos' })
+    const path = this.getPath(`/movie/${id}`, { append_to_response: 'videos,casts' })
 
     return this.get<Movie>(path)
   }
