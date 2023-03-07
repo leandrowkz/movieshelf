@@ -68,7 +68,7 @@ export function Banner({ shows, className }: Props) {
           <div className={styles.controls}>
             <div className={styles.overview}>{show.overview}</div>
             <Link to={`/movies/${show.id}`}>
-              <Button pill size="large">See more &nbsp;🎬</Button>
+              <Button size="large">See more &nbsp;🎬</Button>
             </Link>
           </div>
         </div>

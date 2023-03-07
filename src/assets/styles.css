@@ -37,9 +37,9 @@
 
   /* Buttons */
   --button-small-height: 44px;
-  --button-small-padding: 0 var(--spacer-small);
+  --button-small-padding: 0 calc(var(--spacer-small) + 2px);
   --button-medium-height: 58px;
-  --button-medium-padding: 0 var(--spacer-base);
+  --button-medium-padding: 0 calc(var(--spacer-base) + 6px);
   --button-large-height: 76px;
   --button-large-padding: 0 var(--spacer-large);
 

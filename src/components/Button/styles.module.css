@@ -4,31 +4,29 @@
   height: var(--button-medium-height);
   line-height: var(--button-medium-height);
   padding: var(--button-medium-padding);
-  border-radius: calc(var(--radius-base) + 2px);
+  border-radius: var(--radius-base);
   background-color: var(--color-primary);
   color: white;
   cursor: pointer;
   font-size: var(--font-size-base);
-  font-weight: 500;
+  font-weight: 600;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   white-space: nowrap;
 }
 
 .small {
-  font-size: var(--font-size-small);
+  border-radius: calc(var(--radius-base) - 2px);
   height: var(--button-small-height);
   line-height: var(--button-small-height);
   padding: var(--button-small-padding);
-  border-radius: var(--radius-base);
 }
 
 .large {
-  font-size: calc(var(--font-size-large) * 0.8);
+  text-transform: uppercase;
   height: var(--button-large-height);
   line-height: var(--button-large-height);
   padding: var(--button-large-padding);
-  border-radius: var(--radius-large);
 }
 
 .pill {
