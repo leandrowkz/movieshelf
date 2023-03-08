@@ -5,6 +5,7 @@ import { MovieLanguage } from './MovieLanguage'
 import { Language } from './Language'
 import { MovieStatus } from './MovieStatus'
 import { MovieVideo } from './MovieVideo'
+import { Person } from './Person'
 
 export type Movie = {
   id: number
@@ -33,4 +34,8 @@ export type Movie = {
   videos: { results: MovieVideo[] }
   vote_average: number
   vote_count: number
+  casts: {
+    cast: Person[]
+    crew: Person[]
+  }
 }
