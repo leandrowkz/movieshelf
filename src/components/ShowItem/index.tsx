@@ -5,8 +5,6 @@ import { Heading } from '../Heading'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
-import { MovieHelper } from 'src/services/MovieHelper'
-import { Image } from '../Image'
 import { ShowPoster } from '../ShowPoster'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
@@ -15,7 +13,6 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 export function ShowItem({ show, className }: Props) {
   const classes = classNames(className, styles.container)
-  const poster = MovieHelper.getImageUrl(show.poster_path, 300)
 
   return (
     <div className={classes}>
