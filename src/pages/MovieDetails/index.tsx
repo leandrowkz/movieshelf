@@ -14,6 +14,7 @@ import { BulletSeparator } from 'src/components/BulletSeparator'
 import { Image } from 'src/components/Image'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { ShowCast } from 'src/components/ShowCast'
+import { ShowCountries } from 'src/components/ShowCountries'
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -62,6 +63,8 @@ export function MovieDetails(): JSX.Element {
             <Text isMuted size="small">
               {year}
             </Text>
+            <BulletSeparator />
+            <ShowCountries show={movieDetails} size="small" />
           </div>
           <div className={styles.description}>
             <div className={styles.overview}>

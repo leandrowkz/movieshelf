@@ -12,7 +12,11 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 }
 
 export function ShowCarousel({ shows, title, className }: Props) {
-  const ITEMS_PER_PAGE = 5
+  const ITEMS_PER_PAGE = 4
+
+  if (!shows.length) {
+    return <></>
+  }
 
   const header = (
     <div className={styles.header}>
