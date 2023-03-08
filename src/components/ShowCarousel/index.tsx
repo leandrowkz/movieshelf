@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
 import { Movie } from 'src/types/Movie'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
+import classNames from 'classnames'
 
-type Props = {
+interface Props extends ComponentPropsWithoutRef<'div'> {
   shows: Movie[]
   title: string
   showViewAll?: boolean
 }
 
-export function ShowCarousel({ shows, title }: Props) {
+export function ShowCarousel({ shows, title, className }: Props) {
   const ITEMS_PER_PAGE = 5
 
   const header = (
@@ -40,8 +41,10 @@ export function ShowCarousel({ shows, title }: Props) {
     </div>
   )
 
+  const classes = classNames(styles.carousel, className)
+
   return (
-    <div className={styles.carousel}>
+    <div className={classes}>
       {header}
       {pages}
     </div>

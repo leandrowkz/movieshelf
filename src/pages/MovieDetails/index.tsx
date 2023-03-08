@@ -16,15 +16,22 @@ import { ShowCarousel } from 'src/components/ShowCarousel'
 import { ShowCast } from 'src/components/ShowCast'
 
 export function MovieDetails(): JSX.Element {
-  const { movieDetails, similar, fetchMovieDetails, fetchSimilar } =
-    useContext(MovieContext)
+  const {
+    movieDetails,
+    similar,
+    trending,
+    fetchTrending,
+    fetchMovieDetails,
+    fetchSimilar,
+  } = useContext(MovieContext)
   const { movieId } = useParams()
 
   useEffect(() => {
     const id = Number(movieId)
     fetchMovieDetails(id)
     fetchSimilar(id)
-  }, [movieId, fetchMovieDetails, fetchSimilar])
+    fetchTrending()
+  }, [movieId])
 
   if (!movieDetails) {
     return <></>
@@ -74,6 +81,7 @@ export function MovieDetails(): JSX.Element {
         </div>
       </section>
       <ShowCarousel shows={similar} title="More like this" />
+      <ShowCarousel shows={trending} title="Popular movies" />
     </Page>
   )
 }

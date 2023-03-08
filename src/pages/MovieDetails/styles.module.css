@@ -56,14 +56,18 @@
 }
 
 .description {
-  margin-top: var(--spacer-base);
+  margin-top: var(--spacer-large);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
 .overview {
-  margin-right: var(--spacer-large);
+  margin-right: var(--spacer-base);
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .cast {
