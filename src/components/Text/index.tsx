@@ -4,12 +4,14 @@ import classNames from 'classnames'
 
 interface Props extends ComponentPropsWithoutRef<'div'>, PropsWithChildren {
   size?: 'small' | 'medium' | 'large'
+  alignment?: 'left' | 'center' | 'right'
   isMuted?: boolean
   isParagraph?: boolean
 }
 
 export function Text({
   size = 'medium',
+  alignment = 'left',
   isMuted = false,
   isParagraph = false,
   children,
@@ -19,6 +21,8 @@ export function Text({
     [className]: true,
     [styles.small]: size === 'small',
     [styles.large]: size === 'large',
+    [styles.center]: alignment === 'center',
+    [styles.right]: alignment === 'right',
     [styles.text]: true,
     [styles.muted]: isMuted,
     [styles.paragraph]: isParagraph,

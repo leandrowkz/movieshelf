@@ -45,6 +45,9 @@
 
   /* Shows */
   --show-item-size: 15%;
+
+  /* Images */
+  --avatar-size: 52px;
 }
 
 body {

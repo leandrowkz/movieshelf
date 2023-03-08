@@ -1,0 +1,13 @@
+.poster {
+  border-radius: var(--radius-large);
+  overflow: hidden;
+  object-fit: contain;
+  aspect-ratio: 2 / 3;
+}
+
+.poster > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}

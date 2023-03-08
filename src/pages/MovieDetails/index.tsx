@@ -13,6 +13,7 @@ import { Button } from 'src/components/Button'
 import { BulletSeparator } from 'src/components/BulletSeparator'
 import { Image } from 'src/components/Image'
 import { ShowCarousel } from 'src/components/ShowCarousel'
+import { ShowCast } from 'src/components/ShowCast'
 
 export function MovieDetails(): JSX.Element {
   const { movieDetails, similar, fetchMovieDetails, fetchSimilar } =
@@ -29,7 +30,7 @@ export function MovieDetails(): JSX.Element {
     return <></>
   }
 
-  const img = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500)
+  const backdrop = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500)
   const trailer = MovieHelper.getTrailerUrl(movieDetails)
   const year = MovieHelper.getReleaseYear(movieDetails)
   const { title, overview, runtime, vote_average: rating } = movieDetails
@@ -39,7 +40,7 @@ export function MovieDetails(): JSX.Element {
       <Header />
       <section className={styles.details}>
         <div className={styles.backdrop}>
-          <Image src={img} alt={title} />
+          <Image src={backdrop} alt={title} />
         </div>
         <div className={styles.movieInfo}>
           <Heading level={1} title={title} />
@@ -56,14 +57,19 @@ export function MovieDetails(): JSX.Element {
             </Text>
           </div>
           <div className={styles.description}>
-            <Text isParagraph isMuted className={styles.overview}>
-              {overview}
-            </Text>
-          </div>
-          <div className={styles.buttons}>
-            <Link to={trailer} target="_blank">
-              <Button size="large">▶ Play trailer</Button>
-            </Link>
+            <div className={styles.overview}>
+              <Text isParagraph isMuted className={styles.overview}>
+                {overview}
+              </Text>
+              <div className={styles.buttons}>
+                <Link to={trailer} target="_blank">
+                  <Button size="large">▶ Play trailer</Button>
+                </Link>
+              </div>
+            </div>
+            <div className={styles.cast}>
+              <ShowCast show={movieDetails} title="Actors" />
+            </div>
           </div>
         </div>
       </section>

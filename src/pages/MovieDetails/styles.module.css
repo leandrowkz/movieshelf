@@ -1,5 +1,6 @@
 .details {
   margin-top: calc(var(--header-height) * -1);
+  margin-bottom: var(--spacer-extra-large);
   min-height: 700px;
   display: flex;
   flex-direction: column;
@@ -51,16 +52,20 @@
 }
 
 .buttons {
-  margin-top: var(--spacer-large);
+  margin-top: var(--spacer-extra-large);
 }
 
 .description {
+  margin-top: var(--spacer-base);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
 .overview {
-  flex: 0 0 60%;
-  margin-right: var(--spacer-base);
+  margin-right: var(--spacer-large);
+}
+
+.cast {
+  flex: 1;
 }
