@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { MovieHelper } from 'src/services/MovieHelper'
 import { Image } from '../Image'
+import { ShowPoster } from '../ShowPoster'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: Movie
@@ -19,9 +20,7 @@ export function ShowItem({ show, className }: Props) {
   return (
     <div className={classes}>
       <Link to={`/movies/${show.id}`}>
-        <div className={styles.poster}>
-          <Image src={poster} alt={show.title} />
-        </div>
+        <ShowPoster show={show} />
       </Link>
       <div className={styles.header}>
         <Heading title={show.title} level={3} className={styles.title} />

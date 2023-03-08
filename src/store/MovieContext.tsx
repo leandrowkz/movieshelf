@@ -12,6 +12,7 @@ import { Nullable } from 'src/types/Nullable'
 
 type MovieState = {
   movieDetails: Nullable<Movie>
+  inTheatres: Movie[]
   trending: Movie[]
   similar: Movie[]
   mostPopular: Movie[]
@@ -21,6 +22,7 @@ type MovieState = {
   topRatedDocumentaries: Movie[]
   fetchMovieDetails: (movieId: number) => void
   fetchTrending: () => void
+  fetchInTheatres: () => void
   fetchSimilar: (movieId: number) => void
   fetchMostPopular: () => void
   fetchBestComedies: () => void
@@ -32,6 +34,7 @@ type MovieState = {
 export const MovieContext = createContext<MovieState>({
   movieDetails: null,
   trending: [],
+  inTheatres: [],
   similar: [],
   mostPopular: [],
   bestComedies: [],
@@ -46,6 +49,7 @@ export const MovieContext = createContext<MovieState>({
   fetchScifiAndFantasy: () => null,
   fetchFamily: () => null,
   fetchTopRatedDocumentaries: () => null,
+  fetchInTheatres: () => null,
 })
 
 export const MovieContextProvider = ({ children }: PropsWithChildren) => {
@@ -59,6 +63,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<Movie[]>(
     []
   )
+  const [inTheatres, setInTheatres] = useState<Movie[]>([])
 
   const api = useMemo(() => new MovieAPI(), [])
 
@@ -128,6 +133,12 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     setTopRatedDocumentaries(data)
   }, [api])
 
+  const fetchInTheatres = useCallback(async () => {
+    const data = await api.fetchMovieListInTheatres()
+
+    setInTheatres(data)
+  }, [api])
+
   const state = {
     movieDetails,
     trending,
@@ -137,6 +148,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     scifiAndFantasy,
     family,
     topRatedDocumentaries,
+    inTheatres,
     fetchMovieDetails,
     fetchTrending,
     fetchSimilar,
@@ -145,6 +157,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     fetchScifiAndFantasy,
     fetchFamily,
     fetchTopRatedDocumentaries,
+    fetchInTheatres,
   }
 
   return <MovieContext.Provider value={state}>{children}</MovieContext.Provider>

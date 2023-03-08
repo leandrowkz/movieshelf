@@ -3,6 +3,25 @@
   overflow: hidden;
   object-fit: contain;
   aspect-ratio: 2 / 3;
+  position: relative;
+}
+
+.poster:before {
+  z-index: -1;
+  position: absolute;
+  /* background-size: var(--avatar-size); */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: '🔜';
+  display: grid;
+  place-items: center;
+  padding-top: 2px;
+  font-size: 64px;
+  text-align: center;
+  background-color: var(--color-gray-light);
+  background-position: center;
 }
 
 .poster > img {
