@@ -49,3 +49,18 @@
 .rating {
   margin-right: var(--spacer-extra-large);
 }
+
+.buttons {
+  margin-top: var(--spacer-large);
+}
+
+.description {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.overview {
+  flex: 0 0 60%;
+  margin-right: var(--spacer-base);
+}

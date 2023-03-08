@@ -9,7 +9,7 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 export function Rating({ score, size = 'medium', className }: Props) {
   return (
     <Text className={className} size={size} isMuted>
-      ★ {score.toFixed(1)}
+      ★ {(score || 0).toFixed(1)}
     </Text>
   )
 }

@@ -12,14 +12,18 @@ import { ShowGenres } from 'src/components/ShowGenres'
 import { Button } from 'src/components/Button'
 import { BulletSeparator } from 'src/components/BulletSeparator'
 import { Image } from 'src/components/Image'
+import { ShowCarousel } from 'src/components/ShowCarousel'
 
 export function MovieDetails(): JSX.Element {
-  const { movieDetails, fetchMovieDetails } = useContext(MovieContext)
+  const { movieDetails, similar, fetchMovieDetails, fetchSimilar } =
+    useContext(MovieContext)
   const { movieId } = useParams()
 
   useEffect(() => {
-    fetchMovieDetails(Number(movieId))
-  }, [movieId, fetchMovieDetails])
+    const id = Number(movieId)
+    fetchMovieDetails(id)
+    fetchSimilar(id)
+  }, [movieId, fetchMovieDetails, fetchSimilar])
 
   if (!movieDetails) {
     return <></>
@@ -51,14 +55,19 @@ export function MovieDetails(): JSX.Element {
               {year}
             </Text>
           </div>
-          <Text isParagraph isMuted>
-            {overview}
-          </Text>
-          <Link to={trailer} target="_blank">
-            <Button size="large">▶ Play trailer</Button>
-          </Link>
+          <div className={styles.description}>
+            <Text isParagraph isMuted className={styles.overview}>
+              {overview}
+            </Text>
+          </div>
+          <div className={styles.buttons}>
+            <Link to={trailer} target="_blank">
+              <Button size="large">▶ Play trailer</Button>
+            </Link>
+          </div>
         </div>
       </section>
+      <ShowCarousel shows={similar} title="More like this" />
     </Page>
   )
 }

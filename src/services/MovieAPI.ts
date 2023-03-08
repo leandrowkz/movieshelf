@@ -33,6 +33,17 @@ export class MovieAPI extends BaseAPI {
     return this.get<Movie>(path)
   }
 
+  public async fetchMovieListSimilar(
+    id: number,
+    filters = {}
+  ): Promise<Movie[]> {
+    const path = this.getPath(`/movie/${id}/similar`, filters)
+
+    const response = await this.get<APIResponseList<Movie>>(path)
+
+    return response.results
+  }
+
   public async fetchMovieListByGenre(
     genres: number[],
     additionalFilters = {}
