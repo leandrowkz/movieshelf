@@ -1,9 +1,9 @@
 type RequestBody = Record<string, string | boolean | number | object | null>
 
 type RequestPayload = {
-  path: string,
-  body?: RequestBody,
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS',
+  path: string
+  body?: RequestBody
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS'
 }
 
 export abstract class BaseAPI {
@@ -11,21 +11,20 @@ export abstract class BaseAPI {
   private url: string
 
   constructor(url: string) {
-
     if (!url) {
       throw Error('Missing API URL.')
     }
 
     this.url = url
     this.headers = new Headers({
-      'Content-Type' : 'application/json'
+      'Content-Type': 'application/json',
     })
   }
 
   public async get<T>(path: string) {
     const options: RequestPayload = {
       path,
-      method: 'GET'
+      method: 'GET',
     }
 
     return this.request<T>(options)
@@ -54,7 +53,7 @@ export abstract class BaseAPI {
   public async delete<T>(path: string) {
     const options: RequestPayload = {
       path,
-      method: 'DELETE'
+      method: 'DELETE',
     }
 
     return this.request<T>(options)

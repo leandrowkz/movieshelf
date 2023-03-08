@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import { MovieHelper } from 'src/services/MovieHelper'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
-  shows: Movie[],
+  shows: Movie[]
 }
 
 export function Banner({ shows, className }: Props) {
@@ -40,14 +40,15 @@ export function Banner({ shows, className }: Props) {
 
   const bullets = []
   for (let i = 0; i < countShows; i++) {
-    const bulletClass = classNames(styles.bullet, { [`${styles.bulletActive}`]: i === currentSlide })
+    const bulletClass = classNames(styles.bullet, {
+      [`${styles.bulletActive}`]: i === currentSlide,
+    })
     const bullet = (
       <div
         key={`bullet-${i}`}
         className={bulletClass}
         onClick={() => setCurrentSlide(i)}
-      >
-      </div>
+      ></div>
     )
 
     bullets.push(bullet)
@@ -61,7 +62,7 @@ export function Banner({ shows, className }: Props) {
       </div>
       <div key={show.id} className={styles.slide}>
         <div className={styles.poster}>
-          <img src={poster} alt={show.title}  />
+          <img src={poster} alt={show.title} />
         </div>
         <div className={styles.info}>
           <Heading title={show.title} level={1} className={styles.title} />
@@ -73,9 +74,7 @@ export function Banner({ shows, className }: Props) {
           </div>
         </div>
       </div>
-      <div className={styles.bullets}>
-        {bullets}
-      </div>
+      <div className={styles.bullets}>{bullets}</div>
     </section>
   )
 }

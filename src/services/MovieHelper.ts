@@ -7,7 +7,9 @@ export class MovieHelper {
   }
 
   static getTrailerUrl(show: Movie) {
-    const trailer = show.videos?.results.find((video) => video.type === 'Trailer')
+    const trailer = show.videos?.results.find(
+      (video) => video.type === 'Trailer'
+    )
 
     if (!trailer) {
       return ''
@@ -19,10 +21,10 @@ export class MovieHelper {
   static getReleaseYear(show: Movie) {
     const { release_date: release } = show
 
-    return new Date(release).getFullYear().toString();
+    return new Date(release).getFullYear().toString()
   }
 
-  static hideBrokenImage (event: BaseSyntheticEvent) {
+  static hideBrokenImage(event: BaseSyntheticEvent) {
     const { target } = event
 
     if (target) {

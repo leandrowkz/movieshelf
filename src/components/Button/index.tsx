@@ -3,8 +3,8 @@ import styles from './styles.module.css'
 import classNames from 'classnames'
 
 interface Props extends PropsWithChildren {
-  size?: 'small' | 'medium' | 'large',
-  pill?: boolean,
+  size?: 'small' | 'medium' | 'large'
+  pill?: boolean
 }
 
 export function Button({ children, pill = false, size = 'medium' }: Props) {
@@ -14,7 +14,5 @@ export function Button({ children, pill = false, size = 'medium' }: Props) {
     [styles.pill]: pill,
   })
 
-  return (
-    <button className={classes}>{children}</button>
-  )
+  return <button className={classes}>{children}</button>
 }

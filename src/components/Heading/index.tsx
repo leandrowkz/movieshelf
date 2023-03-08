@@ -8,16 +8,17 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   isThin?: boolean
 }
 
-export function Heading({ title, level = 1, isThin = false, className }: Props) {
+export function Heading({
+  title,
+  level = 1,
+  isThin = false,
+  className,
+}: Props) {
   const classes = classNames({
     [`${className}`]: true,
     [`${styles[`heading${level}`]}`]: true,
-    [styles.headingThin] : isThin,
+    [styles.headingThin]: isThin,
   })
 
-  return (
-    <div className={classes}>
-      {title}
-    </div>
-  )
+  return <div className={classes}>{title}</div>
 }

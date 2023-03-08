@@ -8,11 +8,16 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   separator?: string
 }
 
-export function ShowGenres({ show, size = 'medium', separator = ' / ', className }: Props) {
+export function ShowGenres({
+  show,
+  size = 'medium',
+  separator = ' / ',
+  className,
+}: Props) {
   return (
-    <div className={className} >
+    <div className={className}>
       {show.genres?.map((genre, index) => (
-        <Text size={size} isMuted>
+        <Text key={index} size={size} isMuted>
           {index > 0 ? <span>{separator}</span> : ''}
           {genre.name}
         </Text>

@@ -8,7 +8,13 @@ interface Props extends ComponentPropsWithoutRef<'div'>, PropsWithChildren {
   isParagraph?: boolean
 }
 
-export function Text({ size = 'medium', isMuted = false, isParagraph = false, children, className = '' }: Props) {
+export function Text({
+  size = 'medium',
+  isMuted = false,
+  isParagraph = false,
+  children,
+  className = '',
+}: Props) {
   const classes = classNames({
     [className]: true,
     [styles.small]: size === 'small',
@@ -18,11 +24,7 @@ export function Text({ size = 'medium', isMuted = false, isParagraph = false, ch
     [styles.paragraph]: isParagraph,
   })
 
-  const Text = isParagraph ? 'p' : 'span';
+  const Text = isParagraph ? 'p' : 'span'
 
-  return (
-    <Text className={classes}>
-      {children}
-    </Text>
-  )
+  return <Text className={classes}>{children}</Text>
 }

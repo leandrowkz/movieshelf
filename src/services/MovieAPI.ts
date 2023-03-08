@@ -17,21 +17,29 @@ export class MovieAPI extends BaseAPI {
   }
 
   private getPath(path: string, queryString?: Record<string, string | number>) {
-    const params = new URLSearchParams({ ...queryString, api_key: this.accessToken })
+    const params = new URLSearchParams({
+      ...queryString,
+      api_key: this.accessToken,
+    })
 
     return `${path}?${params.toString()}`
   }
 
   public async fetchMovieDetails(id: number): Promise<Movie> {
-    const path = this.getPath(`/movie/${id}`, { append_to_response: 'videos,casts' })
+    const path = this.getPath(`/movie/${id}`, {
+      append_to_response: 'videos,casts',
+    })
 
     return this.get<Movie>(path)
   }
 
-  public async fetchMovieListByGenre(genres: number[], additionalFilters = {}): Promise<Movie[]> {
+  public async fetchMovieListByGenre(
+    genres: number[],
+    additionalFilters = {}
+  ): Promise<Movie[]> {
     const filters = {
       with_genres: genres.join(','),
-      ...additionalFilters
+      ...additionalFilters,
     }
     const path = this.getPath(`/discover/movie`, filters)
 
@@ -40,7 +48,7 @@ export class MovieAPI extends BaseAPI {
     return response.results
   }
 
-  public async fetchMovieListMostPopular(page: number = 1): Promise<Movie[]> {
+  public async fetchMovieListMostPopular(page = 1): Promise<Movie[]> {
     const filters = { page }
 
     const path = this.getPath('/movie/popular', filters)

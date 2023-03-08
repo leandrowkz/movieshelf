@@ -11,6 +11,8 @@ export function BulletSeparator({ className, isMuted = true }: Props) {
   const classes = classNames(styles.separator, className)
 
   return (
-    <Text className={classes} isMuted={isMuted}>•</Text>
+    <Text className={classes} isMuted={isMuted}>
+      •
+    </Text>
   )
 }

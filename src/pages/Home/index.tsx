@@ -5,8 +5,7 @@ import { Page } from 'src/components/Page'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { MovieContext } from 'src/store/MovieContext'
 
-export function Home () {
-  // const shows = require('../../services/movies.json')
+export function Home() {
   const {
     family,
     trending,
@@ -46,7 +45,10 @@ export function Home () {
       <ShowCarousel title="Best comedies" shows={bestComedies} />
       <ShowCarousel title="Sci-Fi & fantasy" shows={scifiAndFantasy} />
       <ShowCarousel title="Family" shows={family} />
-      <ShowCarousel title="Top rated documentaries" shows={topRatedDocumentaries} />
+      <ShowCarousel
+        title="Top rated documentaries"
+        shows={topRatedDocumentaries}
+      />
     </Page>
   )
 }

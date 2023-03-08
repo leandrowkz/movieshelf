@@ -5,13 +5,12 @@ import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 
 type Props = {
-  shows: Movie[],
-  title: string,
-  showViewAll?: boolean,
+  shows: Movie[]
+  title: string
+  showViewAll?: boolean
 }
 
 export function ShowList({ shows, title }: Props) {
-
   const header = (
     <div className={styles.header}>
       <Heading title={title} level={2}></Heading>
@@ -20,7 +19,9 @@ export function ShowList({ shows, title }: Props) {
 
   const list = (
     <div className={styles.items}>
-      {shows.map(show => (<ShowItem key={show.id} show={show} className={styles.show} />))}
+      {shows.map((show) => (
+        <ShowItem key={show.id} show={show} className={styles.show} />
+      ))}
     </div>
   )
 

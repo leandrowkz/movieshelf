@@ -13,11 +13,8 @@ import { Button } from 'src/components/Button'
 import { BulletSeparator } from 'src/components/BulletSeparator'
 import { Image } from 'src/components/Image'
 
-export function MovieDetails (): JSX.Element {
-  const {
-    movieDetails,
-    fetchMovieDetails,
-  } = useContext(MovieContext)
+export function MovieDetails(): JSX.Element {
+  const { movieDetails, fetchMovieDetails } = useContext(MovieContext)
   const { movieId } = useParams()
 
   useEffect(() => {
@@ -25,12 +22,12 @@ export function MovieDetails (): JSX.Element {
   }, [movieId, fetchMovieDetails])
 
   if (!movieDetails) {
-    return <></>;
+    return <></>
   }
 
-  const img = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500);
-  const trailer = MovieHelper.getTrailerUrl(movieDetails);
-  const year = MovieHelper.getReleaseYear(movieDetails);
+  const img = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500)
+  const trailer = MovieHelper.getTrailerUrl(movieDetails)
+  const year = MovieHelper.getReleaseYear(movieDetails)
   const { title, overview, runtime, vote_average: rating } = movieDetails
 
   return (
@@ -44,13 +41,19 @@ export function MovieDetails (): JSX.Element {
           <Heading level={1} title={title} />
           <div className={styles.metadata}>
             <Rating score={rating} size="small" className={styles.rating} />
-            <Text isMuted size="small">{runtime} minutes</Text>
+            <Text isMuted size="small">
+              {runtime} minutes
+            </Text>
             <BulletSeparator />
             <ShowGenres show={movieDetails} separator=", " size="small" />
             <BulletSeparator />
-            <Text isMuted size="small">{year}</Text>
+            <Text isMuted size="small">
+              {year}
+            </Text>
           </div>
-          <Text isParagraph isMuted>{overview}</Text>
+          <Text isParagraph isMuted>
+            {overview}
+          </Text>
           <Link to={trailer} target="_blank">
             <Button size="large">▶ Play trailer</Button>
           </Link>
