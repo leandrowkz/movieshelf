@@ -1,6 +1,4 @@
 import { BaseSyntheticEvent } from 'react'
-import { Country } from 'src/types/Country'
-import { CountryFlag } from 'src/types/CountryFlag'
 import { Movie } from 'src/types/Movie'
 
 export class MovieHelper {
