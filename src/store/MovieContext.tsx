@@ -41,7 +41,7 @@ export const MovieContext = createContext<MovieState>({
   fetchBestComedies: () => null,
   fetchScifiAndFantasy: () => null,
   fetchFamily: () => null,
-  fetchTopRatedDocumentaries: () => {},
+  fetchTopRatedDocumentaries: () => null,
 })
 
 export const MovieContextProvider = ({ children }: PropsWithChildren) => {
