@@ -1,11 +1,11 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
 import { Movie } from 'src/types/Movie'
-import { Heading } from '../Heading'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { ShowPoster } from '../ShowPoster'
+import { Text } from '../Text'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: Movie
@@ -20,7 +20,7 @@ export function ShowItem({ show, className }: Props) {
         <ShowPoster show={show} />
       </Link>
       <div className={styles.header}>
-        <Heading title={show.title} level={3} className={styles.title} />
+        <Text className={styles.title}>{show.title}</Text>
         <Rating
           score={show.vote_average}
           className={styles.rating}

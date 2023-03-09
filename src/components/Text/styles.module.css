@@ -1,7 +1,5 @@
 .text {
   margin: 0;
-  color: var(--font-color-base);
-  font-size: var(--font-size-base);
   font-weight: normal;
   line-height: 1.5;
 }

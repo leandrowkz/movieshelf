@@ -1,0 +1,52 @@
+.footer {
+  width: 100%;
+  margin-top: var(--spacer-extra-large);
+  background-color: var(--color-gray-100);
+  font-size: var(--font-size-small);
+  color: var(--font-color-muted);
+  /* padding:
+  height: var(--header-height);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; */
+}
+
+.content {
+  width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--spacer-extra-large) 0;
+  display: grid;
+  place-items: left;
+}
+
+.logo {
+  width: 32px !important;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacer-base);
+  margin: var(--spacer-base) 0;
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.disclaimer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--spacer-extra-large);
+}
+
+.sourceDataLogo {
+  width: 100px;
+  margin-left: var(--spacer-small);
+}

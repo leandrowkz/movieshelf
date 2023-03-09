@@ -2,6 +2,7 @@
   /* Colors */
   --color-primary: #D7272D;
   --color-gray-light: #9CA6AD;
+  --color-gray-100: #eef5fa;
 
   /* Page */
   --container-width: 70vw;
@@ -62,4 +63,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
