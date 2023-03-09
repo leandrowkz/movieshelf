@@ -1,11 +1,12 @@
 :root {
   /* Colors */
   --color-primary: #D7272D;
+  --color-primary-light: #e82930;
   --color-gray-light: #9CA6AD;
   --color-gray-100: #eef5fa;
 
   /* Page */
-  --container-width: 70vw;
+  --container-padding: var(--spacer-extra-large);
 
   /* Header */
   --header-height: 100px;
@@ -23,7 +24,7 @@
   --spacer-extra-large: 64px;
 
   /* Transitions */
-  --transition-ease-out: all .5s ease-out;
+  --transition-base: all .1s ease-in-out;
 
   /* Fonts */
   --font-size-base: 18px;
@@ -43,6 +44,9 @@
   --button-medium-padding: 0 calc(var(--spacer-base) + 6px);
   --button-large-height: 76px;
   --button-large-padding: 0 var(--spacer-large);
+  --button-color: var(--color-primary);
+  --button-color-hover: var(--color-primary-light);
+  --button-text-color: white;
 
   /* Shows */
   --show-item-size: 15%;
@@ -68,8 +72,9 @@ code {
 a {
   color: var(--color-primary);
   text-decoration: none;
+  transition: var(--transition-base);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--color-primary-light);
 }

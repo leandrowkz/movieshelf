@@ -90,10 +90,10 @@
   border-radius: 14px;
   cursor: pointer;
   margin-right: var(--spacer-small);
-  -webkit-transition: var(--transition-ease-out);
-  -moz-transition: var(--transition-ease-out);
-  -o-transition: var(--transition-ease-out);
-  transition: var(--transition-ease-out);
+  -webkit-transition: var(--transition-base);
+  -moz-transition: var(--transition-base);
+  -o-transition: var(--transition-base);
+  transition: var(--transition-base);
 }
 
 .bullet:hover {

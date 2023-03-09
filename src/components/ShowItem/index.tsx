@@ -17,7 +17,7 @@ export function ShowItem({ show, className }: Props) {
   return (
     <div className={classes}>
       <Link to={`/movies/${show.id}`}>
-        <ShowPoster show={show} />
+        <ShowPoster show={show} className={styles.poster} />
       </Link>
       <div className={styles.header}>
         <Text className={styles.title}>{show.title}</Text>

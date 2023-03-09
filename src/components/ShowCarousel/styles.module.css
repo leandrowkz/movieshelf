@@ -11,10 +11,13 @@
 
 .pages {
   width: 100%;
-  box-sizing: border-box;
+  padding-top: 10px;
+  margin-left: -10px;
+  padding-left: 10px;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  overflow-y: visible;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   -ms-scroll-snap-type: mandatory;

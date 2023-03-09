@@ -5,14 +5,24 @@
   line-height: var(--button-medium-height);
   padding: var(--button-medium-padding);
   border-radius: var(--radius-base);
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--button-color);
+  color: var(--button-text-color);
   cursor: pointer;
   font-size: var(--font-size-base);
   font-weight: 600;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   white-space: nowrap;
+  transition: var(--transition-base);
+}
+
+.button:hover {
+  background-color: var(--button-color-hover);
+}
+
+.button:active {
+  transform: scale(0.95);
+  background-color: var(--button-color-hover);
 }
 
 .small {
