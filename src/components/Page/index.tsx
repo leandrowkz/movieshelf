@@ -6,13 +6,11 @@ import { Header } from '../Header'
 
 export function Page({ children }: PropsWithChildren) {
   return (
-    <>
-      <section className={styles.page}>
-        <ScrollRestoration />
-        <Header />
-        {children}
-      </section>
+    <section className={styles.page}>
+      <ScrollRestoration />
+      <Header />
+      {children}
       <Footer />
-    </>
+    </section>
   )
 }

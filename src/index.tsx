@@ -6,16 +6,21 @@ import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { MovieContextProvider } from './store/MovieContext'
 
+const App = () => {
+  return (
+    <React.StrictMode>
+      <MovieContextProvider>
+        <RouterProvider router={router} />
+      </MovieContextProvider>
+    </React.StrictMode>
+  )
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLDivElement
 )
-root.render(
-  <React.StrictMode>
-    <MovieContextProvider>
-      <RouterProvider router={router} />
-    </MovieContextProvider>
-  </React.StrictMode>
-)
+
+root.render(<App />)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
