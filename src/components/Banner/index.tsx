@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom'
 import { MovieHelper } from 'src/services/MovieHelper'
+import { Container } from '../Container'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[]
@@ -55,26 +56,28 @@ export function Banner({ shows, className }: Props) {
   }
 
   return (
-    <section className={classes}>
-      <div className={styles.heading}>
-        <Heading title="Trending&nbsp;" level={1} />
-        <Heading title="now" level={1} isThin />
-      </div>
-      <div key={show.id} className={styles.slide}>
-        <div className={styles.poster}>
-          <img src={poster} alt={show.title} />
+    <Container>
+      <section className={classes}>
+        <div className={styles.heading}>
+          <Heading title="Trending&nbsp;" level={1} />
+          <Heading title="now" level={1} isThin />
         </div>
-        <div className={styles.info}>
-          <Heading title={show.title} level={1} className={styles.title} />
-          <div className={styles.controls}>
-            <div className={styles.overview}>{show.overview}</div>
-            <Link to={`/movies/${show.id}`}>
-              <Button size="large">See more &nbsp;🎬</Button>
-            </Link>
+        <div key={show.id} className={styles.slide}>
+          <div className={styles.poster}>
+            <img src={poster} alt={show.title} />
+          </div>
+          <div className={styles.info}>
+            <Heading title={show.title} level={1} className={styles.title} />
+            <div className={styles.controls}>
+              <div className={styles.overview}>{show.overview}</div>
+              <Link to={`/movies/${show.id}`}>
+                <Button size="large">See more &nbsp;🎬</Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.bullets}>{bullets}</div>
-    </section>
+        <div className={styles.bullets}>{bullets}</div>
+      </section>
+    </Container>
   )
 }

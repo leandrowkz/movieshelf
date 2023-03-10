@@ -1,10 +1,9 @@
 .container {
-  width: calc(100% - calc(var(--container-spacer) * 2));
-  margin-bottom: var(--spacer-extra-large);
-  padding: 0 var(--container-spacer);
+  width: 100%;
 }
 
 .heading {
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -21,6 +20,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   position: relative;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .poster img {

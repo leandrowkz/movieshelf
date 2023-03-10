@@ -1,0 +1,12 @@
+.home {
+  background-image: url(../../assets/bg-waves.svg);
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background-size: 100%;
+}
+
+.banner {
+  color: white;
+  margin-top: var(--spacer-large);
+  margin-bottom: var(--spacer-extra-large);
+}

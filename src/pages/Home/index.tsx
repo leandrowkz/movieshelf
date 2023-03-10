@@ -3,6 +3,7 @@ import { Banner } from 'src/components/Banner'
 import { Page } from 'src/components/Page'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { MovieContext } from 'src/store/MovieContext'
+import styles from './styles.module.css'
 
 export function Home() {
   const {
@@ -33,8 +34,8 @@ export function Home() {
   }, [])
 
   return (
-    <Page>
-      <Banner shows={trending} />
+    <Page className={styles.home}>
+      <Banner shows={trending} className={styles.banner} />
       <ShowCarousel title="In theaters" shows={inTheatres} itemsPerPage={3} />
       <ShowCarousel title="Most popular" shows={mostPopular} />
       <ShowCarousel title="Best comedies" shows={bestComedies} />

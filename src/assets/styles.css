@@ -5,6 +5,7 @@
   --color-gray-100: #eef5fa;
   --color-gray-200: #9CA6AD;
   --color-gray-300: #4E6E81;
+  --color-gray-400: #002233;
 
   /* Page */
   --container-spacer: var(--spacer-extra-large);
@@ -35,7 +36,7 @@
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
-  --font-color-base: #2E3840;
+  --font-color-base: var(--color-gray-400);
   --font-color-muted: var(--color-gray-200);
 
   /* Buttons */
@@ -56,11 +57,18 @@
   --avatar-size: 72px;
 }
 
+@media screen and (max-width: 768px) {
+  :root {
+    --container-spacer: var(--spacer-large);
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
   font-size: var(--font-size-base);
+  color: var(--font-color-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -78,26 +86,4 @@ a {
 
 a:hover {
   color: var(--color-primary-light);
-}
-
-.fade-enter {
-  opacity: 0;
-  transform: translate(0, 25px);
-  z-index: 1;
-}
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transform: translate(0, 0);
-
-  transition: opacity 250ms ease-out, transform 300ms ease;
-}
-.fade-exit {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-.fade-exit.fade-exit-active {
-  opacity: 0;
-  transform: translate(0, 30px);
-
-  transition: opacity 250ms ease-out, transform 300ms ease;
 }
