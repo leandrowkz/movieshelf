@@ -6,11 +6,12 @@ import { Text } from '../Text'
 import { Image } from '../Image'
 import tmdb from '../../assets/tmdb-logo.svg'
 import { BulletSeparator } from '../BulletSeparator'
+import { Container } from '../Container'
 
 export function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.content}>
+      <Container>
         <Logo className={styles.logo} />
         <div className={styles.menu}>
           <Link to="/">Home</Link>
@@ -40,7 +41,7 @@ export function Footer() {
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }

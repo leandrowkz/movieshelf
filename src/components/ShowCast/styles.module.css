@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--spacer-base);
+  gap: calc(var(--spacer-base) + 6px);
 }
 
 .person {
@@ -32,7 +32,7 @@
   width: 100%;
   content: '🙅';
   padding-top: 2px;
-  font-size: 48px;
+  font-size: var(--avatar-size);
   text-align: center;
   background-color: white;
   background-position: center;

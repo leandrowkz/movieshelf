@@ -9,11 +9,16 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   shows: Movie[]
   title: string
   showViewAll?: boolean
+  itemsPerPage?: number
 }
 
-export function ShowCarousel({ shows, title, className }: Props) {
-  const ITEMS_PER_PAGE = 4
-
+export function ShowCarousel({
+  shows,
+  title,
+  className,
+  itemsPerPage = Number(process.env.REACT_APP_SHOW_CAROUSEL_ITEMS_PER_PAGE) ||
+    5,
+}: Props) {
   if (!shows.length) {
     return <></>
   }
@@ -24,13 +29,11 @@ export function ShowCarousel({ shows, title, className }: Props) {
     </div>
   )
 
-  const pagesCount = Math.floor(shows.length / ITEMS_PER_PAGE)
+  const pagesCount = Math.floor(shows.length / itemsPerPage)
   const pagesList: Movie[][] = []
 
   for (let page = 1; page <= pagesCount; page++) {
-    pagesList.push(
-      shows.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-    )
+    pagesList.push(shows.slice((page - 1) * itemsPerPage, page * itemsPerPage))
   }
 
   const pages = (

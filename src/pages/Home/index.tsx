@@ -35,9 +35,8 @@ export function Home() {
 
   return (
     <Page>
-      <Header />
       <Banner shows={trending} />
-      <ShowCarousel title="In theaters" shows={inTheatres} />
+      <ShowCarousel title="In theaters" shows={inTheatres} itemsPerPage={3} />
       <ShowCarousel title="Most popular" shows={mostPopular} />
       <ShowCarousel title="Best comedies" shows={bestComedies} />
       <ShowCarousel title="Sci-Fi & fantasy" shows={scifiAndFantasy} />

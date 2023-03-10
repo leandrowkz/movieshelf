@@ -1,23 +1,23 @@
 .carousel {
   width: 100%;
   margin-bottom: var(--spacer-large);
+  overflow: hidden;
 }
 
 .header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-left: var(--container-spacer);
 }
 
 .pages {
   width: 100%;
-  padding-top: 10px;
-  margin-left: -10px;
-  padding-left: 10px;
+  padding-top: 20px;
   display: flex;
-  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow-x: auto;
-  overflow-y: visible;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   -ms-scroll-snap-type: mandatory;
@@ -25,17 +25,22 @@
   -ms-scroll-snap-points-x: repeat(100%);
 }
 
+.page:first-child {
+  padding-left: calc(var(--container-spacer) - 6px);
+}
+
 .page {
-  scroll-snap-align: center;
-  flex: 0 0 90%;
-  margin-right: var(--spacer-large);
+  scroll-snap-align: start;
+  flex: 0 0 100%;
+  padding-right: var(--spacer-large);
   gap: var(--spacer-large);
   display: inline-flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .show {
   flex: 1;
+  min-width: 200px;
   margin-bottom: var(--spacer-large);
 }

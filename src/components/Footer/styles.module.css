@@ -4,20 +4,7 @@
   background-color: var(--color-gray-100);
   font-size: var(--font-size-small);
   color: var(--font-color-muted);
-  /* padding:
-  height: var(--header-height);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; */
-}
-
-.content {
-  width: var(--container-width);
-  margin: 0 auto;
   padding: var(--spacer-extra-large) 0;
-  display: grid;
-  place-items: left;
 }
 
 .logo {
@@ -33,17 +20,19 @@
 }
 
 .bottom {
-  width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: var(--spacer-extra-large);
 }
 
 .disclaimer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: var(--spacer-extra-large);
+  flex-wrap: wrap;
+  padding-top: var(--spacer-large);
 }
 
 .sourceDataLogo {

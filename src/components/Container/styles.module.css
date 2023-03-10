@@ -1,0 +1,5 @@
+.container {
+  width: calc(100% - calc(var(--container-spacer) * 2));
+  padding: 0 var(--container-spacer);
+  overflow: visible;
+}

@@ -6,7 +6,7 @@
   --color-gray-100: #eef5fa;
 
   /* Page */
-  --container-padding: var(--spacer-extra-large);
+  --container-spacer: var(--spacer-extra-large);
 
   /* Header */
   --header-height: 100px;
@@ -52,7 +52,7 @@
   --show-item-size: 15%;
 
   /* Images */
-  --avatar-size: 52px;
+  --avatar-size: 72px;
 }
 
 body {

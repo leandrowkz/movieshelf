@@ -15,6 +15,7 @@ import { Image } from 'src/components/Image'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { ShowCast } from 'src/components/ShowCast'
 import { ShowCountries } from 'src/components/ShowCountries'
+import { Container } from 'src/components/Container'
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -45,44 +46,45 @@ export function MovieDetails(): JSX.Element {
 
   return (
     <Page>
-      <Header />
-      <section className={styles.details}>
-        <div className={styles.backdrop}>
-          <Image src={backdrop} alt={title} />
-        </div>
-        <div className={styles.movieInfo}>
-          <Heading level={1} title={title} />
-          <div className={styles.metadata}>
-            <Rating score={rating} size="small" className={styles.rating} />
-            <Text isMuted size="small">
-              {runtime} minutes
-            </Text>
-            <BulletSeparator />
-            <ShowGenres show={movieDetails} separator=", " size="small" />
-            <BulletSeparator />
-            <Text isMuted size="small">
-              {year}
-            </Text>
-            <BulletSeparator />
-            <ShowCountries show={movieDetails} size="small" />
+      <Container>
+        <section className={styles.details}>
+          <div className={styles.backdrop}>
+            <Image src={backdrop} alt={title} />
           </div>
-          <div className={styles.description}>
-            <div className={styles.overview}>
-              <Text isParagraph isMuted className={styles.overview}>
-                {overview}
+          <div className={styles.movieInfo}>
+            <Heading level={1} title={title} />
+            <div className={styles.metadata}>
+              <Rating score={rating} size="small" className={styles.rating} />
+              <Text isMuted size="small">
+                {runtime} minutes
               </Text>
-              <div className={styles.buttons}>
-                <Link to={trailer} target="_blank">
-                  <Button size="large">▶ Play trailer</Button>
-                </Link>
+              <BulletSeparator />
+              <ShowGenres show={movieDetails} separator=", " size="small" />
+              <BulletSeparator />
+              <Text isMuted size="small">
+                {year}
+              </Text>
+              <BulletSeparator />
+              <ShowCountries show={movieDetails} size="small" />
+            </div>
+            <div className={styles.description}>
+              <div className={styles.overview}>
+                <Text isParagraph isMuted className={styles.overview}>
+                  {overview}
+                </Text>
+                <div className={styles.buttons}>
+                  <Link to={trailer} target="_blank">
+                    <Button size="large">▶ Play trailer</Button>
+                  </Link>
+                </div>
+              </div>
+              <div className={styles.cast}>
+                <ShowCast show={movieDetails} title="Actors" />
               </div>
             </div>
-            <div className={styles.cast}>
-              <ShowCast show={movieDetails} title="Actors" />
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Container>
       <ShowCarousel shows={similar} title="More like this" />
       <ShowCarousel shows={trending} title="Popular movies" />
     </Page>
