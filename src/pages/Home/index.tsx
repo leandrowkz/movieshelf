@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import { Banner } from 'src/components/Banner'
-import { Header } from 'src/components/Header'
 import { Page } from 'src/components/Page'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { MovieContext } from 'src/store/MovieContext'
