@@ -12,12 +12,17 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
+  plugins: ['react', 'react-hooks', 'prettier'],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', 'prettier'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
