@@ -20,8 +20,10 @@ export function MovieDetails(): JSX.Element {
   const {
     movieDetails,
     similar,
+    recommended,
     trending,
     fetchTrending,
+    fetchRecommended,
     fetchMovieDetails,
     fetchSimilar,
   } = useContext(MovieContext)
@@ -31,6 +33,7 @@ export function MovieDetails(): JSX.Element {
     const id = Number(movieId)
     fetchMovieDetails(id)
     fetchSimilar(id)
+    fetchRecommended(id)
     fetchTrending()
   }, [movieId])
 
@@ -85,6 +88,10 @@ export function MovieDetails(): JSX.Element {
         </section>
       </Container>
       <ShowCarousel shows={similar} title="More like this" />
+      <ShowCarousel
+        shows={recommended}
+        title="Recommended based on this title"
+      />
       <ShowCarousel shows={trending} title="Popular movies" />
     </Page>
   )

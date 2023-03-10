@@ -44,6 +44,17 @@ export class MovieAPI extends BaseAPI {
     return response.results
   }
 
+  public async fetchMovieListRecommended(
+    id: number,
+    filters = {}
+  ): Promise<Movie[]> {
+    const path = this.getPath(`/movie/${id}/recommendations`, filters)
+
+    const response = await this.get<APIResponseList<Movie>>(path)
+
+    return response.results
+  }
+
   public async fetchMovieListInTheatres(filters = {}): Promise<Movie[]> {
     const path = this.getPath('/movie/now_playing', filters)
 

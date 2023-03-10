@@ -15,6 +15,7 @@ type MovieState = {
   inTheatres: Movie[]
   trending: Movie[]
   similar: Movie[]
+  recommended: Movie[]
   mostPopular: Movie[]
   bestComedies: Movie[]
   scifiAndFantasy: Movie[]
@@ -24,6 +25,7 @@ type MovieState = {
   fetchTrending: () => void
   fetchInTheatres: () => void
   fetchSimilar: (movieId: number) => void
+  fetchRecommended: (movieId: number) => void
   fetchMostPopular: () => void
   fetchBestComedies: () => void
   fetchScifiAndFantasy: () => void
@@ -36,6 +38,7 @@ export const MovieContext = createContext<MovieState>({
   trending: [],
   inTheatres: [],
   similar: [],
+  recommended: [],
   mostPopular: [],
   bestComedies: [],
   scifiAndFantasy: [],
@@ -44,6 +47,7 @@ export const MovieContext = createContext<MovieState>({
   fetchMovieDetails: () => null,
   fetchTrending: () => null,
   fetchSimilar: () => null,
+  fetchRecommended: () => null,
   fetchMostPopular: () => null,
   fetchBestComedies: () => null,
   fetchScifiAndFantasy: () => null,
@@ -56,6 +60,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   const [movieDetails, setMovieDetails] = useState<Nullable<Movie>>(null)
   const [trending, setTrending] = useState<Movie[]>([])
   const [similar, setSimilar] = useState<Movie[]>([])
+  const [recommended, setRecommended] = useState<Movie[]>([])
   const [mostPopular, setMostPopular] = useState<Movie[]>([])
   const [bestComedies, setBestComedies] = useState<Movie[]>([])
   const [scifiAndFantasy, setScifiAndFantasy] = useState<Movie[]>([])
@@ -81,6 +86,15 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
       const data = await api.fetchMovieListSimilar(movieId)
 
       setSimilar(data)
+    },
+    [api]
+  )
+
+  const fetchRecommended = useCallback(
+    async (movieId: number) => {
+      const data = await api.fetchMovieListRecommended(movieId)
+
+      setRecommended(data)
     },
     [api]
   )
@@ -143,6 +157,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     movieDetails,
     trending,
     similar,
+    recommended,
     mostPopular,
     bestComedies,
     scifiAndFantasy,
@@ -152,6 +167,7 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     fetchMovieDetails,
     fetchTrending,
     fetchSimilar,
+    fetchRecommended,
     fetchMostPopular,
     fetchBestComedies,
     fetchScifiAndFantasy,
