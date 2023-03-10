@@ -2,8 +2,8 @@
   /* Colors */
   --color-primary: #FF0303;
   --color-primary-light: #e82930;
-  --color-gray-light: #9CA6AD;
   --color-gray-100: #eef5fa;
+  --color-gray-200: #9CA6AD;
   --color-gray-300: #4E6E81;
 
   /* Page */
@@ -36,7 +36,7 @@
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
   --font-color-base: #2E3840;
-  --font-color-muted: var(--color-gray-light);
+  --font-color-muted: var(--color-gray-200);
 
   /* Buttons */
   --button-small-height: 44px;
