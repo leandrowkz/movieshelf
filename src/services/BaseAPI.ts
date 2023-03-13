@@ -76,9 +76,9 @@ export abstract class BaseAPI {
     return this.toJSON<T>(response)
   }
 
-  private async toJSON<T>(response: Response) {
+  private toJSON<T>(response: Response) {
     if (response.ok) {
-      return response.json() as T
+      return response.json() as unknown as T
     }
 
     throw Error(response.statusText)
