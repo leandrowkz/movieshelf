@@ -7,10 +7,8 @@ export const config = {
 
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
-  const genresRaw = searchParams.get('genres') || ''
-  const genres = genresRaw.split(',').map((genre) => Number(genre))
 
-  const { results } = await api.discover.movies(genres)
+  const { results } = await api.discover.movies(searchParams)
 
   return json(results)
 }
