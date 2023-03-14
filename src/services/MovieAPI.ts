@@ -1,98 +1,72 @@
 import { Movie } from 'src/types/Movie'
-import { BaseAPI } from './BaseAPI'
-import { APIResponseList } from 'src/types/APIResponseList'
+import { APIFetcher } from './APIFetcher'
 
-export class MovieAPI extends BaseAPI {
-  private accessToken: string
-
+export class MovieAPI extends APIFetcher {
   constructor() {
-    super(process.env.REACT_APP_API_URL || '')
-    const accessToken = process.env.REACT_APP_API_ACCESS_TOKEN || false
-
-    if (!accessToken) {
-      throw Error('Missing API access token.')
-    }
-
-    this.accessToken = accessToken
+    super('')
   }
 
-  private getPath(path: string, queryString?: Record<string, string | number>) {
-    const params = new URLSearchParams({
-      ...queryString,
-      api_key: this.accessToken,
-    })
+  private getPath(
+    path: string,
+    queryString: Record<string, string | number> = {}
+  ) {
+    const params = new URLSearchParams()
+
+    for (const [key, value] of Object.entries(queryString)) {
+      params.append(key, value.toString())
+    }
 
     return `${path}?${params.toString()}`
   }
 
   public async fetchMovieDetails(id: number): Promise<Movie> {
-    const path = this.getPath(`/movie/${id}`, {
-      append_to_response: 'videos,casts',
-    })
+    const path = this.getPath('/api/movies-details', { id })
 
     return this.get<Movie>(path)
   }
 
-  public async fetchMovieListSimilar(
-    id: number,
-    filters = {}
-  ): Promise<Movie[]> {
-    const path = this.getPath(`/movie/${id}/similar`, filters)
+  public async fetchMovieListSimilar(id: number): Promise<Movie[]> {
+    const path = this.getPath('/api/movies-similar', { id })
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return await this.get<Movie[]>(path)
   }
 
-  public async fetchMovieListRecommended(
-    id: number,
-    filters = {}
-  ): Promise<Movie[]> {
-    const path = this.getPath(`/movie/${id}/recommendations`, filters)
+  public async fetchMovieListRecommended(id: number): Promise<Movie[]> {
+    const path = this.getPath('/api/movies-recommended', { id })
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return this.get<Movie[]>(path)
   }
 
   public async fetchMovieListInTheatres(filters = {}): Promise<Movie[]> {
-    const path = this.getPath('/movie/now_playing', filters)
+    const path = this.getPath('/api/movies-in-theatres', filters)
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return this.get<Movie[]>(path)
   }
 
   public async fetchMovieListByGenre(
     genres: number[],
-    additionalFilters = {}
+    filters = {}
   ): Promise<Movie[]> {
-    const filters = {
+    const fetchFilters = {
       with_genres: genres.join(','),
-      ...additionalFilters,
+      ...filters,
     }
-    const path = this.getPath(`/discover/movie`, filters)
+    const path = this.getPath('api/movies-genres', fetchFilters)
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return this.get<Movie[]>(path)
   }
 
   public async fetchMovieListMostPopular(page = 1): Promise<Movie[]> {
     const filters = { page }
 
-    const path = this.getPath('/movie/popular', filters)
+    const path = this.getPath('/api/movies-popular', filters)
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return this.get<Movie[]>(path)
   }
 
   public async fetchMovieListTrending(): Promise<Movie[]> {
-    const path = this.getPath('/trending/movie/week')
+    const path = this.getPath('/api/movie-trending')
 
-    const response = await this.get<APIResponseList<Movie>>(path)
-
-    return response.results
+    return this.get<Movie[]>(path)
   }
 }

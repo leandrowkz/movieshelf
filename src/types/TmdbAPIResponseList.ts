@@ -1,4 +1,4 @@
-export type APIResponseList<T> = {
+export type TmdbAPIResponseList<T> = {
   results: T[]
   page: number
   total_pages: number

@@ -6,7 +6,7 @@ type RequestPayload = {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS'
 }
 
-export abstract class BaseAPI {
+export abstract class APIFetcher {
   private headers: Headers
   private url: string
 

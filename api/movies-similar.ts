@@ -1,5 +1,5 @@
 import { json } from './jsonResponse'
-import { api } from './tmdb'
+import { api } from './tmdb/TmdbAPI'
 
 export const config = {
   runtime: 'edge',
@@ -9,7 +9,7 @@ export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
   const id = Number(searchParams.get('id'))
 
-  const response = await api.fetchMovieDetails(id)
+  const { results } = await api.movies.similar(id)
 
-  return json(response)
+  return json(results)
 }
