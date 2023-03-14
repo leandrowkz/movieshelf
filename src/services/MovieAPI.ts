@@ -65,7 +65,7 @@ export class MovieAPI extends APIFetcher {
   }
 
   public async fetchMovieListTrending(): Promise<Movie[]> {
-    const path = this.getPath('/api/movie-trending')
+    const path = this.getPath('/api/movies-trending')
 
     return this.get<Movie[]>(path)
   }
