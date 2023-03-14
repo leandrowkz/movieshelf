@@ -11,10 +11,6 @@ export abstract class APIFetcher {
   private url: string
 
   constructor(url: string) {
-    if (!url) {
-      throw Error('Missing API URL.')
-    }
-
     this.url = url
     this.headers = new Headers({
       'Content-Type': 'application/json',
