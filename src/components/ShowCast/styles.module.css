@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: calc(var(--spacer-base) + 6px);
+  gap: var(--spacer-large);
 }
 
 .person {
@@ -41,6 +41,7 @@
 .name {
   margin-top: var(--spacer-small);
   font-size: var(--font-size-small);
+  width: var(--avatar-size);
   text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2;

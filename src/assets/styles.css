@@ -54,7 +54,7 @@
   --show-item-size: 15%;
 
   /* Images */
-  --avatar-size: 72px;
+  --avatar-size: 58px;
 }
 
 @media screen and (max-width: 768px) {

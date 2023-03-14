@@ -25,7 +25,7 @@ export function ShowCast({ show, className, width = 'auto' }: Props) {
   return (
     <div className={classes} style={style}>
       {cast.map((actor, index) => (
-        <div key={index} className={css.person}>
+        <div key={index} className={css.person} title={actor.name}>
           <div className={css.avatar} style={getStyle(actor)} />
           <Text size="small" alignment="center" className={css.name} isMuted>
             {actor.name}

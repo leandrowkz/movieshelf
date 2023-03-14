@@ -15,6 +15,7 @@ import { ShowCarousel } from 'src/components/ShowCarousel'
 import { ShowCast } from 'src/components/ShowCast'
 import { ShowCountries } from 'src/components/ShowCountries'
 import { Container } from 'src/components/Container'
+import { ShowPoster } from 'src/components/ShowPoster'
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -69,21 +70,22 @@ export function MovieDetails(): JSX.Element {
               <BulletSeparator />
               <ShowCountries show={movieDetails} size="small" />
             </div>
-            <div className={styles.description}>
-              <div className={styles.overview}>
-                <Text isParagraph isMuted className={styles.overview}>
-                  {overview}
-                </Text>
-                <div className={styles.buttons}>
-                  <Link to={trailer} target="_blank">
-                    <Button size="large">▶ Play trailer</Button>
-                  </Link>
-                </div>
-              </div>
-              <div className={styles.cast}>
-                <ShowCast show={movieDetails} title="Actors" />
-              </div>
+            <Text isParagraph isMuted className={styles.overview}>
+              {overview}
+            </Text>
+            <ShowCast
+              show={movieDetails}
+              title="Actors"
+              className={styles.cast}
+            />
+            <div className={styles.buttons}>
+              <Link to={trailer} target="_blank">
+                <Button size="large">▶ Play trailer</Button>
+              </Link>
             </div>
+          </div>
+          <div className={styles.poster}>
+            <ShowPoster show={movieDetails} />
           </div>
         </section>
       </Container>
