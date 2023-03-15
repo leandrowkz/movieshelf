@@ -29,6 +29,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   cursor: default;
+  word-break: break-all;
 }
 
 .rating {

@@ -11,11 +11,11 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   show: Movie
 }
 
-export function ShowItem({ show, className }: Props) {
+export function ShowItem({ show, className, ...props }: Props) {
   const classes = classNames(className, styles.container)
 
   return (
-    <div className={classes}>
+    <div className={classes} {...props}>
       <Link to={`/movies/${show.id}`}>
         <ShowPoster show={show} className={styles.poster} />
       </Link>

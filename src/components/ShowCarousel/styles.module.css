@@ -31,7 +31,9 @@
 
 .page {
   scroll-snap-align: start;
-  flex: 0 0 100%;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
   padding-right: var(--spacer-large);
   gap: var(--spacer-large);
   display: inline-flex;
@@ -40,7 +42,5 @@
 }
 
 .show {
-  flex: 1;
-  min-width: 200px;
   margin-bottom: var(--spacer-large);
 }
