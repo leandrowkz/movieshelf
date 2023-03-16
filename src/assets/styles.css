@@ -26,7 +26,7 @@
   --spacer-extra-large: 64px;
 
   /* Transitions */
-  --transition-base: all .1s ease-in-out;
+  --transition-base: all .2s ease-in-out;
 
   /* Fonts */
   --font-size-base: 18px;

@@ -1,3 +1,8 @@
+:root {
+  --banner-backdrop-bg: 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .7) 20%, rgba(0, 0, 0, .6) 30%,rgba(0, 0, 0, .5) 40%, rgba(0, 0, 0, 0) 60%;
+  --banner-slide-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
 .container {
   width: 100%;
 }
@@ -10,45 +15,40 @@
 }
 
 .slide {
-  width: 100%;
-  position: relative;
-}
-
-.poster {
   border-radius: var(--radius-extra-large);
+  position: relative;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  height: 100%;
+  box-shadow: var(--banner-slide-shadow);
+  transition: var(--transition-base);
+  background-position: bottom center;
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
 }
 
-.poster img {
-  object-fit: cover;
+.slide:before {
+  z-index: 1;
   width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: '';
+  background: rgba(0, 0, 0, 1);
+  background: -moz-linear-gradient(var(--banner-backdrop-bg));
+  background: -webkit-linear-gradient(var(--banner-backdrop-bg));
+  background: linear-gradient(var(--banner-backdrop-bg));
+  border-bottom-left-radius: var(--radius-extra-large);
+  border-bottom-right-radius: var(--radius-extra-large);
 }
 
 .info {
-  width: calc(100% - calc(var(--spacer-extra-large) * 2));
-  position: absolute;
-  bottom: calc(var(--spacer-extra-large));
-  left: var(--spacer-extra-large);
+  z-index: 2;
+  margin: var(--spacer-extra-large);
   color: white;
-}
-
-.info:before {
-  width: calc(100% + calc(var(--spacer-extra-large) * 2));
-  height: calc(100% + calc(var(--spacer-extra-large) * 2));
-  position: absolute;
-  left: calc(-1 * var(--spacer-extra-large));
-  bottom: calc(-1 * var(--spacer-extra-large));
-  content: '';
-  background: rgba(0, 0, 0, 1);
-  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, 0) 100%);
-  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, 0) 100%);
-  background: linear-gradient(0deg, rgba(0, 0, 0, .9) 0%, rgba(0, 0, 0, 0) 100%);
-  border-bottom-left-radius: var(--radius-extra-large);
-  border-bottom-right-radius: var(--radius-extra-large);
 }
 
 .title {

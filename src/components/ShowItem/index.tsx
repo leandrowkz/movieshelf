@@ -20,7 +20,9 @@ export function ShowItem({ show, className, ...props }: Props) {
         <ShowPoster show={show} className={styles.poster} />
       </Link>
       <div className={styles.header}>
-        <Text className={styles.title}>{show.title}</Text>
+        <Text className={styles.title} isBold>
+          {show.title}
+        </Text>
         <Rating
           score={show.vote_average}
           className={styles.rating}

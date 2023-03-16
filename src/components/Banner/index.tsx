@@ -36,7 +36,7 @@ export function Banner({ shows, className }: Props) {
     return <></>
   }
 
-  const poster = MovieHelper.getImageUrl(show.backdrop_path, 500)
+  const banner = MovieHelper.getImageUrl(show.backdrop_path, 500)
   const countShows = shows.length
 
   const bullets = []
@@ -62,10 +62,12 @@ export function Banner({ shows, className }: Props) {
           <Heading title="Trending&nbsp;" level={1} />
           <Heading title="now" level={1} isThin />
         </div>
-        <div key={show.id} className={styles.slide}>
-          <div className={styles.poster}>
-            <img src={poster} alt={show.title} />
-          </div>
+        <div
+          key={show.id}
+          className={styles.slide}
+          style={{ backgroundImage: `url(${banner})` }}
+          title={show.title}
+        >
           <div className={styles.info}>
             <Heading title={show.title} level={1} className={styles.title} />
             <div className={styles.controls}>

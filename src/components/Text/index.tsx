@@ -7,6 +7,7 @@ interface Props extends ComponentPropsWithoutRef<'div'>, PropsWithChildren {
   alignment?: 'left' | 'center' | 'right'
   isMuted?: boolean
   isParagraph?: boolean
+  isBold?: boolean
 }
 
 export function Text({
@@ -14,6 +15,7 @@ export function Text({
   alignment = 'left',
   isMuted = false,
   isParagraph = false,
+  isBold = false,
   children,
   className = '',
 }: Props) {
@@ -25,6 +27,7 @@ export function Text({
     [styles.right]: alignment === 'right',
     [styles.text]: true,
     [styles.muted]: isMuted,
+    [styles.bold]: isBold,
     [styles.paragraph]: isParagraph,
   })
 

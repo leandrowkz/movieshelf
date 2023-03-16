@@ -19,3 +19,7 @@
 .large {
   font-size: var(--font-size-large);
 }
+
+.bold {
+  font-weight: bold;
+}

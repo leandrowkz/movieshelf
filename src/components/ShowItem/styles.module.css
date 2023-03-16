@@ -20,7 +20,7 @@
 }
 
 .title {
-  flex: 1;
+  /* flex: 1; */
   flex-basis: content;
   text-overflow: ellipsis;
   line-height: 1.5;
@@ -29,13 +29,17 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   cursor: default;
-  word-break: break-all;
+  font-size: 90%;
+  /* word-break: break-all; */
+  white-space: normal;
+
 }
 
 .rating {
-  font-size: var(--font-size-small);
+  margin-top: 4px !important;
+  margin-left: 3px !important;
+  font-size: 11px !important;
   flex-shrink: 0;
-  line-height: 1.8;
 }
 
 .categories {
