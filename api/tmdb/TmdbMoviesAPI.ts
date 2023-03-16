@@ -1,6 +1,8 @@
+import { MovieCredits } from 'src/types/MovieCredits'
 import { Movie } from '../../src/types/Movie'
 import { TmdbAPIResponseList } from '../../src/types/TmdbAPIResponseList'
 import { TmdbBaseAPI } from './TmdbBaseAPI'
+import { MovieVideo } from 'src/types/MovieVideo'
 
 export class TmdbMoviesAPI extends TmdbBaseAPI {
   /**
@@ -74,5 +76,36 @@ export class TmdbMoviesAPI extends TmdbBaseAPI {
     const path = this.getPath('/movie/popular', filters)
 
     return this.get<TmdbAPIResponseList<Movie>>(path)
+  }
+
+  /**
+   * Fetch the cast and crew for a movie.
+   *
+   * @param movieId
+   * @param filters
+   * @returns Promise<MovieCredits>
+   * @see https://developers.themoviedb.org/3/movies/get-movie-credits
+   */
+  public async credits(movieId: number, filters = {}): Promise<MovieCredits> {
+    const path = this.getPath(`/movie/${movieId}/credits`, filters)
+
+    return this.get<MovieCredits>(path)
+  }
+
+  /**
+   * Get the videos that have been added to a movie.
+   *
+   * @param movieId
+   * @param filters
+   * @returns Promise<MovieCredits>
+   * @see https://developers.themoviedb.org/3/movies/get-movie-videos
+   */
+  public async videos(
+    movieId: number,
+    filters = {}
+  ): Promise<TmdbAPIResponseList<MovieVideo>> {
+    const path = this.getPath(`/movie/${movieId}/videos`, filters)
+
+    return this.get<TmdbAPIResponseList<MovieVideo>>(path)
   }
 }
