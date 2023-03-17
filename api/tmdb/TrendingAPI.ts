@@ -1,9 +1,9 @@
 import { Movie } from '../../src/types/Movie'
 import { TmdbAPIResponseList } from '../../src/types/TmdbAPIResponseList'
 import { TmdbTimeWindow } from '../../src/types/TmdbTimeWindow'
-import { TmdbBaseAPI } from './TmdbBaseAPI'
+import { BaseAPI } from './BaseAPI'
 
-export class TmdbTrendingAPI extends TmdbBaseAPI {
+export class TrendingAPI extends BaseAPI {
   /**
    * Get the daily or weekly trending movies. The daily trending list tracks
    * items over the period of a day while items have a 24 hour half life.

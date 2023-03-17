@@ -1,7 +1,7 @@
 import { TmdbAPIResponseGenre } from '../../src/types/TmdbAPIResponseGenre'
-import { TmdbBaseAPI } from './TmdbBaseAPI'
+import { BaseAPI } from './BaseAPI'
 
-export class TmdbGenresAPI extends TmdbBaseAPI {
+export class GenresAPI extends BaseAPI {
   /**
    * Get the list of official genres for movies.
    *

@@ -1,19 +1,19 @@
-import { TmdbDiscoverAPI } from './TmdbDiscoverAPI'
-import { TmdbGenresAPI } from './TmdbGenresAPI'
-import { TmdbMoviesAPI } from './TmdbMoviesAPI'
-import { TmdbTrendingAPI } from './TmdbTrendingAPI'
+import { DiscoverAPI } from './DiscoverAPI'
+import { GenresAPI } from './GenresAPI'
+import { MoviesAPI } from './MoviesAPI'
+import { TrendingAPI } from './TrendingAPI'
 
 class TmdbAPI {
-  public discover: TmdbDiscoverAPI
-  public genres: TmdbGenresAPI
-  public movies: TmdbMoviesAPI
-  public trending: TmdbTrendingAPI
+  public discover: DiscoverAPI
+  public genres: GenresAPI
+  public movies: MoviesAPI
+  public trending: TrendingAPI
 
   constructor() {
-    this.discover = new TmdbDiscoverAPI()
-    this.genres = new TmdbGenresAPI()
-    this.movies = new TmdbMoviesAPI()
-    this.trending = new TmdbTrendingAPI()
+    this.discover = new DiscoverAPI()
+    this.genres = new GenresAPI()
+    this.movies = new MoviesAPI()
+    this.trending = new TrendingAPI()
   }
 }
 

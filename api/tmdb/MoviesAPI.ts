@@ -1,10 +1,10 @@
 import { MovieCredits } from 'src/types/MovieCredits'
 import { Movie } from '../../src/types/Movie'
 import { TmdbAPIResponseList } from '../../src/types/TmdbAPIResponseList'
-import { TmdbBaseAPI } from './TmdbBaseAPI'
+import { BaseAPI } from './BaseAPI'
 import { MovieVideo } from 'src/types/MovieVideo'
 
-export class TmdbMoviesAPI extends TmdbBaseAPI {
+export class MoviesAPI extends BaseAPI {
   /**
    * Fetch movie details.
    *

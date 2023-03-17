@@ -1,8 +1,8 @@
 import { Movie } from '../../src/types/Movie'
 import { TmdbAPIResponseList } from '../../src/types/TmdbAPIResponseList'
-import { TmdbBaseAPI } from './TmdbBaseAPI'
+import { BaseAPI } from './BaseAPI'
 
-export class TmdbDiscoverAPI extends TmdbBaseAPI {
+export class DiscoverAPI extends BaseAPI {
   /**
    * Discover movies by different types of data like average rating, number of
    * votes, genres and certifications. You can get a valid list of

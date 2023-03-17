@@ -1,6 +1,6 @@
 import { APIFetcher } from '../../src/services/APIFetcher'
 
-export class TmdbBaseAPI extends APIFetcher {
+export class BaseAPI extends APIFetcher {
   private accessToken: string
 
   constructor() {
