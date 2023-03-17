@@ -17,6 +17,10 @@ import { ShowCountries } from 'src/components/ShowCountries'
 import { Container } from 'src/components/Container'
 import { ShowPoster } from 'src/components/ShowPoster'
 import { MovieDetailsContext } from 'src/store/MovieDetailsContext'
+import { LoaderShowCast } from 'src/components/LoaderShowCast'
+import { LoaderShowDetails } from 'src/components/LoaderShowDetails'
+import { LoaderShowActions } from 'src/components/LoaderShowActions'
+import { LoaderShowPoster } from 'src/components/LoaderShowPoster'
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -31,6 +35,7 @@ export function MovieDetails(): JSX.Element {
     fetchCast,
     fetchVideos,
   } = useContext(MovieDetailsContext)
+
   const {
     similar,
     recommended,
@@ -39,6 +44,7 @@ export function MovieDetails(): JSX.Element {
     fetchRecommended,
     fetchSimilar,
   } = useContext(MovieListsContext)
+
   const { movieId } = useParams()
 
   useEffect(() => {
@@ -62,41 +68,59 @@ export function MovieDetails(): JSX.Element {
 
   const { title, overview, runtime, vote_average: rating } = movie
 
+  const componentMovieContent = (
+    <section className={styles.content}>
+      <Heading level={1} title={title} />
+      <div className={styles.metadata}>
+        <Rating score={rating} size="small" className={styles.rating} />
+        <Text isMuted size="small">
+          {runtime} minutes
+        </Text>
+        <BulletSeparator />
+        <ShowGenres show={movie} separator=", " size="small" />
+        <BulletSeparator />
+        <Text isMuted size="small">
+          {year}
+        </Text>
+        <BulletSeparator />
+        <ShowCountries show={movie} size="small" />
+      </div>
+      <Text isParagraph isMuted className={styles.overview}>
+        {overview}
+      </Text>
+    </section>
+  )
+
+  const componentCast = (
+    <PeopleList people={cast} title="Actors" className={styles.cast} />
+  )
+
+  const componentActions = (
+    <div className={styles.buttons}>
+      <Link to={trailer} target="_blank">
+        <Button size="large">▶ Play trailer</Button>
+      </Link>
+    </div>
+  )
+
   return (
     <Page>
       <Container>
         <section className={styles.details}>
           <div className={styles.backdrop}>
-            <Image src={backdrop} alt={title} />
+            {movie.backdrop_path && <Image src={backdrop} alt={title} />}
           </div>
           <div className={styles.movieInfo}>
-            <Heading level={1} title={title} />
-            <div className={styles.metadata}>
-              <Rating score={rating} size="small" className={styles.rating} />
-              <Text isMuted size="small">
-                {runtime} minutes
-              </Text>
-              <BulletSeparator />
-              <ShowGenres show={movie} separator=", " size="small" />
-              <BulletSeparator />
-              <Text isMuted size="small">
-                {year}
-              </Text>
-              <BulletSeparator />
-              <ShowCountries show={movie} size="small" />
-            </div>
-            <Text isParagraph isMuted className={styles.overview}>
-              {overview}
-            </Text>
-            <PeopleList people={cast} title="Actors" className={styles.cast} />
-            <div className={styles.buttons}>
-              <Link to={trailer} target="_blank">
-                <Button size="large">▶ Play trailer</Button>
-              </Link>
-            </div>
+            {isLoadingMovie ? <LoaderShowDetails /> : componentMovieContent}
+            {isLoadingCast ? <LoaderShowCast /> : componentCast}
+            {isLoadingVideos ? <LoaderShowActions /> : componentActions}
           </div>
           <div className={styles.poster}>
-            <ShowPoster show={movie} />
+            {isLoadingMovie ? (
+              <LoaderShowPoster />
+            ) : (
+              <ShowPoster show={movie} />
+            )}
           </div>
         </section>
       </Container>

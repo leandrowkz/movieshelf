@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Banner } from 'src/components/Banner'
 import { Page } from 'src/components/Page'
 import { ShowCarousel } from 'src/components/ShowCarousel'
-import { MovieContext } from 'src/store/MovieListsContext'
+import { MovieListsContext } from 'src/store/MovieListsContext'
 import styles from './styles.module.css'
 
 export function Home() {
@@ -21,7 +21,7 @@ export function Home() {
     fetchFamily,
     fetchTopRatedDocumentaries,
     fetchInTheatres,
-  } = useContext(MovieContext)
+  } = useContext(MovieListsContext)
 
   useEffect(() => {
     fetchMostPopular()

@@ -12,12 +12,13 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
 
 export function ShowPoster({ show, className, width = 'auto' }: Props) {
   const classes = classNames(css.poster, className)
-  const img = MovieHelper.getImageUrl(show.poster_path)
+  const { poster_path: poster } = show
+  const img = MovieHelper.getImageUrl(poster)
   const style = { width }
 
   return (
     <div className={classes} style={style}>
-      <Image src={img} />
+      {poster && <Image src={img} />}
     </div>
   )
 }

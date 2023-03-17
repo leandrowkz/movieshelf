@@ -4,14 +4,17 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
-import { MovieContextProvider } from './store/MovieListsContext'
+import { MovieListsContextProvider } from './store/MovieListsContext'
+import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <MovieContextProvider>
-        <RouterProvider router={router} />
-      </MovieContextProvider>
+      <MovieListsContextProvider>
+        <MovieDetailsContextProvider>
+          <RouterProvider router={router} />
+        </MovieDetailsContextProvider>
+      </MovieListsContextProvider>
     </React.StrictMode>
   )
 }

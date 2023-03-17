@@ -7,11 +7,9 @@ export const config = {
 
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
-  const id = Number(searchParams.get('id'))
+  const id = Number(searchParams.get('movieId'))
 
-  const movie = await api.movies.details(id, {
-    append_to_response: 'videos,casts',
-  })
+  const movie = await api.movies.details(id)
 
   return json(movie)
 }

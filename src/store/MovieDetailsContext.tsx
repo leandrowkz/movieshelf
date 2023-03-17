@@ -24,7 +24,7 @@ type MovieDetailsState = {
 }
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
-  movie: null,
+  movie: {} as Movie,
   cast: [],
   videos: [],
   isLoadingMovie: false,
@@ -39,7 +39,7 @@ export const MovieDetailsContext = createContext<MovieDetailsState>({
 export const MovieDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
-  const [movie, setMovie] = useState<Nullable<Movie>>(null)
+  const [movie, setMovie] = useState<Movie>({} as Movie)
   const [cast, setCast] = useState<Person[]>([])
   const [videos, setVideos] = useState<MovieVideo[]>([])
   const [isLoadingMovie, setIsLoadingMovie] = useState(false)
@@ -50,6 +50,7 @@ export const MovieDetailsContextProvider = ({
   const fetchMovie = useCallback(
     async (movieId: number) => {
       try {
+        setMovie({} as Movie)
         setIsLoadingMovie(true)
 
         const data = await moviesAPI.fetchDetails(movieId)

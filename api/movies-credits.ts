@@ -7,7 +7,7 @@ export const config = {
 
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
-  const id = Number(searchParams.get('id'))
+  const id = Number(searchParams.get('movieId'))
 
   const credits = await api.movies.credits(id)
 
