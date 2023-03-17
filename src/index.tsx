@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
-import { MovieContextProvider } from './store/MovieContext'
+import { MovieContextProvider } from './store/MovieListsContext'
 
 const App = () => {
   return (

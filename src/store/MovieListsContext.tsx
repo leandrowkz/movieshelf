@@ -2,16 +2,13 @@ import React, {
   PropsWithChildren,
   createContext,
   useCallback,
-  useMemo,
   useState,
 } from 'react'
-import { MovieAPI } from 'src/services/MovieAPI'
+import { moviesAPI } from 'src/services/MoviesAPI'
 import { Movie } from 'src/types/Movie'
 import { MovieGenre } from 'src/types/MovieGenre'
-import { Nullable } from 'src/types/Nullable'
 
-type MovieState = {
-  movieDetails: Nullable<Movie>
+type MovieListsState = {
   inTheatres: Movie[]
   trending: Movie[]
   similar: Movie[]
@@ -21,7 +18,6 @@ type MovieState = {
   scifiAndFantasy: Movie[]
   family: Movie[]
   topRatedDocumentaries: Movie[]
-  fetchMovieDetails: (movieId: number) => void
   fetchTrending: () => void
   fetchInTheatres: () => void
   fetchSimilar: (movieId: number) => void
@@ -33,8 +29,7 @@ type MovieState = {
   fetchTopRatedDocumentaries: () => void
 }
 
-export const MovieContext = createContext<MovieState>({
-  movieDetails: null,
+export const MovieListsContext = createContext<MovieListsState>({
   trending: [],
   inTheatres: [],
   similar: [],
@@ -44,7 +39,6 @@ export const MovieContext = createContext<MovieState>({
   scifiAndFantasy: [],
   family: [],
   topRatedDocumentaries: [],
-  fetchMovieDetails: () => null,
   fetchTrending: () => null,
   fetchSimilar: () => null,
   fetchRecommended: () => null,
@@ -56,8 +50,7 @@ export const MovieContext = createContext<MovieState>({
   fetchInTheatres: () => null,
 })
 
-export const MovieContextProvider = ({ children }: PropsWithChildren) => {
-  const [movieDetails, setMovieDetails] = useState<Nullable<Movie>>(null)
+export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [trending, setTrending] = useState<Movie[]>([])
   const [similar, setSimilar] = useState<Movie[]>([])
   const [recommended, setRecommended] = useState<Movie[]>([])
@@ -70,91 +63,79 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
   )
   const [inTheatres, setInTheatres] = useState<Movie[]>([])
 
-  const api = useMemo(() => new MovieAPI(), [])
-
-  const fetchMovieDetails = useCallback(
-    async (movieId: number) => {
-      const data = await api.fetchMovieDetails(movieId)
-
-      setMovieDetails(data)
-    },
-    [api]
-  )
-
   const fetchSimilar = useCallback(
     async (movieId: number) => {
-      const data = await api.fetchMovieListSimilar(movieId)
+      const data = await moviesAPI.fetchListSimilar(movieId)
 
       setSimilar(data)
     },
-    [api]
+    [moviesAPI]
   )
 
   const fetchRecommended = useCallback(
     async (movieId: number) => {
-      const data = await api.fetchMovieListRecommended(movieId)
+      const data = await moviesAPI.fetchListRecommended(movieId)
 
       setRecommended(data)
     },
-    [api]
+    [moviesAPI]
   )
 
   const fetchTrending = useCallback(async () => {
-    const data = await api.fetchMovieListTrending()
+    const data = await moviesAPI.fetchListTrending()
 
     setTrending(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchMostPopular = useCallback(async () => {
-    const data = await api.fetchMovieListMostPopular()
+    const data = await moviesAPI.fetchListMostPopular()
 
     setMostPopular(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchBestComedies = useCallback(async () => {
-    const data = await api.fetchMovieListByGenre([MovieGenre.COMEDY], {
+    const data = await moviesAPI.fetchListByGenre([MovieGenre.COMEDY], {
       'vote_average.gte': 7.5,
     })
 
     setBestComedies(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchScifiAndFantasy = useCallback(async () => {
-    const data = await api.fetchMovieListByGenre([
+    const data = await moviesAPI.fetchListByGenre([
       MovieGenre.SCIENCE_FICTION,
       MovieGenre.FANTASY,
     ])
 
     setScifiAndFantasy(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchFamily = useCallback(async () => {
-    const data = await api.fetchMovieListByGenre([MovieGenre.FAMILY])
+    const data = await moviesAPI.fetchListByGenre([MovieGenre.FAMILY])
 
     setFamily(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchTopRatedDocumentaries = useCallback(async () => {
     const filters = {
       sort_by: 'popularity.desc',
       'vote_average.gte': 9,
     }
-    const data = await api.fetchMovieListByGenre(
+    const data = await moviesAPI.fetchListByGenre(
       [MovieGenre.DOCUMENTARY],
       filters
     )
 
     setTopRatedDocumentaries(data)
-  }, [api])
+  }, [moviesAPI])
 
   const fetchInTheatres = useCallback(async () => {
-    const data = await api.fetchMovieListInTheatres()
+    const data = await moviesAPI.fetchListInTheatres()
 
     setInTheatres(data)
-  }, [api])
+  }, [moviesAPI])
 
   const state = {
-    movieDetails,
     trending,
     similar,
     recommended,
@@ -164,7 +145,6 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     family,
     topRatedDocumentaries,
     inTheatres,
-    fetchMovieDetails,
     fetchTrending,
     fetchSimilar,
     fetchRecommended,
@@ -176,5 +156,9 @@ export const MovieContextProvider = ({ children }: PropsWithChildren) => {
     fetchInTheatres,
   }
 
-  return <MovieContext.Provider value={state}>{children}</MovieContext.Provider>
+  return (
+    <MovieListsContext.Provider value={state}>
+      {children}
+    </MovieListsContext.Provider>
+  )
 }

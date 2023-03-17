@@ -1,15 +1,18 @@
 import { BaseSyntheticEvent } from 'react'
 import { Movie } from 'src/types/Movie'
+import { MovieVideo } from 'src/types/MovieVideo'
 
 export class MovieHelper {
   static getImageUrl(path: string, size = 300) {
     return `https://image.tmdb.org/t/p/w${size}/${path}`
   }
 
-  static getTrailerUrl(show: Movie) {
-    const trailer = show.videos?.results.find(
-      (video) => video.type === 'Trailer'
-    )
+  static getFirstTrailerUrl(videos: MovieVideo[]) {
+    if (!videos) {
+      return ''
+    }
+
+    const trailer = videos.find((video) => video.type === 'Trailer')
 
     if (!trailer) {
       return ''

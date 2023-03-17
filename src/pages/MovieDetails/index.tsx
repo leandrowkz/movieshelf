@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Page } from 'src/components/Page'
-import { MovieContext } from 'src/store/MovieContext'
+import { MovieListsContext } from 'src/store/MovieListsContext'
 import { Heading } from 'src/components/Heading'
 import { Text } from 'src/components/Text'
 import { Rating } from 'src/components/Rating'
@@ -12,40 +12,55 @@ import { Button } from 'src/components/Button'
 import { BulletSeparator } from 'src/components/BulletSeparator'
 import { Image } from 'src/components/Image'
 import { ShowCarousel } from 'src/components/ShowCarousel'
-import { ShowCast } from 'src/components/ShowCast'
+import { PeopleList } from 'src/components/PeopleList'
 import { ShowCountries } from 'src/components/ShowCountries'
 import { Container } from 'src/components/Container'
 import { ShowPoster } from 'src/components/ShowPoster'
+import { MovieDetailsContext } from 'src/store/MovieDetailsContext'
 
 export function MovieDetails(): JSX.Element {
   const {
-    movieDetails,
+    movie,
+    cast,
+    videos,
+    isLoadingCast,
+    isLoadingMovie,
+    isLoadingVideos,
+    hasMovieErrors,
+    fetchMovie,
+    fetchCast,
+    fetchVideos,
+  } = useContext(MovieDetailsContext)
+  const {
     similar,
     recommended,
     trending,
     fetchTrending,
     fetchRecommended,
-    fetchMovieDetails,
     fetchSimilar,
-  } = useContext(MovieContext)
+  } = useContext(MovieListsContext)
   const { movieId } = useParams()
 
   useEffect(() => {
     const id = Number(movieId)
-    fetchMovieDetails(id)
+
+    fetchMovie(id)
+    fetchCast(id)
+    fetchVideos(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
   }, [movieId])
 
-  if (!movieDetails) {
+  if (!movie) {
     return <></>
   }
 
-  const backdrop = MovieHelper.getImageUrl(movieDetails.backdrop_path, 500)
-  const trailer = MovieHelper.getTrailerUrl(movieDetails)
-  const year = MovieHelper.getReleaseYear(movieDetails)
-  const { title, overview, runtime, vote_average: rating } = movieDetails
+  const year = MovieHelper.getReleaseYear(movie)
+  const backdrop = MovieHelper.getImageUrl(movie.backdrop_path, 500)
+  const trailer = MovieHelper.getFirstTrailerUrl(videos)
+
+  const { title, overview, runtime, vote_average: rating } = movie
 
   return (
     <Page>
@@ -62,22 +77,18 @@ export function MovieDetails(): JSX.Element {
                 {runtime} minutes
               </Text>
               <BulletSeparator />
-              <ShowGenres show={movieDetails} separator=", " size="small" />
+              <ShowGenres show={movie} separator=", " size="small" />
               <BulletSeparator />
               <Text isMuted size="small">
                 {year}
               </Text>
               <BulletSeparator />
-              <ShowCountries show={movieDetails} size="small" />
+              <ShowCountries show={movie} size="small" />
             </div>
             <Text isParagraph isMuted className={styles.overview}>
               {overview}
             </Text>
-            <ShowCast
-              show={movieDetails}
-              title="Actors"
-              className={styles.cast}
-            />
+            <PeopleList people={cast} title="Actors" className={styles.cast} />
             <div className={styles.buttons}>
               <Link to={trailer} target="_blank">
                 <Button size="large">▶ Play trailer</Button>
@@ -85,7 +96,7 @@ export function MovieDetails(): JSX.Element {
             </div>
           </div>
           <div className={styles.poster}>
-            <ShowPoster show={movieDetails} />
+            <ShowPoster show={movie} />
           </div>
         </section>
       </Container>
