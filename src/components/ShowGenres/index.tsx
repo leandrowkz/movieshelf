@@ -18,9 +18,13 @@ export function ShowGenres({
   className,
   limit = 2,
 }: Props) {
+  if (!show.genres && !show.genre_ids) {
+    return <></>
+  }
+
   const { genres } = useContext(MovieGenresContext)
 
-  const showGenres = show.genre_ids
+  const showGenres = Array.isArray(show.genre_ids)
     ? show.genre_ids.slice(0, limit).map((showGenreId: Genre) => {
         return (
           genres.find((genre) => genre.id === showGenreId) || {
@@ -30,10 +34,6 @@ export function ShowGenres({
         )
       })
     : show.genres.slice(0, limit)
-
-  if (!showGenres) {
-    return <></>
-  }
 
   return (
     <div className={className}>
