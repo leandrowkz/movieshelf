@@ -2,6 +2,7 @@ import { Movie } from 'src/types/Movie'
 import { APIFetcher } from './APIFetcher'
 import { MovieCredits } from 'src/types/MovieCredits'
 import { MovieVideo } from 'src/types/MovieVideo'
+import { MovieGenre } from 'src/types/MovieGenre'
 
 export class MoviesAPI extends APIFetcher {
   constructor() {
@@ -82,6 +83,12 @@ export class MoviesAPI extends APIFetcher {
     const path = this.getPath('/api/movies-videos', { movieId })
 
     return this.get<MovieVideo[]>(path)
+  }
+
+  public async fetchGenres(): Promise<MovieGenre[]> {
+    const path = this.getPath('/api/movies-genres')
+
+    return this.get<MovieGenre[]>(path)
   }
 }
 

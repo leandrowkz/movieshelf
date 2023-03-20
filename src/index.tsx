@@ -6,15 +6,18 @@ import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { MovieListsContextProvider } from './store/MovieListsContext'
 import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
+import { MovieGenresContextProvider } from './store/MovieGenresContext'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <MovieListsContextProvider>
-        <MovieDetailsContextProvider>
-          <RouterProvider router={router} />
-        </MovieDetailsContextProvider>
-      </MovieListsContextProvider>
+      <MovieGenresContextProvider>
+        <MovieListsContextProvider>
+          <MovieDetailsContextProvider>
+            <RouterProvider router={router} />
+          </MovieDetailsContextProvider>
+        </MovieListsContextProvider>
+      </MovieGenresContextProvider>
     </React.StrictMode>
   )
 }
