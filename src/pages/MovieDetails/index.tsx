@@ -77,7 +77,7 @@ export function MovieDetails(): JSX.Element {
           {runtime} minutes
         </Text>
         <BulletSeparator />
-        <ShowGenres show={movie} separator=", " size="small" />
+        <ShowGenres show={movie} separator=", " size="small" limit={5} />
         <BulletSeparator />
         <Text isMuted size="small">
           {year}

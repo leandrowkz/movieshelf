@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { ShowPoster } from '../ShowPoster'
 import { Text } from '../Text'
+import { ShowGenres } from '../ShowGenres'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: Movie
@@ -30,12 +31,7 @@ export function ShowItem({ show, className, ...props }: Props) {
         />
       </div>
       <div className={styles.categories}>
-        {show.genres?.map((genre, index) => (
-          <span key={index} className={styles.category}>
-            {index > 0 ? <span>&nbsp;/&nbsp;</span> : ''}
-            {genre.name}
-          </span>
-        ))}
+        <ShowGenres show={show} size="small" />
       </div>
     </div>
   )

@@ -1,11 +1,12 @@
 import { Company } from './Company'
-import { Genre } from './Genre'
+import { MovieGenre } from './MovieGenre'
 import { MovieCountry } from './MovieCountry'
 import { MovieLanguage } from './MovieLanguage'
 import { Language } from './Language'
 import { MovieStatus } from './MovieStatus'
 import { MovieVideo } from './MovieVideo'
 import { Person } from './Person'
+import { Genre } from './Genre'
 
 export type Movie = {
   id: number
@@ -14,7 +15,8 @@ export type Movie = {
   backdrop_path: string
   belongs_to_collection: boolean | null
   budget: number
-  genres: Genre[]
+  genres: MovieGenre[]
+  genre_ids?: Genre[]
   homepage: string
   original_language: Language
   original_title: string

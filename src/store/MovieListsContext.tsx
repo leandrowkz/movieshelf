@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import { moviesAPI } from 'src/services/MoviesAPI'
 import { Movie } from 'src/types/Movie'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { Genre } from 'src/types/Genre'
 
 type MovieListsState = {
   inTheatres: Movie[]
@@ -94,7 +94,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   }, [moviesAPI])
 
   const fetchBestComedies = useCallback(async () => {
-    const data = await moviesAPI.fetchListByGenre([MovieGenre.COMEDY], {
+    const data = await moviesAPI.fetchListByGenre([Genre.COMEDY], {
       'vote_average.gte': 7.5,
     })
 
@@ -103,15 +103,15 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
 
   const fetchScifiAndFantasy = useCallback(async () => {
     const data = await moviesAPI.fetchListByGenre([
-      MovieGenre.SCIENCE_FICTION,
-      MovieGenre.FANTASY,
+      Genre.SCIENCE_FICTION,
+      Genre.FANTASY,
     ])
 
     setScifiAndFantasy(data)
   }, [moviesAPI])
 
   const fetchFamily = useCallback(async () => {
-    const data = await moviesAPI.fetchListByGenre([MovieGenre.FAMILY])
+    const data = await moviesAPI.fetchListByGenre([Genre.FAMILY])
 
     setFamily(data)
   }, [moviesAPI])
@@ -121,10 +121,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
       sort_by: 'popularity.desc',
       'vote_average.gte': 9,
     }
-    const data = await moviesAPI.fetchListByGenre(
-      [MovieGenre.DOCUMENTARY],
-      filters
-    )
+    const data = await moviesAPI.fetchListByGenre([Genre.DOCUMENTARY], filters)
 
     setTopRatedDocumentaries(data)
   }, [moviesAPI])
