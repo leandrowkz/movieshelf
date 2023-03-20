@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
@@ -6,9 +6,19 @@ import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { MovieListsContextProvider } from './store/MovieListsContext'
 import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
-import { MovieGenresContextProvider } from './store/MovieGenresContext'
+import {
+  MovieGenresContext,
+  MovieGenresContextProvider,
+} from './store/MovieGenresContext'
 
 const App = () => {
+  const { fetchGenres, genres } = useContext(MovieGenresContext)
+
+  useEffect(() => {
+    fetchGenres()
+    console.log(genres)
+  }, [])
+
   return (
     <React.StrictMode>
       <MovieGenresContextProvider>

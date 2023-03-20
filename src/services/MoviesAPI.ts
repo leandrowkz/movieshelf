@@ -86,7 +86,7 @@ export class MoviesAPI extends APIFetcher {
   }
 
   public async fetchGenres(): Promise<MovieGenre[]> {
-    const path = this.getPath('/api/movies-genres')
+    const path = this.getPath('/api/genres-movie')
 
     return this.get<MovieGenre[]>(path)
   }
