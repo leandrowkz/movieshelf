@@ -21,6 +21,7 @@ import { LoaderShowCast } from 'src/components/LoaderShowCast'
 import { LoaderShowDetails } from 'src/components/LoaderShowDetails'
 import { LoaderShowActions } from 'src/components/LoaderShowActions'
 import { LoaderShowPoster } from 'src/components/LoaderShowPoster'
+import { Motion } from 'src/components/Motion'
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -69,7 +70,7 @@ export function MovieDetails(): JSX.Element {
   const { title, overview, runtime, vote_average: rating } = movie
 
   const componentMovieContent = (
-    <section className={styles.content}>
+    <Motion tag="section" className={styles.content}>
       <Heading level={1} title={title} />
       <div className={styles.metadata}>
         <Rating score={rating} size="small" className={styles.rating} />
@@ -88,19 +89,21 @@ export function MovieDetails(): JSX.Element {
       <Text isParagraph isMuted className={styles.overview}>
         {overview}
       </Text>
-    </section>
+    </Motion>
   )
 
   const componentCast = (
-    <PeopleList people={cast} title="Actors" className={styles.cast} />
+    <Motion>
+      <PeopleList people={cast} title="Actors" className={styles.cast} />
+    </Motion>
   )
 
   const componentActions = (
-    <div className={styles.buttons}>
+    <Motion className={styles.buttons}>
       <Link to={trailer} target="_blank">
         <Button size="large">▶ Play trailer</Button>
       </Link>
-    </div>
+    </Motion>
   )
 
   return (
@@ -119,7 +122,9 @@ export function MovieDetails(): JSX.Element {
             {isLoadingMovie ? (
               <LoaderShowPoster />
             ) : (
-              <ShowPoster show={movie} />
+              <Motion>
+                <ShowPoster show={movie} />
+              </Motion>
             )}
           </div>
         </section>

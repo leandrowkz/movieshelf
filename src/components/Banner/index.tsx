@@ -7,6 +7,7 @@ import { Button } from '../Button'
 import { Link } from 'react-router-dom'
 import { MovieHelper } from 'src/services/MovieHelper'
 import { Container } from '../Container'
+import { Motion } from '../Motion'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[]
@@ -62,16 +63,16 @@ export function Banner({ shows, className }: Props) {
           <Heading title="Trending&nbsp;" level={1} />
           <Heading title="now" level={1} isThin />
         </div>
-        <div
-          key={show.id}
-          className={styles.slide}
-          style={{ backgroundImage: `url(${banner})` }}
-          title={show.title}
-        >
+        <div key={show.id} className={styles.slide} title={show.title}>
+          <Motion className={styles.backdropImage}>
+            <div style={{ backgroundImage: `url(${banner})` }} />
+          </Motion>
           <div className={styles.info}>
-            <Heading title={show.title} level={1} className={styles.title} />
+            <Motion>
+              <Heading title={show.title} level={1} className={styles.title} />
+            </Motion>
             <div className={styles.controls}>
-              <div className={styles.overview}>{show.overview}</div>
+              <Motion className={styles.overview}>{show.overview}</Motion>
               <Link to={`/movies/${show.id}`}>
                 <Button size="large">See more &nbsp;🎬</Button>
               </Link>
