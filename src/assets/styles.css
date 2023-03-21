@@ -59,7 +59,7 @@
 
 @media screen and (max-width: 768px) {
   :root {
-    --container-spacer: var(--spacer-large);
+    --container-spacer: var(--spacer-base);
   }
 }
 

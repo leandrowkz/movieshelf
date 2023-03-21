@@ -3,7 +3,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: calc(var(--spacer-small) / 2);
-  line-height: 0;
+  line-height: 1;
 }
 
 .flag {

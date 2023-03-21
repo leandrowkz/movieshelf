@@ -73,7 +73,7 @@ export function MovieDetails(): JSX.Element {
 
   const componentMovieContent = (
     <Motion tag="section" className={styles.content}>
-      <Heading level={1} title={title} />
+      <Heading level={1} title={title} className={styles.title} />
       <div className={styles.metadata}>
         <Rating score={rating} size="small" className={styles.rating} />
         <Text isMuted size="small">

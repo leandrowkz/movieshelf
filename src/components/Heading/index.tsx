@@ -14,8 +14,7 @@ export function Heading({
   isThin = false,
   className,
 }: Props) {
-  const classes = classNames({
-    [`${className}`]: true,
+  const classes = classNames(className, {
     [`${styles[`heading${level}`]}`]: true,
     [styles.headingThin]: isThin,
   })

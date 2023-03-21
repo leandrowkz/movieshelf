@@ -39,13 +39,14 @@
 }
 
 .movieInfo {
-  margin-bottom: var(--container-spacer);
+  margin-bottom: var(--spacer-extra-large);
   color: white;
 }
 
 .metadata {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .rating {
@@ -77,8 +78,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .details, .backdrop {
-    min-height: 900px;
+  .title {
+    font-size: var(--font-size-large) !important;
   }
 
   .poster {
@@ -87,5 +88,9 @@
 
   .overview {
     margin-right: 0;
+  }
+
+  .rating {
+    margin-right: var(--spacer-base);
   }
 }
