@@ -11,8 +11,8 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   shows: Movie[]
   title: string
   showViewAll?: boolean
-  itemsPerPage?: number
   isLoading?: boolean
+  size?: 'large' | 'medium' | 'small'
 }
 
 export function ShowCarousel({
@@ -20,14 +20,17 @@ export function ShowCarousel({
   title,
   className,
   isLoading = false,
-  itemsPerPage = Number(process.env.REACT_APP_SHOW_CAROUSEL_ITEMS_PER_PAGE) ||
-    5,
+  size = 'medium',
 }: Props) {
   if (!shows.length && !isLoading) {
     return <></>
   }
 
   const classes = classNames(styles.carousel, className)
+  const showClass = classNames(styles.show, {
+    [styles.large]: size === 'large',
+    [styles.small]: size === 'small',
+  })
 
   const header = (
     <div className={styles.header}>
@@ -45,24 +48,24 @@ export function ShowCarousel({
       </div>
     )
   }
-
+  const itemsPerPage = 1
   const pagesCount = Math.floor(shows.length / itemsPerPage)
   const pagesList: Movie[][] = []
 
-  const vwAdjustMap = {
-    default: 3,
-    1: 15,
-    2: 10,
-    3: 6,
-    4: 5,
-    5: 5,
-    6: 1,
-    8: 0.01,
-    10: 3,
-  }
-  const vwAdjust =
-    vwAdjustMap[itemsPerPage as keyof typeof vwAdjustMap] || vwAdjustMap.default
-  const itemWidth = 100 / itemsPerPage - vwAdjust
+  // const vwAdjustMap = {
+  //   default: 3,
+  //   1: 15,
+  //   2: 10,
+  //   3: 6,
+  //   4: 5,
+  //   5: 5,
+  //   6: 1,
+  //   8: 0.01,
+  //   10: 3,
+  // }
+  // const vwAdjust =
+  //   vwAdjustMap[itemsPerPage as keyof typeof vwAdjustMap] || vwAdjustMap.default
+  // const itemWidth = 100 / itemsPerPage - vwAdjust
 
   for (let page = 1; page <= pagesCount; page++) {
     pagesList.push(shows.slice((page - 1) * itemsPerPage, page * itemsPerPage))
@@ -76,8 +79,8 @@ export function ShowCarousel({
             <ShowItem
               key={show.id}
               show={show}
-              className={styles.show}
-              style={{ width: `${itemWidth}vw` }}
+              className={showClass}
+              // style={{ width: `${itemWidth}vw` }}
             />
           ))}
         </Motion>

@@ -45,8 +45,8 @@ export function Home() {
       <ShowCarousel
         title="In theaters"
         shows={inTheatres}
-        itemsPerPage={3}
         isLoading={isLoadingInTheatres}
+        size="large"
       />
       <ShowCarousel
         title="Most popular"

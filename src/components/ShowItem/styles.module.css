@@ -30,9 +30,7 @@
   overflow: hidden;
   cursor: default;
   font-size: 90%;
-  /* word-break: break-all; */
   white-space: normal;
-
 }
 
 .rating {

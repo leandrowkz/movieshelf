@@ -1,5 +1,5 @@
 .poster {
-  border-radius: var(--radius-large);
+  border-radius: 10%/6%;
   overflow: hidden;
   object-fit: contain;
   aspect-ratio: 2 / 3;
@@ -9,7 +9,6 @@
 .poster:before {
   z-index: -1;
   position: absolute;
-  /* background-size: var(--avatar-size); */
   top: 0;
   left: 0;
   height: 100%;

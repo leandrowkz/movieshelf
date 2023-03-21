@@ -26,7 +26,7 @@
 }
 
 .page:first-child {
-  padding-left: calc(var(--container-spacer) - 6px);
+  padding-left: calc(var(--container-spacer) - calc(var(--spacer-base) * 1.5));
 }
 
 .page {
@@ -34,8 +34,6 @@
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
-  padding-right: var(--spacer-large);
-  gap: var(--spacer-large);
   display: inline-flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -43,4 +41,23 @@
 
 .show {
   margin-bottom: var(--spacer-large);
+  min-width: 230px;
+  padding: 0 var(--spacer-base);
+  flex: 1;
+}
+
+.small {
+  min-width: 200px;
+}
+
+.large {
+  min-width: 400px;
+  flex-shrink: 1 !important;
+  flex-grow: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .large {
+    min-width: 300px;
+  }
 }
