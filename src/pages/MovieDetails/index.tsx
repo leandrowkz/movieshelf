@@ -31,7 +31,6 @@ export function MovieDetails(): JSX.Element {
     isLoadingCast,
     isLoadingMovie,
     isLoadingVideos,
-    hasMovieErrors,
     fetchMovie,
     fetchCast,
     fetchVideos,
@@ -41,6 +40,9 @@ export function MovieDetails(): JSX.Element {
     similar,
     recommended,
     trending,
+    isLoadingTrending,
+    isLoadingRecommended,
+    isLoadingSimilar,
     fetchTrending,
     fetchRecommended,
     fetchSimilar,
@@ -110,9 +112,11 @@ export function MovieDetails(): JSX.Element {
     <Page>
       <Container>
         <section className={styles.details}>
-          <div className={styles.backdrop}>
-            {movie.backdrop_path && <Image src={backdrop} alt={title} />}
-          </div>
+          <div
+            className={styles.backdrop}
+            style={{ backgroundImage: `url(${backdrop})` }}
+            title={title}
+          />
           <div className={styles.movieInfo}>
             {isLoadingMovie ? <LoaderShowDetails /> : componentMovieContent}
             {isLoadingCast ? <LoaderShowCast /> : componentCast}
@@ -129,12 +133,21 @@ export function MovieDetails(): JSX.Element {
           </div>
         </section>
       </Container>
-      <ShowCarousel shows={similar} title="More like this" />
+      <ShowCarousel
+        shows={similar}
+        title="More like this"
+        isLoading={isLoadingSimilar}
+      />
       <ShowCarousel
         shows={recommended}
         title="Recommended based on this title"
+        isLoading={isLoadingRecommended}
       />
-      <ShowCarousel shows={trending} title="Popular movies" />
+      <ShowCarousel
+        shows={trending}
+        title="Popular movies"
+        isLoading={isLoadingTrending}
+      />
     </Page>
   )
 }

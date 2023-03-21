@@ -14,6 +14,12 @@ export function Home() {
     inTheatres,
     scifiAndFantasy,
     topRatedDocumentaries,
+    isLoadingBestComedies,
+    isLoadingFamily,
+    isLoadingInTheatres,
+    isLoadingMostPopular,
+    isLoadingScifiAndFantasy,
+    isLoadingTopRatedDocumentaries,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
@@ -36,14 +42,32 @@ export function Home() {
   return (
     <Page className={styles.home}>
       <Banner shows={trending} className={styles.banner} />
-      <ShowCarousel title="In theaters" shows={inTheatres} itemsPerPage={3} />
-      <ShowCarousel title="Most popular" shows={mostPopular} />
-      <ShowCarousel title="Best comedies" shows={bestComedies} />
-      <ShowCarousel title="Sci-Fi & fantasy" shows={scifiAndFantasy} />
-      <ShowCarousel title="Family" shows={family} />
+      <ShowCarousel
+        title="In theaters"
+        shows={inTheatres}
+        itemsPerPage={3}
+        isLoading={isLoadingInTheatres}
+      />
+      <ShowCarousel
+        title="Most popular"
+        shows={mostPopular}
+        isLoading={isLoadingMostPopular}
+      />
+      <ShowCarousel
+        title="Best comedies"
+        shows={bestComedies}
+        isLoading={isLoadingBestComedies}
+      />
+      <ShowCarousel
+        title="Sci-Fi & fantasy"
+        shows={scifiAndFantasy}
+        isLoading={isLoadingScifiAndFantasy}
+      />
+      <ShowCarousel title="Family" shows={family} isLoading={isLoadingFamily} />
       <ShowCarousel
         title="Top rated documentaries"
         shows={topRatedDocumentaries}
+        isLoading={isLoadingTopRatedDocumentaries}
       />
     </Page>
   )

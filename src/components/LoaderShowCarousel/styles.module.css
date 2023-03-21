@@ -1,3 +1,6 @@
-.header {
+.loader {
+  width: calc(100% - var(--container-spacer));
   margin-bottom: var(--spacer-large);
+  padding-right: 0;
+  overflow: hidden;
 }

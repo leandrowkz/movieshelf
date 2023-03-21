@@ -4,30 +4,47 @@ import { Movie } from 'src/types/Movie'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
+import { LoaderShowCarousel } from '../LoaderShowCarousel'
+import { Motion } from '../Motion'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   shows: Movie[]
   title: string
   showViewAll?: boolean
   itemsPerPage?: number
+  isLoading?: boolean
 }
 
 export function ShowCarousel({
   shows,
   title,
   className,
+  isLoading = false,
   itemsPerPage = Number(process.env.REACT_APP_SHOW_CAROUSEL_ITEMS_PER_PAGE) ||
     5,
 }: Props) {
-  if (!shows.length) {
+  if (!shows.length && !isLoading) {
     return <></>
   }
+
+  const classes = classNames(styles.carousel, className)
 
   const header = (
     <div className={styles.header}>
       <Heading title={title} level={2}></Heading>
     </div>
   )
+
+  if (isLoading) {
+    return (
+      <div className={classes}>
+        {header}
+        <Motion>
+          <LoaderShowCarousel />
+        </Motion>
+      </div>
+    )
+  }
 
   const pagesCount = Math.floor(shows.length / itemsPerPage)
   const pagesList: Movie[][] = []
@@ -54,7 +71,7 @@ export function ShowCarousel({
   const pages = (
     <div className={styles.pages}>
       {pagesList.map((page, key) => (
-        <div className={styles.page} key={key}>
+        <Motion className={styles.page} key={key}>
           {page.map((show) => (
             <ShowItem
               key={show.id}
@@ -63,12 +80,10 @@ export function ShowCarousel({
               style={{ width: `${itemWidth}vw` }}
             />
           ))}
-        </div>
+        </Motion>
       ))}
     </div>
   )
-
-  const classes = classNames(styles.carousel, className)
 
   return (
     <div className={classes}>

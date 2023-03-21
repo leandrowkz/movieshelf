@@ -18,6 +18,8 @@
   height: 800px;
   overflow: hidden;
   background-color: black;
+  background-size: cover;
+  background-position: top center;
 }
 
 .backdrop:before {
