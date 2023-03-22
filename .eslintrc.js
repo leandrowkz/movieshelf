@@ -28,5 +28,13 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'spaced-comment': 'error',
     'no-duplicate-imports': 'error',
+    '@typescript-eslint/no-empty-interface': 'error',
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'enumMember',
+        format: ['UPPER_CASE'],
+      },
+    ],
   },
 }
