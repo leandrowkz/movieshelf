@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { Loader } from '../Loader/loader'
+import { Loader } from '../Loader'
 
 export function BannerLoader() {
   return (

@@ -1,5 +1,5 @@
 .details {
-  width: 100%;;
+  width: 100%;
   margin-top: calc(var(--header-height) * -1);
   margin-bottom: var(--spacer-extra-large);
   min-height: 800px;
@@ -39,6 +39,7 @@
 }
 
 .movieInfo {
+  width: 100%;
   margin-bottom: var(--spacer-extra-large);
   color: white;
 }
@@ -55,6 +56,10 @@
 
 .buttons {
   margin-top: var(--spacer-extra-large);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacer-large);
 }
 
 .overview {
@@ -69,6 +74,9 @@
 .cast {
   flex: 1;
   justify-content: flex-start !important;
+  display: flex;
+  margin-top: var(--spacer-large);
+  gap: var(--spacer-base);
 }
 
 .poster {
@@ -93,4 +101,102 @@
   .rating {
     margin-right: var(--spacer-base);
   }
+}
+
+.loaderTitleContainer {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--spacer-base);
+  margin-bottom: var(--spacer-large);
+}
+
+.loaderTitle {
+  flex: 1;
+  height: var(--font-size-large);
+  border-radius: var(--font-size-large);
+}
+
+.loaderTitle:first-child {
+  flex: 0 1 50%;
+}
+
+.loaderTitle:last-child {
+  flex: 0 1 30%;
+}
+
+.loaderRating {
+  flex: 0 1 5%;
+  margin-right: var(--spacer-base);
+  height: var(--font-size-base);
+  border-radius: var(--font-size-large);
+}
+
+.loaderRating, .loaderRuntime, .loaderGenres, .loaderYear {
+  margin-right: var(--spacer-base);
+  height: var(--font-size-small);
+  border-radius: var(--font-size-large);
+}
+
+.loaderRating {
+  flex: 0 1 5%;
+}
+
+.loaderRuntime {
+  flex: 0 1 15%;
+}
+
+.loaderGenres {
+  flex: 0 1 40%;
+}
+
+.loaderYear {
+  flex: 0 1 10%;
+}
+
+.loaderOverview {
+  height: var(--font-size-base);
+  border-radius: var(--font-size-large);
+  margin-bottom: var(--spacer-base);
+}
+
+.loaderOverview:first-child {
+  width: 90%;
+}
+
+.loaderOverview:last-child {
+  width: 98%;
+}
+
+.loaderCastPerson {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacer-base);
+}
+
+.loaderCastAvatar {
+  height: var(--avatar-size);
+  width: var(--avatar-size);
+  border-radius: 100%;
+}
+
+.loaderCastName {
+  height: var(--font-size-small);
+  width: calc(var(--avatar-size) * .7);
+  border-radius: var(--font-size-small);
+}
+
+.loaderAction {
+  width: 200px;
+  height: var(--button-large-height);
+  border-radius: var(--radius-base);
+}
+
+.loaderPoster {
+  width: 250px;
+  height: 350px;
+  margin-bottom: var(--spacer-extra-large);
+  margin-left: var(--spacer-large);
+  border-radius: var(--radius-base);
 }

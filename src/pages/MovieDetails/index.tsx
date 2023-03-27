@@ -10,18 +10,43 @@ import styles from './styles.module.css'
 import { ShowGenres } from 'src/components/ShowGenres'
 import { Button } from 'src/components/Button'
 import { BulletSeparator } from 'src/components/BulletSeparator'
-import { Image } from 'src/components/Image'
 import { ShowCarousel } from 'src/components/ShowCarousel'
 import { PeopleList } from 'src/components/PeopleList'
 import { ShowCountries } from 'src/components/ShowCountries'
 import { Container } from 'src/components/Container'
 import { ShowPoster } from 'src/components/ShowPoster'
 import { MovieDetailsContext } from 'src/store/MovieDetailsContext'
-import { LoaderShowCast } from 'src/components/LoaderShowCast'
-import { LoaderShowDetails } from 'src/components/LoaderShowDetails'
-import { LoaderShowActions } from 'src/components/LoaderShowActions'
-import { LoaderShowPoster } from 'src/components/LoaderShowPoster'
 import { Motion } from 'src/components/Motion'
+import { Person } from 'src/types/Person'
+import {
+  LoaderActions,
+  LoaderCast,
+  LoaderDetails,
+  LoaderPoster,
+} from './loader'
+import { Movie } from 'src/types/Movie'
+import { MovieVideo } from 'src/types/MovieVideo'
+
+type DetailsProps = {
+  movie: Movie
+  isLoading?: boolean
+}
+
+type CastProps = {
+  cast: Person[]
+  isLoading?: boolean
+}
+
+type ActionProps = {
+  movie?: Movie
+  videos: MovieVideo[]
+  isLoading?: boolean
+}
+
+type PosterProps = {
+  movie: Movie
+  isLoading?: boolean
+}
 
 export function MovieDetails(): JSX.Element {
   const {
@@ -65,13 +90,55 @@ export function MovieDetails(): JSX.Element {
     return <></>
   }
 
-  const year = MovieHelper.getReleaseYear(movie)
   const backdrop = MovieHelper.getImageUrl(movie.backdrop_path, 500)
-  const trailer = MovieHelper.getFirstTrailerUrl(videos)
+
+  return (
+    <Page>
+      <Container>
+        <section className={styles.details}>
+          <div
+            className={styles.backdrop}
+            style={{ backgroundImage: `url(${backdrop})` }}
+            title={movie.title}
+          />
+          <div className={styles.movieInfo}>
+            <Details movie={movie} isLoading={isLoadingMovie} />
+            <Cast cast={cast} isLoading={isLoadingCast} />
+            <Actions videos={videos} isLoading={isLoadingVideos} />
+          </div>
+          <div className={styles.poster}>
+            <Poster movie={movie} isLoading={isLoadingMovie} />
+          </div>
+        </section>
+      </Container>
+      <ShowCarousel
+        shows={similar}
+        title="More like this"
+        isLoading={isLoadingSimilar}
+      />
+      <ShowCarousel
+        shows={recommended}
+        title="Recommended based on this title"
+        isLoading={isLoadingRecommended}
+      />
+      <ShowCarousel
+        shows={trending}
+        title="Popular movies"
+        isLoading={isLoadingTrending}
+      />
+    </Page>
+  )
+}
+
+function Details({ movie, isLoading = false }: DetailsProps): JSX.Element {
+  if (isLoading) {
+    return <LoaderDetails />
+  }
 
   const { title, overview, runtime, vote_average: rating } = movie
+  const year = MovieHelper.getReleaseYear(movie)
 
-  const componentMovieContent = (
+  return (
     <Motion tag="section" className={styles.content}>
       <Heading level={1} title={title} className={styles.title} />
       <div className={styles.metadata}>
@@ -93,61 +160,39 @@ export function MovieDetails(): JSX.Element {
       </Text>
     </Motion>
   )
+}
 
-  const componentCast = (
-    <Motion>
-      <PeopleList people={cast} title="Actors" className={styles.cast} />
-    </Motion>
-  )
+function Cast({ cast, isLoading = false }: CastProps): JSX.Element {
+  if (isLoading) {
+    return <LoaderCast />
+  }
 
-  const componentActions = (
+  return <PeopleList people={cast} title="Actors" className={styles.cast} />
+}
+
+function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
+  if (isLoading) {
+    return <LoaderActions />
+  }
+
+  const trailer = MovieHelper.getFirstTrailerUrl(videos)
+
+  return (
     <Motion className={styles.buttons}>
       <Link to={trailer} target="_blank">
         <Button size="large">▶ Play trailer</Button>
       </Link>
     </Motion>
   )
+}
 
+function Poster({ movie, isLoading = false }: PosterProps): JSX.Element {
+  if (isLoading) {
+    return <LoaderPoster />
+  }
   return (
-    <Page>
-      <Container>
-        <section className={styles.details}>
-          <div
-            className={styles.backdrop}
-            style={{ backgroundImage: `url(${backdrop})` }}
-            title={title}
-          />
-          <div className={styles.movieInfo}>
-            {isLoadingMovie ? <LoaderShowDetails /> : componentMovieContent}
-            {isLoadingCast ? <LoaderShowCast /> : componentCast}
-            {isLoadingVideos ? <LoaderShowActions /> : componentActions}
-          </div>
-          <div className={styles.poster}>
-            {isLoadingMovie ? (
-              <LoaderShowPoster />
-            ) : (
-              <Motion>
-                <ShowPoster show={movie} />
-              </Motion>
-            )}
-          </div>
-        </section>
-      </Container>
-      <ShowCarousel
-        shows={similar}
-        title="More like this"
-        isLoading={isLoadingSimilar}
-      />
-      <ShowCarousel
-        shows={recommended}
-        title="Recommended based on this title"
-        isLoading={isLoadingRecommended}
-      />
-      <ShowCarousel
-        shows={trending}
-        title="Popular movies"
-        isLoading={isLoadingTrending}
-      />
-    </Page>
+    <Motion>
+      <ShowPoster show={movie} />
+    </Motion>
   )
 }

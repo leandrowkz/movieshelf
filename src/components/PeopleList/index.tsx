@@ -4,6 +4,7 @@ import { MovieHelper } from 'src/services/MovieHelper'
 import { Person } from 'src/types/Person'
 import { Text } from '../Text'
 import css from './styles.module.css'
+import { Motion } from '../Motion'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   people: Person[]
@@ -22,7 +23,7 @@ export function PeopleList({ people, className, width = 'auto' }: Props) {
   }
 
   return (
-    <div className={classes} style={style}>
+    <Motion tag="div" className={classes} style={style}>
       {cast.map((actor, index) => (
         <div key={index} className={css.person} title={actor.name}>
           <div className={css.avatar} style={getStyle(actor)} />
@@ -31,6 +32,6 @@ export function PeopleList({ people, className, width = 'auto' }: Props) {
           </Text>
         </div>
       ))}
-    </div>
+    </Motion>
   )
 }
