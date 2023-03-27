@@ -20,6 +20,7 @@ export function Home() {
     isLoadingMostPopular,
     isLoadingScifiAndFantasy,
     isLoadingTopRatedDocumentaries,
+    isLoadingTrending,
     fetchTrending,
     fetchMostPopular,
     fetchBestComedies,
@@ -41,7 +42,11 @@ export function Home() {
 
   return (
     <Page className={styles.home}>
-      <Banner shows={trending} className={styles.banner} />
+      <Banner
+        shows={trending}
+        className={styles.banner}
+        isLoading={isLoadingTrending}
+      />
       <ShowCarousel
         title="In theaters"
         shows={inTheatres}

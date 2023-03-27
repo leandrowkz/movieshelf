@@ -1,4 +1,6 @@
 :root {
+  --banner-bullet-size: 14px;
+  --banner-radius: var(--radius-extra-large);
   --banner-backdrop-bg: 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .7) 20%, rgba(0, 0, 0, .6) 30%,rgba(0, 0, 0, .5) 40%, rgba(0, 0, 0, 0) 60%;
   --banner-slide-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
@@ -15,7 +17,7 @@
 }
 
 .slide {
-  border-radius: var(--radius-extra-large);
+  border-radius: var(--banner-radius);
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -90,16 +92,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacer-small);
 }
 
 .bullet {
   opacity: .5;
-  height: 14px;
-  width: 14px;
+  height: var(--banner-bullet-size);
+  width: var(--banner-bullet-size);
   background-color: var(--color-primary);
-  border-radius: 14px;
+  border-radius: var(--banner-bullet-size);
   cursor: pointer;
-  margin-right: var(--spacer-small);
   -webkit-transition: var(--transition-base);
   -moz-transition: var(--transition-base);
   -o-transition: var(--transition-base);
@@ -114,4 +116,15 @@
   opacity: 1;
   width: 40px !important;
   border-radius: 10px;
+}
+
+.loaderBanner {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--banner-radius);
+}
+
+.loaderBullet {
+  height: var(--banner-bullet-size);
+  width: var(--banner-bullet-size);
+  border-radius: var(--banner-bullet-size);
 }
