@@ -4,8 +4,8 @@ import { Movie } from 'src/types/Movie'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
-import { LoaderShowCarousel } from '../LoaderShowCarousel'
 import { Motion } from '../Motion'
+import { ShowCarouselLoader } from './loader'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   shows: Movie[]
@@ -43,7 +43,7 @@ export function ShowCarousel({
       <div className={classes}>
         {header}
         <Motion>
-          <LoaderShowCarousel />
+          <ShowCarouselLoader />
         </Motion>
       </div>
     )

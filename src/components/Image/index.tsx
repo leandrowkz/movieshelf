@@ -1,5 +1,4 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-import { MovieHelper } from 'src/services/MovieHelper'
 
 type Props = ComponentPropsWithoutRef<'img'>
 

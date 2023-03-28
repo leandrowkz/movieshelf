@@ -1,25 +1,23 @@
 import React from 'react'
 import styles from './styles.module.css'
-import { Loader } from '../Loader'
+import { Circle, Loader, Rectangle } from '../Loader'
+import { Motion } from '../Motion'
 
 export function BannerLoader() {
   return (
-    <div>
-      <Loader className={styles.loaderBanner} />
-      <div className={styles.bullets}>
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-        <Loader className={styles.loaderBullet} />
-      </div>
-    </div>
+    <Motion>
+      <Loader>
+        <Rectangle className={styles.loaderBannerPage} />
+      </Loader>
+      <Loader className={styles.bullets}>
+        <Circle width={20} />
+        <Circle width={20} />
+        <Circle width={20} />
+        <Circle width={20} />
+        <Circle width={20} />
+        <Circle width={20} />
+        <Circle width={20} />
+      </Loader>
+    </Motion>
   )
 }

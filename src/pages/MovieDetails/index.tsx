@@ -190,6 +190,7 @@ function Poster({ movie, isLoading = false }: PosterProps): JSX.Element {
   if (isLoading) {
     return <LoaderPoster />
   }
+
   return (
     <Motion>
       <ShowPoster show={movie} />

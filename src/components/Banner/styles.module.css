@@ -118,13 +118,8 @@
   border-radius: 10px;
 }
 
-.loaderBanner {
+.loaderBannerPage {
   aspect-ratio: 16 / 9;
-  border-radius: var(--banner-radius);
-}
-
-.loaderBullet {
-  height: var(--banner-bullet-size);
-  width: var(--banner-bullet-size);
-  border-radius: var(--banner-bullet-size);
+  height: 100%;
+  border-radius: var(--radius-extra-large);
 }
