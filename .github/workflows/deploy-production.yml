@@ -8,8 +8,11 @@ on:
       - main
 jobs:
   Production-Deploy:
-    environment: Production
+    environment: production
     runs-on: ubuntu-latest
+    env:
+      TMDB_API_URL: ${{ secrets.REACT_APP_TMDB_API_URL }}
+      TMDB_API_ACCESS_TOKEN: ${{ secrets.REACT_APP_TMDB_API_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
@@ -22,8 +25,8 @@ jobs:
       - name: Create .env file and update Vercel .env
         run: |
           touch .env
-          echo REACT_APP_TMDB_API_URL="${{ secrets.REACT_APP_TMDB_API_URL }}" >> .env
-          echo REACT_APP_TMDB_API_ACCESS_TOKEN="${{ secrets.REACT_APP_TMDB_API_ACCESS_TOKEN }}" >> .env
+          echo REACT_APP_TMDB_API_URL="${{ env.TMDB_API_URL }}" >> .env
+          echo REACT_APP_TMDB_API_ACCESS_TOKEN="${{ env.TMDB_API_ACCESS_TOKEN }}" >> .env
 
       - name: Update Vercel .env file with local .env
         run: cat .env >> .vercel/.env.production.local
