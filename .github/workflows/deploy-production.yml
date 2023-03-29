@@ -1,4 +1,4 @@
-name: Production Deployment
+name: "Deploy: Production"
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -7,8 +7,8 @@ on:
     branches:
       - main
 jobs:
-  Production-Deploy:
-    environment: production
+  Deploy-Production:
+    environment: Production
     runs-on: ubuntu-latest
     env:
       TMDB_API_URL: ${{ secrets.REACT_APP_TMDB_API_URL }}
