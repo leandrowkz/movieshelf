@@ -18,6 +18,7 @@ export function Text({
   isBold = false,
   children,
   className = '',
+  ...props
 }: Props) {
   const classes = classNames({
     [className]: true,
@@ -33,5 +34,9 @@ export function Text({
 
   const Text = isParagraph ? 'p' : 'span'
 
-  return <Text className={classes}>{children}</Text>
+  return (
+    <Text className={classes} {...props}>
+      {children}
+    </Text>
+  )
 }

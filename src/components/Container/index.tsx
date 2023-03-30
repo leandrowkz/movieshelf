@@ -5,8 +5,13 @@ import classNames from 'classnames'
 export function Container({
   children,
   className,
+  ...props
 }: ComponentPropsWithoutRef<'section'>) {
   const classes = classNames(styles.container, className)
 
-  return <section className={classes}>{children}</section>
+  return (
+    <section className={classes} {...props}>
+      {children}
+    </section>
+  )
 }
