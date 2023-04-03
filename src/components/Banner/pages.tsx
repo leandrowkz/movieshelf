@@ -19,19 +19,19 @@ export function BannerPages({ shows }: Props) {
   const isMobile = useScreenSize('mobile')
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     let current = currentSlide + 1
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let current = currentSlide + 1
 
-  //     if (current >= shows.length) {
-  //       current = 0
-  //     }
+      if (current >= shows.length) {
+        current = 0
+      }
 
-  //     setCurrentSlide(current)
-  //   }, 5000)
+      setCurrentSlide(current)
+    }, 5000)
 
-  //   return () => clearInterval(interval)
-  // })
+    return () => clearInterval(interval)
+  })
 
   const show = shows.find((_show, index: number) => index === currentSlide)
 
