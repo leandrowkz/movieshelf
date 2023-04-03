@@ -3,6 +3,20 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 import { Button } from '.'
 
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
 describe('Button', () => {
   test('Should render button properly', async () => {
     const { queryByText } = render(<Button>Hello</Button>)
