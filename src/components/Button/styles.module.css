@@ -14,6 +14,7 @@
   -webkit-font-smoothing: antialiased;
   white-space: nowrap;
   transition: var(--transition-base);
+  text-transform: uppercase;
 }
 
 .button:hover {
@@ -33,7 +34,6 @@
 }
 
 .large {
-  text-transform: uppercase;
   height: var(--button-large-height);
   line-height: var(--button-large-height);
   padding: var(--button-large-padding);
@@ -41,4 +41,12 @@
 
 .pill {
   border-radius: 100px;
+}
+
+.mobile {
+  height: var(--button-medium-height);
+  line-height: var(--button-medium-height);
+  padding: var(--button-medium-padding);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
 }

@@ -57,9 +57,9 @@
 }
 
 .large {
-  min-width: 400px;
+  min-width: 300px;
   flex-shrink: 1 !important;
-  flex-grow: 0;
+  flex-grow: 0 !important;
 }
 
 .loaderCarousel {

@@ -10,6 +10,9 @@
   /* Page */
   --container-spacer: var(--spacer-extra-large);
 
+  /* Breakpoints */
+  --small-device: 724px;
+
   /* Header */
   --header-height: 100px;
 

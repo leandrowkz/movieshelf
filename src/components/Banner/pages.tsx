@@ -7,6 +7,8 @@ import { Button } from '../Button'
 import { Link } from 'react-router-dom'
 import { MovieHelper } from 'src/services/MovieHelper'
 import { Motion } from '../Motion'
+import { Text } from '../Text'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends ComponentPropsWithoutRef<'section'> {
   shows: Movie[]
@@ -14,21 +16,22 @@ interface Props extends ComponentPropsWithoutRef<'section'> {
 }
 
 export function BannerPages({ shows }: Props) {
+  const isMobile = useScreenSize('mobile')
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      let current = currentSlide + 1
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     let current = currentSlide + 1
 
-      if (current >= shows.length) {
-        current = 0
-      }
+  //     if (current >= shows.length) {
+  //       current = 0
+  //     }
 
-      setCurrentSlide(current)
-    }, 5000)
+  //     setCurrentSlide(current)
+  //   }, 5000)
 
-    return () => clearInterval(interval)
-  })
+  //   return () => clearInterval(interval)
+  // })
 
   const show = shows.find((_show, index: number) => index === currentSlide)
 
@@ -36,6 +39,7 @@ export function BannerPages({ shows }: Props) {
     return <></>
   }
 
+  const headerLevel = isMobile ? 2 : 1
   const banner = MovieHelper.getImageUrl(show.backdrop_path, 500)
   const countShows = shows.length
 
@@ -63,10 +67,16 @@ export function BannerPages({ shows }: Props) {
         </Motion>
         <div className={styles.info}>
           <Motion>
-            <Heading title={show.title} level={1} className={styles.title} />
+            <Heading
+              title={show.title}
+              level={headerLevel}
+              className={styles.title}
+            />
           </Motion>
           <div className={styles.controls}>
-            <Motion className={styles.overview}>{show.overview}</Motion>
+            <Motion className={styles.overview}>
+              <Text>{show.overview}</Text>
+            </Motion>
             <Link to={`/movies/${show.id}`}>
               <Button size="large">See more &nbsp;🎬</Button>
             </Link>

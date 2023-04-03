@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   title: string
@@ -14,9 +15,11 @@ export function Heading({
   isThin = false,
   className,
 }: Props) {
+  const isMobile = useScreenSize('mobile')
   const classes = classNames(className, {
     [`${styles[`heading${level}`]}`]: true,
     [styles.headingThin]: isThin,
+    [styles.mobile]: isMobile,
   })
 
   return <div className={classes}>{title}</div>

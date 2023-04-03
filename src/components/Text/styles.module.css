@@ -23,3 +23,7 @@
 .bold {
   font-weight: bold;
 }
+
+.mobile {
+  font-size: var(--font-size-base) !important;
+}

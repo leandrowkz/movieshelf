@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends ComponentPropsWithoutRef<'div'>, PropsWithChildren {
   size?: 'small' | 'medium' | 'large'
@@ -20,6 +21,7 @@ export function Text({
   className = '',
   ...props
 }: Props) {
+  const isMobile = useScreenSize('mobile')
   const classes = classNames({
     [className]: true,
     [styles.small]: size === 'small',
@@ -30,6 +32,7 @@ export function Text({
     [styles.muted]: isMuted,
     [styles.bold]: isBold,
     [styles.paragraph]: isParagraph,
+    [styles.mobile]: isMobile && size !== 'small',
   })
 
   const Text = isParagraph ? 'p' : 'span'
