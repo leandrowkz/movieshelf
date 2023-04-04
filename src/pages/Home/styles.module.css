@@ -1,18 +1,4 @@
-.home {
-  background-image: url(../../assets/bg-waves.svg);
-  background-repeat: repeat-x;
-  background-position: 0 0;
-  background-size: 100%;
-}
-
 .banner {
-  color: white;
-  margin-top: var(--spacer-large);
-  margin-bottom: var(--spacer-extra-large);
-}
-
-@media screen and (max-width: 768px) {
-  .home {
-    background-size: 200%;
-  }
+  margin-top: var(--spacer-base);
+  margin-bottom: var(--spacer-large);
 }

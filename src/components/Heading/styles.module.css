@@ -1,21 +1,29 @@
-.heading1 {
+.heading {
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.heading-1 {
   font-size: var(--font-size-extra-large);
-  font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacer-base);
 }
 
-.heading2 {
+.heading-2 {
   font-size: var(--font-size-large);
-  margin-bottom: 16px;
-  font-weight: bold;
+  margin-bottom: var(--spacer-small);
 }
 
-.heading3 {
+.heading-3 {
+  line-height: 1.4;
   font-size: var(--font-size-base);
-  margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 500;
+  font-stretch: 100%;
 }
 
 .headingThin {
   font-weight: normal !important;
+}
+
+.heading-1.mobile {
+  font-size: calc(var(--font-size-extra-large) * .8);
 }

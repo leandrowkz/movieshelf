@@ -1,8 +1,9 @@
 .logo {
-  width: 48px;
-  display: inline-block;
+  display: flex;
+  align-items: flex-start;
 }
 
-.logoImg {
-  width: 100%;
+.logoName {
+  margin: 0;
+  line-height: 1;
 }

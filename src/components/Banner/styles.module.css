@@ -1,13 +1,13 @@
 :root {
   --banner-bullet-size: 14px;
-  --banner-radius: var(--radius-extra-large);
   --banner-backdrop-bg: 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .7) 20%, rgba(0, 0, 0, .6) 30%,rgba(0, 0, 0, .5) 40%, rgba(0, 0, 0, 0) 60%;
-  --banner-slide-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  --mobile-banner-backdrop-bg: 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .7) 50%, rgba(0, 0, 0, .6) 55%,rgba(0, 0, 0, .5) 80%, rgba(0, 0, 0, 0) 810%;
+  --mobile-banner-backdrop-bg: 0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .7) 50%, rgba(0, 0, 0, .6) 55%,rgba(0, 0, 0, .4) 80%, rgba(0, 0, 0, 0) 90%;
 }
 
 .container {
   width: 100%;
+  width: calc(100% + calc(var(--container-spacer) * 2));
+  margin-left: calc(var(--container-spacer) * -1);
 }
 
 .heading {
@@ -15,14 +15,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  margin-left: var(--container-spacer);
 }
 
 .slide {
-  border-radius: var(--banner-radius);
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 7.5;
   overflow: hidden;
-  box-shadow: var(--banner-slide-shadow);
   display: flex;
   align-items: flex-end;
   background-color: black;
@@ -40,8 +39,6 @@
   background: -moz-linear-gradient(var(--banner-backdrop-bg));
   background: -webkit-linear-gradient(var(--banner-backdrop-bg));
   background: linear-gradient(var(--banner-backdrop-bg));
-  border-bottom-left-radius: var(--radius-extra-large);
-  border-bottom-right-radius: var(--radius-extra-large);
 }
 
 .backdropImage {
@@ -59,7 +56,8 @@
 
 .info {
   z-index: 2;
-  margin: var(--spacer-extra-large);
+  margin: var(--container-spacer);
+  margin-bottom: calc(var(--spacer-extra-large) * 1.5);
   color: white;
 }
 
@@ -81,7 +79,7 @@
   font-size: calc(var(--font-size-base) + 20%);
   flex: 0 1 70%;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
   overflow: hidden;
   padding-right: var(--spacer-base);
@@ -120,24 +118,19 @@
 }
 
 .loaderBannerPage {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 7.5;
   height: 100%;
-  border-radius: var(--radius-extra-large);
+  border-radius: 0 !important;
 }
 
 @media screen and (max-width: 768px) {
-  .container {
-    width: calc(100% + calc(var(--spacer-base) * 2));
-    margin-left: calc(var(--spacer-base) * -1);
-  }
-
   .heading {
-    margin-left: var(--spacer-base);
+    margin-left: var(--container-spacer);
   }
 
   .slide, .slide:before {
     border-radius: 0;
-    aspect-ratio: 10 / 9;
+    aspect-ratio: 10 / 12;
   }
 
   .slide:before {
@@ -147,7 +140,7 @@
   }
 
   .info {
-    margin: var(--spacer-base);
+    margin-bottom: var(--spacer-large);
   }
 
   .title {
@@ -157,7 +150,7 @@
   .overview {
     flex: 0 1 100%;
     margin-bottom: var(--spacer-base);
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 6;
   }
 
   .controls {
@@ -174,5 +167,9 @@
   .bullet {
     height: calc(var(--banner-bullet-size) + 1px);
     width: calc(var(--banner-bullet-size) + 1px);
+  }
+
+  .loaderBannerPage {
+    aspect-ratio: 10 / 12;
   }
 }

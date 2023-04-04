@@ -1,5 +1,4 @@
 .container {
-  width: var(--show-item-size);
   aspect-ratio: 1 / 1.5;
 }
 
@@ -28,7 +27,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   cursor: default;
-  font-size: 90%;
   white-space: normal;
 }
 
