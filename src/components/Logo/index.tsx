@@ -9,7 +9,7 @@ export function Logo({ className, ...props }: ComponentPropsWithoutRef<'a'>) {
 
   return (
     <Link to="/" className={classes} {...props}>
-      <Heading title="movieshelf" level={2} className={styles.logoName} />
+      <Heading title="🍿 movieshelf" level={2} className={styles.logoName} />
     </Link>
   )
 }
