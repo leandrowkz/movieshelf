@@ -5,7 +5,6 @@ import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { ShowPoster } from '../ShowPoster'
-import { Text } from '../Text'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 
