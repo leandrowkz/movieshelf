@@ -1,9 +1,12 @@
 .logo {
   display: flex;
   align-items: flex-start;
+  flex-wrap: nowrap;
+  width: auto;
 }
 
 .logoName {
   margin: 0;
   line-height: 1;
+  white-space: nowrap;
 }
