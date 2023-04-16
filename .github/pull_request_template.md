@@ -1,6 +1,6 @@
-## PR Overview
-- Add ABC
-- Change XYZ
+## PR description
+- Adds ABC
+- Changes XYZ
 - Closes JIRA-213
 
 ## Types of changes
@@ -16,6 +16,7 @@
 - [ ] I wrote a description of requested changes
 - [ ] I performed a self-review on my own code
 - [ ] I set proper PR labels
+- [ ] I have update the documentation accordingly
 - [ ] My code follows the code style of this project
 
 ## Code review checklist
