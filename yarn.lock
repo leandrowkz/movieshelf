@@ -1546,6 +1546,11 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@leandrowkz/tmdb@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@leandrowkz/tmdb/-/tmdb-1.9.0.tgz#757758a09580893516f0ede7d1bf0a471597b466"
+  integrity sha512-xXnuhcdrBFntnK/DtzyHCkLgrAvLaQTDeo4MVWr5R33nC5tzbnBDG5/pKN9INz5M+JmNZWKTGBiyl+HPebDhUQ==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"

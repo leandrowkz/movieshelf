@@ -1,12 +1,11 @@
-import { json } from './jsonResponse'
-import { api } from './tmdb/TmdbAPI'
+import { json, tmdb } from './api'
 
 export const config = {
   runtime: 'edge',
 }
 
 export default async () => {
-  const { results } = await api.movies.popular()
+  const { results } = await tmdb.movies.popular()
 
   return json(results)
 }

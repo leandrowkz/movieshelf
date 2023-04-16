@@ -1,5 +1,4 @@
-import { json } from './jsonResponse'
-import { api } from './tmdb/TmdbAPI'
+import { json, tmdb } from './api'
 
 export const config = {
   runtime: 'edge',
@@ -9,7 +8,7 @@ export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
   const id = Number(searchParams.get('movieId'))
 
-  const credits = await api.movies.credits(id)
+  const credits = await tmdb.movies.credits(id)
 
   return json(credits)
 }

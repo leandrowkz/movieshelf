@@ -1,4 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TMDB } from '@leandrowkz/tmdb'
+
+export const tmdb = new TMDB({
+  apiKey: process.env.REACT_APP_TMDB_API_ACCESS_TOKEN || '',
+})
+
 export const json = (content: any, status = 200) => {
   const body = JSON.stringify(content)
   const headers = {
