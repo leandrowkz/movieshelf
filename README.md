@@ -7,6 +7,11 @@ this project running on https://movieshelf.app.
   <img src="./docs/movieshelf-details.png" width="350" />
 </p>
 
+## 📦 Dependencies
+This project uses Create React APP, React Router, CSS modules and Context API. It also uses the
+[@leandrowkz/tmdb](https://github.com/leandrowkz/tmdb) package to interact with the The Movie
+Database API.
+
 ## ⏭️ Running locally
 Since this is an free project, you're able to clone this repository and run it locally. The outcome
 should be similar to the running website.
