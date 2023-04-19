@@ -1,73 +1,49 @@
-# Movie Shelf
-A movie catalog that uses the IMDB API. Built using React, Context API and more.
+# 🍿 Movieshelf
+An opensource movie catalog that uses The Movie Database API to fetch movies/tv data. Take a look at
+this project running on https://movieshelf.app.
 
-# Getting Started with Create React App
+<p float="left">
+  <img src="./docs/movieshelf-home.png" width="350" />
+  <img src="./docs/movieshelf-details.png" width="350" />
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ⏭️ Running locally
+Since this is an free project, you're able to clone this repository and run it locally. The outcome
+should be similar to the running website.
 
-## Available Scripts
+This project relies on using [Vercel](https://vercel.com), especially for proxying api calls.
+So you before you start you need to [create a Vercel project](https://vercel.com/new) and attach it
+to this repository (the copy you made it). You can use it the [Vercel CLI](https://vercel.com/docs/cli)
+to do so. After creating and linking a Vercel project to the copy of this repository you need to
+create an TMDB apikey and set it on your vercel project.
 
-In the project directory, you can run:
+So, the steps you need to run this locally:
+1. Install the [Vercel CLI](https://vercel.com/docs/cli)
+2. Create a [new Vercel project](https://vercel.com/new)
+3. Link your copied repository to your vercel created project `// vercel link`
+4. Create a [TMDB apikey](https://developers.themoviedb.org/3/getting-started/introduction)
+5. Add the variable `REACT_APP_TMDB_API_ACCESS_TOKEN` to your Vercel project, with the value of TDMB apikey
+6. Run `$ yarn` to install dependencies
+7. Run `$ yarn start:dev` to start the project
 
-### `npm start`
+If everything went right then you will have the project running on the http://localhost:3000.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
+<br />
+<p>
+  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_1-8ba2ac31f354005783fab473602c34c3f4fd207150182061e425d366e4f34596.svg" width="200">
+</p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This product uses the TMDB API but is not endorsed or certified by TMDB.
 
-### `npm test`
+All the information related to movies/tv displayed on carousels, lists, details, etc., comes from
+the TMDB API. This is an incredible project that provides overall movies, tv and cast information
+for those who need to their projects. A huge shout out to them for their amazing work and for making
+this kind of projects (movieshelf) possible.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I recommend you to take a look at their [website](https://www.themoviedb.org/) and [join their
+community](https://www.themoviedb.org/signup).
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## ☕ Contribute with this project
+Help this project to be bigger by submitting a feature request, working on a new feature or
+sponsoring it.
