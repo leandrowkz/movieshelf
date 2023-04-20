@@ -1,11 +1,8 @@
 # 🍿 Movieshelf
-An opensource movie catalog that uses The Movie Database API to fetch movies/tv data. Take a look at
-this project running on https://movieshelf.app.
+An opensource movie, tv and cast catalog that uses The Movie Database API to fetch movies/tv data.
+Take a look at this project running on https://movieshelf.app.
 
-<p float="left">
-  <img src="./docs/movieshelf-home.png" width="350" />
-  <img src="./docs/movieshelf-details.png" width="350" />
-</p>
+![Movieshelf showcase](./docs/movieshelf-showcase.gif)
 
 ## 📦 Dependencies
 This project uses Create React APP, React Router, CSS modules and Context API. It also uses the
@@ -16,8 +13,8 @@ Database API.
 Since this is an free project, you're able to clone this repository and run it locally. The outcome
 should be similar to the running website.
 
-This project relies on using [Vercel](https://vercel.com), especially for proxying api calls.
-So you before you start you need to [create a Vercel project](https://vercel.com/new) and attach it
+This project relies on [Vercel](https://vercel.com), especially for proxying api calls.
+So before you start you'll need to [create a Vercel project](https://vercel.com/new) and attach it
 to this repository (the copy you made it). You can use it the [Vercel CLI](https://vercel.com/docs/cli)
 to do so. After creating and linking a Vercel project to the copy of this repository you need to
 create an TMDB apikey and set it on your vercel project.
@@ -25,7 +22,7 @@ create an TMDB apikey and set it on your vercel project.
 So, the steps you need to run this locally:
 1. Install the [Vercel CLI](https://vercel.com/docs/cli)
 2. Create a [new Vercel project](https://vercel.com/new)
-3. Link your copied repository to your vercel created project `// vercel link`
+3. Run `$ vercel link` to link your copied repository to your vercel created project
 4. Create a [TMDB apikey](https://developers.themoviedb.org/3/getting-started/introduction)
 5. Add the variable `REACT_APP_TMDB_API_ACCESS_TOKEN` to your Vercel project, with the value of TDMB apikey
 6. Run `$ yarn` to install dependencies
@@ -33,12 +30,12 @@ So, the steps you need to run this locally:
 
 If everything went right then you will have the project running on the http://localhost:3000.
 
----
-<br />
-<p>
-  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_1-8ba2ac31f354005783fab473602c34c3f4fd207150182061e425d366e4f34596.svg" width="200">
-</p>
+## ☕ Contribute to this project
+Help this project to be bigger by submitting a feature request, working on a new feature or
+sponsoring it. Check it out the [project roadmap](https://github.com/users/leandrowkz/projects/1/views/1)
+and the stay tuned for the upcoming features.
 
+## 🎦 The Movie Database API
 This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 All the information related to movies/tv displayed on carousels, lists, details, etc., comes from
@@ -49,6 +46,6 @@ this kind of projects (movieshelf) possible.
 I recommend you to take a look at their [website](https://www.themoviedb.org/) and [join their
 community](https://www.themoviedb.org/signup).
 
-## ☕ Contribute with this project
-Help this project to be bigger by submitting a feature request, working on a new feature or
-sponsoring it.
+<p>
+  <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" width="100">
+</p>
