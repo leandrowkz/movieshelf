@@ -7,13 +7,36 @@
   gap: var(--spacer-extra-large);
 }
 
+.menu {
+  flex: 1;
+}
+
+.logoMobile {
+  display: none;
+}
+
+
 @media screen and (max-width: 768px) {
   .header {
     height: calc(var(--header-height) * .8);
-    justify-content: space-between;
+    gap: var(--spacer-small);
   }
 
   .logo {
-    width: 200px;
+    display: none;
+  }
+
+  .logoMobile {
+    display: block;
+    flex-shrink: 1;
+    flex-grow: 0;
+    flex-basis: 40px;
+  }
+
+  .sponsor {
+    font-size: var(--font-size-small);
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
   }
 }
