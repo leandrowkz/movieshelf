@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ReactElement } from 'react'
+import React, { HTMLAttributes, ReactElement } from 'react'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { Movie } from 'src/types/Movie'
@@ -7,18 +7,23 @@ import { BannerLoader } from './loader'
 import { BannerPages } from './pages'
 import { Container } from '../Container'
 
-interface Props extends ComponentPropsWithoutRef<'section'> {
+interface Props extends HTMLAttributes<HTMLElement> {
   shows: Movie[]
   isLoading?: boolean
 }
 
-export function Banner({ shows, isLoading = false, className }: Props) {
+export function Banner({
+  shows,
+  isLoading = false,
+  className,
+  ...props
+}: Props) {
   const classes = classNames(className, styles.container)
 
   const content = (children: ReactElement) => (
-    <Container>
+    <Container {...props}>
       <section className={classes}>
-        <div className={styles.heading}>
+        <div className={styles.heading} data-testid="header">
           <Heading title="Trending&nbsp;" level={1} />
           <Heading title="now" level={1} isThin />
         </div>
@@ -28,8 +33,8 @@ export function Banner({ shows, isLoading = false, className }: Props) {
   )
 
   if (isLoading) {
-    return content(<BannerLoader />)
+    return content(<BannerLoader data-testid="loader" />)
   }
 
-  return content(<BannerPages shows={shows} />)
+  return content(<BannerPages shows={shows} data-testid="pages" />)
 }

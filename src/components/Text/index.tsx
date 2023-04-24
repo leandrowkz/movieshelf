@@ -1,9 +1,9 @@
-import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
-interface Props extends ComponentPropsWithoutRef<'div'>, PropsWithChildren {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large'
   alignment?: 'left' | 'center' | 'right'
   isMuted?: boolean

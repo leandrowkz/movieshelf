@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import { Circle, Loader, Rectangle } from '../Loader'
 import { Motion } from '../Motion'
 
-export function BannerLoader() {
+export function BannerLoader(props: HTMLAttributes<HTMLDivElement>) {
   return (
-    <Motion>
+    <Motion {...props}>
       <Loader>
         <Rectangle className={styles.loaderBannerPage} />
       </Loader>
