@@ -11,30 +11,14 @@
   flex: 1;
 }
 
-.logoMobile {
-  display: none;
-}
-
-
 @media screen and (max-width: 768px) {
   .header {
     height: calc(var(--header-height) * .8);
     gap: var(--spacer-small);
   }
 
-  .logo {
-    display: none;
-  }
-
-  .logoMobile {
-    display: block;
-    flex-shrink: 1;
-    flex-grow: 0;
-    flex-basis: 40px;
-  }
-
   .sponsor {
-    font-size: var(--font-size-small);
+    font-size: calc(var(--font-size-small) * .8);
     height: 40px;
     line-height: 40px;
     padding: 0 12px;
