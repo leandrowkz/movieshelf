@@ -4,12 +4,17 @@ import styles from './styles.module.css'
 import classNames from 'classnames'
 import { Heading } from '../Heading'
 
-export function Logo({ className, ...props }: ComponentPropsWithoutRef<'a'>) {
+interface Props extends ComponentPropsWithoutRef<'a'> {
+  onlyIcon?: boolean
+}
+
+export function Logo({ className, onlyIcon = false, ...props }: Props) {
   const classes = classNames(styles.logo, className)
+  const title = onlyIcon ? '🍿' : '🍿 movieshelf'
 
   return (
     <Link to="/" className={classes} {...props}>
-      <Heading title="🍿 movieshelf" level={2} className={styles.logoName} />
+      <Heading title={title} level={2} className={styles.logoName} />
     </Link>
   )
 }

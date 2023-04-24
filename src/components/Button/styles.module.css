@@ -31,6 +31,7 @@
   height: var(--button-small-height);
   line-height: var(--button-small-height);
   padding: var(--button-small-padding);
+  font-size: calc(var(--font-size-base) * .8);
 }
 
 .large {
@@ -48,5 +49,13 @@
   line-height: var(--button-medium-height);
   padding: var(--button-medium-padding);
   border-radius: var(--radius-base);
-  font-size: var(--font-size-base);
+}
+
+.secondary {
+  background-color: var(--color-primary-lighter);
+  color: var(--button-color);
+}
+
+.secondary:hover {
+  color: var(--button-text-color);
 }

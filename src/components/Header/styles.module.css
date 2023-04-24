@@ -7,13 +7,20 @@
   gap: var(--spacer-extra-large);
 }
 
+.menu {
+  flex: 1;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     height: calc(var(--header-height) * .8);
-    justify-content: space-between;
+    gap: var(--spacer-small);
   }
 
-  .logo {
-    width: 200px;
+  .sponsor {
+    font-size: calc(var(--font-size-small) * .8);
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
   }
 }

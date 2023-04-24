@@ -32,27 +32,7 @@ describe('Footer', () => {
     expect(menuTmdb.href).toEqual('https://www.themoviedb.org/')
     expect(menuTmdb.target).toEqual('_blank')
     expect(menuSponsorship.href).toEqual(
-      'https://github.com/leandrowkz/movieshelf'
-    )
-    expect(menuSponsorship.target).toEqual('_blank')
-  })
-
-  test('Should render menu links properly', async () => {
-    const { getByTestId } = render(<Footer />, { wrapper: BrowserRouter })
-
-    const menuHome = getByTestId('menu-home') as HTMLLinkElement
-    const menuGithub = getByTestId('menu-github') as HTMLLinkElement
-    const menuTmdb = getByTestId('menu-tmdb') as HTMLLinkElement
-    const menuSponsorship = getByTestId('menu-sponsorship') as HTMLLinkElement
-
-    expect(menuHome.href).toEqual(`${window.location.href}`)
-    expect(menuHome.target).toEqual('')
-    expect(menuGithub.href).toEqual('https://github.com/leandrowkz/movieshelf')
-    expect(menuGithub.target).toEqual('_blank')
-    expect(menuTmdb.href).toEqual('https://www.themoviedb.org/')
-    expect(menuTmdb.target).toEqual('_blank')
-    expect(menuSponsorship.href).toEqual(
-      'https://github.com/leandrowkz/movieshelf'
+      'https://github.com/sponsors/leandrowkz'
     )
     expect(menuSponsorship.target).toEqual('_blank')
   })

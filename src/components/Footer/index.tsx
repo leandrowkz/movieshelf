@@ -34,7 +34,7 @@ export function Footer({ ...props }: ComponentPropsWithoutRef<'footer'>) {
             TMDB
           </Link>
           <Link
-            to="https://github.com/leandrowkz/movieshelf"
+            to="https://github.com/sponsors/leandrowkz"
             target="_blank"
             rel="nofollow noopener noreferrer"
             data-testid="menu-sponsorship"
