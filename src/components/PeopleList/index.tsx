@@ -1,20 +1,19 @@
 import classNames from 'classnames'
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { HTMLAttributes } from 'react'
 import { MovieHelper } from 'src/services/MovieHelper'
 import { Person } from 'src/types/Person'
 import { Text } from '../Text'
 import css from './styles.module.css'
 import { Motion } from '../Motion'
 
-interface Props extends ComponentPropsWithoutRef<'div'> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   people: Person[]
-  width?: number | 'auto'
+  size?: number
 }
 
-export function PeopleList({ people, className, width = 'auto' }: Props) {
+export function PeopleList({ people, className, size = 4, ...props }: Props) {
   const classes = classNames(css.cast, className)
-  const style = { width }
-  const cast = people.slice(0, 4)
+  const cast = people.slice(0, size)
 
   const getStyle = (person: Person) => {
     const avatar = MovieHelper.getImageUrl(person.profile_path, 200)
@@ -23,11 +22,21 @@ export function PeopleList({ people, className, width = 'auto' }: Props) {
   }
 
   return (
-    <Motion tag="div" className={classes} style={style}>
+    <Motion tag="div" className={classes} {...props}>
       {cast.map((actor, index) => (
         <div key={index} className={css.person} title={actor.name}>
-          <div className={css.avatar} style={getStyle(actor)} />
-          <Text size="small" alignment="center" className={css.name} isMuted>
+          <div
+            className={css.avatar}
+            style={getStyle(actor)}
+            data-testid="person-avatar"
+          />
+          <Text
+            size="small"
+            alignment="center"
+            className={css.name}
+            isMuted
+            data-testid="person-name"
+          >
             {actor.name}
           </Text>
         </div>

@@ -7,24 +7,8 @@ interface LoaderProps
   extends PropsWithChildren,
     ComponentPropsWithoutRef<'div'> {}
 
-export function Loader({ className, children }: LoaderProps) {
-  const classes = classNames(styles.loader, className)
-
-  return (
-    <Motion tag="div" className={classes}>
-      {children}
-    </Motion>
-  )
-}
-
 interface CircleProps extends ComponentPropsWithoutRef<'div'> {
   width: number | string
-}
-
-export function Circle({ width, className }: CircleProps) {
-  const classes = classNames(styles.circle, className)
-
-  return <Motion className={classes} style={{ width }} />
 }
 
 interface RectangleProps extends ComponentPropsWithoutRef<'div'> {
@@ -32,17 +16,38 @@ interface RectangleProps extends ComponentPropsWithoutRef<'div'> {
   height?: number | string
 }
 
-export function Rectangle({ width, height, className }: RectangleProps) {
-  const classes = classNames(styles.rectangle, className)
-
-  return <Motion className={classes} style={{ width, height }} />
-}
-
 interface ParagraphProps extends ComponentPropsWithoutRef<'div'> {
   lines: number
 }
 
-export function Paragraph({ lines, className }: ParagraphProps) {
+export function Loader({ className, children, ...props }: LoaderProps) {
+  const classes = classNames(styles.loader, className)
+
+  return (
+    <Motion tag="div" className={classes} {...props}>
+      {children}
+    </Motion>
+  )
+}
+
+export function Circle({ width, className, ...props }: CircleProps) {
+  const classes = classNames(styles.circle, className)
+
+  return <Motion className={classes} style={{ width }} {...props} />
+}
+
+export function Rectangle({
+  width,
+  height,
+  className,
+  ...props
+}: RectangleProps) {
+  const classes = classNames(styles.rectangle, className)
+
+  return <Motion className={classes} style={{ width, height }} {...props} />
+}
+
+export function Paragraph({ lines, className, ...props }: ParagraphProps) {
   const classes = classNames(styles.paragraph, className)
   const content = []
 
@@ -52,12 +57,16 @@ export function Paragraph({ lines, className }: ParagraphProps) {
     const width = Math.floor(Math.random() * (max - min + 1)) + min
 
     content.push(
-      <Rectangle width={`${width}%`} className={styles.paragraphLine} />
+      <Rectangle
+        width={`${width}%`}
+        className={styles.paragraphLine}
+        key={`rectangle-${i * Math.random()}`}
+      />
     )
   }
 
   return (
-    <Motion tag="div" className={classes}>
+    <Motion tag="div" className={classes} {...props}>
       {content}
     </Motion>
   )

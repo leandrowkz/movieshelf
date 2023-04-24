@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { Movie } from 'src/types/Movie'
@@ -10,12 +10,11 @@ import { Motion } from '../Motion'
 import { Text } from '../Text'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
-interface Props extends ComponentPropsWithoutRef<'section'> {
+interface Props extends HTMLAttributes<HTMLElement> {
   shows: Movie[]
-  isLoading?: boolean
 }
 
-export function BannerPages({ shows }: Props) {
+export function BannerPages({ shows, ...props }: Props) {
   const isMobile = useScreenSize('mobile')
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -60,7 +59,7 @@ export function BannerPages({ shows }: Props) {
   }
 
   return (
-    <>
+    <section {...props}>
       <div key={show.id} className={styles.slide} title={show.title}>
         <Motion className={styles.backdropImage}>
           <div style={{ backgroundImage: `url(${banner})` }} />
@@ -77,13 +76,15 @@ export function BannerPages({ shows }: Props) {
             <Motion className={styles.overview}>
               <Text>{show.overview}</Text>
             </Motion>
-            <Link to={`/movies/${show.id}`}>
+            <Link to={`/movies/${show.id}`} data-testid="show-link">
               <Button size="large">See more &nbsp;🎬</Button>
             </Link>
           </div>
         </div>
       </div>
-      <div className={styles.bullets}>{bullets}</div>
-    </>
+      <div className={styles.bullets} data-testid="bullets">
+        {bullets}
+      </div>
+    </section>
   )
 }

@@ -14,6 +14,7 @@ export function Heading({
   level = 1,
   isThin = false,
   className,
+  ...props
 }: Props) {
   const isMobile = useScreenSize('mobile')
   const classes = classNames(className, styles.heading, {
@@ -22,5 +23,9 @@ export function Heading({
     [styles.mobile]: isMobile,
   })
 
-  return <div className={classes}>{title}</div>
+  return (
+    <div className={classes} {...props}>
+      {title}
+    </div>
+  )
 }

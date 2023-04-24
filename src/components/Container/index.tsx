@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 
@@ -6,7 +6,7 @@ export function Container({
   children,
   className,
   ...props
-}: ComponentPropsWithoutRef<'section'>) {
+}: HTMLAttributes<HTMLElement>) {
   const classes = classNames(styles.container, className)
 
   return (

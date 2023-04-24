@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import { Movie } from 'src/types/Movie'
 import { Heading } from '../Heading'
@@ -7,10 +7,9 @@ import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 
-interface Props extends ComponentPropsWithoutRef<'div'> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: Movie[]
   title: string
-  showViewAll?: boolean
   isLoading?: boolean
   size?: 'large' | 'medium' | 'small'
 }
@@ -21,6 +20,7 @@ export function ShowCarousel({
   className,
   isLoading = false,
   size = 'medium',
+  ...props
 }: Props) {
   if (!shows.length && !isLoading) {
     return <></>
@@ -42,7 +42,7 @@ export function ShowCarousel({
     return (
       <div className={classes}>
         {header}
-        <Motion>
+        <Motion data-testid="loader">
           <ShowCarouselLoader />
         </Motion>
       </div>
@@ -76,12 +76,7 @@ export function ShowCarousel({
       {pagesList.map((page, key) => (
         <Motion className={styles.page} key={key}>
           {page.map((show) => (
-            <ShowItem
-              key={show.id}
-              show={show}
-              className={showClass}
-              // style={{ width: `${itemWidth}vw` }}
-            />
+            <ShowItem key={show.id} show={show} className={showClass} />
           ))}
         </Motion>
       ))}
@@ -89,7 +84,7 @@ export function ShowCarousel({
   )
 
   return (
-    <div className={classes}>
+    <div className={classes} {...props}>
       {header}
       {pages}
     </div>

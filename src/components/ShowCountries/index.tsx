@@ -1,21 +1,25 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { HTMLAttributes } from 'react'
 import { Movie } from 'src/types/Movie'
 import { CountryFlag } from 'src/types/CountryFlag'
 import { Country } from 'src/types/Country'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 
-interface Props extends ComponentPropsWithoutRef<'div'> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie
-  size?: 'small' | 'medium' | 'large'
   separator?: string
 }
 
-export function ShowCountries({ show, separator = ' ', className }: Props) {
+export function ShowCountries({
+  show,
+  separator = ' ',
+  className,
+  ...props
+}: Props) {
   const classes = classNames(styles.flags, className)
 
   return (
-    <div className={classes}>
+    <div className={classes} {...props}>
       {show.production_countries?.map((country, index) => {
         const { iso_3166_1: countryCode } = country
         const name = Country[countryCode as unknown as keyof typeof Country]

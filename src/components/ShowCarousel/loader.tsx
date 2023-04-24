@@ -4,18 +4,16 @@ import { Loader, Rectangle } from '../Loader'
 import { Motion } from '../Motion'
 
 export function ShowCarouselLoader() {
-  const item = () => (
-    <Loader className={styles.loaderItem}>
-      <Rectangle className={styles.loaderPoster} />
-      <Rectangle className={styles.loaderTitle} />
-      <Rectangle className={styles.loaderRating} />
-    </Loader>
-  )
-
   const content = []
 
   for (let i = 0; i < 20; i++) {
-    content.push(item())
+    content.push(
+      <Loader className={styles.loaderItem} key={`loader-${i * Math.random()}`}>
+        <Rectangle className={styles.loaderPoster} />
+        <Rectangle className={styles.loaderTitle} />
+        <Rectangle className={styles.loaderRating} />
+      </Loader>
+    )
   }
 
   return <Motion className={styles.loaderCarousel}>{content}</Motion>

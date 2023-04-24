@@ -13,10 +13,10 @@ export function Page({
 
   return (
     <section className={classes}>
-      <ScrollRestoration />
-      <Header />
-      {children}
-      <Footer />
+      <ScrollRestoration data-testid="scroll-restoration" />
+      <Header data-testid="header" />
+      <section data-testid="content">{children}</section>
+      <Footer data-testid="footer" />
     </section>
   )
 }

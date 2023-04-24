@@ -29,7 +29,10 @@ export function LoaderCast() {
 
   for (let i = 0; i < 4; i++) {
     cast.push(
-      <Loader className={styles.loaderCastPerson}>
+      <Loader
+        className={styles.loaderCastPerson}
+        key={`loader-cast-${i * Math.random()}`}
+      >
         <Circle width={52} />
         <Rectangle className={styles.loaderCastName} />
       </Loader>

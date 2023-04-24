@@ -115,16 +115,19 @@ export function MovieDetails(): JSX.Element {
         shows={similar}
         title="More like this"
         isLoading={isLoadingSimilar}
+        data-testid="carousel-similar"
       />
       <ShowCarousel
         shows={recommended}
         title="Recommended based on this title"
         isLoading={isLoadingRecommended}
+        data-testid="carousel-recommended"
       />
       <ShowCarousel
         shows={trending}
         title="Popular movies"
         isLoading={isLoadingTrending}
+        data-testid="carousel-trending"
       />
     </Page>
   )
@@ -140,22 +143,43 @@ function Details({ movie, isLoading = false }: DetailsProps): JSX.Element {
 
   return (
     <Motion tag="section" className={styles.content}>
-      <Heading level={1} title={title} className={styles.title} />
+      <Heading
+        level={1}
+        title={title}
+        className={styles.title}
+        data-testid="movie-title"
+      />
       <div className={styles.metadata}>
-        <Rating score={rating} size="small" className={styles.rating} />
-        <Text isMuted size="small">
+        <Rating
+          score={rating}
+          size="small"
+          className={styles.rating}
+          data-testid="movie-rating"
+        />
+        <Text isMuted size="small" data-testid="movie-runtime">
           {runtime} minutes
         </Text>
         <BulletSeparator />
-        <ShowGenres show={movie} separator=", " size="small" limit={5} />
+        <ShowGenres
+          show={movie}
+          separator=", "
+          size="small"
+          limit={5}
+          data-testid="movie-genres"
+        />
         <BulletSeparator />
-        <Text isMuted size="small">
+        <Text isMuted size="small" data-testid="movie-year">
           {year}
         </Text>
         <BulletSeparator />
-        <ShowCountries show={movie} size="small" />
+        <ShowCountries show={movie} data-testid="movie-countries" />
       </div>
-      <Text isParagraph isMuted className={styles.overview}>
+      <Text
+        isParagraph
+        isMuted
+        className={styles.overview}
+        data-testid="movie-overview"
+      >
         {overview}
       </Text>
     </Motion>
@@ -167,7 +191,14 @@ function Cast({ cast, isLoading = false }: CastProps): JSX.Element {
     return <LoaderCast />
   }
 
-  return <PeopleList people={cast} title="Actors" className={styles.cast} />
+  return (
+    <PeopleList
+      people={cast}
+      title="Actors"
+      className={styles.cast}
+      data-testid="movie-cast"
+    />
+  )
 }
 
 function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
@@ -179,7 +210,7 @@ function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
 
   return (
     <Motion className={styles.buttons}>
-      <Link to={trailer} target="_blank">
+      <Link to={trailer} target="_blank" data-testid="movie-trailer">
         <Button size="large">▶ Play trailer</Button>
       </Link>
     </Motion>
@@ -193,7 +224,7 @@ function Poster({ movie, isLoading = false }: PosterProps): JSX.Element {
 
   return (
     <Motion>
-      <ShowPoster show={movie} />
+      <ShowPoster show={movie} data-testid="movie-poster" />
     </Motion>
   )
 }
