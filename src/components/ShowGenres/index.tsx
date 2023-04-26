@@ -3,6 +3,7 @@ import { Text } from '../Text'
 import { Movie } from 'src/types/Movie'
 import { MovieGenresContext } from 'src/store/MovieGenresContext'
 import { Genre } from 'src/types/Genre'
+import { MovieGenre } from 'src/types/MovieGenre'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie
@@ -19,23 +20,30 @@ export function ShowGenres({
   limit = 2,
   ...props
 }: Props) {
-  if (!show.genres && !show.genre_ids) {
+  const { genres, genre_ids: genreIds } = show
+  const isGenresArray = Array.isArray(genres)
+  const isGenresIdsArray = Array.isArray(genreIds)
+
+  if (!isGenresArray && !isGenresIdsArray) {
     return <></>
   }
 
-  const { genres } = useContext(MovieGenresContext)
+  const { genres: genresFromContext } = useContext(MovieGenresContext)
 
-  const showGenres =
-    Array.isArray(show.genre_ids) && show.genre_ids.length > 0
-      ? show.genre_ids.slice(0, limit).map((showGenreId: Genre) => {
-          return (
-            genres.find((genre) => genre.id === showGenreId) || {
-              id: showGenreId,
-              name: 'Other',
-            }
-          )
-        })
-      : show.genres.slice(0, limit)
+  let showGenres: MovieGenre[] = []
+
+  if (isGenresArray) {
+    showGenres = genres.slice(0, limit)
+  } else if (isGenresIdsArray) {
+    showGenres = genreIds.slice(0, limit).map((showGenreId: Genre) => {
+      return (
+        genresFromContext.find((genre) => genre.id === showGenreId) || {
+          id: showGenreId,
+          name: 'Other',
+        }
+      )
+    })
+  }
 
   return (
     <div className={className} {...props}>
