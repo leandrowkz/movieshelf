@@ -1,9 +1,9 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import { Text } from '../Text'
-import { Movie } from 'src/types/Movie'
-import { MovieGenresContext } from 'src/store/MovieGenresContext'
-import { Genre } from 'src/types/Genre'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { Movie } from '../../types/Movie'
+import { MovieGenresContext } from '../../store/MovieGenresContext'
+import { Genre } from '../../types/Genre'
+import { MovieGenre } from '../../types/MovieGenre'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie

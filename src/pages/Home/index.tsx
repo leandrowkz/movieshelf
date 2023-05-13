@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
-import { Banner } from 'src/components/Banner'
-import { Page } from 'src/components/Page'
-import { ShowCarousel } from 'src/components/ShowCarousel'
-import { MovieListsContext } from 'src/store/MovieListsContext'
+import { Banner } from '../../components/Banner'
+import { Page } from '../../components/Page'
+import { ShowCarousel } from '../../components/ShowCarousel'
+import { MovieListsContext } from '../../store/MovieListsContext'
 import styles from './styles.module.css'
 
 export function Home() {

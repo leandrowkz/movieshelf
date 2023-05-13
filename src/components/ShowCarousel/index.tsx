@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../../types/Movie'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'

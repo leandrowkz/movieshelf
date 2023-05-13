@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, ReactElement } from 'react'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../../types/Movie'
 import classNames from 'classnames'
 import { BannerLoader } from './loader'
 import { BannerPages } from './pages'

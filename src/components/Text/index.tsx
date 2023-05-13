@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large'

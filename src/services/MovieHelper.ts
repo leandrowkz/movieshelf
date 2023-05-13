@@ -1,6 +1,6 @@
 import { BaseSyntheticEvent } from 'react'
-import { Movie } from 'src/types/Movie'
-import { MovieVideo } from 'src/types/MovieVideo'
+import { Movie } from '../types/Movie'
+import { MovieVideo } from '../types/MovieVideo'
 
 export class MovieHelper {
   static getImageUrl(path: string, size = 300) {

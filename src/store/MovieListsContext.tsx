@@ -4,9 +4,9 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { moviesAPI } from 'src/services/MoviesAPI'
-import { Movie } from 'src/types/Movie'
-import { Genre } from 'src/types/Genre'
+import { moviesAPI } from '../services/MoviesAPI'
+import { Movie } from '../types/Movie'
+import { Genre } from '../types/Genre'
 
 type MovieListsState = {
   inTheatres: Movie[]

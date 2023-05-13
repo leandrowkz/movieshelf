@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { ShowPoster } from '.'
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { MovieHelper } from 'src/services/MovieHelper'
+import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
+import { MovieHelper } from '../../services/MovieHelper'
 
 const makeSUT = () => {
   return { movie: { ...mockMovieDetails, genre_ids: [] } }

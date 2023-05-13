@@ -1,8 +1,8 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { Banner } from '.'
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { Movie } from 'src/types/Movie'
+import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
+import { Movie } from '../../types/Movie'
 import { BrowserRouter } from 'react-router-dom'
 
 const makeSUT = () => {

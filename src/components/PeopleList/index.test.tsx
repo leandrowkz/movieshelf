@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { PeopleList } from '.'
-import { mockPerson } from 'src/__mocks__/mockPerson'
+import { mockPerson } from '../../__mocks__/mockPerson'
 
 const makeSUT = () => {
   const mockPeople = []

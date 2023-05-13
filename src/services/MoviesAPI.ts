@@ -1,8 +1,8 @@
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../types/Movie'
 import { APIFetcher } from './APIFetcher'
-import { MovieCredits } from 'src/types/MovieCredits'
-import { MovieVideo } from 'src/types/MovieVideo'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { MovieCredits } from '../types/MovieCredits'
+import { MovieVideo } from '../types/MovieVideo'
+import { MovieGenre } from '../types/MovieGenre'
 
 export class MoviesAPI extends APIFetcher {
   constructor() {

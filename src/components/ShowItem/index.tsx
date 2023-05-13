@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from 'react'
 import styles from './styles.module.css'
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../../types/Movie'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'

@@ -1,7 +1,7 @@
-import { Country } from 'src/types/Country'
-import { Genre } from 'src/types/Genre'
-import { Language } from 'src/types/Language'
-import { MovieStatus } from 'src/types/MovieStatus'
+import { Country } from '../types/Country'
+import { Genre } from '../types/Genre'
+import { Language } from '../types/Language'
+import { MovieStatus } from '../types/MovieStatus'
 
 export const mockMovieDetails = {
   id: 1010,

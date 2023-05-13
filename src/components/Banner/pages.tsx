@@ -1,14 +1,14 @@
 import React, { HTMLAttributes, useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../../types/Movie'
 import classNames from 'classnames'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom'
-import { MovieHelper } from 'src/services/MovieHelper'
+import { MovieHelper } from '../../services/MovieHelper'
 import { Motion } from '../Motion'
 import { Text } from '../Text'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLElement> {
   shows: Movie[]

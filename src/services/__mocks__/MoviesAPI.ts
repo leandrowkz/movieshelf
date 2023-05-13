@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Movie } from 'src/types/Movie'
-import { MovieCredits } from 'src/types/MovieCredits'
-import { MovieVideo } from 'src/types/MovieVideo'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { Movie } from '../../types/Movie'
+import { MovieCredits } from '../../types/MovieCredits'
+import { MovieVideo } from '../../types/MovieVideo'
+import { MovieGenre } from '../../types/MovieGenre'
 import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
 import { mockGenres } from '../../__mocks__/mockGenres'
 import { mockMovieVideo } from '../../__mocks__/mockMovieVideo'

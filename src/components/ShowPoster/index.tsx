@@ -1,8 +1,8 @@
 import classNames from 'classnames'
 import React, { HTMLAttributes } from 'react'
-import { MovieHelper } from 'src/services/MovieHelper'
+import { MovieHelper } from '../../services/MovieHelper'
 import { Image } from '../Image'
-import { Movie } from 'src/types/Movie'
+import { Movie } from '../../types/Movie'
 import css from './styles.module.css'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

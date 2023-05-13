@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react'
-import { Movie } from 'src/types/Movie'
-import { CountryFlag } from 'src/types/CountryFlag'
-import { Country } from 'src/types/Country'
+import { Movie } from '../../types/Movie'
+import { CountryFlag } from '../../types/CountryFlag'
+import { Country } from '../../types/Country'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 

@@ -4,8 +4,8 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { moviesAPI } from 'src/services/MoviesAPI'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { moviesAPI } from '../services/MoviesAPI'
+import { MovieGenre } from '../types/MovieGenre'
 
 type MovieGenresState = {
   genres: MovieGenre[]
