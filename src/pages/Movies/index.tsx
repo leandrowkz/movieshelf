@@ -5,63 +5,126 @@ import { ShowCarousel } from '../../components/ShowCarousel'
 
 export function Movies(): JSX.Element {
   const {
+    action,
+    adventure,
+    animation,
+    comedy,
+    crime,
+    documentary,
+    drama,
+    fantasy,
     family,
-    mostPopular,
-    bestComedies,
-    inTheatres,
-    scifiAndFantasy,
-    topRatedDocumentaries,
-    isLoadingBestComedies,
+    history,
+    horror,
+    mistery,
+    music,
+    romance,
+    scienceFiction,
+    thriller,
+    war,
+    western,
+    isLoadingAction,
+    isLoadingAdventure,
+    isLoadingAnimation,
+    isLoadingComedy,
+    isLoadingCrime,
+    isLoadingDocumentary,
+    isLoadingDrama,
+    isLoadingFantasy,
     isLoadingFamily,
-    isLoadingInTheatres,
-    isLoadingMostPopular,
-    isLoadingScifiAndFantasy,
-    isLoadingTopRatedDocumentaries,
-    fetchTrending,
-    fetchMostPopular,
-    fetchBestComedies,
-    fetchScifiAndFantasy,
+    isLoadingHistory,
+    isLoadingHorror,
+    isLoadingMistery,
+    isLoadingMusic,
+    isLoadingRomance,
+    isLoadingScienceFiction,
+    isLoadingThriller,
+    isLoadingWar,
+    isLoadingWestern,
+    fetchAction,
+    fetchAdventure,
+    fetchAnimation,
+    fetchComedy,
+    fetchCrime,
+    fetchDocumentary,
+    fetchDrama,
+    fetchFantasy,
     fetchFamily,
-    fetchTopRatedDocumentaries,
-    fetchInTheatres,
+    fetchHistory,
+    fetchHorror,
+    fetchMistery,
+    fetchMusic,
+    fetchRomance,
+    fetchScienceFiction,
+    fetchThriller,
+    fetchWar,
+    fetchWestern,
   } = useContext(MovieListsContext)
 
   useEffect(() => {
-    fetchMostPopular()
-    fetchInTheatres()
-    fetchTrending()
-    fetchBestComedies()
-    fetchScifiAndFantasy()
+    fetchAction()
+    fetchAdventure()
+    fetchAnimation()
+    fetchComedy()
+    fetchCrime()
+    fetchDocumentary()
+    fetchDrama()
+    fetchFantasy()
     fetchFamily()
-    fetchTopRatedDocumentaries()
+    fetchHistory()
+    fetchHorror()
+    fetchMistery()
+    fetchMusic()
+    fetchRomance()
+    fetchScienceFiction()
+    fetchThriller()
+    fetchWar()
+    fetchWestern()
   }, [])
 
   return (
     <Page>
       <ShowCarousel
-        title="In theaters"
-        shows={inTheatres}
-        isLoading={isLoadingInTheatres}
-        size="large"
-        data-testid="carousel-in-theaters"
+        title="Action"
+        shows={action}
+        isLoading={isLoadingAction}
+        data-testid="carousel-action"
       />
       <ShowCarousel
-        title="Most popular"
-        shows={mostPopular}
-        isLoading={isLoadingMostPopular}
-        data-testid="carousel-most-popular"
+        title="Adventure"
+        shows={adventure}
+        isLoading={isLoadingAdventure}
+        data-testid="carousel-adventure"
       />
       <ShowCarousel
-        title="Best comedies"
-        shows={bestComedies}
-        isLoading={isLoadingBestComedies}
-        data-testid="carousel-best-comedies"
+        title="Animation"
+        shows={animation}
+        isLoading={isLoadingAnimation}
+        data-testid="carousel-animation"
       />
       <ShowCarousel
-        title="Sci-Fi & fantasy"
-        shows={scifiAndFantasy}
-        isLoading={isLoadingScifiAndFantasy}
-        data-testid="carousel-sci-fi-fantasy"
+        title="Comedy"
+        shows={comedy}
+        isLoading={isLoadingComedy}
+        data-testid="carousel-comedy"
+      />
+      <ShowCarousel
+        title="Crime"
+        shows={crime}
+        isLoading={isLoadingCrime}
+        data-testid="carousel-crime"
+      />
+      <ShowCarousel
+        title="Documentary"
+        shows={documentary}
+        isLoading={isLoadingDocumentary}
+        data-testid="carousel-documentary"
+      />
+      <ShowCarousel
+        title="Drama"
+        shows={drama}
+        isLoading={isLoadingDrama}
+        data-testid="carousel-drama"
       />
       <ShowCarousel
         title="Family"
@@ -70,10 +133,64 @@ export function Movies(): JSX.Element {
         data-testid="carousel-family"
       />
       <ShowCarousel
-        title="Top rated documentaries"
-        shows={topRatedDocumentaries}
-        isLoading={isLoadingTopRatedDocumentaries}
-        data-testid="carousel-top-rated-documentaries"
+        title="Fantasy"
+        shows={fantasy}
+        isLoading={isLoadingFantasy}
+        data-testid="carousel-fantasy"
+      />
+      <ShowCarousel
+        title="History"
+        shows={history}
+        isLoading={isLoadingHistory}
+        data-testid="carousel-history"
+      />
+      <ShowCarousel
+        title="Horror"
+        shows={horror}
+        isLoading={isLoadingHorror}
+        data-testid="carousel-horror"
+      />
+      <ShowCarousel
+        title="Music"
+        shows={music}
+        isLoading={isLoadingMusic}
+        data-testid="carousel-music"
+      />
+      <ShowCarousel
+        title="Mistery"
+        shows={mistery}
+        isLoading={isLoadingMistery}
+        data-testid="carousel-mistery"
+      />
+      <ShowCarousel
+        title="Romance"
+        shows={romance}
+        isLoading={isLoadingRomance}
+        data-testid="carousel-romance"
+      />
+      <ShowCarousel
+        title="Science fiction"
+        shows={scienceFiction}
+        isLoading={isLoadingScienceFiction}
+        data-testid="carousel-science-fiction"
+      />
+      <ShowCarousel
+        title="Thriller"
+        shows={thriller}
+        isLoading={isLoadingThriller}
+        data-testid="carousel-thriller"
+      />
+      <ShowCarousel
+        title="War"
+        shows={war}
+        isLoading={isLoadingWar}
+        data-testid="carousel-war"
+      />
+      <ShowCarousel
+        title="Western"
+        shows={western}
+        isLoading={isLoadingWestern}
+        data-testid="carousel-western"
       />
     </Page>
   )

@@ -1,47 +1,51 @@
-import React, { HTMLAttributes } from 'react'
-import { render, waitFor } from '@testing-library/react'
+import React from 'react'
+import { renderComponent } from '../../helpers/testing'
 import { Movies } from '.'
-import { MovieDetailsContextProvider } from '../../store/MovieDetailsContext'
-import { MovieListsContextProvider } from '../../store/MovieListsContext'
 
-jest.mock('react-router-dom', () => ({
-  useParams: () => ({ movieId: 4040 }),
-  ScrollRestoration: () => <></>,
-  Link: () => <></>,
-}))
 jest.mock('src/services/MoviesAPI')
 
-describe('MovieDetails', () => {
+describe('Movies', () => {
   test('Should render MovieDetails properly', async () => {
-    const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
-      <MovieListsContextProvider>
-        <MovieDetailsContextProvider>{children}</MovieDetailsContextProvider>
-      </MovieListsContextProvider>
+    const { findByTestId } = renderComponent(<Movies />)
+
+    const carouselAction = await findByTestId('carousel-action')
+    const carouselAdventure = await findByTestId('carousel-adventure')
+    const carouselAnimation = await findByTestId('carousel-animation')
+    const carouselComedy = await findByTestId('carousel-comedy')
+    const carouselCrime = await findByTestId('carousel-crime')
+    const carouselDocumentary = await findByTestId('carousel-documentary')
+    const carouselDrama = await findByTestId('carousel-drama')
+    const carouselFamily = await findByTestId('carousel-family')
+    const carouselFantasy = await findByTestId('carousel-fantasy')
+    const carouselHistory = await findByTestId('carousel-history')
+    const carouselHorror = await findByTestId('carousel-horror')
+    const carouselMusic = await findByTestId('carousel-music')
+    const carouselMistery = await findByTestId('carousel-mistery')
+    const carouselRomance = await findByTestId('carousel-romance')
+    const carouselScienceFiction = await findByTestId(
+      'carousel-science-fiction'
     )
-    const { queryByTestId } = render(<Movies />, { wrapper })
+    const carouselThriller = await findByTestId('carousel-thriller')
+    const carouselWar = await findByTestId('carousel-war')
+    const carouselWestern = await findByTestId('carousel-western')
 
-    await waitFor(async () => {
-      const title = queryByTestId('movie-title')
-      const overview = queryByTestId('movie-overview')
-      const year = queryByTestId('movie-year')
-      const genres = queryByTestId('movie-genres')
-      const countries = queryByTestId('movie-countries')
-      const poster = queryByTestId('movie-poster')
-      const cast = queryByTestId('movie-cast')
-      const carouselSimilar = queryByTestId('carousel-similar')
-      const carouselRecommended = queryByTestId('carousel-recommended')
-      const carouselTrending = queryByTestId('carousel-trending')
-
-      expect(title).toBeInTheDocument()
-      expect(overview).toBeInTheDocument()
-      expect(year).toBeInTheDocument()
-      expect(genres).toBeInTheDocument()
-      expect(countries).toBeInTheDocument()
-      expect(poster).toBeInTheDocument()
-      expect(cast).toBeInTheDocument()
-      expect(carouselSimilar).toBeInTheDocument()
-      expect(carouselRecommended).toBeInTheDocument()
-      expect(carouselTrending).toBeInTheDocument()
-    })
+    expect(carouselAction).toBeInTheDocument()
+    expect(carouselAdventure).toBeInTheDocument()
+    expect(carouselAnimation).toBeInTheDocument()
+    expect(carouselComedy).toBeInTheDocument()
+    expect(carouselCrime).toBeInTheDocument()
+    expect(carouselDocumentary).toBeInTheDocument()
+    expect(carouselDrama).toBeInTheDocument()
+    expect(carouselFamily).toBeInTheDocument()
+    expect(carouselFantasy).toBeInTheDocument()
+    expect(carouselHistory).toBeInTheDocument()
+    expect(carouselHorror).toBeInTheDocument()
+    expect(carouselMusic).toBeInTheDocument()
+    expect(carouselMistery).toBeInTheDocument()
+    expect(carouselRomance).toBeInTheDocument()
+    expect(carouselScienceFiction).toBeInTheDocument()
+    expect(carouselThriller).toBeInTheDocument()
+    expect(carouselWar).toBeInTheDocument()
+    expect(carouselWestern).toBeInTheDocument()
   })
 })

@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
-import { Movie } from '../../types/Movie'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
@@ -9,7 +8,7 @@ import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  shows: Movie[] | MovieItem[]
+  shows: MovieItem[]
   title: string
   isLoading?: boolean
   size?: 'large' | 'medium' | 'small'
@@ -51,7 +50,7 @@ export function ShowCarousel({
   }
   const itemsPerPage = 1
   const pagesCount = Math.floor(shows.length / itemsPerPage)
-  const pagesList: (Movie | MovieItem)[][] = []
+  const pagesList: MovieItem[][] = []
 
   // const vwAdjustMap = {
   //   default: 3,
