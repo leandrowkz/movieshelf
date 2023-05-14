@@ -1,8 +1,7 @@
-import type { MovieItem, Movie } from '@leandrowkz/tmdb'
+import type { MovieItem, Movie, Genre } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 import { MovieCredits } from '../types/MovieCredits'
 import { MovieVideo } from '../types/MovieVideo'
-import { MovieGenre } from '../types/MovieGenre'
 
 export class MoviesAPI extends APIFetcher {
   constructor() {
@@ -85,10 +84,10 @@ export class MoviesAPI extends APIFetcher {
     return this.get<MovieVideo[]>(path)
   }
 
-  public async fetchGenres(): Promise<MovieGenre[]> {
+  public async fetchGenres(): Promise<Genre[]> {
     const path = this.getPath('/api/genres-movie')
 
-    return this.get<MovieGenre[]>(path)
+    return this.get<Genre[]>(path)
   }
 }
 

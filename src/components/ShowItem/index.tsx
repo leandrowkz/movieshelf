@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from 'react'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
-import { Movie } from '../../types/Movie'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
-  show: Movie
+  show: MovieItem
 }
 
 export function ShowItem({ show, className, ...props }: Props) {

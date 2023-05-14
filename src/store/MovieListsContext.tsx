@@ -6,18 +6,17 @@ import React, {
 } from 'react'
 import { GenreCode, MovieItem } from '@leandrowkz/tmdb'
 import { moviesAPI } from '../services/MoviesAPI'
-import { Movie } from '../types/Movie'
 import { Genre } from '../types/Genre'
 
 type MovieListsState = {
-  inTheatres: Movie[]
-  trending: Movie[]
-  similar: Movie[]
-  recommended: Movie[]
-  mostPopular: Movie[]
-  bestComedies: Movie[]
-  scifiAndFantasy: Movie[]
-  topRatedDocumentaries: Movie[]
+  inTheatres: MovieItem[]
+  trending: MovieItem[]
+  similar: MovieItem[]
+  recommended: MovieItem[]
+  mostPopular: MovieItem[]
+  bestComedies: MovieItem[]
+  scifiAndFantasy: MovieItem[]
+  topRatedDocumentaries: MovieItem[]
   action: MovieItem[]
   adventure: MovieItem[]
   animation: MovieItem[]
@@ -26,7 +25,7 @@ type MovieListsState = {
   documentary: MovieItem[]
   drama: MovieItem[]
   fantasy: MovieItem[]
-  family: Movie[]
+  family: MovieItem[]
   history: MovieItem[]
   horror: MovieItem[]
   mistery: MovieItem[]
@@ -45,6 +44,23 @@ type MovieListsState = {
   isLoadingScifiAndFantasy: boolean
   isLoadingFamily: boolean
   isLoadingTopRatedDocumentaries: boolean
+  isLoadingAction: boolean
+  isLoadingAdventure: boolean
+  isLoadingAnimation: boolean
+  isLoadingComedy: boolean
+  isLoadingCrime: boolean
+  isLoadingDocumentary: boolean
+  isLoadingDrama: boolean
+  isLoadingFantasy: boolean
+  isLoadingHistory: boolean
+  isLoadingHorror: boolean
+  isLoadingMistery: boolean
+  isLoadingMusic: boolean
+  isLoadingRomance: boolean
+  isLoadingScienceFiction: boolean
+  isLoadingThriller: boolean
+  isLoadingWar: boolean
+  isLoadingWestern: boolean
   fetchTrending: () => void
   fetchInTheatres: () => void
   fetchSimilar: (movieId: number) => void
@@ -109,6 +125,23 @@ export const MovieListsContext = createContext<MovieListsState>({
   isLoadingScifiAndFantasy: false,
   isLoadingFamily: false,
   isLoadingTopRatedDocumentaries: false,
+  isLoadingAction: false,
+  isLoadingAdventure: false,
+  isLoadingAnimation: false,
+  isLoadingComedy: false,
+  isLoadingCrime: false,
+  isLoadingDocumentary: false,
+  isLoadingDrama: false,
+  isLoadingFantasy: false,
+  isLoadingHistory: false,
+  isLoadingHorror: false,
+  isLoadingMistery: false,
+  isLoadingMusic: false,
+  isLoadingRomance: false,
+  isLoadingScienceFiction: false,
+  isLoadingThriller: false,
+  isLoadingWar: false,
+  isLoadingWestern: false,
   fetchTrending: () => null,
   fetchSimilar: () => null,
   fetchRecommended: () => null,
@@ -138,12 +171,12 @@ export const MovieListsContext = createContext<MovieListsState>({
 })
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
-  const [trending, setTrending] = useState<Movie[]>([])
-  const [similar, setSimilar] = useState<Movie[]>([])
-  const [recommended, setRecommended] = useState<Movie[]>([])
-  const [mostPopular, setMostPopular] = useState<Movie[]>([])
-  const [bestComedies, setBestComedies] = useState<Movie[]>([])
-  const [scifiAndFantasy, setScifiAndFantasy] = useState<Movie[]>([])
+  const [trending, setTrending] = useState<MovieItem[]>([])
+  const [similar, setSimilar] = useState<MovieItem[]>([])
+  const [recommended, setRecommended] = useState<MovieItem[]>([])
+  const [mostPopular, setMostPopular] = useState<MovieItem[]>([])
+  const [bestComedies, setBestComedies] = useState<MovieItem[]>([])
+  const [scifiAndFantasy, setScifiAndFantasy] = useState<MovieItem[]>([])
   const [action, setAction] = useState<MovieItem[]>([])
   const [adventure, setAdventure] = useState<MovieItem[]>([])
   const [animation, setAnimation] = useState<MovieItem[]>([])
@@ -162,10 +195,10 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [thriller, setThriller] = useState<MovieItem[]>([])
   const [war, setWar] = useState<MovieItem[]>([])
   const [western, setWestern] = useState<MovieItem[]>([])
-  const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<Movie[]>(
-    []
-  )
-  const [inTheatres, setInTheatres] = useState<Movie[]>([])
+  const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<
+    MovieItem[]
+  >([])
+  const [inTheatres, setInTheatres] = useState<MovieItem[]>([])
   const [isLoadingTrending, setIsLoadingTrending] = useState(false)
   const [isLoadingInTheatres, setIsLoadingInTheatres] = useState(false)
   const [isLoadingSimilar, setIsLoadingSimilar] = useState(false)
@@ -477,8 +510,25 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     mostPopular,
     bestComedies,
     scifiAndFantasy,
-    family,
     topRatedDocumentaries,
+    action,
+    adventure,
+    animation,
+    comedy,
+    crime,
+    documentary,
+    drama,
+    fantasy,
+    family,
+    history,
+    horror,
+    mistery,
+    music,
+    romance,
+    scienceFiction,
+    thriller,
+    war,
+    western,
     inTheatres,
     isLoadingTrending,
     isLoadingInTheatres,
@@ -489,6 +539,23 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     isLoadingScifiAndFantasy,
     isLoadingFamily,
     isLoadingTopRatedDocumentaries,
+    isLoadingAction,
+    isLoadingAdventure,
+    isLoadingAnimation,
+    isLoadingComedy,
+    isLoadingCrime,
+    isLoadingDocumentary,
+    isLoadingDrama,
+    isLoadingFantasy,
+    isLoadingHistory,
+    isLoadingHorror,
+    isLoadingMistery,
+    isLoadingMusic,
+    isLoadingRomance,
+    isLoadingScienceFiction,
+    isLoadingThriller,
+    isLoadingWar,
+    isLoadingWestern,
     fetchTrending,
     fetchSimilar,
     fetchRecommended,
@@ -498,6 +565,23 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     fetchFamily,
     fetchTopRatedDocumentaries,
     fetchInTheatres,
+    fetchAction,
+    fetchAdventure,
+    fetchAnimation,
+    fetchComedy,
+    fetchCrime,
+    fetchDocumentary,
+    fetchDrama,
+    fetchFantasy,
+    fetchHistory,
+    fetchHorror,
+    fetchMistery,
+    fetchMusic,
+    fetchRomance,
+    fetchScienceFiction,
+    fetchThriller,
+    fetchWar,
+    fetchWestern,
   }
 
   return (

@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import React, { HTMLAttributes } from 'react'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import { MovieHelper } from '../../services/MovieHelper'
 import { Image } from '../Image'
-import { Movie } from '../../types/Movie'
 import css from './styles.module.css'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  show: Movie
+  show: MovieItem
   width?: number | 'auto'
 }
 
@@ -18,7 +18,7 @@ export function ShowPoster({
 }: Props) {
   const classes = classNames(css.poster, className)
   const { poster_path: poster } = show
-  const img = MovieHelper.getImageUrl(poster)
+  const img = MovieHelper.getImageUrl(poster || '')
   const style = { width }
 
   return (
