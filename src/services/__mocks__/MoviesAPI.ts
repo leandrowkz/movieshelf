@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Movie } from '../../types/Movie'
 import { MovieCredits } from '../../types/MovieCredits'
 import { MovieVideo } from '../../types/MovieVideo'
 import { MovieGenre } from '../../types/MovieGenre'
@@ -7,10 +6,11 @@ import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
 import { mockGenres } from '../../__mocks__/mockGenres'
 import { mockMovieVideo } from '../../__mocks__/mockMovieVideo'
 import { mockMovieCredits } from '../../__mocks__/mockMovieCredits'
+import type { Movie, MovieItem } from '@leandrowkz/tmdb'
 
 class MoviesAPI {
-  private getMockMovies(amount: number): Movie[] {
-    const movies: Movie[] = []
+  private getMockMovies(amount: number): MovieItem[] {
+    const movies: MovieItem[] = []
 
     for (let i = 0; i < amount; i++) {
       movies.push({ ...mockMovieDetails })
@@ -23,30 +23,30 @@ class MoviesAPI {
     return { ...mockMovieDetails }
   }
 
-  public async fetchListSimilar(movieId: number): Promise<Movie[]> {
+  public async fetchListSimilar(movieId: number): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 
-  public async fetchListRecommended(movieId: number): Promise<Movie[]> {
+  public async fetchListRecommended(movieId: number): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 
-  public async fetchListInTheatres(filters = {}): Promise<Movie[]> {
+  public async fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 
   public async fetchListByGenre(
     genres: number[],
     filters = {}
-  ): Promise<Movie[]> {
+  ): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 
-  public async fetchListMostPopular(page = 1): Promise<Movie[]> {
+  public async fetchListMostPopular(page = 1): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 
-  public async fetchListTrending(): Promise<Movie[]> {
+  public async fetchListTrending(): Promise<MovieItem[]> {
     return this.getMockMovies(10)
   }
 

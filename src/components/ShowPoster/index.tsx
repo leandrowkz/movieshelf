@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import React, { HTMLAttributes } from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
+import type { Movie, MovieItem } from '@leandrowkz/tmdb'
 import { MovieHelper } from '../../services/MovieHelper'
 import { Image } from '../Image'
 import css from './styles.module.css'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  show: MovieItem
+  show: MovieItem | Movie
   width?: number | 'auto'
 }
 

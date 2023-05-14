@@ -1,14 +1,14 @@
 import React, { HTMLAttributes, ReactElement } from 'react'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
-import { Movie } from '../../types/Movie'
 import classNames from 'classnames'
 import { BannerLoader } from './loader'
 import { BannerPages } from './pages'
 import { Container } from '../Container'
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  shows: Movie[]
+  shows: MovieItem[]
   isLoading?: boolean
 }
 

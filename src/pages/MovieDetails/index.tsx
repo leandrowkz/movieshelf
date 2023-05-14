@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import type { Movie } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../store/MovieListsContext'
 import { Heading } from '../../components/Heading'
@@ -24,7 +25,6 @@ import {
   LoaderDetails,
   LoaderPoster,
 } from './loader'
-import { Movie } from '../../types/Movie'
 import { MovieVideo } from '../../types/MovieVideo'
 
 type DetailsProps = {
@@ -90,7 +90,7 @@ export function MovieDetails(): JSX.Element {
     return <></>
   }
 
-  const backdrop = MovieHelper.getImageUrl(movie.backdrop_path, 500)
+  const backdrop = MovieHelper.getImageUrl(movie.backdrop_path || '', 500)
 
   return (
     <Page>

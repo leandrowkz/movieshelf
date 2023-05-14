@@ -32,7 +32,7 @@
 }
 
 .page:first-child {
-  padding-left: calc(var(--container-spacer) - calc(var(--spacer-base) * 1.5));
+  padding-left: calc(var(--container-spacer) - calc(var(--spacer-base) * 1.2));
 }
 
 .page {

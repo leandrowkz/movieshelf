@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, useEffect, useState } from 'react'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
-import { Movie } from '../../types/Movie'
 import classNames from 'classnames'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom'
@@ -11,7 +11,7 @@ import { Text } from '../Text'
 import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  shows: Movie[]
+  shows: MovieItem[]
 }
 
 export function BannerPages({ shows, ...props }: Props) {
@@ -39,7 +39,7 @@ export function BannerPages({ shows, ...props }: Props) {
   }
 
   const headerLevel = isMobile ? 2 : 1
-  const banner = MovieHelper.getImageUrl(show.backdrop_path, 500)
+  const banner = MovieHelper.getImageUrl(show.backdrop_path || '', 500)
   const countShows = shows.length
 
   const bullets = []
