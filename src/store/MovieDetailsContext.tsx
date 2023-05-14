@@ -4,8 +4,8 @@ import React, {
   useCallback,
   useState,
 } from 'react'
+import type { Movie } from '@leandrowkz/tmdb'
 import { moviesAPI } from '../services/MoviesAPI'
-import { Movie } from '../types/Movie'
 import { MovieVideo } from '../types/MovieVideo'
 import { Nullable } from '../types/Nullable'
 import { Person } from '../types/Person'

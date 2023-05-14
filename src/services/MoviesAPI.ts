@@ -1,4 +1,4 @@
-import { Movie } from '../types/Movie'
+import type { MovieItem, Movie } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 import { MovieCredits } from '../types/MovieCredits'
 import { MovieVideo } from '../types/MovieVideo'
@@ -28,49 +28,49 @@ export class MoviesAPI extends APIFetcher {
     return this.get<Movie>(path)
   }
 
-  public async fetchListSimilar(movieId: number): Promise<Movie[]> {
+  public async fetchListSimilar(movieId: number): Promise<MovieItem[]> {
     const path = this.getPath('/api/movies-similar', { movieId })
 
-    return await this.get<Movie[]>(path)
+    return await this.get<MovieItem[]>(path)
   }
 
-  public async fetchListRecommended(movieId: number): Promise<Movie[]> {
+  public async fetchListRecommended(movieId: number): Promise<MovieItem[]> {
     const path = this.getPath('/api/movies-recommended', { movieId })
 
-    return this.get<Movie[]>(path)
+    return this.get<MovieItem[]>(path)
   }
 
-  public async fetchListInTheatres(filters = {}): Promise<Movie[]> {
+  public async fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
     const path = this.getPath('/api/movies-in-theatres', filters)
 
-    return this.get<Movie[]>(path)
+    return this.get<MovieItem[]>(path)
   }
 
   public async fetchListByGenre(
     genres: number[],
     filters = {}
-  ): Promise<Movie[]> {
+  ): Promise<MovieItem[]> {
     const fetchFilters = {
       with_genres: genres.join(','),
       ...filters,
     }
     const path = this.getPath('api/movies-genres', fetchFilters)
 
-    return this.get<Movie[]>(path)
+    return this.get<MovieItem[]>(path)
   }
 
-  public async fetchListMostPopular(page = 1): Promise<Movie[]> {
+  public async fetchListMostPopular(page = 1): Promise<MovieItem[]> {
     const filters = { page }
 
     const path = this.getPath('/api/movies-popular', filters)
 
-    return this.get<Movie[]>(path)
+    return this.get<MovieItem[]>(path)
   }
 
-  public async fetchListTrending(): Promise<Movie[]> {
+  public async fetchListTrending(): Promise<MovieItem[]> {
     const path = this.getPath('/api/movies-trending')
 
-    return this.get<Movie[]>(path)
+    return this.get<MovieItem[]>(path)
   }
 
   public async fetchCredits(movieId: number): Promise<MovieCredits> {

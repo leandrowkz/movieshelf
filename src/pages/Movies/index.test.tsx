@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { MovieDetails } from '.'
+import { Movies } from '.'
 import { MovieDetailsContextProvider } from '../../store/MovieDetailsContext'
 import { MovieListsContextProvider } from '../../store/MovieListsContext'
 
@@ -18,7 +18,7 @@ describe('MovieDetails', () => {
         <MovieDetailsContextProvider>{children}</MovieDetailsContextProvider>
       </MovieListsContextProvider>
     )
-    const { queryByTestId } = render(<MovieDetails />, { wrapper })
+    const { queryByTestId } = render(<Movies />, { wrapper })
 
     await waitFor(async () => {
       const title = queryByTestId('movie-title')

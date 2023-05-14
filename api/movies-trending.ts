@@ -5,8 +5,7 @@ export const config = {
 }
 
 export default async () => {
-  const filters = { media_type: <const>'movie', time_window: <const>'week' }
-  const { results } = await tmdb.trending.movies(filters)
+  const { results } = await tmdb.trending.getTrending('movie', 'week')
 
   return json(results)
 }
