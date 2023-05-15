@@ -9,11 +9,13 @@ type Props = {
 }
 
 export function MovieFilters({ onFilter }: Props): JSX.Element {
+  const storageKey = 'MOVIE_FILTERS'
   const [selected, setSelected] = useState<(number | null)[]>([])
 
   useEffect(() => {
     try {
-      const filters = JSON.parse(localStorage.getItem('movieFilters') || '[]')
+      const filters = JSON.parse(localStorage.getItem(storageKey) || '[null]')
+
       if (Array.isArray(filters) && filters.length > 0) {
         setSelected(filters)
       }
@@ -23,19 +25,30 @@ export function MovieFilters({ onFilter }: Props): JSX.Element {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('movieFilters', JSON.stringify(selected))
+    localStorage.setItem(storageKey, JSON.stringify(selected))
     onFilter(selected)
   }, [selected])
 
   const toggleFilter = (id: number | null) => {
-    if (id === null && !selected.includes(null)) {
+    if (id === null) {
       setSelected([null])
-    } else if (id !== null && selected.includes(null)) {
-      setSelected([...selected.filter((lid) => lid !== null), id])
-    } else if (!selected.includes(id)) {
-      setSelected([...selected, id])
-    } else {
-      setSelected([...selected.filter((lid) => lid !== id)])
+      return
+    }
+
+    if (selected.includes(id)) {
+      const newSelected = [...selected.filter((innerId) => innerId !== id)]
+      setSelected(newSelected)
+
+      if (newSelected.length <= 0) {
+        setSelected([null])
+      }
+
+      return
+    }
+
+    if (!selected.includes(id)) {
+      setSelected([...selected.filter((inner) => inner !== null), id])
+      return
     }
   }
 
