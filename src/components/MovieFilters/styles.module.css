@@ -1,0 +1,9 @@
+.filters {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: var(--spacer-large) 0 0;
+  padding-bottom: var(--spacer-extra-large);
+  gap: var(--spacer-small);
+  overflow: auto;
+}

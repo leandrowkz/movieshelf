@@ -5,7 +5,8 @@ import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends PropsWithChildren, ComponentPropsWithoutRef<'button'> {
   size?: 'small' | 'medium' | 'large'
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'outlined'
+  active?: boolean
   pill?: boolean
 }
 
@@ -15,6 +16,7 @@ export function Button({
   size = 'medium',
   variant = 'primary',
   className,
+  active,
   ...props
 }: Props) {
   const isMobile = useScreenSize('mobile')
@@ -23,6 +25,8 @@ export function Button({
     [styles.small]: size === 'small',
     [styles.large]: size === 'large',
     [styles.secondary]: variant === 'secondary',
+    [styles.outlined]: variant === 'outlined',
+    [styles.active]: active,
     [styles.pill]: pill,
   })
 

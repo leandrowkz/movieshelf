@@ -4,9 +4,8 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { GenreCode, MovieItem } from '@leandrowkz/tmdb'
+import { GenreCode, type MovieItem } from '@leandrowkz/tmdb'
 import { moviesAPI } from '../services/MoviesAPI'
-import { Genre } from '../types/Genre'
 
 type MovieListsState = {
   inTheatres: MovieItem[]
@@ -278,7 +277,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     setBestComedies([])
     setIsLoadingBestComedies(true)
 
-    const data = await moviesAPI.fetchListByGenre([Genre.COMEDY], {
+    const data = await moviesAPI.fetchListByGenre([GenreCode.COMEDY], {
       'vote_average.gte': 7.5,
     })
 
@@ -291,8 +290,8 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     setIsLoadingScifiAndFantasy(true)
 
     const data = await moviesAPI.fetchListByGenre([
-      Genre.SCIENCE_FICTION,
-      Genre.FANTASY,
+      GenreCode.SCIENCE_FICTION,
+      GenreCode.FANTASY,
     ])
 
     setScifiAndFantasy(data)
@@ -303,7 +302,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     setFamily([])
     setIsLoadingFamily(true)
 
-    const data = await moviesAPI.fetchListByGenre([Genre.FAMILY])
+    const data = await moviesAPI.fetchListByGenre([GenreCode.FAMILY])
 
     setFamily(data)
     setIsLoadingFamily(false)
@@ -317,7 +316,10 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
       sort_by: 'popularity.desc',
       'vote_average.gte': 9,
     }
-    const data = await moviesAPI.fetchListByGenre([Genre.DOCUMENTARY], filters)
+    const data = await moviesAPI.fetchListByGenre(
+      [GenreCode.DOCUMENTARY],
+      filters
+    )
 
     setTopRatedDocumentaries(data)
     setIsLoadingTopRatedDocumentaries(false)

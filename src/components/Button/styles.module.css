@@ -1,6 +1,6 @@
 .button {
   position: relative;
-  border: none;
+  border: 1px solid var(--button-color);
   height: var(--button-medium-height);
   line-height: var(--button-medium-height);
   padding: var(--button-medium-padding);
@@ -44,14 +44,26 @@
   border-radius: 100px;
 }
 
-.mobile {
-  height: var(--button-medium-height);
-  line-height: var(--button-medium-height);
-  padding: var(--button-medium-padding);
-  border-radius: var(--radius-base);
+.secondary {
+  border-color: var(--color-primary-lighter);
+  background-color: var(--color-primary-lighter);
+  color: var(--button-color);
 }
 
-.secondary {
+.outlined {
+  background-color: white;
+  border-color: var(--font-color-muted);
+  color: var(--font-color-base);
+}
+
+.active {
+  color: white !important;
+  border-color: var(--button-color) !important;
+  background-color: var(--button-color-hover) !important;
+}
+
+.outlined:hover {
+  border-color: var(--color-primary-lighter);
   background-color: var(--color-primary-lighter);
   color: var(--button-color);
 }
