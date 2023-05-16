@@ -17,3 +17,14 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 })
+
+Object.defineProperty(window, 'localStorage', {
+  writable: true,
+  value: {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn(),
+    removeItem: jest.fn(),
+    getAll: jest.fn(),
+  },
+})

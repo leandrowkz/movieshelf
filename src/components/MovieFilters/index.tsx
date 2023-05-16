@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 import { Button } from '../Button'
 import { genres } from './genres'
 import styles from './styles.module.css'
 import { Container } from '../Container'
 
-type Props = {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   onFilter: (genreCodes: (number | null)[]) => void
 }
 
-export function MovieFilters({ onFilter }: Props): JSX.Element {
+export function MovieFilters({ onFilter, ...props }: Props): JSX.Element {
   const storageKey = 'MOVIE_FILTERS'
   const [selected, setSelected] = useState<(number | null)[]>([])
 
@@ -53,7 +53,7 @@ export function MovieFilters({ onFilter }: Props): JSX.Element {
   }
 
   return (
-    <Container className={styles.filters}>
+    <Container className={styles.filters} {...props}>
       {genres.map((genre) => (
         <Button
           key={`button-filter-${genre.id}`}
@@ -61,6 +61,7 @@ export function MovieFilters({ onFilter }: Props): JSX.Element {
           size="small"
           active={selected.includes(genre.id)}
           onClick={() => toggleFilter(genre.id)}
+          value={String(genre.id)}
           pill
         >
           {genre.icon} {genre.name}

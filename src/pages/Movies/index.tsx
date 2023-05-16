@@ -216,7 +216,10 @@ export function Movies(): JSX.Element {
 
   return (
     <Page>
-      <MovieFilters onFilter={(genreCodes) => setGenreCodes(genreCodes)} />
+      <MovieFilters
+        onFilter={(genreCodes) => setGenreCodes(genreCodes)}
+        data-testid="filters"
+      />
       {carousels
         .filter((carousel) =>
           genreCodes.length > 0 && !genreCodes.includes(null)
@@ -230,6 +233,7 @@ export function Movies(): JSX.Element {
             shows={carousel.data}
             isLoading={carousel.isLoading}
             data-testid={carousel.key}
+            role="list"
           />
         ))}
     </Page>
