@@ -1,8 +1,8 @@
 import React, { HTMLAttributes } from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { MovieDetails } from '.'
-import { MovieDetailsContextProvider } from 'src/store/MovieDetailsContext'
-import { MovieListsContextProvider } from 'src/store/MovieListsContext'
+import { MovieDetailsContextProvider } from '../../store/MovieDetailsContext'
+import { MovieListsContextProvider } from '../../store/MovieListsContext'
 
 jest.mock('react-router-dom', () => ({
   useParams: () => ({ movieId: 4040 }),

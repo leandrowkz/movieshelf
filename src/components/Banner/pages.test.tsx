@@ -1,12 +1,12 @@
 import React from 'react'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import { render } from '@testing-library/react'
 import { BannerPages } from './pages'
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { Movie } from 'src/types/Movie'
+import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
 import { BrowserRouter } from 'react-router-dom'
 
 const makeSUT = () => {
-  const mockMovies: Movie[] = []
+  const mockMovies: MovieItem[] = []
 
   for (let i = 0; i < 10; i++) {
     mockMovies.push({ ...mockMovieDetails })
@@ -24,7 +24,7 @@ describe('BannerPages', () => {
     })
 
     const title = getByText(mockMovie.title)
-    const overview = getByText(mockMovie.overview)
+    const overview = getByText(mockMovie.overview || '')
     const linkButton = getByTestId('show-link') as HTMLLinkElement
     const bullets = getByTestId('bullets')
 

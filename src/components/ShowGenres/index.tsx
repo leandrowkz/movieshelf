@@ -1,12 +1,10 @@
 import React, { HTMLAttributes, useContext } from 'react'
+import type { Movie, MovieItem, Genre, GenreCode } from '@leandrowkz/tmdb'
 import { Text } from '../Text'
-import { Movie } from 'src/types/Movie'
-import { MovieGenresContext } from 'src/store/MovieGenresContext'
-import { Genre } from 'src/types/Genre'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { MovieGenresContext } from '../../store/MovieGenresContext'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  show: Movie
+  show: MovieItem | Movie
   size?: 'small' | 'medium' | 'large'
   separator?: string
   limit?: number
@@ -20,9 +18,8 @@ export function ShowGenres({
   limit = 2,
   ...props
 }: Props) {
-  const { genres, genre_ids: genreIds } = show
-  const isGenresArray = Array.isArray(genres)
-  const isGenresIdsArray = Array.isArray(genreIds)
+  const isGenresArray = 'genres' in show && Array.isArray(show.genres)
+  const isGenresIdsArray = 'genre_ids' in show && Array.isArray(show.genre_ids)
 
   if (!isGenresArray && !isGenresIdsArray) {
     return <></>
@@ -30,19 +27,21 @@ export function ShowGenres({
 
   const { genres: genresFromContext } = useContext(MovieGenresContext)
 
-  let showGenres: MovieGenre[] = []
+  let showGenres: Genre[] = []
 
   if (isGenresArray) {
-    showGenres = genres.slice(0, limit)
-  } else if (isGenresIdsArray) {
-    showGenres = genreIds.slice(0, limit).map((showGenreId: Genre) => {
-      return (
-        genresFromContext.find((genre) => genre.id === showGenreId) || {
-          id: showGenreId,
-          name: 'Other',
-        }
-      )
-    })
+    showGenres = show.genres.slice(0, limit)
+  } else if (isGenresIdsArray && show.genre_ids) {
+    showGenres = show.genre_ids
+      .slice(0, limit)
+      .map((showGenreId: GenreCode) => {
+        return (
+          genresFromContext.find((genre) => genre.id === showGenreId) || {
+            id: showGenreId,
+            name: 'Other',
+          }
+        )
+      })
   }
 
   return (

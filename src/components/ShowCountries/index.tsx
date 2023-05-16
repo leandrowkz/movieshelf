@@ -1,9 +1,9 @@
 import React, { HTMLAttributes } from 'react'
-import { Movie } from 'src/types/Movie'
-import { CountryFlag } from 'src/types/CountryFlag'
-import { Country } from 'src/types/Country'
+import { CountryFlag } from '../../types/CountryFlag'
+import { Country } from '../../types/Country'
 import styles from './styles.module.css'
 import classNames from 'classnames'
+import type { Movie } from '@leandrowkz/tmdb'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie

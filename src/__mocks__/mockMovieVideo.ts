@@ -1,6 +1,6 @@
-import { Country } from 'src/types/Country'
-import { Language } from 'src/types/Language'
-import { MovieVideo } from 'src/types/MovieVideo'
+import { Country } from '../types/Country'
+import { Language } from '../types/Language'
+import { MovieVideo } from '../types/MovieVideo'
 
 export const mockMovieVideo: MovieVideo = {
   id: 'MOVIE_442',

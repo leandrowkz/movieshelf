@@ -22,7 +22,7 @@ describe('Header', () => {
     const menuMovies = getByTestId('menu-movies') as HTMLLinkElement
     const menuSponsorship = getByTestId('sponsor') as HTMLLinkElement
 
-    expect(menuMovies.href).toEqual(`${window.location.href}`)
+    expect(menuMovies.href).toEqual(`${window.location.href}movies`)
     expect(menuMovies.target).toEqual('')
     expect(menuSponsorship.href).toEqual(
       'https://github.com/sponsors/leandrowkz'

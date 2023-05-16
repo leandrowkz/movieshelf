@@ -1,6 +1,6 @@
 import { BaseSyntheticEvent } from 'react'
-import { Movie } from 'src/types/Movie'
-import { MovieVideo } from 'src/types/MovieVideo'
+import type { Movie, MovieItem } from '@leandrowkz/tmdb'
+import { MovieVideo } from '../types/MovieVideo'
 
 export class MovieHelper {
   static getImageUrl(path: string, size = 300) {
@@ -21,7 +21,7 @@ export class MovieHelper {
     return `https://youtube.com/watch?v=${trailer.key}`
   }
 
-  static getReleaseYear(show: Movie) {
+  static getReleaseYear(show: Movie | MovieItem) {
     const { release_date: release } = show
 
     return new Date(release).getFullYear().toString()

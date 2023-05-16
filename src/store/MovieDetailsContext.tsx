@@ -4,11 +4,11 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { moviesAPI } from 'src/services/MoviesAPI'
-import { Movie } from 'src/types/Movie'
-import { MovieVideo } from 'src/types/MovieVideo'
-import { Nullable } from 'src/types/Nullable'
-import { Person } from 'src/types/Person'
+import type { Movie } from '@leandrowkz/tmdb'
+import { moviesAPI } from '../services/MoviesAPI'
+import { MovieVideo } from '../types/MovieVideo'
+import { Nullable } from '../types/Nullable'
+import { Person } from '../types/Person'
 
 type MovieDetailsState = {
   movie: Nullable<Movie>

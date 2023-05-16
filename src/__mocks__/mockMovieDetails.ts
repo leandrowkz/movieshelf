@@ -1,21 +1,20 @@
-import { Country } from 'src/types/Country'
-import { Genre } from 'src/types/Genre'
-import { Language } from 'src/types/Language'
-import { MovieStatus } from 'src/types/MovieStatus'
+import { GenreCode, type Movie } from '@leandrowkz/tmdb'
+import { Language } from '../types/Language'
+import { MovieStatus } from '../types/MovieStatus'
 
-export const mockMovieDetails = {
+export const mockMovieDetails: Movie = {
   id: 1010,
   imdb_id: 'IMDB_1010',
-  adult: true,
+  adult: false,
   backdrop_path: '/poster_88797319yhflmbx.jpg',
-  belongs_to_collection: true,
+  belongs_to_collection: null,
   budget: 400019,
   genres: [
-    { id: Genre.ACTION, name: 'ACTION' },
-    { id: Genre.COMEDY, name: 'COMEDY' },
-    { id: Genre.ADVENTURE, name: 'ADVENTURE' },
+    { id: GenreCode.ACTION, name: 'ACTION' },
+    { id: GenreCode.COMEDY, name: 'COMEDY' },
+    { id: GenreCode.ADVENTURE, name: 'ADVENTURE' },
   ],
-  genre_ids: [Genre.ACTION, Genre.COMEDY],
+  genre_ids: [GenreCode.ACTION, GenreCode.COMEDY],
   homepage: 'https://movie1010.org',
   original_language: Language.EN,
   original_title: 'The Mock Adventures of Thunder Movie',
@@ -26,11 +25,11 @@ export const mockMovieDetails = {
   production_companies: [],
   production_countries: [
     {
-      iso_3166_1: 'BR' as Country,
+      iso_3166_1: 'BR',
       name: 'Brasil',
     },
     {
-      iso_3166_1: 'JP' as Country,
+      iso_3166_1: 'JP',
       name: 'Japan',
     },
   ],
@@ -42,11 +41,6 @@ export const mockMovieDetails = {
   tagline: 'Consequat ullamco est voluptate non exercitation.',
   title: 'The Mock Adventures of Thunder Movie',
   video: false,
-  videos: { results: [] },
   vote_average: 8.44,
   vote_count: 134132,
-  casts: {
-    cast: [],
-    crew: [],
-  },
 }

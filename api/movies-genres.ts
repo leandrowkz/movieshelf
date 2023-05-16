@@ -1,3 +1,4 @@
+import type { DiscoverMovieFilters } from '@leandrowkz/tmdb'
 import { json, tmdb } from './api'
 
 export const config = {
@@ -7,7 +8,9 @@ export const config = {
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
 
-  const filters = Object.fromEntries(searchParams.entries())
+  const filters = Object.fromEntries(
+    searchParams.entries()
+  ) as DiscoverMovieFilters
 
   const { results } = await tmdb.discover.movies(filters)
 

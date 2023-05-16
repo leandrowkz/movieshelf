@@ -4,11 +4,11 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { moviesAPI } from 'src/services/MoviesAPI'
-import { MovieGenre } from 'src/types/MovieGenre'
+import { moviesAPI } from '../services/MoviesAPI'
+import type { Genre } from '@leandrowkz/tmdb'
 
 type MovieGenresState = {
-  genres: MovieGenre[]
+  genres: Genre[]
   isLoadingGenres: boolean
   hasErrors: boolean
   fetchGenres: () => void
@@ -22,7 +22,7 @@ export const MovieGenresContext = createContext<MovieGenresState>({
 })
 
 export const MovieGenresContextProvider = ({ children }: PropsWithChildren) => {
-  const [genres, setGenres] = useState<MovieGenre[]>([])
+  const [genres, setGenres] = useState<Genre[]>([])
   const [isLoadingGenres, setIsLoadingGenres] = useState(false)
   const [hasErrors, setHasErrors] = useState(false)
 

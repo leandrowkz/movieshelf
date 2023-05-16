@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './styles.module.css'
 import { Circle, Loader, Paragraph, Rectangle } from '../../components/Loader'
-import { Motion } from 'src/components/Motion'
+import { Motion } from '../../components/Motion'
 
 export function LoaderDetails() {
   return (

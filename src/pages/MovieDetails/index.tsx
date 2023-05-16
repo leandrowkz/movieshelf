@@ -1,31 +1,31 @@
 import React, { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Page } from 'src/components/Page'
-import { MovieListsContext } from 'src/store/MovieListsContext'
-import { Heading } from 'src/components/Heading'
-import { Text } from 'src/components/Text'
-import { Rating } from 'src/components/Rating'
-import { MovieHelper } from 'src/services/MovieHelper'
+import type { Movie } from '@leandrowkz/tmdb'
+import { Page } from '../../components/Page'
+import { MovieListsContext } from '../../store/MovieListsContext'
+import { Heading } from '../../components/Heading'
+import { Text } from '../../components/Text'
+import { Rating } from '../../components/Rating'
+import { MovieHelper } from '../../services/MovieHelper'
 import styles from './styles.module.css'
-import { ShowGenres } from 'src/components/ShowGenres'
-import { Button } from 'src/components/Button'
-import { BulletSeparator } from 'src/components/BulletSeparator'
-import { ShowCarousel } from 'src/components/ShowCarousel'
-import { PeopleList } from 'src/components/PeopleList'
-import { ShowCountries } from 'src/components/ShowCountries'
-import { Container } from 'src/components/Container'
-import { ShowPoster } from 'src/components/ShowPoster'
-import { MovieDetailsContext } from 'src/store/MovieDetailsContext'
-import { Motion } from 'src/components/Motion'
-import { Person } from 'src/types/Person'
+import { ShowGenres } from '../../components/ShowGenres'
+import { Button } from '../../components/Button'
+import { BulletSeparator } from '../../components/BulletSeparator'
+import { ShowCarousel } from '../../components/ShowCarousel'
+import { PeopleList } from '../../components/PeopleList'
+import { ShowCountries } from '../../components/ShowCountries'
+import { Container } from '../../components/Container'
+import { ShowPoster } from '../../components/ShowPoster'
+import { MovieDetailsContext } from '../../store/MovieDetailsContext'
+import { Motion } from '../../components/Motion'
+import { Person } from '../../types/Person'
 import {
   LoaderActions,
   LoaderCast,
   LoaderDetails,
   LoaderPoster,
 } from './loader'
-import { Movie } from 'src/types/Movie'
-import { MovieVideo } from 'src/types/MovieVideo'
+import { MovieVideo } from '../../types/MovieVideo'
 
 type DetailsProps = {
   movie: Movie
@@ -90,7 +90,7 @@ export function MovieDetails(): JSX.Element {
     return <></>
   }
 
-  const backdrop = MovieHelper.getImageUrl(movie.backdrop_path, 500)
+  const backdrop = MovieHelper.getImageUrl(movie.backdrop_path || '', 500)
 
   return (
     <Page>

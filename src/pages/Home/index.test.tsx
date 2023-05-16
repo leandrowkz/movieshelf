@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Home } from '.'
-import { MovieListsContextProvider } from 'src/store/MovieListsContext'
+import { MovieListsContextProvider } from '../../store/MovieListsContext'
 
 jest.mock('react-router-dom')
 jest.mock('src/services/MoviesAPI')

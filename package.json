@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@leandrowkz/tmdb": "^1.9.0",
+    "@leandrowkz/tmdb": "^2.0.0",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
