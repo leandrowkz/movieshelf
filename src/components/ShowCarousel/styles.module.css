@@ -1,6 +1,6 @@
 @media screen and (max-width: 768px) {
   .large {
-    min-width: 300px;
+    min-width: var(--show-size-large);
   }
 }
 
@@ -48,7 +48,7 @@
 }
 
 .page {
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
@@ -71,7 +71,7 @@
 }
 
 .loaderItem {
-  width: 200px;
+  width: var(--show-size-base);
   flex-shrink: 0;
   display: grid;
   grid-template-rows: 260px var(--font-size-base);

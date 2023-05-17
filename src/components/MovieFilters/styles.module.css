@@ -3,7 +3,11 @@
   align-items: flex-start;
   justify-content: space-between;
   margin: var(--spacer-large) 0 0;
-  padding-bottom: var(--spacer-extra-large);
+  padding-bottom: var(--spacer-large);
   gap: var(--spacer-small);
   overflow: auto;
+}
+
+.mobile {
+  gap: calc(var(--spacer-small) * 0.4);
 }

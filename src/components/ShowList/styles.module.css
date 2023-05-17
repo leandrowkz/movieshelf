@@ -1,15 +1,17 @@
-@media screen and (max-width: 768px) {
-  .large {
-    min-width: 300px;
-  }
-}
-
 .list {
-  padding-top: var(--spacer-base);
+  margin-top: var(--spacer-large);
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(auto-fill, var(--show-size-base));
   justify-content: space-between;
   grid-gap: var(--spacer-large) var(--spacer-base);
+}
+
+.listSmall {
+  grid-template-columns: repeat(auto-fill, var(--show-size-small));
+}
+
+.listLarge {
+  grid-template-columns: repeat(auto-fill, var(--show-size-large));
 }
 
 .loaderItem {

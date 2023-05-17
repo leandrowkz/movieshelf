@@ -7,18 +7,18 @@
 }
 
 .medium {
-  width: 200px;
-  min-width: 200px;
+  width: var(--show-size-base);
+  min-width: var(--show-size-base);
 }
 
 .small {
-  width: 100px;
-  min-width: 100px;
+  width: var(--show-size-small);
+  min-width: var(--show-size-small);
 }
 
 .large {
-  width: 300px;
-  min-width: 300px;
+  width: var(--show-size-large);
+  min-width: var(--show-size-large);
 }
 
 .poster {

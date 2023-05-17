@@ -5,6 +5,7 @@ import { MovieListsContext } from '../../store/MovieListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
 import { MovieGenresContext } from 'src/store/MovieGenresContext'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function MovieCategory(): JSX.Element {
   const { genreId } = useParams()
@@ -12,15 +13,21 @@ export function MovieCategory(): JSX.Element {
   const { category, isLoadingByCategory, fetchByCategory } =
     useContext(MovieListsContext)
   const [title, setTitle] = useState('Movies')
+  const isMobile = useScreenSize('mobile')
+  const size = isMobile ? 'small' : 'medium'
 
   useEffect(() => {
     const id = Number(genreId)
+
+    fetchByCategory(id)
+  }, [genreId])
+
+  useEffect(() => {
     const genre = genres.find((genre) => genre.id === Number(genreId)) || {
       name: 'Genre',
     }
 
     setTitle(`${genre.name} movies`)
-    fetchByCategory(id)
   }, [genreId, genres])
 
   return (
@@ -29,6 +36,7 @@ export function MovieCategory(): JSX.Element {
         <ShowList
           title={title}
           shows={category}
+          size={size}
           isLoading={isLoadingByCategory}
         />
       </Container>

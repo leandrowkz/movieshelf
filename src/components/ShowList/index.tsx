@@ -26,8 +26,7 @@ export function ShowList({
     return <></>
   }
 
-  const classes = classNames(styles.carousel, className)
-  const showClass = classNames(styles.show)
+  const classes = classNames(styles.container, className)
 
   const header = (
     <div className={styles.header}>
@@ -46,20 +45,29 @@ export function ShowList({
     )
   }
 
-  const list = (
-    <div className={styles.list}>
-      {shows.map((show) => (
-        <Motion className={styles.page} key={show.id}>
-          <ShowItem show={show} className={showClass} size={size} />
-        </Motion>
-      ))}
-    </div>
-  )
-
   return (
     <div className={classes} {...props}>
       {header}
-      {list}
+      <List size={size} shows={shows} />
+    </div>
+  )
+}
+
+type ListProps = Pick<Props, 'size' | 'shows'>
+
+function List({ size, shows }: ListProps) {
+  const classes = classNames(styles.list, {
+    [styles.listSmall]: size === 'small',
+    [styles.listLarge]: size === 'large',
+  })
+
+  return (
+    <div className={classes}>
+      {shows.map((show) => (
+        <Motion className={styles.page} key={show.id}>
+          <ShowItem show={show} className={styles.show} size={size} />
+        </Motion>
+      ))}
     </div>
   )
 }
