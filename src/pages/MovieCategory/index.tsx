@@ -21,7 +21,7 @@ export function MovieCategory(): JSX.Element {
 
     setTitle(`${genre.name} movies`)
     fetchByCategory(id)
-  }, [genreId])
+  }, [genreId, genres])
 
   return (
     <Page>
