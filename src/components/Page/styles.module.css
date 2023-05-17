@@ -9,6 +9,10 @@
   animation-fill-mode: both;
 }
 
+.header {
+  margin-bottom: var(--spacer-large);
+}
+
 @-webkit-keyframes pageTransition {
   0% {
     opacity: 0;

@@ -14,7 +14,7 @@ export function Page({
   return (
     <section className={classes}>
       <ScrollRestoration data-testid="scroll-restoration" />
-      <Header data-testid="header" />
+      <Header data-testid="header" className={styles.header} />
       <section data-testid="content">{children}</section>
       <Footer data-testid="footer" />
     </section>
