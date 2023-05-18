@@ -28,16 +28,10 @@ export function ShowList({
 
   const classes = classNames(styles.container, className)
 
-  const header = (
-    <div className={styles.header}>
-      <Heading title={title} level={2}></Heading>
-    </div>
-  )
-
   if (isLoading) {
     return (
       <div className={classes}>
-        {header}
+        <Header title={title} />
         <Motion data-testid="loader">
           <ShowListLoader />
         </Motion>
@@ -47,15 +41,21 @@ export function ShowList({
 
   return (
     <div className={classes} {...props}>
-      {header}
+      <Header title={title} />
       <List size={size} shows={shows} />
     </div>
   )
 }
 
-type ListProps = Pick<Props, 'size' | 'shows'>
+function Header({ title }: Pick<Props, 'title'>) {
+  return (
+    <div className={styles.header}>
+      <Heading title={title} level={2}></Heading>
+    </div>
+  )
+}
 
-function List({ size, shows }: ListProps) {
+function List({ size, shows }: Pick<Props, 'size' | 'shows'>) {
   const classes = classNames(styles.list, {
     [styles.listSmall]: size === 'small',
     [styles.listLarge]: size === 'large',
@@ -63,9 +63,14 @@ function List({ size, shows }: ListProps) {
 
   return (
     <div className={classes}>
-      {shows.map((show) => (
-        <Motion className={styles.page} key={show.id}>
-          <ShowItem show={show} className={styles.show} size={size} />
+      {shows.map((show, index) => (
+        <Motion key={`show-${show.id}-${index}`}>
+          <ShowItem
+            className={styles.show}
+            show={show}
+            size={size}
+            data-testid="show-item"
+          />
         </Motion>
       ))}
     </div>

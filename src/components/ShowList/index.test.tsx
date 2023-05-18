@@ -1,71 +1,48 @@
 import React from 'react'
 import type { MovieItem } from '@leandrowkz/tmdb'
-import { render } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { ShowList } from '.'
 import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { BrowserRouter } from 'react-router-dom'
+import { renderComponent } from '../../helpers/testing'
 
-const makeSUT = () => {
+function getMockMovies(length = 10) {
   const mockMovies: MovieItem[] = []
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < length; i++) {
     mockMovies.push({ ...mockMovieDetails })
   }
 
-  return { movies: mockMovies }
+  return mockMovies
+}
+
+function render(title = '', movies = getMockMovies(), isLoading = false) {
+  return renderComponent(
+    <ShowList shows={movies} title={title} isLoading={isLoading} />
+  )
 }
 
 describe('ShowList', () => {
   test('Should render ShowList properly', async () => {
-    const { movies } = makeSUT()
-    const { container, getByText, queryByTestId } = render(
-      <ShowList shows={movies} title="MOCK CAROUSEL TITLE" />,
-      { wrapper: BrowserRouter }
-    )
+    render('MOCK LIST TITLE')
 
-    const title = getByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = queryByTestId('loader')
-
-    expect(title).toBeInTheDocument()
-    expect(loader).not.toBeInTheDocument()
-    expect(pages.length).toEqual(10)
-    expect(items.length).toEqual(10)
+    expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+    expect(screen.getByText('MOCK LIST TITLE')).toBeInTheDocument()
+    expect(screen.getAllByTestId('show-item').length).toEqual(10)
   })
 
   test('Should render Loader properly', async () => {
-    const { movies } = makeSUT()
-    const { container, getByText, getByTestId } = render(
-      <ShowList shows={movies} title="MOCK CAROUSEL TITLE" isLoading />,
-      { wrapper: BrowserRouter }
-    )
+    render('MOCK LIST TITLE', getMockMovies(), true)
 
-    const title = getByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = getByTestId('loader')
-
-    expect(title).toBeInTheDocument()
-    expect(loader).toBeInTheDocument()
-    expect(pages.length).toEqual(0)
-    expect(items.length).toEqual(0)
+    expect(screen.getByText('MOCK LIST TITLE')).toBeInTheDocument()
+    expect(screen.getByTestId('loader')).toBeInTheDocument()
+    expect(screen.queryAllByTestId('show-item').length).toEqual(0)
   })
 
   test('Should render properly when there are no items', async () => {
-    const { container, queryByText, queryByTestId } = render(
-      <ShowList shows={[]} title="MOCK CAROUSEL TITLE" />,
-      { wrapper: BrowserRouter }
-    )
+    render('MOCK LIST TITLE', [])
 
-    const title = queryByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = queryByTestId('loader')
-
-    expect(title).not.toBeInTheDocument()
-    expect(loader).not.toBeInTheDocument()
-    expect(pages.length).toEqual(0)
-    expect(items.length).toEqual(0)
+    expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+    expect(screen.queryByText('MOCK LIST TITLE')).not.toBeInTheDocument()
+    expect(screen.queryAllByTestId('show-item').length).toEqual(0)
   })
 })
