@@ -26,12 +26,13 @@ export function ShowCarousel({
   genreId,
   ...props
 }: Props) {
+  const isTablet = useScreenSize('tablet')
+  const isMobile = useScreenSize('mobile')
+
   if (!shows.length && !isLoading) {
     return <></>
   }
 
-  const isTablet = useScreenSize('tablet')
-  const isMobile = useScreenSize('mobile')
   const classes = classNames(styles.carousel, className, {
     [styles.smallDevices]: isTablet || isMobile,
   })
