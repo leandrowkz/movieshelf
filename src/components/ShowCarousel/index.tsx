@@ -6,12 +6,15 @@ import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
+import { Link } from 'react-router-dom'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[]
   title: string
   isLoading?: boolean
   size?: 'large' | 'medium' | 'small'
+  genreId?: number
 }
 
 export function ShowCarousel({
@@ -20,28 +23,24 @@ export function ShowCarousel({
   className,
   isLoading = false,
   size = 'medium',
+  genreId,
   ...props
 }: Props) {
   if (!shows.length && !isLoading) {
     return <></>
   }
 
-  const classes = classNames(styles.carousel, className)
-  const showClass = classNames(styles.show, {
-    [styles.large]: size === 'large',
-    [styles.small]: size === 'small',
+  const isTablet = useScreenSize('tablet')
+  const isMobile = useScreenSize('mobile')
+  const classes = classNames(styles.carousel, className, {
+    [styles.smallDevices]: isTablet || isMobile,
   })
-
-  const header = (
-    <div className={styles.header}>
-      <Heading title={title} level={2}></Heading>
-    </div>
-  )
+  const showClass = classNames(styles.show)
 
   if (isLoading) {
     return (
       <div className={classes}>
-        {header}
+        <Header title={title} genreId={genreId} />
         <Motion data-testid="loader">
           <ShowCarouselLoader />
         </Motion>
@@ -76,7 +75,12 @@ export function ShowCarousel({
       {pagesList.map((page, key) => (
         <Motion className={styles.page} key={key}>
           {page.map((show) => (
-            <ShowItem key={show.id} show={show} className={showClass} />
+            <ShowItem
+              key={show.id}
+              show={show}
+              className={showClass}
+              size={size}
+            />
           ))}
         </Motion>
       ))}
@@ -85,8 +89,26 @@ export function ShowCarousel({
 
   return (
     <div className={classes} {...props}>
-      {header}
+      <Header title={title} genreId={genreId} />
       {pages}
+    </div>
+  )
+}
+
+type HeaderProps = {
+  title: string
+  genreId?: number
+}
+
+function Header({ title, genreId }: HeaderProps) {
+  return (
+    <div className={styles.header}>
+      <Heading title={title} level={2}></Heading>
+      {genreId && (
+        <Link to={`/movies/category/${genreId}`} className={styles.link}>
+          View all ➡️
+        </Link>
+      )}
     </div>
   )
 }

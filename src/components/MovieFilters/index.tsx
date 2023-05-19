@@ -1,8 +1,10 @@
 import React, { HTMLAttributes, useEffect, useState } from 'react'
+import classNames from 'classnames'
 import { Button } from '../Button'
 import { genres } from './genres'
 import styles from './styles.module.css'
 import { Container } from '../Container'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   onFilter: (genreCodes: (number | null)[]) => void
@@ -11,6 +13,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
 export function MovieFilters({ onFilter, ...props }: Props): JSX.Element {
   const storageKey = 'MOVIE_FILTERS'
   const [selected, setSelected] = useState<(number | null)[]>([])
+  const isMobile = useScreenSize('mobile')
 
   useEffect(() => {
     try {
@@ -52,8 +55,12 @@ export function MovieFilters({ onFilter, ...props }: Props): JSX.Element {
     }
   }
 
+  const classes = classNames(styles.filters, {
+    [styles.mobile]: isMobile,
+  })
+
   return (
-    <Container className={styles.filters} {...props}>
+    <Container className={classes} {...props}>
       {genres.map((genre) => (
         <Button
           key={`button-filter-${genre.id}`}

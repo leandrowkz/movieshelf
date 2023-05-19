@@ -1,9 +1,24 @@
-.container {
+.item {
   aspect-ratio: 1 / 1.5;
 }
 
-.container:hover .poster {
+.item:hover .poster {
   transform: scale(1.05);
+}
+
+.medium {
+  width: var(--show-size-base);
+  min-width: var(--show-size-base);
+}
+
+.small {
+  width: var(--show-size-small);
+  min-width: var(--show-size-small);
+}
+
+.large {
+  width: var(--show-size-large);
+  min-width: var(--show-size-large);
 }
 
 .poster {

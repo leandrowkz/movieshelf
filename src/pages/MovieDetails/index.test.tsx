@@ -1,24 +1,13 @@
-import React, { HTMLAttributes } from 'react'
-import { render, waitFor } from '@testing-library/react'
+import React from 'react'
+import { waitFor } from '@testing-library/react'
 import { MovieDetails } from '.'
-import { MovieDetailsContextProvider } from '../../store/MovieDetailsContext'
-import { MovieListsContextProvider } from '../../store/MovieListsContext'
+import { renderComponent } from 'src/helpers/testing'
 
-jest.mock('react-router-dom', () => ({
-  useParams: () => ({ movieId: 4040 }),
-  ScrollRestoration: () => <></>,
-  Link: () => <></>,
-}))
 jest.mock('src/services/MoviesAPI')
 
 describe('MovieDetails', () => {
   test('Should render MovieDetails properly', async () => {
-    const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
-      <MovieListsContextProvider>
-        <MovieDetailsContextProvider>{children}</MovieDetailsContextProvider>
-      </MovieListsContextProvider>
-    )
-    const { queryByTestId } = render(<MovieDetails />, { wrapper })
+    const { queryByTestId } = renderComponent(<MovieDetails />)
 
     await waitFor(async () => {
       const title = queryByTestId('movie-title')

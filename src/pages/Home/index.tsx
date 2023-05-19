@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { ScrollRestoration } from 'react-router-dom'
 import { Banner } from '../../components/Banner'
 import { Page } from '../../components/Page'
 import { ShowCarousel } from '../../components/ShowCarousel'
@@ -42,6 +43,7 @@ export function Home() {
 
   return (
     <Page className={styles.home}>
+      <ScrollRestoration />
       <Banner
         shows={trending}
         className={styles.banner}

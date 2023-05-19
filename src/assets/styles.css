@@ -52,8 +52,10 @@
   --button-color-hover: var(--color-primary-light);
   --button-text-color: white;
 
-  /* Shows */
-  --show-item-size: 15%;
+  /* Shows, carousels and lists */
+  --show-size-small: 150px;
+  --show-size-base: 200px;
+  --show-size-large: 300px;
 
   /* Images */
   --avatar-size: 58px;

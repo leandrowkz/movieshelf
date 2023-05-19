@@ -10,10 +10,20 @@ import { Heading } from '../Heading'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem
+  size?: 'small' | 'medium' | 'large'
 }
 
-export function ShowItem({ show, className, ...props }: Props) {
-  const classes = classNames(className, styles.container)
+export function ShowItem({
+  show,
+  size = 'medium',
+  className,
+  ...props
+}: Props) {
+  const classes = classNames(className, styles.item, {
+    [styles.small]: size === 'small',
+    [styles.medium]: size === 'medium',
+    [styles.large]: size === 'large',
+  })
 
   return (
     <div className={classes} {...props}>

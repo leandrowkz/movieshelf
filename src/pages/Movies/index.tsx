@@ -231,6 +231,7 @@ export function Movies(): JSX.Element {
             key={carousel.key}
             title={carousel.title}
             shows={carousel.data}
+            genreId={carousel.genre}
             isLoading={carousel.isLoading}
             data-testid={carousel.key}
             role="list"

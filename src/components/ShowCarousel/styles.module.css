@@ -1,6 +1,6 @@
 @media screen and (max-width: 768px) {
   .large {
-    min-width: 300px;
+    min-width: var(--show-size-large);
   }
 }
 
@@ -10,16 +10,28 @@
   overflow: hidden;
 }
 
+.carousel:hover .link, .smallDevices .link {
+  opacity: 1;
+  visibility: visible;
+}
+
 .header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
   margin-left: var(--container-spacer);
+}
+
+.link {
+  margin-left: var(--spacer-base);
+  margin-bottom: 6px;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .pages {
   width: 100%;
-  padding-top: 20px;
+  padding-top: var(--spacer-base);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -36,7 +48,7 @@
 }
 
 .page {
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
@@ -47,19 +59,7 @@
 
 .show {
   margin-bottom: var(--spacer-large);
-  width: 230px;
-  min-width: 230px;
   padding: 0 var(--spacer-base);
-}
-
-.small {
-  width: 200px;
-  min-width: 200px;
-}
-
-.large {
-  width: 300px;
-  min-width: 300px;
 }
 
 .loaderCarousel {
@@ -71,7 +71,7 @@
 }
 
 .loaderItem {
-  width: 200px;
+  width: var(--show-size-base);
   flex-shrink: 0;
   display: grid;
   grid-template-rows: 260px var(--font-size-base);
