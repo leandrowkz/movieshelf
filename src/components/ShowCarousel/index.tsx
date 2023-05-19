@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 import { Link } from 'react-router-dom'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[]
@@ -29,7 +30,11 @@ export function ShowCarousel({
     return <></>
   }
 
-  const classes = classNames(styles.carousel, className)
+  const isTablet = useScreenSize('tablet')
+  const isMobile = useScreenSize('mobile')
+  const classes = classNames(styles.carousel, className, {
+    [styles.smallDevices]: isTablet || isMobile,
+  })
   const showClass = classNames(styles.show)
 
   if (isLoading) {

@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.carousel:hover .link {
+.carousel:hover .link, .smallDevices .link {
   opacity: 1;
   visibility: visible;
 }
