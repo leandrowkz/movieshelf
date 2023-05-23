@@ -13,8 +13,10 @@ export function Page({
   return (
     <section className={classes}>
       <Header data-testid="header" className={styles.header} />
-      <section data-testid="content">{children}</section>
-      <Footer data-testid="footer" />
+      <section data-testid="content" className={styles.content}>
+        {children}
+      </section>
+      <Footer data-testid="footer" className={styles.footer} />
     </section>
   )
 }

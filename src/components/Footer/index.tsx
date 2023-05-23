@@ -7,10 +7,16 @@ import { Image } from '../Image'
 import tmdb from '../../assets/tmdb-logo.svg'
 import { BulletSeparator } from '../BulletSeparator'
 import { Container } from '../Container'
+import classNames from 'classnames'
 
-export function Footer({ ...props }: ComponentPropsWithoutRef<'footer'>) {
+export function Footer({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'footer'>) {
+  const classes = classNames(styles.footer, className)
+
   return (
-    <footer className={styles.footer} {...props}>
+    <footer className={classes} {...props}>
       <Container>
         <Logo className={styles.logo} data-testid="logo" />
         <div className={styles.menu} data-testid="menu">

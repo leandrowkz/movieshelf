@@ -41,13 +41,17 @@
 }
 
 .pill {
-  border-radius: 100px;
+  border-radius: 100px !important;
 }
 
 .secondary {
   border-color: var(--color-primary-lighter);
   background-color: var(--color-primary-lighter);
   color: var(--button-color);
+}
+
+.secondary:hover {
+  border-color: var(--button-color-hover);
 }
 
 .outlined {
@@ -70,4 +74,27 @@
 
 .secondary:hover {
   color: var(--button-text-color);
+}
+
+.mobile {
+  border-radius: var(--radius-base);
+  font-size: calc(var(--font-size-base) * .8);
+  height: calc(var(--button-medium-height) * .8);
+  line-height: calc(var(--button-medium-height) * .8);
+  padding: 0 calc(var(--spacer-base) * .8);
+}
+
+.mobile.small {
+  border-radius: var(--radius-small);
+  font-size: calc(var(--font-size-base) * .7);
+  height: calc(var(--button-small-height) * .8);
+  line-height: calc(var(--button-small-height) * .8);
+  padding: 0 calc(var(--spacer-small) * .8);
+}
+
+.mobile.large {
+  font-size: calc(var(--font-size-base) * .9);
+  height: calc(var(--button-large-height) * .8);
+  line-height: calc(var(--button-large-height) * .8);
+  padding: 0 var(--spacer-base);
 }
