@@ -4,6 +4,7 @@ import { Home } from '../pages/Home'
 import { MovieDetails } from '../pages/MovieDetails'
 import { Movies } from '../pages/Movies'
 import { MovieCategory } from 'src/pages/MovieCategory'
+import { NotFound } from 'src/pages/404'
 
 export const router = createBrowserRouter([
   {
@@ -20,8 +21,11 @@ export const router = createBrowserRouter([
     element: <MovieCategory />,
   },
   {
-    index: false,
     path: '/movies/:movieId',
     element: <MovieDetails />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ])

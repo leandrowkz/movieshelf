@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.icon {
+  font-size: 250px;
+}
+
+.actions {
+  margin-top: var(--spacer-large);
+}
