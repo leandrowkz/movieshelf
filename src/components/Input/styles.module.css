@@ -1,43 +1,42 @@
 .input {
   position: relative;
-  border: 1px solid var(--input-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--input-medium-radius);
   height: var(--input-medium-height);
   line-height: var(--input-medium-height);
   padding: var(--input-medium-padding);
-  border-radius: var(--radius-base);
   background-color: var(--input-color);
   color: var(--input-text-color);
-  cursor: pointer;
-  font-size: var(--font-size-base);
-  font-weight: 600;
+  font-size: var(--input-medium-font-size);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
-  white-space: nowrap;
-  transition: var(--transition-base);
-  text-transform: uppercase;
+  transition: var(--input-transition);
+  outline: none;
 }
 
 .input:hover {
-  background-color: var(--input-color-hover);
+  border-color: var(--input-hover-border-color);
 }
 
-.input:active {
-  transform: scale(0.95);
-  background-color: var(--input-color-hover);
+.input:focus, .input:active {
+  border-color: var(--input-active-border-color);
+  box-shadow: 0 0 0 1px var(--input-active-border-color);
 }
 
 .small {
-  border-radius: calc(var(--radius-base) - 2px);
+  border-radius: var(--input-small-radius);
   height: var(--input-small-height);
   line-height: var(--input-small-height);
   padding: var(--input-small-padding);
-  font-size: calc(var(--font-size-base) * .8);
+  font-size: var(--input-small-font-size);
 }
 
 .large {
+  border-radius: var(--input-large-radius);
   height: var(--input-large-height);
   line-height: var(--input-large-height);
   padding: var(--input-large-padding);
+  font-size: var(--input-large-font-size);
 }
 
 .mobile {

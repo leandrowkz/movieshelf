@@ -4,6 +4,7 @@
   --color-primary-light: #e82930;
   --color-primary-lighter: #fbdcdc;
   --color-gray-100: #eef5fa;
+  --color-gray-150: #dcdfe4;
   --color-gray-200: #9CA6AD;
   --color-gray-300: #4E6E81;
   --color-gray-400: #002233;
@@ -51,6 +52,26 @@
   --button-color: var(--color-primary);
   --button-color-hover: var(--color-primary-light);
   --button-text-color: white;
+
+  /* Inputs */
+  --input-small-height: 44px;
+  --input-small-padding: 0 calc(var(--spacer-small) + 2px);
+  --input-small-radius: var(--radius-base);
+  --input-small-font-size: var(--font-size-small);
+  --input-medium-height: 58px;
+  --input-medium-padding: 0 calc(var(--spacer-base) + 6px);
+  --input-medium-radius: var(--radius-base);
+  --input-medium-font-size: var(--font-size-base);
+  --input-large-height: 76px;
+  --input-large-padding: 0 var(--spacer-large);
+  --input-large-radius: var(--radius-base);
+  --input-large-font-size: var(--font-size-large);
+  --input-transition: var(--transition-base);
+  --input-color: white;
+  --input-border-color: var(--color-gray-200);
+  --input-hover-border-color: var(--color-gray-300);
+  --input-active-border-color: var(--color-primary);
+  --input-text-color: var(--font-color-base);
 
   /* Shows, carousels and lists */
   --show-size-small: 150px;
