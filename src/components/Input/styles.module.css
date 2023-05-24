@@ -1,0 +1,64 @@
+.input {
+  position: relative;
+  border: 1px solid var(--input-color);
+  height: var(--input-medium-height);
+  line-height: var(--input-medium-height);
+  padding: var(--input-medium-padding);
+  border-radius: var(--radius-base);
+  background-color: var(--input-color);
+  color: var(--input-text-color);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  white-space: nowrap;
+  transition: var(--transition-base);
+  text-transform: uppercase;
+}
+
+.input:hover {
+  background-color: var(--input-color-hover);
+}
+
+.input:active {
+  transform: scale(0.95);
+  background-color: var(--input-color-hover);
+}
+
+.small {
+  border-radius: calc(var(--radius-base) - 2px);
+  height: var(--input-small-height);
+  line-height: var(--input-small-height);
+  padding: var(--input-small-padding);
+  font-size: calc(var(--font-size-base) * .8);
+}
+
+.large {
+  height: var(--input-large-height);
+  line-height: var(--input-large-height);
+  padding: var(--input-large-padding);
+}
+
+.mobile {
+  border-radius: var(--radius-base);
+  font-size: calc(var(--font-size-base) * .8);
+  height: calc(var(--input-medium-height) * .8);
+  line-height: calc(var(--input-medium-height) * .8);
+  padding: 0 calc(var(--spacer-base) * .8);
+}
+
+.mobile.small {
+  border-radius: var(--radius-small);
+  font-size: calc(var(--font-size-base) * .7);
+  height: calc(var(--input-small-height) * .8);
+  line-height: calc(var(--input-small-height) * .8);
+  padding: 0 calc(var(--spacer-small) * .8);
+}
+
+.mobile.large {
+  font-size: calc(var(--font-size-base) * .9);
+  height: calc(var(--input-large-height) * .8);
+  line-height: calc(var(--input-large-height) * .8);
+  padding: 0 var(--spacer-base);
+}
