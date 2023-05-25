@@ -14,12 +14,16 @@ import iconLinkedin from '../../assets/images/icon-linkedin.svg'
 import iconGithub from '../../assets/images/icon-github.svg'
 import iconTwitter from '../../assets/images/icon-twitter.png'
 import { NewsletterContext } from 'src/store/NewsletterContext'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function Footer({
   className,
   ...props
 }: ComponentPropsWithoutRef<'footer'>) {
-  const classes = classNames(styles.footer, className)
+  const isMobile = useScreenSize('mobile')
+  const classes = classNames(styles.footer, className, {
+    [styles.mobile]: isMobile,
+  })
 
   return (
     <footer className={classes} {...props}>

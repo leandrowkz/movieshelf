@@ -89,3 +89,33 @@
   transition: var(--transition-base);
 }
 
+.mobile .container {
+  grid-template-rows: max-content max-content max-content max-content;
+  grid-template-columns: 1fr;
+  gap: var(--spacer-large);
+}
+
+.mobile .newsletter {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  flex-wrap: wrap;
+}
+
+.mobile .logoSection {
+  margin-top: var(--spacer-base);
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.mobile .menuSection {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.mobile .disclaimer {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  flex-wrap: wrap;
+  gap: var(--spacer-base);
+}
+
