@@ -79,4 +79,17 @@ export abstract class APIFetcher {
 
     throw Error(response.statusText)
   }
+
+  protected getPath(
+    path: string,
+    queryString: Record<string, string | number> = {}
+  ) {
+    const params = new URLSearchParams()
+
+    for (const [key, value] of Object.entries(queryString)) {
+      params.append(key, value.toString())
+    }
+
+    return `${path}?${params.toString()}`
+  }
 }
