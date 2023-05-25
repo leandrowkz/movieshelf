@@ -27,3 +27,11 @@
 .mobile {
   font-size: var(--font-size-base) !important;
 }
+
+.error {
+  color: var(--color-error);
+}
+
+.success {
+  color: var(--color-success);
+}

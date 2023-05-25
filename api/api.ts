@@ -8,7 +8,7 @@ export const tmdb = new TMDB({
 
 export const supabase = createClient(
   process.env.REACT_APP_SUPABASE_API_URL || '',
-  process.env.REACT_APP_SUPABASE_API_ACCESS_TOKEN || ''
+  process.env.REACT_APP_SUPABASE_API_SECRET_TOKEN || ''
 )
 
 export const json = (content: any, status = 200) => {

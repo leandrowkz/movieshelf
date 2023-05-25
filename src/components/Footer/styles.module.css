@@ -82,3 +82,10 @@
   gap: var(--spacer-small);
 }
 
+.inputMessage {
+  float: left;
+  position: absolute;
+  margin-top: 4px;
+  transition: var(--transition-base);
+}
+

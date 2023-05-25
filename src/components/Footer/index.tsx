@@ -1,6 +1,5 @@
-import React, { ComponentPropsWithoutRef, useState } from 'react'
+import React, { ComponentPropsWithoutRef, useContext, useState } from 'react'
 import classNames from 'classnames'
-import jsonp from 'jsonp'
 import { Logo } from '../Logo'
 import styles from './styles.module.css'
 import { Link } from 'react-router-dom'
@@ -14,6 +13,7 @@ import tmdb from '../../assets/images/tmdb-logo.svg'
 import iconLinkedin from '../../assets/images/icon-linkedin.svg'
 import iconGithub from '../../assets/images/icon-github.svg'
 import iconTwitter from '../../assets/images/icon-twitter.png'
+import { NewsletterContext } from 'src/store/NewsletterContext'
 
 export function Footer({
   className,
@@ -60,17 +60,17 @@ function LogoSection() {
 
 function NewsletterSection() {
   const [email, setEmail] = useState('')
+  const {
+    subscribeNewsletter,
+    clearSubscribeStatuses,
+    isLoadingSubscribe,
+    hasSubscribeErrors,
+    hasSubscribeSuccess,
+  } = useContext(NewsletterContext)
 
-  const subscribe = (e: any) => {
-    e.preventDefault()
-    const url =
-      'https://app.us21.list-manage.com/subscribe/post-json?u=f084583765e51ac744883df68&amp;id=3fcc0f42fc&amp;f_id=00d055e1f0'
-
-    jsonp(`${url}&EMAIL=${email}`, { param: 'c' }, (_: any, data: any) => {
-      const { msg, result } = data
-      // do something with response
-      console.log(msg, result)
-    })
+  const updateEmail = (email: string) => {
+    clearSubscribeStatuses()
+    setEmail(email)
   }
 
   return (
@@ -86,11 +86,28 @@ function NewsletterSection() {
           <Input
             placeholder="Enter your email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            onChange={(e) => updateEmail(e.target.value)}
           />
-          <Button onClick={subscribe}>Subscribe ✉️</Button>
+          <Button
+            onClick={() => subscribeNewsletter(email)}
+            disabled={isLoadingSubscribe}
+          >
+            Subscribe ✉️
+          </Button>
         </div>
-        <Text size="small">Thank you for subscribing!</Text>
+        <div className={styles.inputMessage}>
+          {hasSubscribeErrors && (
+            <Text size="small" variant="error">
+              This email is invalid 😢
+            </Text>
+          )}
+          {hasSubscribeSuccess && (
+            <Text size="small" variant="success">
+              Thank you for subscribing ✅
+            </Text>
+          )}
+        </div>
       </div>
     </section>
   )
@@ -145,7 +162,7 @@ function MenuSection() {
           rel="nofollow noopener noreferrer"
           data-testid="menu-sponsorship"
         >
-          Sponsor 🤗
+          Be a sponsor
         </Link>
       </div>
     </div>

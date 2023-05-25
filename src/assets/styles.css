@@ -8,6 +8,8 @@
   --color-gray-200: #9CA6AD;
   --color-gray-300: #4E6E81;
   --color-gray-400: #002233;
+  --color-error: #e82930;
+  --color-success: #2dc143;
 
   /* Page */
   --container-spacer: var(--spacer-extra-large);
