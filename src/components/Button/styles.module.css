@@ -17,6 +17,14 @@
   text-transform: uppercase;
 }
 
+.button:disabled {
+  background-color: var(--color-gray-200) !important;
+  border-color: var(--color-gray-200);
+  color: var(--color-gray-300);
+  cursor: no-drop;
+
+}
+
 .button:hover {
   background-color: var(--button-color-hover);
 }

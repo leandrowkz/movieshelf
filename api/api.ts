@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TMDB } from '@leandrowkz/tmdb'
+import { createClient } from '@supabase/supabase-js'
 
 export const tmdb = new TMDB({
   apiKey: process.env.REACT_APP_TMDB_API_ACCESS_TOKEN || '',
 })
+
+export const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_API_URL || '',
+  process.env.REACT_APP_SUPABASE_API_SECRET_TOKEN || ''
+)
 
 export const json = (content: any, status = 200) => {
   const body = JSON.stringify(content)

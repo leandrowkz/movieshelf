@@ -17,7 +17,7 @@ describe('BulletSeparator', () => {
     const separator = getByText('•')
 
     expect(separator.classList.toString()).toEqual(
-      'separator custom text muted'
+      'separator custom muted text'
     )
   })
 })

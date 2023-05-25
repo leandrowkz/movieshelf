@@ -6,6 +6,7 @@ import { useScreenSize } from '../../hooks/useScreenSize'
 interface Props extends HTMLAttributes<HTMLDivElement> {
   size?: 'small' | 'medium' | 'large'
   alignment?: 'left' | 'center' | 'right'
+  variant?: 'error' | 'success' | 'muted'
   isMuted?: boolean
   isParagraph?: boolean
   isBold?: boolean
@@ -17,6 +18,7 @@ export function Text({
   isMuted = false,
   isParagraph = false,
   isBold = false,
+  variant,
   children,
   className = '',
   ...props
@@ -28,11 +30,14 @@ export function Text({
     [styles.large]: size === 'large',
     [styles.center]: alignment === 'center',
     [styles.right]: alignment === 'right',
+    [styles.error]: variant === 'error',
+    [styles.success]: variant === 'success',
+    [styles.muted]: variant === 'muted',
     [styles.text]: true,
     [styles.muted]: isMuted,
     [styles.bold]: isBold,
     [styles.paragraph]: isParagraph,
-    [styles.mobile]: isMobile && size !== 'small',
+    [styles.mobile]: isMobile,
   })
 
   const Text = isParagraph ? 'p' : 'span'

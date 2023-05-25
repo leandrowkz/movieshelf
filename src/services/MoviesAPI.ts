@@ -8,19 +8,6 @@ export class MoviesAPI extends APIFetcher {
     super('')
   }
 
-  private getPath(
-    path: string,
-    queryString: Record<string, string | number> = {}
-  ) {
-    const params = new URLSearchParams()
-
-    for (const [key, value] of Object.entries(queryString)) {
-      params.append(key, value.toString())
-    }
-
-    return `${path}?${params.toString()}`
-  }
-
   public async fetchDetails(movieId: number): Promise<Movie> {
     const path = this.getPath('/api/movies-details', { movieId })
 

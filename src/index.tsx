@@ -8,6 +8,7 @@ import { MovieListsContextProvider } from './store/MovieListsContext'
 import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
 import { MovieGenresContextProvider } from './store/MovieGenresContext'
 import { Root } from './pages/Root'
+import { NewsletterContextProvider } from './store/NewsletterContext'
 
 const App = () => {
   return (
@@ -15,9 +16,11 @@ const App = () => {
       <MovieGenresContextProvider>
         <MovieListsContextProvider>
           <MovieDetailsContextProvider>
-            <Root>
-              <RouterProvider router={router} />
-            </Root>
+            <NewsletterContextProvider>
+              <Root>
+                <RouterProvider router={router} />
+              </Root>
+            </NewsletterContextProvider>
           </MovieDetailsContextProvider>
         </MovieListsContextProvider>
       </MovieGenresContextProvider>
