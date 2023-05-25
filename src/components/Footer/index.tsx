@@ -39,17 +39,13 @@ export function Footer({
 
 function LogoSection() {
   return (
-    <div className={styles.logoSection}>
+    <div className={styles.logoSection} data-testid="logo-section">
       <div>
-        <Logo className={styles.movieshelfLogo} data-testid="logo" />
+        <Logo className={styles.movieshelfLogo} />
         <Text size="small">Your personal movie and TV catalog.</Text>
       </div>
       <div className={styles.tmdb}>
-        <Link
-          to="https://www.themoviedb.org"
-          target="_blank"
-          data-testid="link-tmdb"
-        >
+        <Link to="https://www.themoviedb.org" target="_blank">
           <Image src={tmdb} className={styles.tmdbLogo} />
         </Link>
         <Text size="small">
@@ -78,7 +74,7 @@ function NewsletterSection() {
   }
 
   return (
-    <section className={styles.newsletter}>
+    <section className={styles.newsletter} data-testid="newsletter-section">
       <div>
         <Heading title="Sign up to our newsletter" level={2} />
         <Text>
@@ -119,53 +115,28 @@ function NewsletterSection() {
 
 function MenuSection() {
   return (
-    <div className={styles.menuSection} data-testid="menu">
+    <div className={styles.menuSection} data-testid="menu-section">
       <div className={styles.menu}>
         <Text size="small" isBold isMuted>
           Movieshelf
         </Text>
-        <Link to="/" data-testid="menu-home">
-          Home
-        </Link>
-        <Link to="/movies" data-testid="menu-home">
-          Movies
-        </Link>
-        <Link to="/tv" data-testid="menu-home">
-          TV shows
-        </Link>
-        <Link to="/sign-in" data-testid="menu-home">
-          Sign in
-        </Link>
-        <Link to="/sign-up" data-testid="menu-home">
-          Sign up
-        </Link>
+        <Link to="/">Home</Link>
+        <Link to="/movies">Movies</Link>
+        <Link to="/tv">TV shows</Link>
+        <Link to="/signin">Sign in</Link>
+        <Link to="/signup">Sign up</Link>
       </div>
       <div className={styles.menu}>
         <Text size="small" isBold isMuted>
           Social
         </Text>
-        <Link
-          to="https://github.com/leandrowkz/movieshelf"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          data-testid="menu-github"
-        >
+        <Link to="https://github.com/leandrowkz/movieshelf" target="_blank">
           Github
         </Link>
-        <Link
-          to="https://www.themoviedb.org"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          data-testid="menu-tmdb"
-        >
+        <Link to="https://www.themoviedb.org" target="_blank">
           TMDB
         </Link>
-        <Link
-          to="https://github.com/sponsors/leandrowkz"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          data-testid="menu-sponsorship"
-        >
+        <Link to="https://github.com/sponsors/leandrowkz" target="_blank">
           Be a sponsor
         </Link>
       </div>
@@ -175,11 +146,9 @@ function MenuSection() {
 
 function DisclaimerSection() {
   return (
-    <div className={styles.disclaimer} data-testid="bottom">
-      <div data-testid="made-with-love">
-        <Text data-testid="copyright" size="small">
-          © {new Date().getFullYear()} Movieshelf.
-        </Text>
+    <div className={styles.disclaimer} data-testid="disclaimer-section">
+      <div>
+        <Text size="small">© {new Date().getFullYear()} Movieshelf.</Text>
         <Text size="small">
           {'  '} Made with 💜 by {'  '}
           <Link
@@ -192,7 +161,7 @@ function DisclaimerSection() {
         </Text>
       </div>
       <div>
-        <Link to="https://github.com/leandrowkz/movieshelf" target="_blank">
+        <Link to="https://github.com/leandrowkz" target="_blank">
           <Image src={iconGithub} className={styles.socialIcon} />
         </Link>
         <Link to="https://linkedin.com/in/leandrowkz" target="_blank">

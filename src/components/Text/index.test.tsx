@@ -41,7 +41,7 @@ describe('Text', () => {
     const text = getByTestId('text')
 
     expect(text.classList.toString()).toEqual(
-      'custom large center text muted bold paragraph'
+      'custom large center muted text bold paragraph'
     )
   })
 })
