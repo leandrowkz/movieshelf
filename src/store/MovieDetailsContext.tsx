@@ -4,16 +4,14 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import type { Movie } from '@leandrowkz/tmdb'
+import type { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
 import { moviesAPI } from '../services/MoviesAPI'
-import { MovieVideo } from '../types/MovieVideo'
 import { Nullable } from '../types/Nullable'
-import { Person } from '../types/Person'
 
 type MovieDetailsState = {
   movie: Nullable<Movie>
-  cast: Person[]
-  videos: MovieVideo[]
+  cast: PersonCast[]
+  videos: Video[]
   isLoadingMovie: boolean
   isLoadingCast: boolean
   isLoadingVideos: boolean
@@ -40,8 +38,8 @@ export const MovieDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
   const [movie, setMovie] = useState<Movie>({} as Movie)
-  const [cast, setCast] = useState<Person[]>([])
-  const [videos, setVideos] = useState<MovieVideo[]>([])
+  const [cast, setCast] = useState<PersonCast[]>([])
+  const [videos, setVideos] = useState<Video[]>([])
   const [isLoadingMovie, setIsLoadingMovie] = useState(false)
   const [isLoadingCast, setIsLoadingCast] = useState(false)
   const [isLoadingVideos, setIsLoadingVideos] = useState(false)

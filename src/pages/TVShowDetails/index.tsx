@@ -1,82 +1,85 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../store/MovieListsContext'
+import { TVShowListsContext } from '../../store/TVShowListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { Container } from '../../components/Container'
-import { MovieDetailsContext } from '../../store/MovieDetailsContext'
-import { ShowDetails } from 'src/components/ShowDetails'
+import { TVShowDetailsContext } from '../../store/TVShowDetailsContext'
 import { NotFound } from '../404'
+import { ShowDetails } from 'src/components/ShowDetails'
+import { Container } from 'src/components/Container'
 
-export function MovieDetails(): JSX.Element {
+export function TVShowDetails(): JSX.Element {
   const {
-    movie,
+    tvShow,
     cast,
     videos,
     isLoadingCast,
-    isLoadingMovie,
+    isLoadingTVShow,
     isLoadingVideos,
-    fetchMovie,
+    fetchTVShow,
     fetchCast,
     fetchVideos,
-  } = useContext(MovieDetailsContext)
+  } = useContext(TVShowDetailsContext)
 
   const {
     similar,
     recommended,
-    trending,
-    isLoadingTrending,
+    popular,
     isLoadingRecommended,
     isLoadingSimilar,
-    fetchTrending,
+    isLoadingPopular,
     fetchRecommended,
     fetchSimilar,
-  } = useContext(MovieListsContext)
+    fetchPopular,
+  } = useContext(TVShowListsContext)
 
-  const { movieId } = useParams()
+  const { tvShowId } = useParams()
 
   useEffect(() => {
-    const id = Number(movieId)
+    const id = Number(tvShowId)
 
-    fetchMovie(id)
+    fetchTVShow(id)
     fetchCast(id)
     fetchVideos(id)
     fetchSimilar(id)
     fetchRecommended(id)
-    fetchTrending()
-  }, [movieId])
+    fetchPopular()
+  }, [tvShowId])
 
-  if (!movie) {
+  if (!tvShow) {
     return <NotFound />
   }
 
   return (
     <Page>
       <ShowDetails
-        show={movie}
+        show={tvShow}
         cast={cast}
         videos={videos}
         isLoadingCast={isLoadingCast}
-        isLoadingShow={isLoadingMovie}
+        isLoadingShow={isLoadingTVShow}
         isLoadingVideos={isLoadingVideos}
       />
       <ShowCarousel
         shows={similar}
-        title="More movies like this"
+        type="tv"
+        title="More TV shows like this"
         isLoading={isLoadingSimilar}
         data-testid="carousel-similar"
       />
       <ShowCarousel
         shows={recommended}
-        title="Recommended movies based on this title"
+        type="tv"
+        title="Recommended TV shows based on this title"
         isLoading={isLoadingRecommended}
         data-testid="carousel-recommended"
       />
       <ShowCarousel
-        shows={trending}
-        title="Popular movies"
-        isLoading={isLoadingTrending}
-        data-testid="carousel-trending"
+        shows={popular}
+        type="tv"
+        title="Popular TV shows"
+        isLoading={isLoadingPopular}
+        data-testid="carousel-popular"
       />
     </Page>
   )

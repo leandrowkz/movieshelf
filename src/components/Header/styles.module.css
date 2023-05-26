@@ -1,4 +1,6 @@
 .header {
+  position: relative;
+  z-index: 2;
   height: var(--header-height);
   width: 100%;
   display: flex;

@@ -4,27 +4,30 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
+import { Root } from './pages/Root'
 import { MovieListsContextProvider } from './store/MovieListsContext'
 import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
 import { MovieGenresContextProvider } from './store/MovieGenresContext'
-import { Root } from './pages/Root'
 import { NewsletterContextProvider } from './store/NewsletterContext'
 import { TVShowListsContextProvider } from './store/TVShowListsContext'
+import { TVShowDetailsContextProvider } from './store/TVShowDetailsContext'
 
 const App = () => {
   return (
     <React.StrictMode>
       <MovieGenresContextProvider>
         <MovieListsContextProvider>
-          <TVShowListsContextProvider>
-            <MovieDetailsContextProvider>
-              <NewsletterContextProvider>
-                <Root>
-                  <RouterProvider router={router} />
-                </Root>
-              </NewsletterContextProvider>
-            </MovieDetailsContextProvider>
-          </TVShowListsContextProvider>
+          <MovieDetailsContextProvider>
+            <TVShowListsContextProvider>
+              <TVShowDetailsContextProvider>
+                <NewsletterContextProvider>
+                  <Root>
+                    <RouterProvider router={router} />
+                  </Root>
+                </NewsletterContextProvider>
+              </TVShowDetailsContextProvider>
+            </TVShowListsContextProvider>
+          </MovieDetailsContextProvider>
         </MovieListsContextProvider>
       </MovieGenresContextProvider>
     </React.StrictMode>

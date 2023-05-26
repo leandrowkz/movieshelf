@@ -41,7 +41,7 @@
 .name {
   margin-top: var(--spacer-small);
   font-size: var(--font-size-small);
-  width: var(--avatar-size);
+  width: calc(var(--avatar-size) * 1.2);
   text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2;

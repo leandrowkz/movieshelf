@@ -3,6 +3,7 @@ import type {
   TVShowCredits,
   TVShowItem,
   TVShowVideos,
+  Video,
 } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 
@@ -72,10 +73,10 @@ class TVShowsAPI extends APIFetcher {
     return this.get<TVShowCredits>(path)
   }
 
-  public async fetchVideos(tvShowId: number): Promise<TVShowVideos> {
+  public async fetchVideos(tvShowId: number): Promise<Video[]> {
     const path = this.getPath('/api/tv-shows/videos', { tvShowId })
 
-    return this.get<TVShowVideos>(path)
+    return this.get<Video[]>(path)
   }
 }
 

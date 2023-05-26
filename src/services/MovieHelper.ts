@@ -1,13 +1,13 @@
 import { BaseSyntheticEvent } from 'react'
-import type { Movie, MovieItem } from '@leandrowkz/tmdb'
-import { MovieVideo } from '../types/MovieVideo'
+import type { Movie, MovieItem, TVShow, Video } from '@leandrowkz/tmdb'
 
 export class MovieHelper {
   static getImageUrl(path: string, size = 300) {
     return `https://image.tmdb.org/t/p/w${size}/${path}`
   }
 
-  static getFirstTrailerUrl(videos: MovieVideo[]) {
+  static getFirstTrailerUrl(videos: Video[]) {
+    console.log(videos)
     if (!videos) {
       return ''
     }
@@ -21,10 +21,11 @@ export class MovieHelper {
     return `https://youtube.com/watch?v=${trailer.key}`
   }
 
-  static getReleaseYear(show: Movie | MovieItem) {
-    const { release_date: release } = show
+  static getReleaseYear(show: Movie | MovieItem | TVShow) {
+    const date =
+      'first_air_date' in show ? show.first_air_date : show.release_date
 
-    return new Date(release).getFullYear().toString()
+    return new Date(date).getFullYear().toString()
   }
 
   static hideBrokenImage(event: BaseSyntheticEvent) {

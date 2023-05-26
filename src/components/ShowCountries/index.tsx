@@ -3,10 +3,10 @@ import { CountryFlag } from '../../types/CountryFlag'
 import { Country } from '../../types/Country'
 import styles from './styles.module.css'
 import classNames from 'classnames'
-import type { Movie } from '@leandrowkz/tmdb'
+import type { Movie, TVShow } from '@leandrowkz/tmdb'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  show: Movie
+  show: Movie | TVShow
   separator?: string
 }
 
