@@ -4,7 +4,6 @@ import type {
   Genre,
   Video,
   MovieCredits,
-  MovieVideos,
 } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 

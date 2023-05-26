@@ -6,7 +6,6 @@ import { ShowCarousel } from '../../components/ShowCarousel'
 import { TVShowDetailsContext } from '../../store/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
-import { Container } from 'src/components/Container'
 
 export function TVShowDetails(): JSX.Element {
   const {
