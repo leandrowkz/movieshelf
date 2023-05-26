@@ -1,10 +1,4 @@
-import type {
-  TVShow,
-  TVShowCredits,
-  TVShowItem,
-  TVShowVideos,
-  Video,
-} from '@leandrowkz/tmdb'
+import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 
 class TVShowsAPI extends APIFetcher {
