@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef } from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
+import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Rating } from '../Rating'
 import classNames from 'classnames'
@@ -9,13 +9,15 @@ import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
-  show: MovieItem
+  show: MovieItem | TVShowItem
   size?: 'small' | 'medium' | 'large'
+  type?: 'movie' | 'tv'
 }
 
 export function ShowItem({
   show,
   size = 'medium',
+  type = 'movie',
   className,
   ...props
 }: Props) {
@@ -25,15 +27,18 @@ export function ShowItem({
     [styles.large]: size === 'large',
   })
 
+  const title = 'title' in show ? show.title : show.name
+  const path = type === 'movie' ? '/movies' : '/tv'
+
   return (
     <div className={classes} {...props}>
-      <Link to={`/movies/${show.id}`} data-testid="show-poster-link">
+      <Link to={`${path}/${show.id}`} data-testid="show-poster-link">
         <ShowPoster show={show} className={styles.poster} />
       </Link>
       <div className={styles.header}>
         <Heading
           level={3}
-          title={show.title}
+          title={title}
           className={styles.title}
           data-testid="show-title"
         />

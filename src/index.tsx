@@ -9,7 +9,7 @@ import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
 import { MovieGenresContextProvider } from './store/MovieGenresContext'
 import { Root } from './pages/Root'
 import { NewsletterContextProvider } from './store/NewsletterContext'
-import { TVShowListsContextProvider } from './store/TVShowsListsContext'
+import { TVShowListsContextProvider } from './store/TVShowListsContext'
 
 const App = () => {
   return (
