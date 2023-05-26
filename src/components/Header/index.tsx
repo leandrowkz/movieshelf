@@ -22,6 +22,9 @@ export function Header({ ...props }: HTMLAttributes<HTMLDivElement>) {
           <Link to="/movies" data-testid="menu-movies">
             Movies
           </Link>
+          <Link to="/tv" data-testid="menu-tv">
+            TV
+          </Link>
         </div>
         <Link
           to="https://github.com/sponsors/leandrowkz"

@@ -6,7 +6,7 @@ import type {
 } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
 
-export class TVShowsAPI extends APIFetcher {
+class TVShowsAPI extends APIFetcher {
   constructor() {
     super('')
   }
@@ -79,4 +79,4 @@ export class TVShowsAPI extends APIFetcher {
   }
 }
 
-export const moviesAPI = new TVShowsAPI()
+export const api = new TVShowsAPI()
