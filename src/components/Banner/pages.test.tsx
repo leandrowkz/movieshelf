@@ -1,40 +1,25 @@
 import React from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { BannerPages } from './pages'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { BrowserRouter } from 'react-router-dom'
 
-const makeSUT = () => {
-  const mockMovies: MovieItem[] = []
+const { renderComponent, getMockMovies, screen } = useTesting()
 
-  for (let i = 0; i < 10; i++) {
-    mockMovies.push({ ...mockMovieDetails })
-  }
+test('Should render BannerPages properly', async () => {
+  const movies = getMockMovies()
+  const mockMovie = movies[0]
+  renderComponent(<BannerPages shows={movies} />)
 
-  return { movies: mockMovies }
-}
+  const title = screen.getByText(mockMovie.title)
+  const overview = screen.getByText(mockMovie.overview || '')
+  const linkButton = screen.getByTestId('show-link') as HTMLLinkElement
+  const bullets = screen.getByTestId('bullets')
 
-describe('BannerPages', () => {
-  test('Should render BannerPages properly', async () => {
-    const { movies } = makeSUT()
-    const mockMovie = movies[0]
-    const { getByText, getByTestId } = render(<BannerPages shows={movies} />, {
-      wrapper: BrowserRouter,
-    })
-
-    const title = getByText(mockMovie.title)
-    const overview = getByText(mockMovie.overview || '')
-    const linkButton = getByTestId('show-link') as HTMLLinkElement
-    const bullets = getByTestId('bullets')
-
-    expect(title).toBeInTheDocument()
-    expect(overview).toBeInTheDocument()
-    expect(linkButton).toBeInTheDocument()
-    expect(linkButton.href).toEqual(
-      `${window.location.href}movies/${mockMovie.id}`
-    )
-    expect(bullets).toBeInTheDocument()
-    expect(bullets.childNodes.length).toEqual(movies.length)
-  })
+  expect(title).toBeInTheDocument()
+  expect(overview).toBeInTheDocument()
+  expect(linkButton).toBeInTheDocument()
+  expect(linkButton.href).toEqual(
+    `${window.location.href}movies/${mockMovie.id}`
+  )
+  expect(bullets).toBeInTheDocument()
+  expect(bullets.childNodes.length).toEqual(movies.length)
 })

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import React, { HTMLAttributes, ReactElement } from 'react'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'

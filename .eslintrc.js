@@ -36,5 +36,18 @@ module.exports = {
         format: ['UPPER_CASE'],
       },
     ],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: '@testing-library/react',
+            importNames: ['render', 'screen'],
+            message:
+              "Import testing functions from useTesting() hook instead.\n\nUsage:\nimport { useTesting } from 'src/hooks/useTesting'\nconst { renderComponent, screen, user } = useTesting()\n",
+          },
+        ],
+      },
+    ],
   },
 }
