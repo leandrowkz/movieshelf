@@ -133,7 +133,7 @@ export function Home() {
         type="tv"
         shows={topRated}
         isLoading={isLoadingTopRated}
-        data-testid="carousel-tv-popular"
+        data-testid="carousel-tv-top-rated"
       />
     </Page>
   )

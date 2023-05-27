@@ -7,6 +7,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/store/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/store/TVShowDetailsContext'
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  ScrollRestoration: () => <></>,
+}))
+
 export function renderComponent(component: ReactElement) {
   const user = userEvent.setup()
 
