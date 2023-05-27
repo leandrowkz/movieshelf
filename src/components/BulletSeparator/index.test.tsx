@@ -1,23 +1,21 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { BulletSeparator } from '.'
 
-describe('BulletSeparator', () => {
-  test('Should render bullet separator properly', async () => {
-    const { queryByText } = render(<BulletSeparator />)
+const { renderComponent, screen } = useTesting()
 
-    const separator = queryByText('•')
+test('Should render bullet separator properly', async () => {
+  renderComponent(<BulletSeparator />)
 
-    expect(separator).toBeInTheDocument()
-  })
+  const separator = screen.queryByText('•')
 
-  test('Should set classes properly', async () => {
-    const { getByText } = render(<BulletSeparator className="custom" isMuted />)
+  expect(separator).toBeInTheDocument()
+})
 
-    const separator = getByText('•')
+test('Should set classes properly', async () => {
+  renderComponent(<BulletSeparator className="custom" isMuted />)
 
-    expect(separator.classList.toString()).toEqual(
-      'separator custom muted text'
-    )
-  })
+  const separator = screen.getByText('•')
+
+  expect(separator.classList.toString()).toEqual('separator custom muted text')
 })

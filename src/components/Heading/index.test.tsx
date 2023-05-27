@@ -1,30 +1,21 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Heading } from '.'
 
-describe('Heading', () => {
-  test('Should render heading and content properly', async () => {
-    const { getByTestId } = render(
-      <Heading data-testid="heading" title="Hello" level={1} />
-    )
+const { renderComponent, screen } = useTesting()
 
-    const heading = getByTestId('heading')
+test('Should render heading and content properly', async () => {
+  renderComponent(<Heading data-testid="heading" title="Hello" level={1} />)
 
-    expect(heading.innerHTML).toEqual('Hello')
-  })
+  expect(screen.getByText('Hello')).toBeVisible()
+})
 
-  test('Should set classes properly', async () => {
-    const { getByTestId } = render(
-      <Heading
-        className="custom"
-        data-testid="heading"
-        title="Hello"
-        level={2}
-      />
-    )
+test('Should set classes properly', async () => {
+  renderComponent(
+    <Heading className="custom" data-testid="heading" title="Hello" level={2} />
+  )
 
-    const heading = getByTestId('heading')
+  const heading = screen.getByTestId('heading')
 
-    expect(heading.classList.toString()).toEqual('custom heading heading-2')
-  })
+  expect(heading.classList.toString()).toEqual('custom heading heading-2')
 })

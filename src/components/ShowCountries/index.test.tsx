@@ -1,30 +1,21 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { ShowCountries } from '.'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
+import { Movie } from '@leandrowkz/tmdb'
 
-const makeSUT = () => {
-  return { movie: mockMovieDetails }
-}
+const { renderComponent, getMockMovies, screen } = useTesting()
 
-describe('ShowCountries', () => {
-  test('Should render ShowCountries properly', async () => {
-    const { movie } = makeSUT()
-    const { getByText } = render(<ShowCountries show={movie} />)
+test('Should render ShowCountries properly', async () => {
+  renderComponent(<ShowCountries show={getMockMovies(1)[0] as Movie} />)
 
-    const brFlag = getByText('🇧🇷')
-    const jpFlag = getByText('🇯🇵')
+  expect(screen.getByText('🇧🇷')).toBeVisible()
+  expect(screen.getByText('🇯🇵')).toBeVisible()
+})
 
-    expect(brFlag).toBeInTheDocument()
-    expect(jpFlag).toBeInTheDocument()
-  })
+test('Should render separator properly', async () => {
+  renderComponent(
+    <ShowCountries show={getMockMovies(1)[0] as Movie} separator="#€&" />
+  )
 
-  test('Should render separator properly', async () => {
-    const { movie } = makeSUT()
-    const { getByText } = render(<ShowCountries show={movie} separator="#€&" />)
-
-    const separator = getByText('#€&')
-
-    expect(separator).toBeInTheDocument()
-  })
+  expect(screen.getByText('#€&')).toBeVisible()
 })

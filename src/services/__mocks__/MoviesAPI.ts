@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { Movie, MovieCredits, MovieItem, Video } from '@leandrowkz/tmdb'
-import { MovieGenre } from '../../types/MovieGenre'
+import type {
+  Genre,
+  Movie,
+  MovieCredits,
+  MovieItem,
+  Video,
+} from '@leandrowkz/tmdb'
 import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
 import { mockGenres } from '../../__mocks__/mockGenres'
 import { mockVideo } from '../../__mocks__/mockVideo'
@@ -56,7 +61,7 @@ class MoviesAPI {
     return [{ ...mockVideo }]
   }
 
-  public async fetchGenres(): Promise<MovieGenre[]> {
+  public async fetchGenres(): Promise<Genre[]> {
     return [...mockGenres]
   }
 }

@@ -1,49 +1,21 @@
 import React from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Banner } from '.'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { BrowserRouter } from 'react-router-dom'
 
-const makeSUT = () => {
-  const mockMovies: MovieItem[] = []
+const { renderComponent, getMockMovies, screen } = useTesting()
 
-  for (let i = 0; i < 10; i++) {
-    mockMovies.push({ ...mockMovieDetails })
-  }
+test('Should render Banner properly', async () => {
+  renderComponent(<Banner shows={getMockMovies()} />)
 
-  return { movies: mockMovies }
-}
+  expect(screen.getByTestId('header')).toBeVisible()
+  expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+  expect(screen.getByTestId('pages')).toBeVisible()
+})
 
-describe('Banner', () => {
-  test('Should render Banner properly', async () => {
-    const { movies } = makeSUT()
-    const { getByTestId, queryByTestId } = render(<Banner shows={movies} />, {
-      wrapper: BrowserRouter,
-    })
+test('Should render Loader properly', async () => {
+  renderComponent(<Banner shows={getMockMovies()} isLoading />)
 
-    const header = getByTestId('header')
-    const loader = queryByTestId('loader')
-    const items = getByTestId('pages')
-
-    expect(header).toBeInTheDocument()
-    expect(loader).not.toBeInTheDocument()
-    expect(items).toBeInTheDocument()
-  })
-
-  test('Should render Loader properly', async () => {
-    const { movies } = makeSUT()
-    const { getByTestId, queryByTestId } = render(
-      <Banner shows={movies} isLoading />,
-      { wrapper: BrowserRouter }
-    )
-
-    const header = getByTestId('header')
-    const loader = getByTestId('loader')
-    const items = queryByTestId('pages')
-
-    expect(header).toBeInTheDocument()
-    expect(loader).toBeInTheDocument()
-    expect(items).not.toBeInTheDocument()
-  })
+  expect(screen.getByTestId('header')).toBeVisible()
+  expect(screen.getByTestId('loader')).toBeVisible()
+  expect(screen.queryByTestId('pages')).not.toBeInTheDocument()
 })

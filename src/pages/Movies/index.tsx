@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../store/MovieListsContext'
+import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
 import { MovieFilters } from '../../components/MovieFilters'
 import { GenreCode } from '@leandrowkz/tmdb'

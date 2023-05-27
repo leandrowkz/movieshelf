@@ -1,34 +1,26 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Home } from '.'
-import { MovieListsContextProvider } from '../../store/MovieListsContext'
 
-jest.mock('react-router-dom')
+const { renderComponent, screen } = useTesting()
+
 jest.mock('src/services/MoviesAPI')
+jest.mock('src/services/TVShowsAPI')
 
-describe('Home', () => {
-  test('Should render Home properly', async () => {
-    const { queryByTestId } = render(<Home />, {
-      wrapper: MovieListsContextProvider,
-    })
+test('Should render Home properly', async () => {
+  renderComponent(<Home />)
 
-    await waitFor(async () => {
-      const banner = queryByTestId('banner')
-      const carouselInTheathers = queryByTestId('carousel-in-theaters')
-      const carouselMostPopular = queryByTestId('carousel-most-popular')
-      const carouselBestComedies = queryByTestId('carousel-best-comedies')
-      const carouselSciFiFantasy = queryByTestId('carousel-sci-fi-fantasy')
-      const carouselFamily = queryByTestId('carousel-family')
-      const carouselTopRatedDocumentaries = queryByTestId(
-        'carousel-top-rated-documentaries'
-      )
-      expect(banner).toBeInTheDocument()
-      expect(carouselInTheathers).toBeInTheDocument()
-      expect(carouselMostPopular).toBeInTheDocument()
-      expect(carouselBestComedies).toBeInTheDocument()
-      expect(carouselSciFiFantasy).toBeInTheDocument()
-      expect(carouselFamily).toBeInTheDocument()
-      expect(carouselTopRatedDocumentaries).toBeInTheDocument()
-    })
-  })
+  expect(await screen.findByTestId('banner')).toBeVisible()
+  expect(await screen.findByTestId('carousel-in-theaters')).toBeVisible()
+  expect(await screen.findByTestId('carousel-most-popular')).toBeVisible()
+  expect(await screen.findByTestId('carousel-best-comedies')).toBeVisible()
+  expect(await screen.findByTestId('carousel-sci-fi-fantasy')).toBeVisible()
+  expect(await screen.findByTestId('carousel-family')).toBeVisible()
+  expect(
+    await screen.findByTestId('carousel-top-rated-documentaries')
+  ).toBeVisible()
+  expect(await screen.findByTestId('carousel-tv-airing-today')).toBeVisible()
+  expect(await screen.findByTestId('carousel-tv-on-the-air')).toBeVisible()
+  expect(await screen.findByTestId('carousel-tv-popular')).toBeVisible()
+  expect(await screen.findByTestId('carousel-tv-top-rated')).toBeVisible()
 })

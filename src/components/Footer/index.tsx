@@ -13,7 +13,7 @@ import tmdb from '../../assets/images/tmdb-logo.svg'
 import iconLinkedin from '../../assets/images/icon-linkedin.svg'
 import iconGithub from '../../assets/images/icon-github.svg'
 import iconTwitter from '../../assets/images/icon-twitter.png'
-import { NewsletterContext } from 'src/store/NewsletterContext'
+import { NewsletterContext } from 'src/context/NewsletterContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function Footer({

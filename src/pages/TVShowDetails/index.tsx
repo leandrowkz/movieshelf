@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { TVShowListsContext } from '../../store/TVShowListsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { TVShowDetailsContext } from '../../store/TVShowDetailsContext'
+import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
 

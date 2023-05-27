@@ -1,71 +1,57 @@
 import React from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { ShowCarousel } from '.'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { BrowserRouter } from 'react-router-dom'
 
-const makeSUT = () => {
-  const mockMovies: MovieItem[] = []
+const { renderComponent, getMockMovies, screen } = useTesting()
 
-  for (let i = 0; i < 10; i++) {
-    mockMovies.push({ ...mockMovieDetails })
-  }
+test('Should render ShowCarousel properly', async () => {
+  const { container } = renderComponent(
+    <ShowCarousel shows={getMockMovies(10)} title="MOCK CAROUSEL TITLE" />
+  )
 
-  return { movies: mockMovies }
-}
+  const title = screen.getByText('MOCK CAROUSEL TITLE')
+  const pages = container.querySelectorAll('.page')
+  const items = container.querySelectorAll('.show')
+  const loader = screen.queryByTestId('loader')
 
-describe('ShowCarousel', () => {
-  test('Should render ShowCarousel properly', async () => {
-    const { movies } = makeSUT()
-    const { container, getByText, queryByTestId } = render(
-      <ShowCarousel shows={movies} title="MOCK CAROUSEL TITLE" />,
-      { wrapper: BrowserRouter }
-    )
+  expect(title).toBeInTheDocument()
+  expect(loader).not.toBeInTheDocument()
+  expect(pages.length).toEqual(10)
+  expect(items.length).toEqual(10)
+})
 
-    const title = getByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = queryByTestId('loader')
+test('Should render Loader properly', async () => {
+  const { container } = renderComponent(
+    <ShowCarousel
+      shows={getMockMovies(10)}
+      title="MOCK CAROUSEL TITLE"
+      isLoading
+    />
+  )
 
-    expect(title).toBeInTheDocument()
-    expect(loader).not.toBeInTheDocument()
-    expect(pages.length).toEqual(10)
-    expect(items.length).toEqual(10)
-  })
+  const title = screen.getByText('MOCK CAROUSEL TITLE')
+  const pages = container.querySelectorAll('.page')
+  const items = container.querySelectorAll('.show')
+  const loader = screen.getByTestId('loader')
 
-  test('Should render Loader properly', async () => {
-    const { movies } = makeSUT()
-    const { container, getByText, getByTestId } = render(
-      <ShowCarousel shows={movies} title="MOCK CAROUSEL TITLE" isLoading />,
-      { wrapper: BrowserRouter }
-    )
+  expect(title).toBeInTheDocument()
+  expect(loader).toBeInTheDocument()
+  expect(pages.length).toEqual(0)
+  expect(items.length).toEqual(0)
+})
 
-    const title = getByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = getByTestId('loader')
+test('Should render properly when there are no items', async () => {
+  const { container } = renderComponent(
+    <ShowCarousel shows={[]} title="MOCK CAROUSEL TITLE" />
+  )
 
-    expect(title).toBeInTheDocument()
-    expect(loader).toBeInTheDocument()
-    expect(pages.length).toEqual(0)
-    expect(items.length).toEqual(0)
-  })
+  const title = screen.queryByText('MOCK CAROUSEL TITLE')
+  const pages = container.querySelectorAll('.page')
+  const items = container.querySelectorAll('.show')
+  const loader = screen.queryByTestId('loader')
 
-  test('Should render properly when there are no items', async () => {
-    const { container, queryByText, queryByTestId } = render(
-      <ShowCarousel shows={[]} title="MOCK CAROUSEL TITLE" />,
-      { wrapper: BrowserRouter }
-    )
-
-    const title = queryByText('MOCK CAROUSEL TITLE')
-    const pages = container.querySelectorAll('.page')
-    const items = container.querySelectorAll('.show')
-    const loader = queryByTestId('loader')
-
-    expect(title).not.toBeInTheDocument()
-    expect(loader).not.toBeInTheDocument()
-    expect(pages.length).toEqual(0)
-    expect(items.length).toEqual(0)
-  })
+  expect(title).not.toBeInTheDocument()
+  expect(loader).not.toBeInTheDocument()
+  expect(pages.length).toEqual(0)
+  expect(items.length).toEqual(0)
 })

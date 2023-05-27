@@ -1,7 +1,8 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { Page } from '.'
+
+const { renderComponent, screen } = useTesting()
 
 test('Should render Page properly', async () => {
   renderComponent(<Page>CONTENT</Page>)

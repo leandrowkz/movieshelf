@@ -1,7 +1,8 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { NotFound } from '.'
+
+const { renderComponent, screen } = useTesting()
 
 test('should render content properly', () => {
   renderComponent(<NotFound />)

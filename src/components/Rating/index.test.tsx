@@ -1,29 +1,23 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Rating } from '.'
 
-describe('Rating', () => {
-  test('Should render Rating properly', async () => {
-    const { getByText } = render(<Rating score={7.83} />)
+const { renderComponent, screen } = useTesting()
 
-    const rating = getByText('★ 7.8')
+test('Should render Rating properly', async () => {
+  renderComponent(<Rating score={7.83} />)
 
-    expect(rating).toBeInTheDocument()
-  })
+  expect(screen.getByText('★ 7.8')).toBeVisible()
+})
 
-  test('Should round Rating properly', async () => {
-    const { getByText } = render(<Rating score={7.89} />)
+test('Should round Rating properly', async () => {
+  renderComponent(<Rating score={7.89} />)
 
-    const rating = getByText('★ 7.9')
+  expect(screen.getByText('★ 7.9')).toBeVisible()
+})
 
-    expect(rating).toBeInTheDocument()
-  })
+test('Should fallback Rating properly', async () => {
+  renderComponent(<Rating score={'HAHA' as unknown as number} />)
 
-  test('Should fallback Rating properly', async () => {
-    const { getByText } = render(<Rating score={'HAHA' as unknown as number} />)
-
-    const rating = getByText('★ 0.0')
-
-    expect(rating).toBeInTheDocument()
-  })
+  expect(screen.getByText('★ 0.0')).toBeVisible()
 })

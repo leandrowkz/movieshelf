@@ -4,7 +4,6 @@ import type { Movie, PersonCast, TVShow, Video } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
 import { Text } from '../../components/Text'
 import { Rating } from '../../components/Rating'
-import { MovieHelper } from '../../services/MovieHelper'
 import { ShowGenres } from '../../components/ShowGenres'
 import { Button } from '../../components/Button'
 import { PeopleList } from '../../components/PeopleList'
@@ -18,6 +17,7 @@ import {
   LoaderPoster,
 } from './loader'
 import styles from './styles.module.css'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -48,16 +48,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   isLoadingVideos: boolean
 }
 
-function getTitle(show: Movie | TVShow) {
-  return 'title' in show ? show.title : show.name
-}
-
-function getRuntimeOrSeasons(show: Movie | TVShow) {
-  return 'runtime' in show
-    ? `${show.runtime} minutes`
-    : `${show.number_of_seasons} seasons`
-}
-
 export function ShowDetails({
   show,
   cast,
@@ -70,15 +60,15 @@ export function ShowDetails({
   if (!show) {
     return <></>
   }
-
-  const backdrop = MovieHelper.getImageUrl(show.backdrop_path || '', 500)
+  const { getShowTitle, getShowImageUrl } = useHelpers()
+  const backdrop = getShowImageUrl(show.backdrop_path || '', 500)
 
   return (
     <section className={styles.details} {...props}>
       <div
         className={styles.backdrop}
         style={{ backgroundImage: `url(${backdrop})` }}
-        title={getTitle(show)}
+        title={getShowTitle(show)}
       />
       <div className={styles.movieInfo}>
         <Details show={show} isLoading={isLoadingShow} />
@@ -97,14 +87,15 @@ function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
     return <LoaderDetails />
   }
 
+  const { getShowTitle, getShowReleaseYear, getShowRuntimeOrSeasons } =
+    useHelpers()
   const { overview, vote_average: rating } = show
-  const year = MovieHelper.getReleaseYear(show)
 
   return (
     <Motion tag="section" className={styles.content}>
       <Heading
         level={1}
-        title={getTitle(show)}
+        title={getShowTitle(show)}
         className={styles.title}
         data-testid="show-title"
       />
@@ -116,10 +107,10 @@ function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
           data-testid="show-rating"
         />
         <Text isMuted size="small" data-testid="show-year">
-          {year}
+          {getShowReleaseYear(show)}
         </Text>
         <Text isMuted size="small" data-testid="show-runtime-seasons">
-          {getRuntimeOrSeasons(show)}
+          {getShowRuntimeOrSeasons(show)}
         </Text>
         <ShowCountries show={show} data-testid="show-countries" />
         <ShowGenres
@@ -162,7 +153,9 @@ function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
     return <LoaderActions />
   }
 
-  const trailer = MovieHelper.getFirstTrailerUrl(videos)
+  const { getShowTrailerUrl } = useHelpers()
+
+  const trailer = getShowTrailerUrl(videos)
 
   return (
     <Motion className={styles.buttons}>

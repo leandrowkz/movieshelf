@@ -1,48 +1,34 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { PeopleList } from '.'
-import { mockPerson } from '../../__mocks__/mockPerson'
 
-const makeSUT = () => {
-  const mockPeople = []
+const { renderComponent, getMockPeople, screen } = useTesting()
 
-  for (let i = 0; i < 10; i++) {
-    mockPeople.push({ ...mockPerson })
-  }
+test('Should render PeopleList properly', async () => {
+  const { container } = renderComponent(
+    <PeopleList people={getMockPeople(10)} />
+  )
 
-  return { people: mockPeople }
-}
+  const peopleList = container.querySelectorAll('div.person')
 
-describe('PeopleList', () => {
-  test('Should render PeopleList properly', async () => {
-    const { people } = makeSUT()
-    const { container } = render(<PeopleList people={people} />)
+  expect(peopleList.length).toEqual(4)
+})
 
-    const peopleList = container.querySelectorAll('div.person')
+test('Should render length properly', async () => {
+  const { container } = renderComponent(
+    <PeopleList people={getMockPeople(8)} size={8} />
+  )
 
-    expect(peopleList.length).toEqual(4)
-  })
+  const peopleList = container.querySelectorAll('div.person')
 
-  test('Should render length properly', async () => {
-    const { people } = makeSUT()
-    const { container } = render(<PeopleList people={people} size={8} />)
+  expect(peopleList.length).toEqual(8)
+})
 
-    const peopleList = container.querySelectorAll('div.person')
+test('Should render person info properly', async () => {
+  const people = getMockPeople()
+  renderComponent(<PeopleList people={people} size={1} />)
 
-    expect(peopleList.length).toEqual(8)
-  })
-
-  test('Should render person info properly', async () => {
-    const { people } = makeSUT()
-    const { getByText, getByTestId } = render(
-      <PeopleList people={people} size={1} />
-    )
-
-    const mockPerson = people[0]
-    const name = getByText(mockPerson.name)
-    const avatar = getByTestId('person-avatar')
-
-    expect(name).toBeInTheDocument()
-    expect(avatar).toBeInTheDocument()
-  })
+  const mockPerson = people[0]
+  expect(screen.getByText(mockPerson.name)).toBeVisible()
+  expect(screen.getByTestId('person-avatar')).toBeVisible()
 })

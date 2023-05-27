@@ -1,9 +1,10 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { TVShowDetails } from '.'
 
 jest.mock('src/services/TVShowsAPI')
+
+const { renderComponent, screen } = useTesting()
 
 test('should render TVShowDetails properly', async () => {
   renderComponent(<TVShowDetails />)

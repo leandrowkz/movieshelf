@@ -7,7 +7,7 @@ import type {
   TVShowItem,
 } from '@leandrowkz/tmdb'
 import { Text } from '../Text'
-import { MovieGenresContext } from '../../store/MovieGenresContext'
+import { MovieGenresContext } from '../../context/MovieGenresContext'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: MovieItem | Movie | TVShowItem

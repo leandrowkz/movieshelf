@@ -1,23 +1,26 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useHelpers } from 'src/hooks/useHelpers'
+import { useTesting } from 'src/hooks/useTesting'
 import { ShowPoster } from '.'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { MovieHelper } from '../../services/MovieHelper'
+import { Movie } from '@leandrowkz/tmdb'
 
-const makeSUT = () => {
-  return { movie: { ...mockMovieDetails, genre_ids: [] } }
+const { renderComponent, getMockMovies, screen } = useTesting()
+const { getShowImageUrl } = useHelpers()
+
+function getMovie() {
+  const movie = getMockMovies(1)[0] as Movie
+
+  return { ...movie, genre_ids: [] }
 }
 
-describe('ShowPoster', () => {
-  test('Should render ShowPoster properly', async () => {
-    const { movie } = makeSUT()
-    const { getByTestId } = render(<ShowPoster show={movie} />)
+test('Should render ShowPoster properly', async () => {
+  const movie = getMovie()
+  renderComponent(<ShowPoster show={movie} />)
 
-    const poster = getByTestId('show-poster-image') as HTMLImageElement
-    const src = MovieHelper.getImageUrl(movie.poster_path || '')
+  const poster = screen.getByTestId('show-poster-image') as HTMLImageElement
+  const src = getShowImageUrl(movie.poster_path || '')
 
-    expect(poster).toBeInTheDocument()
-    expect(poster.src).toEqual(src)
-    expect(poster.title).toEqual(movie.title)
-  })
+  expect(poster).toBeInTheDocument()
+  expect(poster.src).toEqual(src)
+  expect(poster.title).toEqual(movie.title)
 })

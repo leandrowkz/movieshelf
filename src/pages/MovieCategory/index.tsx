@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../store/MovieListsContext'
+import { MovieListsContext } from '../../context/MovieListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
-import { MovieGenresContext } from 'src/store/MovieGenresContext'
+import { MovieGenresContext } from 'src/context/MovieGenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function MovieCategory(): JSX.Element {

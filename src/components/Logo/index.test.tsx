@@ -1,28 +1,21 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Logo } from '.'
-import { BrowserRouter } from 'react-router-dom'
 
-describe('Logo', () => {
-  test('Should render Logo properly', async () => {
-    const { getByText, getByTestId } = render(<Logo data-testid="logo" />, {
-      wrapper: BrowserRouter,
-    })
+const { renderComponent, screen } = useTesting()
 
-    const logo = getByTestId('logo') as HTMLLinkElement
-    const title = getByText('🍿 movieshelf')
+test('Should render Logo properly', async () => {
+  renderComponent(<Logo data-testid="logo" />)
 
-    expect(title).toBeInTheDocument()
-    expect(logo.href).toEqual(`${window.location.href}`)
-  })
+  const logo = screen.getByTestId('logo') as HTMLLinkElement
+  const title = screen.getByText('🍿 movieshelf')
 
-  test('Should render Logo iconOnly properly', async () => {
-    const { getByText } = render(<Logo onlyIcon />, {
-      wrapper: BrowserRouter,
-    })
+  expect(title).toBeInTheDocument()
+  expect(logo.href).toEqual(`${window.location.href}`)
+})
 
-    const title = getByText('🍿')
+test('Should render Logo iconOnly properly', async () => {
+  renderComponent(<Logo onlyIcon />)
 
-    expect(title).toBeInTheDocument()
-  })
+  expect(screen.getByText('🍿')).toBeVisible()
 })

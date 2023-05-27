@@ -1,6 +1,4 @@
 import { GenreCode, type Movie } from '@leandrowkz/tmdb'
-import { Language } from '../types/Language'
-import { MovieStatus } from '../types/MovieStatus'
 
 export const mockMovieDetails: Movie = {
   id: 1010,
@@ -16,7 +14,7 @@ export const mockMovieDetails: Movie = {
   ],
   genre_ids: [GenreCode.ACTION, GenreCode.COMEDY],
   homepage: 'https://movie1010.org',
-  original_language: Language.EN,
+  original_language: 'en-US',
   original_title: 'The Mock Adventures of Thunder Movie',
   overview:
     'Elit cupidatat aute Lorem incididunt. Et consequat reprehenderit consectetur quis nulla ipsum ullamco dolore eiusmod.',
@@ -37,7 +35,7 @@ export const mockMovieDetails: Movie = {
   revenue: 11345443,
   runtime: 123,
   spoken_languages: [],
-  status: MovieStatus.RELEASED,
+  status: 'Released',
   tagline: 'Consequat ullamco est voluptate non exercitation.',
   title: 'The Mock Adventures of Thunder Movie',
   video: false,

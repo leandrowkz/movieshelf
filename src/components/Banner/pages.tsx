@@ -5,10 +5,10 @@ import { Heading } from '../Heading'
 import classNames from 'classnames'
 import { Button } from '../Button'
 import { Link } from 'react-router-dom'
-import { MovieHelper } from '../../services/MovieHelper'
 import { Motion } from '../Motion'
 import { Text } from '../Text'
 import { useScreenSize } from '../../hooks/useScreenSize'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLElement> {
   shows: MovieItem[]
@@ -16,6 +16,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 export function BannerPages({ shows, ...props }: Props) {
   const isMobile = useScreenSize('mobile')
+  const { getShowImageUrl } = useHelpers()
   const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export function BannerPages({ shows, ...props }: Props) {
   }
 
   const headerLevel = isMobile ? 2 : 1
-  const banner = MovieHelper.getImageUrl(show.backdrop_path || '', 500)
+  const banner = getShowImageUrl(show.backdrop_path || '', 500)
   const countShows = shows.length
 
   const bullets = []
