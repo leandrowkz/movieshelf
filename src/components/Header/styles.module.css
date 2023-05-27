@@ -1,4 +1,6 @@
 .header {
+  position: relative;
+  z-index: 2;
   height: var(--header-height);
   width: 100%;
   display: flex;
@@ -9,6 +11,10 @@
 
 .menu {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacer-base);
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
+import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  shows: MovieItem[]
+  shows: MovieItem[] | TVShowItem[]
   title: string
   isLoading?: boolean
   size?: 'large' | 'medium' | 'small'
+  type?: 'movie' | 'tv'
   genreId?: number
 }
 
@@ -23,6 +24,7 @@ export function ShowCarousel({
   className,
   isLoading = false,
   size = 'medium',
+  type,
   genreId,
   ...props
 }: Props) {
@@ -50,22 +52,7 @@ export function ShowCarousel({
   }
   const itemsPerPage = 1
   const pagesCount = Math.floor(shows.length / itemsPerPage)
-  const pagesList: MovieItem[][] = []
-
-  // const vwAdjustMap = {
-  //   default: 3,
-  //   1: 15,
-  //   2: 10,
-  //   3: 6,
-  //   4: 5,
-  //   5: 5,
-  //   6: 1,
-  //   8: 0.01,
-  //   10: 3,
-  // }
-  // const vwAdjust =
-  //   vwAdjustMap[itemsPerPage as keyof typeof vwAdjustMap] || vwAdjustMap.default
-  // const itemWidth = 100 / itemsPerPage - vwAdjust
+  const pagesList: (MovieItem[] | TVShowItem[])[] = []
 
   for (let page = 1; page <= pagesCount; page++) {
     pagesList.push(shows.slice((page - 1) * itemsPerPage, page * itemsPerPage))
@@ -78,6 +65,7 @@ export function ShowCarousel({
           {page.map((show) => (
             <ShowItem
               key={show.id}
+              type={type}
               show={show}
               className={showClass}
               size={size}

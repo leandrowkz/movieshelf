@@ -1,10 +1,16 @@
 import React, { HTMLAttributes, useContext } from 'react'
-import type { Movie, MovieItem, Genre, GenreCode } from '@leandrowkz/tmdb'
+import type {
+  Movie,
+  MovieItem,
+  Genre,
+  GenreCode,
+  TVShowItem,
+} from '@leandrowkz/tmdb'
 import { Text } from '../Text'
 import { MovieGenresContext } from '../../store/MovieGenresContext'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  show: MovieItem | Movie
+  show: MovieItem | Movie | TVShowItem
   size?: 'small' | 'medium' | 'large'
   separator?: string
   limit?: number

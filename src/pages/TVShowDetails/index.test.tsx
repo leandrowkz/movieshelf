@@ -1,15 +1,15 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
 import { renderComponent } from 'src/helpers/testing'
-import { MovieDetails } from '.'
+import { TVShowDetails } from '.'
 
-jest.mock('src/services/MoviesAPI')
+jest.mock('src/services/TVShowsAPI')
 
-test('should render MovieDetails properly', async () => {
-  renderComponent(<MovieDetails />)
+test('should render TVShowDetails properly', async () => {
+  renderComponent(<TVShowDetails />)
 
   expect(await screen.findByTestId('show-details')).toBeVisible()
   expect(await screen.findByTestId('carousel-similar')).toBeVisible()
   expect(await screen.findByTestId('carousel-recommended')).toBeVisible()
-  expect(await screen.findByTestId('carousel-trending')).toBeVisible()
+  expect(await screen.findByTestId('carousel-popular')).toBeVisible()
 })

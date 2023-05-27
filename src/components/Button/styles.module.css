@@ -22,7 +22,6 @@
   border-color: var(--color-gray-200);
   color: var(--color-gray-300);
   cursor: no-drop;
-
 }
 
 .button:hover {
