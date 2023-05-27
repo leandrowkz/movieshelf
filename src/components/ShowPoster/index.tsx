@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import React, { HTMLAttributes } from 'react'
 import type { Movie, MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { MovieHelper } from '../../services/MovieHelper'
 import { Image } from '../Image'
 import css from './styles.module.css'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: MovieItem | Movie | TVShowItem
@@ -17,16 +17,18 @@ export function ShowPoster({
   ...props
 }: Props) {
   const classes = classNames(css.poster, className)
+  const { getShowTitle, getShowImageUrl } = useHelpers()
   const { poster_path: poster } = show
-  const img = MovieHelper.getImageUrl(poster || '')
   const style = { width }
-
-  const title = 'title' in show ? show.title : show.name
 
   return (
     <div className={classes} style={style} {...props}>
       {poster && (
-        <Image src={img} title={title} data-testid="show-poster-image" />
+        <Image
+          src={getShowImageUrl(poster || '')}
+          title={getShowTitle(show)}
+          data-testid="show-poster-image"
+        />
       )}
     </div>
   )

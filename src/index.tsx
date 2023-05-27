@@ -5,12 +5,12 @@ import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { Root } from './pages/Root'
-import { MovieListsContextProvider } from './store/MovieListsContext'
-import { MovieDetailsContextProvider } from './store/MovieDetailsContext'
-import { MovieGenresContextProvider } from './store/MovieGenresContext'
-import { NewsletterContextProvider } from './store/NewsletterContext'
-import { TVShowListsContextProvider } from './store/TVShowListsContext'
-import { TVShowDetailsContextProvider } from './store/TVShowDetailsContext'
+import { MovieListsContextProvider } from './context/MovieListsContext'
+import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
+import { MovieGenresContextProvider } from './context/MovieGenresContext'
+import { NewsletterContextProvider } from './context/NewsletterContext'
+import { TVShowListsContextProvider } from './context/TVShowListsContext'
+import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 
 const App = () => {
   return (

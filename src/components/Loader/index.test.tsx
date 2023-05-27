@@ -1,37 +1,33 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Loader, Circle, Rectangle, Paragraph } from '.'
 
-describe('Loader', () => {
-  test('Should render loader and content properly', async () => {
-    const { getByTestId } = render(
-      <Loader data-testid="loader">CONTENT</Loader>
-    )
+const { renderComponent, screen } = useTesting()
 
-    const loader = getByTestId('loader')
+test('Should render loader and content properly', async () => {
+  renderComponent(<Loader data-testid="loader">CONTENT</Loader>)
 
-    expect(loader.innerHTML).toEqual('CONTENT')
-  })
+  expect(screen.getByText('CONTENT')).toBeVisible()
+})
 
-  test('Should render inner components properly', async () => {
-    const { getByTestId } = render(
-      <Loader data-testid="loader">
-        <Circle width={40} data-testid="circle" />
-        <Rectangle width={200} height={300} data-testid="rectangle" />
-        <Paragraph lines={10} data-testid="paragraph" />
-      </Loader>
-    )
+test('Should render inner components properly', async () => {
+  renderComponent(
+    <Loader data-testid="loader">
+      <Circle width={40} data-testid="circle" />
+      <Rectangle width={200} height={300} data-testid="rectangle" />
+      <Paragraph lines={10} data-testid="paragraph" />
+    </Loader>
+  )
 
-    const circle = getByTestId('circle')
-    const rectangle = getByTestId('rectangle')
-    const paragraph = getByTestId('paragraph')
+  const circle = screen.getByTestId('circle')
+  const rectangle = screen.getByTestId('rectangle')
+  const paragraph = screen.getByTestId('paragraph')
 
-    expect(circle).toBeInTheDocument()
-    expect(circle.style.width).toBe('40px')
-    expect(rectangle).toBeInTheDocument()
-    expect(rectangle.style.width).toBe('200px')
-    expect(rectangle.style.height).toBe('300px')
-    expect(paragraph).toBeInTheDocument()
-    expect(paragraph.querySelectorAll('div').length).toEqual(10)
-  })
+  expect(circle).toBeInTheDocument()
+  expect(circle.style.width).toBe('40px')
+  expect(rectangle).toBeInTheDocument()
+  expect(rectangle.style.width).toBe('200px')
+  expect(rectangle.style.height).toBe('300px')
+  expect(paragraph).toBeInTheDocument()
+  expect(paragraph.querySelectorAll('div').length).toEqual(10)
 })

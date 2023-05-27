@@ -1,7 +1,8 @@
 import React from 'react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { Input } from '.'
-import { screen } from '@testing-library/react'
+
+const { renderComponent, screen } = useTesting()
 
 test('Should render Input properly', async () => {
   renderComponent(<Input placeholder="PLACEHOLDER INPUT" />)

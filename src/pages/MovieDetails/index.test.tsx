@@ -1,9 +1,10 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { MovieDetails } from '.'
 
 jest.mock('src/services/MoviesAPI')
+
+const { renderComponent, screen } = useTesting()
 
 test('should render MovieDetails properly', async () => {
   renderComponent(<MovieDetails />)

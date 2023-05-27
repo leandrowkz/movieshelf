@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import React, { HTMLAttributes } from 'react'
-import { MovieHelper } from '../../services/MovieHelper'
 import { Text } from '../Text'
 import css from './styles.module.css'
 import { Motion } from '../Motion'
 import { PersonCast } from '@leandrowkz/tmdb'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   people: PersonCast[]
@@ -12,11 +12,12 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function PeopleList({ people, className, size = 4, ...props }: Props) {
+  const { getShowImageUrl } = useHelpers()
   const classes = classNames(css.cast, className)
   const cast = people.slice(0, size)
 
   const getStyle = (person: PersonCast) => {
-    const avatar = MovieHelper.getImageUrl(person.profile_path || '', 200)
+    const avatar = getShowImageUrl(person.profile_path || '', 200)
 
     return { backgroundImage: `url(${avatar})` }
   }

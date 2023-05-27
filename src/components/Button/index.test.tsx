@@ -1,48 +1,44 @@
 import React from 'react'
-import userEvent from '@testing-library/user-event'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Button } from '.'
 
-describe('Button', () => {
-  test('Should render button properly', async () => {
-    const { queryByText } = render(<Button>Hello</Button>)
+const { renderComponent, screen, user } = useTesting()
 
-    const button = queryByText('Hello')
+test('Should render button properly', async () => {
+  renderComponent(<Button>Hello</Button>)
 
-    expect(button).toBeInTheDocument()
-  })
+  const button = screen.queryByText('Hello')
 
-  test('Should set classes properly', async () => {
-    const { getByTestId } = render(
-      <Button
-        className="custom"
-        size="large"
-        variant="secondary"
-        data-testid="button"
-        pill
-      >
-        Hello
-      </Button>
-    )
+  expect(button).toBeInTheDocument()
+})
 
-    const button = getByTestId('button')
+test('Should set classes properly', async () => {
+  const { getByTestId } = renderComponent(
+    <Button
+      className="custom"
+      size="large"
+      variant="secondary"
+      data-testid="button"
+      pill
+    >
+      Hello
+    </Button>
+  )
 
-    expect(button.classList.toString()).toEqual(
-      'button custom large secondary pill'
-    )
-  })
+  const button = getByTestId('button')
 
-  test('Should fire event properly', async () => {
-    const spy = jest.fn()
-    const user = userEvent.setup()
-    const { getByTestId } = render(
-      <Button data-testid="button" onClick={spy} />
-    )
+  expect(button.classList.toString()).toEqual(
+    'button custom large secondary pill'
+  )
+})
 
-    const button = getByTestId('button')
+test('Should fire event properly', async () => {
+  const spy = jest.fn()
+  renderComponent(<Button data-testid="button" onClick={spy} />)
 
-    await user.click(button)
+  const button = screen.getByTestId('button')
 
-    expect(spy).toHaveBeenCalled()
-  })
+  await user.click(button)
+
+  expect(spy).toHaveBeenCalled()
 })

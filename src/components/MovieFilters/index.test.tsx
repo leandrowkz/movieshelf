@@ -1,8 +1,9 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from 'src/helpers/testing'
+import { useTesting } from 'src/hooks/useTesting'
 import { MovieFilters } from '.'
 import { genres } from './genres'
+
+const { renderComponent, screen, user } = useTesting()
 
 function getButton(): HTMLButtonElement {
   const filter = genres[1]
@@ -32,7 +33,7 @@ test('Should render a single filter properly', () => {
 
 test('Should dispatch correct onFilter calls', async () => {
   const onFilter = jest.fn()
-  const { user } = renderComponent(<MovieFilters onFilter={onFilter} />)
+  renderComponent(<MovieFilters onFilter={onFilter} />)
 
   const button = getButton()
   await user.click(button)
@@ -44,7 +45,7 @@ test('Should dispatch correct onFilter calls', async () => {
 })
 
 test('Should save filters on localStorage properly', async () => {
-  const { user } = renderComponent(<MovieFilters onFilter={jest.fn()} />)
+  renderComponent(<MovieFilters onFilter={jest.fn()} />)
 
   const button = getButton()
   await user.click(button)
@@ -61,7 +62,7 @@ test('Should load filters from localStorage properly', async () => {
   window.localStorage.getItem = jest
     .fn()
     .mockImplementationOnce(() => '[14,31,27]')
-  const { user } = renderComponent(<MovieFilters onFilter={jest.fn()} />)
+  renderComponent(<MovieFilters onFilter={jest.fn()} />)
 
   const button = getButton()
   await user.click(button)
@@ -80,7 +81,7 @@ test('Should clear other filters when clicking on "ALL" filter', async () => {
   window.localStorage.getItem = jest
     .fn()
     .mockImplementationOnce(() => '[14,31,27]')
-  const { user } = renderComponent(<MovieFilters onFilter={jest.fn()} />)
+  renderComponent(<MovieFilters onFilter={jest.fn()} />)
 
   const { icon, name } = genres[0]
   const button = screen.getByText(`${icon} ${name}`)

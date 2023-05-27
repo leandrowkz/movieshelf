@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { ShowPoster } from '../ShowPoster'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem
@@ -21,13 +22,13 @@ export function ShowItem({
   className,
   ...props
 }: Props) {
+  const { getShowTitle } = useHelpers()
   const classes = classNames(className, styles.item, {
     [styles.small]: size === 'small',
     [styles.medium]: size === 'medium',
     [styles.large]: size === 'large',
   })
 
-  const title = 'title' in show ? show.title : show.name
   const path = type === 'movie' ? '/movies' : '/tv'
 
   return (
@@ -38,7 +39,7 @@ export function ShowItem({
       <div className={styles.header}>
         <Heading
           level={3}
-          title={title}
+          title={getShowTitle(show)}
           className={styles.title}
           data-testid="show-title"
         />

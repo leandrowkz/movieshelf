@@ -1,25 +1,19 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Container } from '.'
 
-describe('Container', () => {
-  test('Should render container and content properly', async () => {
-    const { getByTestId } = render(
-      <Container data-testid="container">Hello</Container>
-    )
+const { renderComponent, screen } = useTesting()
 
-    const container = getByTestId('container')
+test('Should render container and content properly', async () => {
+  renderComponent(<Container data-testid="container">Hello</Container>)
 
-    expect(container.innerHTML).toEqual('Hello')
-  })
+  expect(screen.getByText('Hello')).toBeVisible()
+})
 
-  test('Should set classes properly', async () => {
-    const { getByTestId } = render(
-      <Container className="custom" data-testid="container" />
-    )
+test('Should set classes properly', async () => {
+  renderComponent(<Container className="custom" data-testid="container" />)
 
-    const container = getByTestId('container')
+  const container = screen.getByTestId('container')
 
-    expect(container.classList.toString()).toEqual('container custom')
-  })
+  expect(container.classList.toString()).toEqual('container custom')
 })

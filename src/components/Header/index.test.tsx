@@ -1,32 +1,25 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Header } from '.'
-import { BrowserRouter } from 'react-router-dom'
 
-describe('Header', () => {
-  test('Should render header properly', async () => {
-    const { getByTestId } = render(<Header />, { wrapper: BrowserRouter })
+const { renderComponent, screen } = useTesting()
 
-    const logo = getByTestId('logo')
-    const menu = getByTestId('menu')
-    const sponsor = getByTestId('sponsor')
+test('Should render header properly', async () => {
+  renderComponent(<Header />)
 
-    expect(logo).toBeInTheDocument()
-    expect(menu).toBeInTheDocument()
-    expect(sponsor).toBeInTheDocument()
-  })
+  expect(screen.getByTestId('logo')).toBeVisible()
+  expect(screen.getByTestId('menu')).toBeVisible()
+  expect(screen.getByTestId('sponsor')).toBeVisible()
+})
 
-  test('Should render menu links properly', async () => {
-    const { getByTestId } = render(<Header />, { wrapper: BrowserRouter })
+test('Should render menu links properly', async () => {
+  renderComponent(<Header />)
 
-    const menuMovies = getByTestId('menu-movies') as HTMLLinkElement
-    const menuSponsorship = getByTestId('sponsor') as HTMLLinkElement
+  const menuMovies = screen.getByTestId('menu-movies') as HTMLLinkElement
+  const menuSponsorship = screen.getByTestId('sponsor') as HTMLLinkElement
 
-    expect(menuMovies.href).toEqual(`${window.location.href}movies`)
-    expect(menuMovies.target).toEqual('')
-    expect(menuSponsorship.href).toEqual(
-      'https://github.com/sponsors/leandrowkz'
-    )
-    expect(menuSponsorship.target).toEqual('_blank')
-  })
+  expect(menuMovies.href).toEqual(`${window.location.href}movies`)
+  expect(menuMovies.target).toEqual('')
+  expect(menuSponsorship.href).toEqual('https://github.com/sponsors/leandrowkz')
+  expect(menuSponsorship.target).toEqual('_blank')
 })

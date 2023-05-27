@@ -1,29 +1,25 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { ShowItem } from '.'
-import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { BrowserRouter } from 'react-router-dom'
 
-const makeSUT = () => {
-  return { movie: { ...mockMovieDetails, genre_ids: [] } }
+const { renderComponent, getMockMovies, screen } = useTesting()
+
+function getMovie() {
+  const movie = getMockMovies(1)[0]
+
+  return { ...movie, genre_ids: [] }
 }
 
-describe('ShowItem', () => {
-  test('Should render ShowItem properly', async () => {
-    const { movie } = makeSUT()
-    const { getByTestId } = render(<ShowItem show={movie} />, {
-      wrapper: BrowserRouter,
-    })
+test('Should render ShowItem properly', async () => {
+  const movie = getMovie()
+  renderComponent(<ShowItem show={movie} />)
 
-    const link = getByTestId('show-poster-link') as HTMLLinkElement
-    const title = getByTestId('show-title')
-    const rating = getByTestId('show-rating')
-    const categories = getByTestId('show-categories')
+  const link = screen.getByTestId('show-poster-link') as HTMLLinkElement
 
-    expect(link).toBeInTheDocument()
-    expect(title).toBeInTheDocument()
-    expect(rating).toBeInTheDocument()
-    expect(categories).toBeInTheDocument()
-    expect(link.href).toEqual(`${window.location.href}movies/${movie.id}`)
-  })
+  expect(link).toBeVisible()
+  expect(screen.getByTestId('show-title')).toBeVisible()
+  expect(screen.getByTestId('show-rating')).toBeVisible()
+  expect(screen.getByTestId('show-categories')).toBeVisible()
+
+  expect(link.href).toEqual(`${window.location.href}movies/${movie.id}`)
 })

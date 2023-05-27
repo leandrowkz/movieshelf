@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { Banner } from '../../components/Banner'
 import { Page } from '../../components/Page'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { MovieListsContext } from '../../store/MovieListsContext'
-import { TVShowListsContext } from '../../store/TVShowListsContext'
+import { MovieListsContext } from '../../context/MovieListsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
 import styles from './styles.module.css'
 
 export function Home() {
@@ -54,7 +54,6 @@ export function Home() {
     fetchScifiAndFantasy()
     fetchFamily()
     fetchTopRatedDocumentaries()
-
     fetchAiringToday()
     fetchOnTheAir()
     fetchTopRated()

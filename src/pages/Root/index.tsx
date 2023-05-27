@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useContext, useEffect } from 'react'
-import { MovieGenresContext } from '../../store/MovieGenresContext'
+import { MovieGenresContext } from '../../context/MovieGenresContext'
 
 export const Root = ({ children }: PropsWithChildren) => {
   const { fetchGenres } = useContext(MovieGenresContext)

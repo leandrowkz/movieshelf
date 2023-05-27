@@ -1,24 +1,22 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Image } from '.'
 
-describe('Image', () => {
-  test('Should render image properly', async () => {
-    const { getByTestId } = render(
-      <Image data-testid="img" alt="Hello" src="something.gif" />
-    )
+const { renderComponent, screen } = useTesting()
 
-    const img = getByTestId('img') as HTMLImageElement
+test('Should render image properly', async () => {
+  renderComponent(<Image data-testid="img" alt="Hello" src="something.gif" />)
 
-    expect(img.src).toEqual(`${window.location.href}something.gif`)
-    expect(img.alt).toEqual('Hello')
-  })
+  const img = screen.getByTestId('img') as HTMLImageElement
 
-  test('Should add default title properly', async () => {
-    const { getByTestId } = render(<Image data-testid="img" />)
+  expect(img.src).toEqual(`${window.location.href}something.gif`)
+  expect(img.alt).toEqual('Hello')
+})
 
-    const img = getByTestId('img') as HTMLImageElement
+test('Should add default title properly', async () => {
+  renderComponent(<Image data-testid="img" />)
 
-    expect(img.alt).toEqual('Image')
-  })
+  const img = screen.getByTestId('img') as HTMLImageElement
+
+  expect(img.alt).toEqual('Image')
 })

@@ -1,13 +1,15 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
-import { renderComponent } from '../../helpers/testing'
-import { Movies } from '.'
-import { genres } from 'src/components/MovieFilters/genres'
 import { GenreCode } from '@leandrowkz/tmdb'
+import { useTesting } from 'src/hooks/useTesting'
+import { useGenres } from 'src/hooks/useGenres'
+import { Movies } from '.'
+
+const { renderComponent, screen, user } = useTesting()
 
 jest.mock('src/services/MoviesAPI')
 
 function getButtonsFilters() {
+  const genres = useGenres()
   const getFilter = (genreCode: number) =>
     genres.find((genre) => genre.id === genreCode) || {
       id: null,
@@ -62,7 +64,7 @@ test('Should render movies page properly', async () => {
 })
 
 test('Should properly hide/show carousels when filtering single', async () => {
-  const { user } = renderComponent(<Movies />)
+  renderComponent(<Movies />)
 
   const filters = getButtonsFilters()
 
@@ -73,7 +75,7 @@ test('Should properly hide/show carousels when filtering single', async () => {
 })
 
 test('Should properly hide/show carousels when filtering multiple', async () => {
-  const { user } = renderComponent(<Movies />)
+  renderComponent(<Movies />)
 
   const filters = getButtonsFilters()
 
@@ -90,7 +92,7 @@ test('Should properly hide/show carousels when filtering multiple', async () => 
 })
 
 test('Should properly hide/show carousels when filtering and clearing multiple', async () => {
-  const { user } = renderComponent(<Movies />)
+  renderComponent(<Movies />)
 
   const filters = getButtonsFilters()
 

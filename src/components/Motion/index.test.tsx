@@ -1,19 +1,19 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Motion } from '.'
 
-describe('Motion', () => {
-  test('Should render Motion properly', async () => {
-    const { getByText, getByTestId } = render(
-      <Motion data-testid="motion" tag="span">
-        CONTENT
-      </Motion>
-    )
+const { renderComponent, screen } = useTesting()
 
-    const motion = getByTestId('motion') as HTMLSpanElement
-    const content = getByText('CONTENT')
+test('Should render Motion properly', async () => {
+  renderComponent(
+    <Motion data-testid="motion" tag="span">
+      CONTENT
+    </Motion>
+  )
 
-    expect(motion).toBeInstanceOf(HTMLSpanElement)
-    expect(content).toBeInTheDocument()
-  })
+  const motion = screen.getByTestId('motion') as HTMLSpanElement
+  const content = screen.getByText('CONTENT')
+
+  expect(motion).toBeInstanceOf(HTMLSpanElement)
+  expect(content).toBeInTheDocument()
 })

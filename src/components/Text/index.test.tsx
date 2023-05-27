@@ -1,47 +1,47 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
 import { Text } from '.'
 
-describe('Text', () => {
-  test('Should render Text properly', async () => {
-    const { getByText } = render(<Text>CONTENT</Text>)
+const { renderComponent, screen } = useTesting()
 
-    const content = getByText('CONTENT')
+test('Should render Text properly', async () => {
+  renderComponent(<Text>CONTENT</Text>)
 
-    expect(content).toBeInTheDocument()
-  })
+  const content = screen.getByText('CONTENT')
 
-  test('Should resolve tag properly', async () => {
-    const { getByTestId } = render(
-      <Text isParagraph data-testid="text">
-        CONTENT
-      </Text>
-    )
+  expect(content).toBeInTheDocument()
+})
 
-    const text = getByTestId('text')
+test('Should resolve tag properly', async () => {
+  renderComponent(
+    <Text isParagraph data-testid="text">
+      CONTENT
+    </Text>
+  )
 
-    expect(text).toBeInstanceOf(HTMLParagraphElement)
-  })
+  const text = screen.getByTestId('text')
 
-  test('Should set classes properly', async () => {
-    const { getByTestId } = render(
-      <Text
-        data-testid="text"
-        className="custom"
-        size="large"
-        alignment="center"
-        isMuted
-        isParagraph
-        isBold
-      >
-        CONTENT
-      </Text>
-    )
+  expect(text).toBeInstanceOf(HTMLParagraphElement)
+})
 
-    const text = getByTestId('text')
+test('Should set classes properly', async () => {
+  renderComponent(
+    <Text
+      data-testid="text"
+      className="custom"
+      size="large"
+      alignment="center"
+      isMuted
+      isParagraph
+      isBold
+    >
+      CONTENT
+    </Text>
+  )
 
-    expect(text.classList.toString()).toEqual(
-      'custom large center muted text bold paragraph'
-    )
-  })
+  const text = screen.getByTestId('text')
+
+  expect(text.classList.toString()).toEqual(
+    'custom large center muted text bold paragraph'
+  )
 })
