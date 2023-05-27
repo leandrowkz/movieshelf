@@ -58,6 +58,7 @@ export function TVShowDetails(): JSX.Element {
         isLoadingCast={isLoadingCast}
         isLoadingShow={isLoadingTVShow}
         isLoadingVideos={isLoadingVideos}
+        data-testid="show-details"
       />
       <ShowCarousel
         shows={similar}

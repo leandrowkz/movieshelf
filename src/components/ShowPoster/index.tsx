@@ -25,7 +25,9 @@ export function ShowPoster({
 
   return (
     <div className={classes} style={style} {...props}>
-      {poster && <Image src={img} title={title} data-testid="show-poster" />}
+      {poster && (
+        <Image src={img} title={title} data-testid="show-poster-image" />
+      )}
     </div>
   )
 }

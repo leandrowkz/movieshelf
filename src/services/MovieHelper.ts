@@ -7,7 +7,6 @@ export class MovieHelper {
   }
 
   static getFirstTrailerUrl(videos: Video[]) {
-    console.log(videos)
     if (!videos) {
       return ''
     }

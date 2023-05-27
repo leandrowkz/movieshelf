@@ -4,15 +4,23 @@ import { render } from '@testing-library/react'
 import { MovieListsContextProvider } from '../store/MovieListsContext'
 import { MovieDetailsContextProvider } from '../store/MovieDetailsContext'
 import { BrowserRouter } from 'react-router-dom'
+import { TVShowListsContextProvider } from 'src/store/TVShowListsContext'
+import { TVShowDetailsContextProvider } from 'src/store/TVShowDetailsContext'
 
 export function renderComponent(component: ReactElement) {
   const user = userEvent.setup()
 
   const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
     <BrowserRouter>
-      <MovieListsContextProvider>
-        <MovieDetailsContextProvider>{children}</MovieDetailsContextProvider>
-      </MovieListsContextProvider>
+      <TVShowListsContextProvider>
+        <TVShowDetailsContextProvider>
+          <MovieListsContextProvider>
+            <MovieDetailsContextProvider>
+              {children}
+            </MovieDetailsContextProvider>
+          </MovieListsContextProvider>
+        </TVShowDetailsContextProvider>
+      </TVShowListsContextProvider>
     </BrowserRouter>
   )
 

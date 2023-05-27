@@ -1,46 +1,33 @@
 import React from 'react'
-import { waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { ShowDetails } from '.'
 import { renderComponent } from 'src/helpers/testing'
-import { Movie } from '@leandrowkz/tmdb'
-
-jest.mock('src/services/MoviesAPI')
+import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
+import { mockMovieCredits } from 'src/__mocks__/mockMovieCredits'
+import { mockVideo } from 'src/__mocks__/mockVideo'
 
 describe('MovieDetails', () => {
-  test('Should render MovieDetails properly', async () => {
-    const { queryByTestId } = renderComponent(
+  test('Should render ShowDetails properly', async () => {
+    const { cast } = mockMovieCredits
+    const videos = [mockVideo]
+
+    renderComponent(
       <ShowDetails
-        show={{} as Movie}
-        cast={[]}
-        videos={[]}
+        show={mockMovieDetails}
+        cast={cast}
+        videos={videos}
         isLoadingCast={false}
         isLoadingShow={false}
         isLoadingVideos={false}
       />
     )
 
-    await waitFor(async () => {
-      const title = queryByTestId('movie-title')
-      const overview = queryByTestId('movie-overview')
-      const year = queryByTestId('movie-year')
-      const genres = queryByTestId('movie-genres')
-      const countries = queryByTestId('movie-countries')
-      const poster = queryByTestId('movie-poster')
-      const cast = queryByTestId('movie-cast')
-      const carouselSimilar = queryByTestId('carousel-similar')
-      const carouselRecommended = queryByTestId('carousel-recommended')
-      const carouselTrending = queryByTestId('carousel-trending')
-
-      expect(title).toBeInTheDocument()
-      expect(overview).toBeInTheDocument()
-      expect(year).toBeInTheDocument()
-      expect(genres).toBeInTheDocument()
-      expect(countries).toBeInTheDocument()
-      expect(poster).toBeInTheDocument()
-      expect(cast).toBeInTheDocument()
-      expect(carouselSimilar).toBeInTheDocument()
-      expect(carouselRecommended).toBeInTheDocument()
-      expect(carouselTrending).toBeInTheDocument()
-    })
+    expect(screen.getByTestId('show-title')).toBeVisible()
+    expect(screen.getByTestId('show-overview')).toBeVisible()
+    expect(screen.getByTestId('show-year')).toBeVisible()
+    expect(screen.getByTestId('show-genres')).toBeVisible()
+    expect(screen.getByTestId('show-countries')).toBeVisible()
+    expect(screen.getByTestId('show-poster')).toBeVisible()
+    expect(screen.getByTestId('show-cast')).toBeVisible()
   })
 })

@@ -1,8 +1,8 @@
-import { MovieCredits } from '@leandrowkz/tmdb'
+import { TVShowCredits } from '@leandrowkz/tmdb'
 import { mockPerson } from './mockPerson'
 
-export const mockMovieCredits: MovieCredits = {
-  id: 1010,
+export const mockTVShowCredits: TVShowCredits = {
+  id: 2020,
   cast: [{ ...mockPerson }, { ...mockPerson }, { ...mockPerson }],
   crew: [{ ...mockPerson }, { ...mockPerson }, { ...mockPerson }],
 }

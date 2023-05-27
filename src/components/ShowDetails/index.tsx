@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import type { Movie, PersonCast, TVShow, Video } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -39,7 +39,7 @@ type PosterProps = {
   isLoading?: boolean
 }
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
   cast: PersonCast[]
   videos: Video[]
@@ -65,6 +65,7 @@ export function ShowDetails({
   isLoadingCast,
   isLoadingShow,
   isLoadingVideos,
+  ...props
 }: Props): JSX.Element {
   if (!show) {
     return <></>
@@ -73,7 +74,7 @@ export function ShowDetails({
   const backdrop = MovieHelper.getImageUrl(show.backdrop_path || '', 500)
 
   return (
-    <section className={styles.details}>
+    <section className={styles.details} {...props}>
       <div
         className={styles.backdrop}
         style={{ backgroundImage: `url(${backdrop})` }}

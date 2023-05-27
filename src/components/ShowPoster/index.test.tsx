@@ -13,7 +13,7 @@ describe('ShowPoster', () => {
     const { movie } = makeSUT()
     const { getByTestId } = render(<ShowPoster show={movie} />)
 
-    const poster = getByTestId('show-poster') as HTMLImageElement
+    const poster = getByTestId('show-poster-image') as HTMLImageElement
     const src = MovieHelper.getImageUrl(movie.poster_path || '')
 
     expect(poster).toBeInTheDocument()

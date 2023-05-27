@@ -58,6 +58,7 @@ export function MovieDetails(): JSX.Element {
         isLoadingCast={isLoadingCast}
         isLoadingShow={isLoadingMovie}
         isLoadingVideos={isLoadingVideos}
+        data-testid="show-details"
       />
       <ShowCarousel
         shows={similar}
