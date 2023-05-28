@@ -4,33 +4,40 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import type { PersonCast, TVShow, TVShowVideos } from '@leandrowkz/tmdb'
+import type {
+  PersonCast,
+  PersonCrew,
+  TVShow,
+  TVShowVideos,
+} from '@leandrowkz/tmdb'
 import { api } from '../services/TVShowsAPI'
 import { Nullable } from '../types/Nullable'
 
 type TVShowDetailsState = {
   tvShow: Nullable<TVShow>
   cast: PersonCast[]
+  crew: PersonCrew[]
   videos: TVShowVideos['results']
   isLoadingTVShow: boolean
-  isLoadingCast: boolean
+  isLoadingCredits: boolean
   isLoadingVideos: boolean
   hasTVShowErrors: boolean
   fetchTVShow: (tvShowId: number) => void
-  fetchCast: (tvShowId: number) => void
+  fetchCredits: (tvShowId: number) => void
   fetchVideos: (tvShowId: number) => void
 }
 
 export const TVShowDetailsContext = createContext<TVShowDetailsState>({
   tvShow: {} as TVShow,
   cast: [],
+  crew: [],
   videos: [],
   isLoadingTVShow: false,
-  isLoadingCast: false,
+  isLoadingCredits: false,
   isLoadingVideos: false,
   hasTVShowErrors: false,
   fetchTVShow: () => null,
-  fetchCast: () => null,
+  fetchCredits: () => null,
   fetchVideos: () => null,
 })
 
@@ -39,9 +46,10 @@ export const TVShowDetailsContextProvider = ({
 }: PropsWithChildren) => {
   const [tvShow, setTVShow] = useState<TVShow>({} as TVShow)
   const [cast, setCast] = useState<PersonCast[]>([])
+  const [crew, setCrew] = useState<PersonCrew[]>([])
   const [videos, setVideos] = useState<TVShowVideos['results']>([])
   const [isLoadingTVShow, setIsLoadingTVShow] = useState(false)
-  const [isLoadingCast, setIsLoadingCast] = useState(false)
+  const [isLoadingCredits, setIsLoadingCredits] = useState(false)
   const [isLoadingVideos, setIsLoadingVideos] = useState(false)
   const [hasTVShowErrors, setHasTVShowErrors] = useState(false)
 
@@ -63,14 +71,15 @@ export const TVShowDetailsContextProvider = ({
     [api]
   )
 
-  const fetchCast = useCallback(
+  const fetchCredits = useCallback(
     async (tvShowId: number) => {
-      setIsLoadingCast(true)
+      setIsLoadingCredits(true)
 
-      const { cast } = await api.fetchCredits(tvShowId)
+      const { cast, crew } = await api.fetchCredits(tvShowId)
 
       setCast(cast)
-      setIsLoadingCast(false)
+      setCrew(crew)
+      setIsLoadingCredits(false)
     },
     [api]
   )
@@ -90,12 +99,13 @@ export const TVShowDetailsContextProvider = ({
   const state = {
     tvShow,
     cast,
+    crew,
     videos,
-    isLoadingCast,
+    isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
     hasTVShowErrors,
-    fetchCast,
+    fetchCredits,
     fetchTVShow,
     fetchVideos,
   }

@@ -128,6 +128,12 @@
     font-size: var(--font-size-large) !important;
   }
 
+  .cast {
+    flex: 1;
+    justify-content: space-between !important;
+    gap: var(--spacer-base) !important;
+  }
+
   .poster {
     align-self: center;
     width: 100%;

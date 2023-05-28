@@ -5,6 +5,7 @@ import css from './styles.module.css'
 import { Motion } from '../Motion'
 import { PersonCast } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   people: PersonCast[]
@@ -13,8 +14,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export function PeopleList({ people, className, size = 4, ...props }: Props) {
   const { getShowImageUrl } = useHelpers()
-  const classes = classNames(css.cast, className)
+  const isMobile = useScreenSize('mobile')
   const cast = people.slice(0, size)
+  const classes = classNames(css.cast, className, {
+    [css.mobile]: isMobile,
+  })
 
   const getStyle = (person: PersonCast) => {
     const avatar = getShowImageUrl(person.profile_path || '', 200)

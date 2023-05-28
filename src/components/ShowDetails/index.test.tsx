@@ -10,10 +10,10 @@ test('Should render ShowDetails properly', async () => {
   renderComponent(
     <ShowDetails
       show={getMockMovies(1)[0] as Movie}
-      cast={getMockPeople()}
+      people={getMockPeople()}
       videos={getMockVideos()}
-      isLoadingCast={false}
       isLoadingShow={false}
+      isLoadingPeople={false}
       isLoadingVideos={false}
     />
   )
