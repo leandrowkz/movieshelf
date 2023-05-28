@@ -11,26 +11,28 @@ import { Nullable } from '../types/Nullable'
 type MovieDetailsState = {
   movie: Nullable<Movie>
   cast: PersonCast[]
+  crew: PersonCast[]
   videos: Video[]
   isLoadingMovie: boolean
-  isLoadingCast: boolean
+  isLoadingCredits: boolean
   isLoadingVideos: boolean
   hasMovieErrors: boolean
   fetchMovie: (movieId: number) => void
-  fetchCast: (movieId: number) => void
+  fetchCredits: (movieId: number) => void
   fetchVideos: (movieId: number) => void
 }
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
   movie: {} as Movie,
   cast: [],
+  crew: [],
   videos: [],
   isLoadingMovie: false,
-  isLoadingCast: false,
+  isLoadingCredits: false,
   isLoadingVideos: false,
   hasMovieErrors: false,
   fetchMovie: () => null,
-  fetchCast: () => null,
+  fetchCredits: () => null,
   fetchVideos: () => null,
 })
 
@@ -39,9 +41,10 @@ export const MovieDetailsContextProvider = ({
 }: PropsWithChildren) => {
   const [movie, setMovie] = useState<Movie>({} as Movie)
   const [cast, setCast] = useState<PersonCast[]>([])
+  const [crew, setCrew] = useState<PersonCast[]>([])
   const [videos, setVideos] = useState<Video[]>([])
   const [isLoadingMovie, setIsLoadingMovie] = useState(false)
-  const [isLoadingCast, setIsLoadingCast] = useState(false)
+  const [isLoadingCredits, setIsLoadingCredits] = useState(false)
   const [isLoadingVideos, setIsLoadingVideos] = useState(false)
   const [hasMovieErrors, setHasMovieErrors] = useState(false)
 
@@ -63,14 +66,16 @@ export const MovieDetailsContextProvider = ({
     [moviesAPI]
   )
 
-  const fetchCast = useCallback(
+  const fetchCredits = useCallback(
     async (movieId: number) => {
-      setIsLoadingCast(true)
+      setIsLoadingCredits(true)
 
-      const { cast } = await moviesAPI.fetchCredits(movieId)
+      const { cast, crew } = await moviesAPI.fetchCredits(movieId)
 
       setCast(cast)
-      setIsLoadingCast(false)
+      setCrew(crew)
+      console.log(crew)
+      setIsLoadingCredits(false)
     },
     [moviesAPI]
   )
@@ -90,12 +95,13 @@ export const MovieDetailsContextProvider = ({
   const state = {
     movie,
     cast,
+    crew,
     videos,
-    isLoadingCast,
+    isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
     hasMovieErrors,
-    fetchCast,
+    fetchCredits,
     fetchMovie,
     fetchVideos,
   }

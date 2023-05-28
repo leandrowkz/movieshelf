@@ -1,6 +1,7 @@
 import type {
   Movie,
   MovieItem,
+  PersonCrew,
   TVShow,
   TVShowItem,
   Video,
@@ -10,6 +11,20 @@ type Show = Movie | TVShow | MovieItem | TVShowItem
 
 function getShowImageUrl(path: string, size = 300) {
   return `https://image.tmdb.org/t/p/w${size}/${path}`
+}
+
+function getCreditsDirector(crew: PersonCrew[]) {
+  return crew.find((person) => person.job === 'Director')
+}
+
+function getCreditsProducer(crew: PersonCrew[]) {
+  return crew
+    .sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
+    .find(
+      (person) =>
+        person.job === 'Executive Producer' &&
+        person.known_for_department !== 'Acting'
+    )
 }
 
 function getShowTrailerUrl(videos: Video[]) {
@@ -63,4 +78,6 @@ export const useHelpers = () => ({
   getShowReleaseYear,
   getShowTrailerUrl,
   getShowImageUrl,
+  getCreditsDirector,
+  getCreditsProducer,
 })

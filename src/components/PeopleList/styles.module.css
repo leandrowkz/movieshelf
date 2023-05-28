@@ -1,7 +1,7 @@
 .cast {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: var(--spacer-large);
 }
 
@@ -47,4 +47,8 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.mobile .name {
+  font-size: var(--font-size-small) !important;
 }

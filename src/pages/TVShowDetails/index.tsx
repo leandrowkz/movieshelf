@@ -6,17 +6,22 @@ import { ShowCarousel } from '../../components/ShowCarousel'
 import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 export function TVShowDetails(): JSX.Element {
+  const { getCreditsProducer } = useHelpers()
+  const { tvShowId } = useParams()
+
   const {
     tvShow,
     cast,
+    crew,
     videos,
-    isLoadingCast,
+    isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
     fetchTVShow,
-    fetchCast,
+    fetchCredits,
     fetchVideos,
   } = useContext(TVShowDetailsContext)
 
@@ -32,13 +37,11 @@ export function TVShowDetails(): JSX.Element {
     fetchPopular,
   } = useContext(TVShowListsContext)
 
-  const { tvShowId } = useParams()
-
   useEffect(() => {
     const id = Number(tvShowId)
 
     fetchTVShow(id)
-    fetchCast(id)
+    fetchCredits(id)
     fetchVideos(id)
     fetchSimilar(id)
     fetchRecommended(id)
@@ -49,14 +52,17 @@ export function TVShowDetails(): JSX.Element {
     return <NotFound />
   }
 
+  const director = getCreditsProducer(crew)
+  const people = director ? [director, ...cast] : cast
+
   return (
     <Page>
       <ShowDetails
         show={tvShow}
-        cast={cast}
+        people={people}
         videos={videos}
-        isLoadingCast={isLoadingCast}
         isLoadingShow={isLoadingTVShow}
+        isLoadingPeople={isLoadingCredits}
         isLoadingVideos={isLoadingVideos}
         data-testid="show-details"
       />

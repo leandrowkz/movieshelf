@@ -6,17 +6,22 @@ import { ShowCarousel } from '../../components/ShowCarousel'
 import { MovieDetailsContext } from '../../context/MovieDetailsContext'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 export function MovieDetails(): JSX.Element {
+  const { getCreditsDirector } = useHelpers()
+  const { movieId } = useParams()
+
   const {
     movie,
     cast,
+    crew,
     videos,
-    isLoadingCast,
+    isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
     fetchMovie,
-    fetchCast,
+    fetchCredits,
     fetchVideos,
   } = useContext(MovieDetailsContext)
 
@@ -32,13 +37,11 @@ export function MovieDetails(): JSX.Element {
     fetchSimilar,
   } = useContext(MovieListsContext)
 
-  const { movieId } = useParams()
-
   useEffect(() => {
     const id = Number(movieId)
 
     fetchMovie(id)
-    fetchCast(id)
+    fetchCredits(id)
     fetchVideos(id)
     fetchSimilar(id)
     fetchRecommended(id)
@@ -49,14 +52,17 @@ export function MovieDetails(): JSX.Element {
     return <NotFound />
   }
 
+  const director = getCreditsDirector(crew)
+  const people = director ? [director, ...cast] : cast
+
   return (
     <Page>
       <ShowDetails
         show={movie}
-        cast={cast}
+        people={people}
         videos={videos}
-        isLoadingCast={isLoadingCast}
         isLoadingShow={isLoadingMovie}
+        isLoadingPeople={isLoadingCredits}
         isLoadingVideos={isLoadingVideos}
         data-testid="show-details"
       />

@@ -1,6 +1,12 @@
 import React, { HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
-import type { Movie, PersonCast, TVShow, Video } from '@leandrowkz/tmdb'
+import type {
+  Movie,
+  PersonCast,
+  PersonCrew,
+  TVShow,
+  Video,
+} from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
 import { Text } from '../../components/Text'
 import { Rating } from '../../components/Rating'
@@ -25,7 +31,7 @@ type DetailsProps = {
 }
 
 type CastProps = {
-  cast: PersonCast[]
+  people: (PersonCast | PersonCrew)[]
   isLoading?: boolean
 }
 
@@ -41,19 +47,19 @@ type PosterProps = {
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
-  cast: PersonCast[]
+  people: (PersonCast | PersonCrew)[]
   videos: Video[]
-  isLoadingCast: boolean
   isLoadingShow: boolean
+  isLoadingPeople: boolean
   isLoadingVideos: boolean
 }
 
 export function ShowDetails({
   show,
-  cast,
+  people,
   videos,
-  isLoadingCast,
   isLoadingShow,
+  isLoadingPeople,
   isLoadingVideos,
   ...props
 }: Props): JSX.Element {
@@ -72,7 +78,7 @@ export function ShowDetails({
       />
       <div className={styles.movieInfo}>
         <Details show={show} isLoading={isLoadingShow} />
-        <Cast cast={cast} isLoading={isLoadingCast} />
+        <Cast people={people} isLoading={isLoadingPeople} />
         <Actions videos={videos} isLoading={isLoadingVideos} />
       </div>
       <div className={styles.poster}>
@@ -133,14 +139,14 @@ function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
   )
 }
 
-function Cast({ cast, isLoading = false }: CastProps): JSX.Element {
+function Cast({ people, isLoading = false }: CastProps): JSX.Element {
   if (isLoading) {
     return <LoaderCast />
   }
 
   return (
     <PeopleList
-      people={cast}
+      people={people}
       title="Actors"
       className={styles.cast}
       data-testid="show-cast"
