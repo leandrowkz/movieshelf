@@ -7,6 +7,7 @@ import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { TVSeasonsTabs } from 'src/components/TVSeasonsTabs'
 
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer } = useHelpers()
@@ -66,6 +67,7 @@ export function TVShowDetails(): JSX.Element {
         isLoadingVideos={isLoadingVideos}
         data-testid="show-details"
       />
+      <TVSeasonsTabs title="All seasons" seasons={tvShow.seasons || []} />
       <ShowCarousel
         shows={similar}
         type="tv"
