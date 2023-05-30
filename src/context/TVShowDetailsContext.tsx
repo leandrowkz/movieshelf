@@ -14,7 +14,7 @@ import { api } from '../services/TVShowsAPI'
 import { Nullable } from '../types/Nullable'
 
 type TVShowDetailsState = {
-  tvShow: Nullable<TVShow>
+  tvShow: TVShow
   cast: PersonCast[]
   crew: PersonCrew[]
   videos: TVShowVideos['results']

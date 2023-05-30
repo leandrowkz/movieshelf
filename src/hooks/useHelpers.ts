@@ -45,6 +45,10 @@ function getShowReleaseYear(show: Show) {
   const date =
     'first_air_date' in show ? show.first_air_date : show.release_date
 
+  return getYearFromDateString(date)
+}
+
+function getYearFromDateString(date: string) {
   return new Date(date).getFullYear().toString()
 }
 
@@ -80,4 +84,5 @@ export const useHelpers = () => ({
   getShowImageUrl,
   getCreditsDirector,
   getCreditsProducer,
+  getYearFromDateString,
 })

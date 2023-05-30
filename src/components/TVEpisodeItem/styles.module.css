@@ -1,0 +1,83 @@
+.imageContainer {
+  position: relative;
+  border-radius: var(--radius-base);
+  transition: var(--transition-base);
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.imageContainer:before {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: '🍿';
+  display: grid;
+  place-items: center;
+  padding-top: 2px;
+  font-size: 64px;
+  text-align: center;
+  background-color: var(--color-gray-200);
+  background-position: center;
+}
+
+.imageOverview {
+  padding: var(--spacer-small);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(100% - calc(var(--spacer-small) * 2));
+  background-color: rgba(0, 0, 0, .6);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-base);
+  cursor: default;
+  overflow-y: auto;
+}
+
+.image {
+  width: 100%;
+  max-width: 100%;
+}
+
+.episode:hover .imageContainer  {
+  transform: scale(1.05);
+}
+
+.episode:hover .imageOverview  {
+  opacity: 1;
+  visibility: visible;
+}
+
+.title {
+  margin: var(--spacer-base) 0 var(--spacer-small) 0;
+}
+
+.overview {
+  display: none;
+  margin-bottom: var(--spacer-base);
+}
+
+.metadata {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacer-base);
+}
+
+.mobile .overview {
+  display: block;
+}
+
+.mobile.episode:hover .imageContainer  {
+  transform: none;
+}
+
+.mobile.episode:hover .imageOverview  {
+  opacity: 0;
+  visibility: hidden;
+}

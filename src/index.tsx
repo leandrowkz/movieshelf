@@ -11,6 +11,7 @@ import { MovieGenresContextProvider } from './context/MovieGenresContext'
 import { NewsletterContextProvider } from './context/NewsletterContext'
 import { TVShowListsContextProvider } from './context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
+import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 
 const App = () => {
   return (
@@ -20,11 +21,13 @@ const App = () => {
           <MovieDetailsContextProvider>
             <TVShowListsContextProvider>
               <TVShowDetailsContextProvider>
-                <NewsletterContextProvider>
-                  <Root>
-                    <RouterProvider router={router} />
-                  </Root>
-                </NewsletterContextProvider>
+                <TVSeasonDetailsContextProvider>
+                  <NewsletterContextProvider>
+                    <Root>
+                      <RouterProvider router={router} />
+                    </Root>
+                  </NewsletterContextProvider>
+                </TVSeasonDetailsContextProvider>
               </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
           </MovieDetailsContextProvider>

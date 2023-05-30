@@ -1,5 +1,5 @@
-import React, { HTMLAttributes, useState } from 'react'
-import type { TVSeasonItem } from '@leandrowkz/tmdb'
+import React, { HTMLAttributes, useContext, useEffect, useState } from 'react'
+import type { TVSeasonItem, TVShow } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
@@ -10,30 +10,42 @@ import { Link } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Button } from '../Button'
 import { Container } from '../Container'
+import { TVSeasonDetails } from '../TVSeasonDetails'
+import { TVSeasonDetailsContext } from 'src/context/TVSeasonDetailsContext'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  seasons: TVSeasonItem[]
+  show: TVShow
   title: string
   isLoading?: boolean
 }
 
 export function TVSeasonsTabs({
-  seasons,
+  show,
   title,
   className,
   isLoading = false,
   ...props
 }: Props) {
+  const {
+    season: seasonDetails,
+    isLoadingSeason,
+    fetchSeasonDetails,
+  } = useContext(TVSeasonDetailsContext)
   const [seasonSelected, setSeasonSelected] = useState<TVSeasonItem>(
     {} as TVSeasonItem
   )
 
-  if ((!seasons || !seasons.length) && !isLoading) {
-    return <></>
+  const selectSeason = (season: TVSeasonItem) => {
+    setSeasonSelected(season)
+    fetchSeasonDetails(show.id, season.season_number)
   }
 
-  if (!seasonSelected.id) {
-    setSeasonSelected(seasons[0])
+  useEffect(() => {
+    // selectSeason(show.seasons[0])
+  }, [])
+
+  if ((!show || !show.seasons || !show.seasons.length) && !isLoading) {
+    return <></>
   }
 
   const classes = classNames(styles.tvSeasonsTabs, className)
@@ -42,11 +54,11 @@ export function TVSeasonsTabs({
     <section className={classes} {...props}>
       <Header title={title} />
       <Tabs
-        seasons={seasons}
+        seasons={show.seasons}
         seasonSelected={seasonSelected}
-        onSeasonSelect={(season) => setSeasonSelected(season)}
+        onSeasonSelect={(season) => selectSeason(season)}
       />
-      {/* <TVSeasonTabDetails season={seasonSelected} /> */}
+      <TVSeasonDetails season={seasonDetails} isLoading={isLoadingSeason} />
     </section>
   )
 }

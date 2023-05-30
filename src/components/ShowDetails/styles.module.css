@@ -1,6 +1,7 @@
 .details {
   position: relative;
-  top: calc(calc(var(--header-height) + var(--spacer-large)) * -1);
+  margin-top: calc(calc(var(--header-height) + var(--spacer-large)) * -1);
+  margin-bottom: var(--spacer-extra-large);
   padding:
     calc(var(--header-height) + calc(var(--spacer-extra-large) * 2))
     var(--container-spacer)
@@ -69,6 +70,7 @@
   flex: 1;
   justify-content: flex-start !important;
   display: flex;
+  justify-content: flex-start;
   margin-top: var(--spacer-large);
   gap: calc(var(--spacer-base) * 1.5);
 }
@@ -130,7 +132,6 @@
 
   .cast {
     flex: 1;
-    justify-content: space-between !important;
     gap: var(--spacer-base) !important;
   }
 
