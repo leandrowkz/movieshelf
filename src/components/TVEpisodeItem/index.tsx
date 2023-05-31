@@ -26,38 +26,45 @@ export function TVEpisodeItem({ episode, ...props }: Props) {
     episode_number: epNumber,
     vote_average: rating,
   } = episode as TVEpisode & { runtime: number }
-  const hasMetadata = Boolean(runtime || rating)
 
   return (
     <div className={classes} {...props}>
       <div className={styles.imageContainer}>
         {poster && (
-          <Image src={getShowImageUrl(poster || '')} className={styles.image} />
+          <Image
+            src={getShowImageUrl(poster || '')}
+            className={styles.image}
+            data-testid="ep-poster"
+          />
         )}
-        <div className={styles.imageOverview}>
+        <div className={styles.imageOverview} data-testid="ep-overview-image">
           <Text size="small" isMuted>
             {overview}
           </Text>
         </div>
       </div>
-
-      <Heading level={3} title={episode.name} className={styles.title} />
-      <Text size="small" className={styles.overview}>
+      <Heading
+        level={3}
+        title={episode.name}
+        className={styles.title}
+        data-testid="ep-title"
+      />
+      <Text size="small" className={styles.overview} data-testid="ep-overview">
         {overview}
       </Text>
       <div className={styles.metadata}>
-        {epNumber && (
-          <Text size="small" isMuted>
+        {Number.isInteger(epNumber) && (
+          <Text size="small" isMuted data-testid="ep-number">
             Episode {epNumber}
           </Text>
         )}
-        {hasMetadata && (
-          <>
-            <Text size="small" isMuted>
-              {runtime} min
-            </Text>
-            <Rating size="small" score={rating} />
-          </>
+        {Boolean(runtime) && (
+          <Text size="small" isMuted data-testid="ep-runtime">
+            {runtime} min
+          </Text>
+        )}
+        {rating && (
+          <Rating size="small" score={rating} data-testid="ep-rating" />
         )}
       </div>
     </div>

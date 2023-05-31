@@ -28,16 +28,11 @@ export function TVSeasonDetails({
     return <></>
   }
 
-  const { getYearFromDateString } = useHelpers()
   const classes = classNames(styles.tvSeasonDetails, className)
 
   return (
     <section className={classes} {...props}>
       <Container>
-        <div className={styles.header}>
-          <Heading level={3} title={season.name} className={styles.subtitle} />
-          <Text isMuted>{getYearFromDateString(season.air_date)}</Text>
-        </div>
         {season.overview && <Text isParagraph>{season.overview}</Text>}
         <Heading
           level={3}

@@ -12,6 +12,9 @@ import { Button } from '../Button'
 import { Container } from '../Container'
 import { TVSeasonDetails } from '../TVSeasonDetails'
 import { TVSeasonDetailsContext } from 'src/context/TVSeasonDetailsContext'
+import { useHelpers } from 'src/hooks/useHelpers'
+import { Text } from '../Text'
+import { BulletSeparator } from '../BulletSeparator'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: TVShow
@@ -31,9 +34,12 @@ export function TVSeasonsTabs({
     isLoadingSeason,
     fetchSeasonDetails,
   } = useContext(TVSeasonDetailsContext)
+
   const [seasonSelected, setSeasonSelected] = useState<TVSeasonItem>(
     {} as TVSeasonItem
   )
+
+  const hasSeasons = show && show.seasons && show.seasons.length > 0
 
   const selectSeason = (season: TVSeasonItem) => {
     setSeasonSelected(season)
@@ -41,10 +47,12 @@ export function TVSeasonsTabs({
   }
 
   useEffect(() => {
-    // selectSeason(show.seasons[0])
-  }, [])
+    if (hasSeasons) {
+      selectSeason(show.seasons[0])
+    }
+  }, [show.seasons])
 
-  if ((!show || !show.seasons || !show.seasons.length) && !isLoading) {
+  if (!hasSeasons && !isLoading) {
     return <></>
   }
 
@@ -70,6 +78,8 @@ type PropsTVSeasonTabs = {
 }
 
 function Tabs({ seasons, seasonSelected, onSeasonSelect }: PropsTVSeasonTabs) {
+  const { getYearFromDateString } = useHelpers()
+
   return (
     <div className={styles.tabs}>
       {seasons.map((season) => (
@@ -80,7 +90,16 @@ function Tabs({ seasons, seasonSelected, onSeasonSelect }: PropsTVSeasonTabs) {
           active={seasonSelected.id === season.id}
           pill
         >
-          {season.name}
+          <div className={styles.button}>
+            <span>{season.name}</span>
+            <Text
+              size="small"
+              isMuted
+              className={seasonSelected.id === season.id ? styles.active : ''}
+            >
+              {getYearFromDateString(season.air_date)}
+            </Text>
+          </div>
         </Button>
       ))}
     </div>

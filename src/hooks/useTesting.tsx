@@ -7,11 +7,18 @@ import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
 import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
-import { MovieItem, PersonCast, TVShowItem, Video } from '@leandrowkz/tmdb'
+import type {
+  MovieItem,
+  PersonCast,
+  TVEpisode,
+  TVShowItem,
+  Video,
+} from '@leandrowkz/tmdb'
 import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
 import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
+import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -58,6 +65,16 @@ function getMockTVShows(amount = 10) {
   return mockTVShows
 }
 
+function getMockTVEpisodes(amount = 10) {
+  const eps: TVEpisode[] = []
+
+  for (let i = 0; i < amount; i++) {
+    eps.push({ ...mockTVEpisode })
+  }
+
+  return eps
+}
+
 function getMockPeople(amount = 10) {
   const mockPeople: PersonCast[] = []
 
@@ -84,6 +101,7 @@ export const useTesting = () => ({
   getMockMovies,
   getMockPeople,
   getMockTVShows,
+  getMockTVEpisodes,
   getMockVideos,
   renderComponent,
 })
