@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import { Loader, Paragraph, Rectangle } from '../Loader'
 import { Motion } from '../Motion'
 
-export function TVEpisodeListLoader() {
+export function TVEpisodeListLoader(props: HTMLAttributes<HTMLDivElement>) {
   const content = []
 
   for (let i = 0; i < 10; i++) {
@@ -17,5 +17,9 @@ export function TVEpisodeListLoader() {
     )
   }
 
-  return <Motion className={styles.loaderList}>{content}</Motion>
+  return (
+    <Motion className={styles.loaderList} {...props}>
+      {content}
+    </Motion>
+  )
 }

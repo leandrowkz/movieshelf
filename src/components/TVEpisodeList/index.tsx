@@ -18,7 +18,7 @@ export function TVEpisodeList({
   ...props
 }: Props) {
   if (isLoading) {
-    return <TVEpisodeListLoader />
+    return <TVEpisodeListLoader data-testid="loader" />
   }
 
   if (!episodes.length && !isLoading) {
@@ -34,8 +34,11 @@ export function TVEpisodeList({
 
   return (
     <section className={classes} {...props}>
-      {episodes.map((episode) => (
-        <TVEpisodeItem key={`episode-${episode.id}`} episode={episode} />
+      {episodes.map((episode, index) => (
+        <TVEpisodeItem
+          key={`episode-${episode.id}-${index}`}
+          episode={episode}
+        />
       ))}
     </section>
   )
