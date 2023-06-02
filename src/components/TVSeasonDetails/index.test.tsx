@@ -1,57 +1,41 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { ShowCarousel } from '.'
+import React from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { TVSeasonDetails } from '.'
 
-// const { renderComponent, getMockMovies, screen } = useTesting()
+const { renderComponent, getMockTVSeasons, screen } = useTesting()
 
-// test('Should render ShowCarousel properly', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel shows={getMockMovies(10)} title="MOCK CAROUSEL TITLE" />
-//   )
+function getSeason() {
+  return getMockTVSeasons(1)[0]
+}
 
-//   const title = screen.getByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.queryByTestId('loader')
+test('Should render TVSeasonDetails properly', async () => {
+  const season = getSeason()
+  renderComponent(<TVSeasonDetails season={season} />)
 
-//   expect(title).toBeInTheDocument()
-//   expect(loader).not.toBeInTheDocument()
-//   expect(pages.length).toEqual(10)
-//   expect(items.length).toEqual(10)
-// })
+  expect(screen.getByText(season.overview)).toBeVisible()
+  expect(screen.getByText(`Episodes (${season.episodes.length})`)).toBeVisible()
+  expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+  expect(screen.getByTestId('season-episodes')).toBeVisible()
+})
 
-// test('Should render Loader properly', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel
-//       shows={getMockMovies(10)}
-//       title="MOCK CAROUSEL TITLE"
-//       isLoading
-//     />
-//   )
+test('Should render Loader properly', async () => {
+  const season = getSeason()
+  renderComponent(<TVSeasonDetails season={season} isLoading />)
 
-//   const title = screen.getByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.getByTestId('loader')
+  expect(screen.queryByText(season.overview)).not.toBeInTheDocument()
+  expect(
+    screen.queryByText(`Episodes (${season.episodes.length})`)
+  ).not.toBeInTheDocument()
+  expect(screen.getByTestId('loader')).toBeVisible()
+  expect(screen.queryByTestId('season-episodes')).not.toBeInTheDocument()
+})
 
-//   expect(title).toBeInTheDocument()
-//   expect(loader).toBeInTheDocument()
-//   expect(pages.length).toEqual(0)
-//   expect(items.length).toEqual(0)
-// })
+test('Should render properly when season is empty for some reason', async () => {
+  // @ts-expect-error testing for null purposes
+  renderComponent(<TVSeasonDetails season={null} />)
 
-// test('Should render properly when there are no items', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel shows={[]} title="MOCK CAROUSEL TITLE" />
-//   )
-
-//   const title = screen.queryByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.queryByTestId('loader')
-
-//   expect(title).not.toBeInTheDocument()
-//   expect(loader).not.toBeInTheDocument()
-//   expect(pages.length).toEqual(0)
-//   expect(items.length).toEqual(0)
-// })
+  expect(screen.queryByTestId('season-overview')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('season-header')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('season-episodes')).not.toBeInTheDocument()
+})

@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import { Loader, Paragraph, Rectangle } from '../Loader'
 import { Motion } from '../Motion'
 import { TVEpisodeListLoader } from '../TVEpisodeList/loader'
 import { Container } from '../Container'
 
-export function TVSeasonDetailsLoader() {
+export function TVSeasonDetailsLoader(props: HTMLAttributes<HTMLDivElement>) {
   return (
-    <Container>
+    <Container {...props}>
       <Motion>
         <Loader>
           <Paragraph className={styles.loaderOverview} lines={3} />

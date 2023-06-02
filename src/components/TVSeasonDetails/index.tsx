@@ -7,7 +7,6 @@ import { Container } from '../Container'
 import { Text } from '../Text'
 import { TVEpisodeList } from '../TVEpisodeList'
 import { TVSeasonDetailsLoader } from './loader'
-import { useHelpers } from 'src/hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   season: TVSeason
@@ -21,7 +20,7 @@ export function TVSeasonDetails({
   ...props
 }: Props) {
   if (isLoading) {
-    return <TVSeasonDetailsLoader />
+    return <TVSeasonDetailsLoader data-testid="loader" />
   }
 
   if (!season || !season.id) {
@@ -33,13 +32,21 @@ export function TVSeasonDetails({
   return (
     <section className={classes} {...props}>
       <Container>
-        {season.overview && <Text isParagraph>{season.overview}</Text>}
+        {season.overview && (
+          <Text isParagraph data-testid="season-overview">
+            {season.overview}
+          </Text>
+        )}
         <Heading
           level={3}
           title={`Episodes (${season.episodes.length})`}
           className={styles.subtitle}
+          data-testid="season-header"
         />
-        <TVEpisodeList episodes={season.episodes} />
+        <TVEpisodeList
+          episodes={season.episodes}
+          data-testid="season-episodes"
+        />
       </Container>
     </section>
   )

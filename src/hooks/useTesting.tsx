@@ -11,6 +11,7 @@ import type {
   MovieItem,
   PersonCast,
   TVEpisode,
+  TVSeason,
   TVShowItem,
   Video,
 } from '@leandrowkz/tmdb'
@@ -19,6 +20,7 @@ import { mockTVShow } from 'src/__mocks__/mockTVShow'
 import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
+import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -65,6 +67,16 @@ function getMockTVShows(amount = 10) {
   return mockTVShows
 }
 
+function getMockTVSeasons(amount = 10) {
+  const seasons: TVSeason[] = []
+
+  for (let i = 0; i < amount; i++) {
+    seasons.push({ ...mockTVSeason })
+  }
+
+  return seasons
+}
+
 function getMockTVEpisodes(amount = 10) {
   const eps: TVEpisode[] = []
 
@@ -101,6 +113,7 @@ export const useTesting = () => ({
   getMockMovies,
   getMockPeople,
   getMockTVShows,
+  getMockTVSeasons,
   getMockTVEpisodes,
   getMockVideos,
   renderComponent,
