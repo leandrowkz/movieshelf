@@ -7,6 +7,7 @@ import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
 import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
+import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
   MovieItem,
   PersonCast,
@@ -34,11 +35,13 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <TVShowListsContextProvider>
         <TVShowDetailsContextProvider>
-          <MovieListsContextProvider>
-            <MovieDetailsContextProvider>
-              {children}
-            </MovieDetailsContextProvider>
-          </MovieListsContextProvider>
+          <TVSeasonDetailsContextProvider>
+            <MovieListsContextProvider>
+              <MovieDetailsContextProvider>
+                {children}
+              </MovieDetailsContextProvider>
+            </MovieListsContextProvider>
+          </TVSeasonDetailsContextProvider>
         </TVShowDetailsContextProvider>
       </TVShowListsContextProvider>
     </BrowserRouter>

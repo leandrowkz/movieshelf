@@ -1,57 +1,47 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { ShowCarousel } from '.'
+import React from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { TVSeasonsTabs } from '.'
+import { TVShow } from '@leandrowkz/tmdb'
+import { act } from '@testing-library/react'
 
-// const { renderComponent, getMockMovies, screen } = useTesting()
+jest.mock('src/services/TVSeasonsAPI')
 
-// test('Should render ShowCarousel properly', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel shows={getMockMovies(10)} title="MOCK CAROUSEL TITLE" />
-//   )
+const { renderComponent, getMockTVShows, screen } = useTesting()
 
-//   const title = screen.getByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.queryByTestId('loader')
+function getShow() {
+  return { ...getMockTVShows(1)[0] } as TVShow
+}
 
-//   expect(title).toBeInTheDocument()
-//   expect(loader).not.toBeInTheDocument()
-//   expect(pages.length).toEqual(10)
-//   expect(items.length).toEqual(10)
-// })
+async function safeRenderComponent(show: TVShow) {
+  return await act(async () =>
+    renderComponent(<TVSeasonsTabs show={show} title="ALL SEASONS TITLE" />)
+  )
+}
 
-// test('Should render Loader properly', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel
-//       shows={getMockMovies(10)}
-//       title="MOCK CAROUSEL TITLE"
-//       isLoading
-//     />
-//   )
+test('Should render TVSeasonsTabs properly', async () => {
+  const show = getShow()
+  await safeRenderComponent(show)
 
-//   const title = screen.getByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.getByTestId('loader')
+  expect(screen.getByText('ALL SEASONS TITLE')).toBeVisible()
+  expect(screen.getByTestId('seasons-tabs')).toBeVisible()
+  expect(await screen.findByTestId('season-details')).toBeVisible()
+})
 
-//   expect(title).toBeInTheDocument()
-//   expect(loader).toBeInTheDocument()
-//   expect(pages.length).toEqual(0)
-//   expect(items.length).toEqual(0)
-// })
+test('Should render properly when there are no items', async () => {
+  const show = getShow()
+  show.seasons = []
+  await safeRenderComponent(show)
 
-// test('Should render properly when there are no items', async () => {
-//   const { container } = renderComponent(
-//     <ShowCarousel shows={[]} title="MOCK CAROUSEL TITLE" />
-//   )
+  expect(screen.queryByText('ALL SEASONS TITLE')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('seasons-tabs')).not.toBeInTheDocument()
+  expect(screen.queryByTestId('season-details')).not.toBeInTheDocument()
+})
 
-//   const title = screen.queryByText('MOCK CAROUSEL TITLE')
-//   const pages = container.querySelectorAll('.page')
-//   const items = container.querySelectorAll('.show')
-//   const loader = screen.queryByTestId('loader')
+test('Should render tabs amount properly', async () => {
+  const show = getShow()
+  await safeRenderComponent(show)
 
-//   expect(title).not.toBeInTheDocument()
-//   expect(loader).not.toBeInTheDocument()
-//   expect(pages.length).toEqual(0)
-//   expect(items.length).toEqual(0)
-// })
+  expect(screen.getAllByTestId('season-tab-button').length).toEqual(
+    show.seasons.length
+  )
+})

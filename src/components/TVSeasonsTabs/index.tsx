@@ -43,7 +43,7 @@ export function TVSeasonsTabs({
     if (hasSeasons) {
       selectSeason(show.seasons[0])
     }
-  }, [show.seasons])
+  }, [show])
 
   if (!hasSeasons && !isLoading) {
     return <></>
@@ -53,13 +53,19 @@ export function TVSeasonsTabs({
 
   return (
     <section className={classes} {...props}>
-      <Header title={title} />
+      <div className={styles.header}>
+        <Heading title={title} level={2} />
+      </div>
       <Tabs
         seasons={show.seasons}
         seasonSelected={seasonSelected}
         onSeasonSelect={(season) => selectSeason(season)}
       />
-      <TVSeasonDetails season={seasonDetails} isLoading={isLoadingSeason} />
+      <TVSeasonDetails
+        season={seasonDetails}
+        isLoading={isLoadingSeason}
+        data-testid="season-details"
+      />
     </section>
   )
 }
@@ -74,10 +80,11 @@ function Tabs({ seasons, seasonSelected, onSeasonSelect }: PropsTVSeasonTabs) {
   const { getYearFromDateString } = useHelpers()
 
   return (
-    <div className={styles.tabs}>
+    <div className={styles.tabs} data-testid="seasons-tabs">
       {seasons.map((season) => (
         <Button
           key={`tab-season-${season.id}`}
+          data-testid="season-tab-button"
           variant="outlined"
           onClick={() => onSeasonSelect(season)}
           active={seasonSelected.id === season.id}
@@ -95,14 +102,6 @@ function Tabs({ seasons, seasonSelected, onSeasonSelect }: PropsTVSeasonTabs) {
           </div>
         </Button>
       ))}
-    </div>
-  )
-}
-
-function Header({ title }: Pick<Props, 'title'>) {
-  return (
-    <div className={styles.header}>
-      <Heading title={title} level={2}></Heading>
     </div>
   )
 }
