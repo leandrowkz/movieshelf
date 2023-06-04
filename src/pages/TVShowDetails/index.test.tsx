@@ -3,6 +3,7 @@ import { useTesting } from 'src/hooks/useTesting'
 import { TVShowDetails } from '.'
 
 jest.mock('src/services/TVShowsAPI')
+jest.mock('src/services/TVSeasonsAPI')
 
 const { renderComponent, screen } = useTesting()
 

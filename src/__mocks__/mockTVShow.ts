@@ -1,4 +1,5 @@
-import { GenreCode, type TVShow } from '@leandrowkz/tmdb'
+import { GenreCode, TVSeasonItem, type TVShow } from '@leandrowkz/tmdb'
+import { mockTVSeason } from './mockTVSeason'
 
 export const mockTVShow: TVShow = {
   id: 2020,
@@ -59,7 +60,7 @@ export const mockTVShow: TVShow = {
   number_of_seasons: 10,
   origin_country: [],
   original_name: '',
-  seasons: [],
+  seasons: [{ ...(mockTVSeason as unknown as TVSeasonItem) }],
   status: 'Ended',
   type: 'Scripted',
 }
