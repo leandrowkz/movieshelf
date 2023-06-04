@@ -74,7 +74,6 @@ export const MovieDetailsContextProvider = ({
 
       setCast(cast)
       setCrew(crew)
-      console.log(crew)
       setIsLoadingCredits(false)
     },
     [moviesAPI]

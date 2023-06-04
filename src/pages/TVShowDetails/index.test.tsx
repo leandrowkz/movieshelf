@@ -3,6 +3,7 @@ import { useTesting } from 'src/hooks/useTesting'
 import { TVShowDetails } from '.'
 
 jest.mock('src/services/TVShowsAPI')
+jest.mock('src/services/TVSeasonsAPI')
 
 const { renderComponent, screen } = useTesting()
 
@@ -13,4 +14,5 @@ test('should render TVShowDetails properly', async () => {
   expect(await screen.findByTestId('carousel-similar')).toBeVisible()
   expect(await screen.findByTestId('carousel-recommended')).toBeVisible()
   expect(await screen.findByTestId('carousel-popular')).toBeVisible()
+  expect(await screen.findByTestId('show-seasons')).toBeVisible()
 })

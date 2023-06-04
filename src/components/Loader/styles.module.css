@@ -21,14 +21,14 @@
 
 .paragraph {
   gap: var(--spacer-base);
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(7, auto);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .paragraphLine {
   flex: 1;
-  height: var(--font-size-base) !important;
   border-radius: var(--font-size-base);
 }
 

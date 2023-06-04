@@ -7,11 +7,21 @@ import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
 import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
-import { MovieItem, PersonCast, TVShowItem, Video } from '@leandrowkz/tmdb'
+import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
+import type {
+  MovieItem,
+  PersonCast,
+  TVEpisode,
+  TVSeason,
+  TVShowItem,
+  Video,
+} from '@leandrowkz/tmdb'
 import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
 import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
+import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
+import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -25,11 +35,13 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <TVShowListsContextProvider>
         <TVShowDetailsContextProvider>
-          <MovieListsContextProvider>
-            <MovieDetailsContextProvider>
-              {children}
-            </MovieDetailsContextProvider>
-          </MovieListsContextProvider>
+          <TVSeasonDetailsContextProvider>
+            <MovieListsContextProvider>
+              <MovieDetailsContextProvider>
+                {children}
+              </MovieDetailsContextProvider>
+            </MovieListsContextProvider>
+          </TVSeasonDetailsContextProvider>
         </TVShowDetailsContextProvider>
       </TVShowListsContextProvider>
     </BrowserRouter>
@@ -58,6 +70,26 @@ function getMockTVShows(amount = 10) {
   return mockTVShows
 }
 
+function getMockTVSeasons(amount = 10) {
+  const seasons: TVSeason[] = []
+
+  for (let i = 0; i < amount; i++) {
+    seasons.push({ ...mockTVSeason })
+  }
+
+  return seasons
+}
+
+function getMockTVEpisodes(amount = 10) {
+  const eps: TVEpisode[] = []
+
+  for (let i = 0; i < amount; i++) {
+    eps.push({ ...mockTVEpisode })
+  }
+
+  return eps
+}
+
 function getMockPeople(amount = 10) {
   const mockPeople: PersonCast[] = []
 
@@ -84,6 +116,8 @@ export const useTesting = () => ({
   getMockMovies,
   getMockPeople,
   getMockTVShows,
+  getMockTVSeasons,
+  getMockTVEpisodes,
   getMockVideos,
   renderComponent,
 })
