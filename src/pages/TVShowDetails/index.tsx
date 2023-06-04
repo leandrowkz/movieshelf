@@ -67,7 +67,11 @@ export function TVShowDetails(): JSX.Element {
         isLoadingVideos={isLoadingVideos}
         data-testid="show-details"
       />
-      <TVSeasonsTabs title="All seasons" show={tvShow} />
+      <TVSeasonsTabs
+        title="All seasons"
+        show={tvShow}
+        data-testid="show-seasons"
+      />
       <ShowCarousel
         shows={similar}
         type="tv"

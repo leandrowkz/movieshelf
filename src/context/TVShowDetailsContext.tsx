@@ -11,7 +11,6 @@ import type {
   TVShowVideos,
 } from '@leandrowkz/tmdb'
 import { api } from '../services/TVShowsAPI'
-import { Nullable } from '../types/Nullable'
 
 type TVShowDetailsState = {
   tvShow: TVShow

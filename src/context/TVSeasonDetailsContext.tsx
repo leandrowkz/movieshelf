@@ -6,7 +6,6 @@ import React, {
 } from 'react'
 import type { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
 import { api } from '../services/TVSeasonsAPI'
-import { Nullable } from '../types/Nullable'
 
 type TVSeasonDetailsState = {
   season: TVSeason
