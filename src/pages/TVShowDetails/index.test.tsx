@@ -1,4 +1,5 @@
 import React from 'react'
+import { api } from 'src/services/TVShowsAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { TVShowDetails } from '.'
 
@@ -15,4 +16,12 @@ test('should render TVShowDetails properly', async () => {
   expect(await screen.findByTestId('carousel-recommended')).toBeVisible()
   expect(await screen.findByTestId('carousel-popular')).toBeVisible()
   expect(await screen.findByTestId('show-seasons')).toBeVisible()
+})
+
+test('should render NotFound component when fetch errors occur', async () => {
+  api['fetchDetails'] = jest.fn().mockRejectedValueOnce(false)
+  renderComponent(<TVShowDetails />)
+
+  expect(await screen.findByTestId('show-not-found')).toBeVisible()
+  expect(screen.queryByTestId('show-details')).not.toBeInTheDocument()
 })

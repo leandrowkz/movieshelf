@@ -62,6 +62,7 @@ type MovieListsState = {
   isLoadingWar: boolean
   isLoadingWestern: boolean
   isLoadingByCategory: boolean
+  hasCategoryErrors: boolean
   fetchTrending: () => void
   fetchInTheatres: () => void
   fetchSimilar: (movieId: number) => void
@@ -146,6 +147,7 @@ export const MovieListsContext = createContext<MovieListsState>({
   isLoadingWar: false,
   isLoadingWestern: false,
   isLoadingByCategory: false,
+  hasCategoryErrors: false,
   fetchTrending: () => null,
   fetchSimilar: () => null,
   fetchRecommended: () => null,
@@ -234,6 +236,8 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoadingWar, setIsLoadingWar] = useState(false)
   const [isLoadingWestern, setIsLoadingWestern] = useState(false)
   const [isLoadingByCategory, setIsLoadingByCategory] = useState(false)
+
+  const [hasCategoryErrors, setHasCategoryErrors] = useState(false)
 
   const fetchSimilar = useCallback(
     async (movieId: number) => {
@@ -515,13 +519,19 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
 
   const fetchByCategory = useCallback(
     async (categoryId: number) => {
-      setCategory([])
-      setIsLoadingByCategory(true)
+      try {
+        setCategory([])
+        setHasCategoryErrors(false)
+        setIsLoadingByCategory(true)
 
-      const data = await moviesAPI.fetchListByGenre([categoryId])
+        const data = await moviesAPI.fetchListByGenre([categoryId])
 
-      setCategory(data)
-      setIsLoadingByCategory(false)
+        setCategory(data)
+      } catch {
+        setHasCategoryErrors(true)
+      } finally {
+        setIsLoadingByCategory(false)
+      }
     },
     [moviesAPI]
   )
@@ -581,6 +591,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     isLoadingWar,
     isLoadingWestern,
     isLoadingByCategory,
+    hasCategoryErrors,
     fetchTrending,
     fetchSimilar,
     fetchRecommended,

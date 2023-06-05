@@ -54,12 +54,12 @@
 }
 
 .title {
-  margin: var(--spacer-base) 0 var(--spacer-small) 0;
+  margin: 0;
+  margin-bottom: var(--spacer-small);
 }
 
 .overview {
   display: none;
-  margin-bottom: var(--spacer-base);
 }
 
 .metadata {
@@ -67,6 +67,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--spacer-base);
+  margin: var(--spacer-base) 0 var(--spacer-small) 0;
 }
 
 .mobile .overview {

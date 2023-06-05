@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { HTMLAttributes } from 'react'
 import { ScrollRestoration } from 'react-router-dom'
 import { Footer } from '../Footer'
 import styles from './styles.module.css'
@@ -8,11 +8,12 @@ import classNames from 'classnames'
 export function Page({
   children,
   className,
-}: ComponentPropsWithoutRef<'section'>) {
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   const classes = classNames(styles.page, className)
 
   return (
-    <section className={classes}>
+    <section className={classes} {...props}>
       <ScrollRestoration />
       <Header data-testid="header" className={styles.header} />
       <section data-testid="content" className={styles.content}>
