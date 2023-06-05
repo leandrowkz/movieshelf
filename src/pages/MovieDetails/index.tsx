@@ -20,6 +20,7 @@ export function MovieDetails(): JSX.Element {
     isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
+    hasMovieErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
@@ -48,8 +49,8 @@ export function MovieDetails(): JSX.Element {
     fetchTrending()
   }, [movieId])
 
-  if (!movie) {
-    return <NotFound />
+  if (!movie || hasMovieErrors) {
+    return <NotFound data-testid="show-not-found" />
   }
 
   const director = getCreditsDirector(crew)

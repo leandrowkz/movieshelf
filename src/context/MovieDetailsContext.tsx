@@ -53,6 +53,7 @@ export const MovieDetailsContextProvider = ({
       try {
         setMovie({} as Movie)
         setIsLoadingMovie(true)
+        setHasMovieErrors(false)
 
         const data = await moviesAPI.fetchDetails(movieId)
 

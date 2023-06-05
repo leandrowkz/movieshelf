@@ -6,11 +6,12 @@ import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
 import { MovieGenresContext } from 'src/context/MovieGenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { NotFound } from '../404'
 
 export function MovieCategory(): JSX.Element {
   const { genreId } = useParams()
   const { genres } = useContext(MovieGenresContext)
-  const { category, isLoadingByCategory, fetchByCategory } =
+  const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
     useContext(MovieListsContext)
   const [title, setTitle] = useState('Movies')
   const isMobile = useScreenSize('mobile')
@@ -30,6 +31,10 @@ export function MovieCategory(): JSX.Element {
     setTitle(`${genre.name} movies`)
   }, [genreId, genres])
 
+  if (hasCategoryErrors) {
+    return <NotFound data-testid="category-not-found" />
+  }
+
   return (
     <Page>
       <Container>
@@ -38,6 +43,7 @@ export function MovieCategory(): JSX.Element {
           shows={category}
           size={size}
           isLoading={isLoadingByCategory}
+          data-testid="category-shows-list"
         />
       </Container>
     </Page>

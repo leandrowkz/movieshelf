@@ -57,6 +57,7 @@ export const TVShowDetailsContextProvider = ({
       try {
         setTVShow({} as TVShow)
         setIsLoadingTVShow(true)
+        setHasTVShowErrors(false)
 
         const data = await api.fetchDetails(tvShowId)
 

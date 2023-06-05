@@ -43,15 +43,6 @@ export function TVEpisodeItem({ episode, ...props }: Props) {
           </Text>
         </div>
       </div>
-      <Heading
-        level={3}
-        title={episode.name}
-        className={styles.title}
-        data-testid="ep-title"
-      />
-      <Text size="small" className={styles.overview} data-testid="ep-overview">
-        {overview}
-      </Text>
       <div className={styles.metadata}>
         {Number.isInteger(epNumber) && (
           <Text size="small" isMuted data-testid="ep-number">
@@ -63,10 +54,19 @@ export function TVEpisodeItem({ episode, ...props }: Props) {
             {runtime} min
           </Text>
         )}
-        {rating && (
+        {Boolean(rating) && (
           <Rating size="small" score={rating} data-testid="ep-rating" />
         )}
       </div>
+      <Heading
+        level={3}
+        title={episode.name}
+        className={styles.title}
+        data-testid="ep-title"
+      />
+      <Text size="small" className={styles.overview} data-testid="ep-overview">
+        {overview}
+      </Text>
     </div>
   )
 }

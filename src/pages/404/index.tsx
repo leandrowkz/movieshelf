@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import { Container } from 'src/components/Container'
 import { Heading } from 'src/components/Heading'
 import styles from './styles.module.css'
@@ -7,9 +7,9 @@ import { Text } from 'src/components/Text'
 import { Link } from 'react-router-dom'
 import { Button } from 'src/components/Button'
 
-export function NotFound() {
+export function NotFound(props: HTMLAttributes<HTMLDivElement>) {
   return (
-    <Page>
+    <Page {...props}>
       <Container className={styles.container}>
         <div className={styles.icon}>🍿</div>
         <Heading title="Not found." level={1} />

@@ -21,6 +21,7 @@ export function TVShowDetails(): JSX.Element {
     isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
+    hasTVShowErrors,
     fetchTVShow,
     fetchCredits,
     fetchVideos,
@@ -49,8 +50,8 @@ export function TVShowDetails(): JSX.Element {
     fetchPopular()
   }, [tvShowId])
 
-  if (!tvShow) {
-    return <NotFound />
+  if (!tvShow || hasTVShowErrors) {
+    return <NotFound data-testid="show-not-found" />
   }
 
   const director = getCreditsProducer(crew)

@@ -24,10 +24,6 @@
   font-weight: bold;
 }
 
-.mobile {
-  font-size: var(--font-size-base) !important;
-}
-
 .error {
   color: var(--color-error);
 }
