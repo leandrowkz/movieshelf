@@ -19,8 +19,14 @@ export function Header({ ...props }: HTMLAttributes<HTMLDivElement>) {
           onlyIcon={isMobile || isTablet}
         />
         <div className={styles.menu} data-testid="menu">
+          <Link to="/" data-testid="menu-all">
+            All
+          </Link>
           <Link to="/movies" data-testid="menu-movies">
             Movies
+          </Link>
+          <Link to="/tv" data-testid="menu-tv-shows">
+            TV
           </Link>
         </div>
         <Link
