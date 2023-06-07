@@ -14,7 +14,20 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--spacer-base);
+  gap: var(--spacer-large);
+}
+
+.menuItem {
+  color: var(--font-color-base);
+}
+
+.menuDarkBackground {
+  color: white;
+}
+
+.menuActive {
+  font-weight: bold;
+  color: var(--color-primary);
 }
 
 @media screen and (max-width: 768px) {
