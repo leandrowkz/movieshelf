@@ -7,16 +7,16 @@ import reportWebVitals from './reportWebVitals'
 import { Root } from './pages/Root'
 import { MovieListsContextProvider } from './context/MovieListsContext'
 import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
-import { MovieGenresContextProvider } from './context/MovieGenresContext'
 import { NewsletterContextProvider } from './context/NewsletterContext'
 import { TVShowListsContextProvider } from './context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
+import { GenresContextProvider } from './context/GenresContext'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <MovieGenresContextProvider>
+      <GenresContextProvider>
         <MovieListsContextProvider>
           <MovieDetailsContextProvider>
             <TVShowListsContextProvider>
@@ -32,7 +32,7 @@ const App = () => {
             </TVShowListsContextProvider>
           </MovieDetailsContextProvider>
         </MovieListsContextProvider>
-      </MovieGenresContextProvider>
+      </GenresContextProvider>
     </React.StrictMode>
   )
 }

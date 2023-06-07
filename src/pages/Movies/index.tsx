@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { GenreCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { MovieFilters } from '../../components/MovieFilters'
-import { GenreCode } from '@leandrowkz/tmdb'
+import { ShowFilters } from '../../components/ShowFilters'
 
 export function Movies(): JSX.Element {
   const [genreCodes, setGenreCodes] = useState<(number | null)[]>([null])
+
   const {
     action,
     adventure,
@@ -216,8 +217,9 @@ export function Movies(): JSX.Element {
 
   return (
     <Page>
-      <MovieFilters
+      <ShowFilters
         onFilter={(genreCodes) => setGenreCodes(genreCodes)}
+        type="movie"
         data-testid="filters"
       />
       {carousels

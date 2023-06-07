@@ -1,12 +1,13 @@
 import React, { PropsWithChildren, useContext, useEffect } from 'react'
-import { MovieGenresContext } from '../../context/MovieGenresContext'
+import { GenresContext } from 'src/context/GenresContext'
 
 export const Root = ({ children }: PropsWithChildren) => {
-  const { fetchGenres } = useContext(MovieGenresContext)
+  const { fetchMoviesGenres, fetchTVShowsGenres } = useContext(GenresContext)
 
   useEffect(() => {
-    fetchGenres()
-  }, [fetchGenres])
+    fetchMoviesGenres()
+    fetchTVShowsGenres()
+  }, [])
 
   return <React.Fragment>{children}</React.Fragment>
 }

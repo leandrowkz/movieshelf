@@ -4,13 +4,13 @@ import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
-import { MovieGenresContext } from 'src/context/MovieGenresContext'
+import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
 
 export function MovieCategory(): JSX.Element {
   const { genreId } = useParams()
-  const { genres } = useContext(MovieGenresContext)
+  const { moviesGenres: genres } = useContext(GenresContext)
   const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
     useContext(MovieListsContext)
   const [title, setTitle] = useState('Movies')

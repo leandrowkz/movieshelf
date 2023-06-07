@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../context/MovieListsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
-import { MovieGenresContext } from 'src/context/MovieGenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
+import { GenresContext } from 'src/context/GenresContext'
 
-export function MovieCategory(): JSX.Element {
+export function TVShowCategory(): JSX.Element {
   const { genreId } = useParams()
-  const { genres } = useContext(MovieGenresContext)
+  const { tvShowsGenres: genres } = useContext(GenresContext)
   const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
-    useContext(MovieListsContext)
-  const [title, setTitle] = useState('Movies')
+    useContext(TVShowListsContext)
+  const [title, setTitle] = useState('TV Shows')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
 
@@ -28,7 +28,7 @@ export function MovieCategory(): JSX.Element {
       name: 'Genre',
     }
 
-    setTitle(`${genre.name} movies`)
+    setTitle(`${genre.name} TV Shows`)
   }, [genreId, genres])
 
   if (hasCategoryErrors) {

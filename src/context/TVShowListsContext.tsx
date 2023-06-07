@@ -4,8 +4,13 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { GenreCode, type TVShowItem } from '@leandrowkz/tmdb'
+import { Genre, GenreCode, type TVShowItem } from '@leandrowkz/tmdb'
 import { api } from '../services/TVShowsAPI'
+
+type ListByGenre = {
+  genre: Genre
+  data: TVShowItem[]
+}
 
 type TVShowListsState = {
   airingToday: TVShowItem[]
@@ -14,6 +19,7 @@ type TVShowListsState = {
   topRated: TVShowItem[]
   similar: TVShowItem[]
   recommended: TVShowItem[]
+  byGenres: ListByGenre[]
 
   action: TVShowItem[]
   adventure: TVShowItem[]
@@ -33,6 +39,23 @@ type TVShowListsState = {
   thriller: TVShowItem[]
   war: TVShowItem[]
   western: TVShowItem[]
+
+  // actionAndAdventure: TVShowItem[]
+  // animation: TVShowItem[]
+  // comedy: TVShowItem[]
+  // crime: TVShowItem[]
+  // documentary: TVShowItem[]
+  // drama: TVShowItem[]
+  // family: TVShowItem[]
+  // kids: TVShowItem[]
+  // mistery: TVShowItem[]
+  // news: TVShowItem[]
+  // reality: TVShowItem[]
+  // scifiAndFantasy: TVShowItem[]
+  // soap: TVShowItem[]
+  // talk: TVShowItem[]
+  // warAndPolitics: TVShowItem[]
+  // western: TVShowItem[]
 
   isLoadingAiringToday: boolean
   isLoadingOnTheAir: boolean
@@ -94,6 +117,7 @@ export const TVShowListsContext = createContext<TVShowListsState>({
   topRated: [],
   similar: [],
   recommended: [],
+  byGenres: [],
 
   action: [],
   adventure: [],
@@ -174,6 +198,8 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const [topRated, setTopRated] = useState<TVShowItem[]>([])
   const [similar, setSimilar] = useState<TVShowItem[]>([])
   const [recommended, setRecommended] = useState<TVShowItem[]>([])
+  const [byGenres, setByGenres] = useState<ListByGenre[]>([])
+  const [byGenres, setByGenres] = useState<ListByGenre[]>([])
 
   const [action, setAction] = useState<TVShowItem[]>([])
   const [adventure, setAdventure] = useState<TVShowItem[]>([])
@@ -221,6 +247,27 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoadingThriller, setIsLoadingThriller] = useState(false)
   const [isLoadingWar, setIsLoadingWar] = useState(false)
   const [isLoadingWestern, setIsLoadingWestern] = useState(false)
+
+  const fetchByGenres = useCallback(
+    async (genres: Genre[]) => {
+      try {
+        setByGenres([])
+        setIsLoadingAiringToday(true)
+
+        await Promise.all(
+          genres.map(async (genre) => {
+            const data = await api.fetchListByGenre([genre.id])
+
+            setByGenres([
+              ...byGenres.filter((item) => item.genre.id !== genre.id),
+              { genre, data },
+            ])
+          })
+        )
+      }
+    },
+    [api]
+  )
 
   const fetchAiringToday = useCallback(async () => {
     setAiringToday([])
