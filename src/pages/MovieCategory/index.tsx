@@ -43,7 +43,8 @@ export function MovieCategory(): JSX.Element {
           shows={category}
           size={size}
           isLoading={isLoadingByCategory}
-          data-testid="category-shows-list"
+          data-testid="list-movies-by-category"
+          type="movie"
         />
       </Container>
     </Page>

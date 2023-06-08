@@ -1,17 +1,19 @@
 import React, { HTMLAttributes } from 'react'
-import type { MovieItem } from '@leandrowkz/tmdb'
+import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
+import { ShowType } from 'src/types/ShowType'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  shows: MovieItem[]
+  shows: MovieItem[] | TVShowItem[]
   title: string
-  isLoading?: boolean
+  type?: ShowType
   size?: 'large' | 'medium' | 'small'
+  isLoading?: boolean
 }
 
 export function ShowList({
@@ -20,6 +22,7 @@ export function ShowList({
   className,
   isLoading = false,
   size = 'medium',
+  type = 'movie',
   ...props
 }: Props) {
   if (!shows.length && !isLoading) {
@@ -42,7 +45,7 @@ export function ShowList({
   return (
     <div className={classes} {...props}>
       <Header title={title} />
-      <List size={size} shows={shows} />
+      <List size={size} shows={shows} type={type} />
     </div>
   )
 }
@@ -55,7 +58,7 @@ function Header({ title }: Pick<Props, 'title'>) {
   )
 }
 
-function List({ size, shows }: Pick<Props, 'size' | 'shows'>) {
+function List({ size, shows, type }: Pick<Props, 'size' | 'shows' | 'type'>) {
   const classes = classNames(styles.list, {
     [styles.listSmall]: size === 'small',
     [styles.listLarge]: size === 'large',
@@ -69,6 +72,7 @@ function List({ size, shows }: Pick<Props, 'size' | 'shows'>) {
             className={styles.show}
             show={show}
             size={size}
+            type={type}
             data-testid="show-item"
           />
         </Motion>

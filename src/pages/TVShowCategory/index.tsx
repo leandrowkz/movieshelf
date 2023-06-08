@@ -4,14 +4,14 @@ import { Page } from '../../components/Page'
 import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
+import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
-import { GenresContext } from 'src/context/GenresContext'
 
 export function TVShowCategory(): JSX.Element {
   const { genreId } = useParams()
   const { tvShowsGenres: genres } = useContext(GenresContext)
-  const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
+  const { genre, isLoadingByGenre, hasGenreErrors, fetchByGenre } =
     useContext(TVShowListsContext)
   const [title, setTitle] = useState('TV Shows')
   const isMobile = useScreenSize('mobile')
@@ -20,7 +20,7 @@ export function TVShowCategory(): JSX.Element {
   useEffect(() => {
     const id = Number(genreId)
 
-    fetchByCategory(id)
+    fetchByGenre(id)
   }, [genreId])
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function TVShowCategory(): JSX.Element {
     setTitle(`${genre.name} TV Shows`)
   }, [genreId, genres])
 
-  if (hasCategoryErrors) {
+  if (hasGenreErrors) {
     return <NotFound data-testid="category-not-found" />
   }
 
@@ -40,10 +40,11 @@ export function TVShowCategory(): JSX.Element {
       <Container>
         <ShowList
           title={title}
-          shows={category}
+          shows={genre}
           size={size}
-          isLoading={isLoadingByCategory}
-          data-testid="category-shows-list"
+          isLoading={isLoadingByGenre}
+          data-testid="list-tv-shows-by-category"
+          type="tv"
         />
       </Container>
     </Page>

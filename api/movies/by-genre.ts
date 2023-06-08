@@ -1,5 +1,5 @@
 import type { DiscoverMovieFilters } from '@leandrowkz/tmdb'
-import { json, tmdb } from './api'
+import { json, tmdb } from '../api'
 
 export const config = {
   runtime: 'edge',

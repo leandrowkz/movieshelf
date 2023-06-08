@@ -8,11 +8,12 @@ import { ShowPoster } from '../ShowPoster'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { ShowType } from 'src/types/ShowType'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem
   size?: 'small' | 'medium' | 'large'
-  type?: 'movie' | 'tv'
+  type?: ShowType
 }
 
 export function ShowItem({
