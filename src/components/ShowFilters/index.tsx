@@ -18,7 +18,7 @@ export function ShowFilters({
   className,
   ...props
 }: Props): JSX.Element {
-  const [selected, setSelected] = useState<(number | null)[]>([])
+  const [selected, setSelected] = useState<number[]>([])
   const isMobile = useScreenSize('mobile')
 
   const { moviesGenres, tvShowsGenres } = useContext(GenresContext)
@@ -27,42 +27,31 @@ export function ShowFilters({
 
   useEffect(() => {
     try {
-      const filters = JSON.parse(localStorage.getItem(storageKey) || '[null]')
+      const filters = JSON.parse(localStorage.getItem(storageKey) || '[]')
 
       if (Array.isArray(filters) && filters.length > 0) {
         setSelected(filters)
       }
     } catch (e) {
-      setSelected([null])
+      setSelected([])
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(selected))
     onFilter(selected)
   }, [selected])
 
-  const toggleFilter = (id: number | null) => {
-    if (id === null) {
-      setSelected([null])
-      return
-    }
+  const toggleFilter = (id: number) => {
+    let newSelected: number[] = []
 
     if (selected.includes(id)) {
-      const newSelected = [...selected.filter((innerId) => innerId !== id)]
-      setSelected(newSelected)
-
-      if (newSelected.length <= 0) {
-        setSelected([null])
-      }
-
-      return
+      newSelected = [...selected.filter((innerId) => innerId !== id)]
+    } else if (!selected.includes(id)) {
+      newSelected = [...selected, id]
     }
 
-    if (!selected.includes(id)) {
-      setSelected([...selected.filter((inner) => inner !== null), id])
-      return
-    }
+    setSelected(newSelected)
+    localStorage.setItem(storageKey, JSON.stringify(newSelected))
   }
 
   const classes = classNames(styles.filters, className, {
