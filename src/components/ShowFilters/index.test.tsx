@@ -1,62 +1,58 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { ShowFilters } from '.'
-import { useGenres } from 'src/hooks/useGenres'
+import { mockGenresTVShows } from 'src/__mocks__/mockGenresTVShows'
+import { mockGenresMovies } from 'src/__mocks__/mockGenresMovies'
 
 const { renderComponent, screen, user } = useTesting()
-const genres = useGenres()
+
+jest.mock('src/context/GenresContext')
 
 function getButton(): HTMLButtonElement {
-  const filter = genres[1]
-  return screen.getByText(`${filter.icon} ${filter.name}`)
+  const { name } = mockGenresMovies[0]
+  return screen.getByText(`${name}`)
 }
 
 test('Should render filters properly when no filter is selected', () => {
   const { container } = renderComponent(
-    <ShowFilters onFilter={jest.fn()} type="tv" />
+    <ShowFilters onFilter={jest.fn()} type="movie" />
   )
 
-  expect(container.querySelectorAll('.active').length).toEqual(1)
-  expect(
-    container.querySelector('.active')?.innerHTML.match(/all/i)
-  ).toBeTruthy()
+  expect(container.querySelectorAll('.active').length).toEqual(0)
 })
 
 test('Should render all filters properly', () => {
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
-  expect(screen.getAllByRole('button').length).toEqual(genres.length)
+  expect(screen.getAllByRole('button').length).toEqual(mockGenresTVShows.length)
 })
 
 test('Should render a single filter properly', () => {
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
   expect(getButton()).toBeInTheDocument()
 })
 
 test('Should dispatch correct onFilter calls', async () => {
   const onFilter = jest.fn()
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={onFilter} type="movie" />)
 
   const button = getButton()
   await user.click(button)
 
-  expect(onFilter).toHaveBeenCalledTimes(3)
+  expect(onFilter).toHaveBeenCalledTimes(2)
   expect(onFilter).toHaveBeenCalledWith([])
-  expect(onFilter).toHaveBeenCalledWith([null])
   expect(onFilter).toHaveBeenCalledWith([Number(button.value)])
 })
 
 test('Should save filters on localStorage properly', async () => {
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
   const button = getButton()
   await user.click(button)
 
-  expect(localStorage.setItem).toHaveBeenCalledWith('SHOW_FILTERS', '[]')
-  expect(localStorage.setItem).toHaveBeenCalledWith('SHOW_FILTERS', '[null]')
   expect(localStorage.setItem).toHaveBeenCalledWith(
-    'SHOW_FILTERS',
+    'MOVIES_FILTERS',
     `[${button.value}]`
   )
 })
@@ -66,17 +62,13 @@ test('Should load filters from localStorage properly', async () => {
     .fn()
     .mockImplementationOnce(() => '[14,31,27]')
 
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
   const button = getButton()
   await user.click(button)
 
   expect(localStorage.setItem).toHaveBeenCalledWith(
-    'SHOW_FILTERS',
-    '[14,31,27]'
-  )
-  expect(localStorage.setItem).toHaveBeenCalledWith(
-    'SHOW_FILTERS',
+    'MOVIES_FILTERS',
     `[14,31,27,${button.value}]`
   )
 })
@@ -84,17 +76,19 @@ test('Should load filters from localStorage properly', async () => {
 test('Should clear other filters when clicking on "ALL" filter', async () => {
   window.localStorage.getItem = jest
     .fn()
-    .mockImplementationOnce(() => '[14,31,27]')
+    .mockImplementationOnce(() => '[14,16,27]')
 
-  renderComponent(<ShowFilters onFilter={jest.fn()} type="tv" />)
+  renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
-  const { icon, name } = genres[0]
-  const button = screen.getByText(`${icon} ${name}`)
-  await user.click(button)
+  const buttonOne = screen.getByTestId(`button-filter-14`)
+  const buttonTwo = screen.getByTestId(`button-filter-16`)
+  const buttonThree = screen.getByTestId(`button-filter-27`)
 
-  expect(localStorage.setItem).toHaveBeenCalledWith(
-    'SHOW_FILTERS',
-    '[14,31,27]'
-  )
-  expect(localStorage.setItem).toHaveBeenCalledWith('SHOW_FILTERS', `[null]`)
+  await Promise.all([
+    user.click(buttonOne),
+    user.click(buttonTwo),
+    user.click(buttonThree),
+  ])
+
+  expect(localStorage.setItem).toHaveBeenCalledWith('MOVIES_FILTERS', `[]`)
 })
