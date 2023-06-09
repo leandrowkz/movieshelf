@@ -5,7 +5,3 @@
   padding-bottom: var(--spacer-large);
   gap: var(--spacer-small);
 }
-
-.mobile {
-  gap: calc(var(--spacer-small) * 0.4);
-}

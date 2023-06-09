@@ -63,6 +63,7 @@ export function ShowFilters({
       {genres.map((genre) => (
         <Button
           key={`button-filter-${genre.id}`}
+          data-testid={`button-filter-${genre.id}`}
           variant="outlined"
           size="small"
           active={selected.includes(genre.id)}

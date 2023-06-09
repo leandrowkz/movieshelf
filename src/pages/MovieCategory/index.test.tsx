@@ -17,7 +17,7 @@ async function safeRenderComponent() {
 test('should render MovieCategory properly', async () => {
   await safeRenderComponent()
 
-  expect(await screen.findByTestId('category-shows-list')).toBeVisible()
+  expect(await screen.findByTestId('list-movies-by-category')).toBeVisible()
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
@@ -25,5 +25,7 @@ test('should render NotFound component when fetch errors occur', async () => {
   await safeRenderComponent()
 
   expect(await screen.findByTestId('category-not-found')).toBeVisible()
-  expect(screen.queryByTestId('category-shows-list')).not.toBeInTheDocument()
+  expect(
+    screen.queryByTestId('list-movies-by-category')
+  ).not.toBeInTheDocument()
 })
