@@ -3,6 +3,8 @@ import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
 import { mockTVShow } from '../../__mocks__/mockTVShow'
 import { mockVideo } from '../../__mocks__/mockVideo'
 import { mockTVShowCredits } from '../../__mocks__/mockTVShowCredits'
+import { ListByGenre } from 'src/types/ListByGenre'
+import { mockTVShowsListsByGenres } from 'src/__mocks__/mockTVShowsListsByGenres'
 
 class TVShowsAPI {
   private getMockTVShows(amount: number): TVShowItem[] {
@@ -56,6 +58,10 @@ class TVShowsAPI {
 
   public async fetchListTopRated(): Promise<TVShowItem[]> {
     return this.getMockTVShows(10)
+  }
+
+  public async fetchListsByGenres(): Promise<ListByGenre<TVShowItem>[]> {
+    return mockTVShowsListsByGenres
   }
 }
 

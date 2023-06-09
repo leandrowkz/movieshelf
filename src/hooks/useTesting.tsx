@@ -22,28 +22,33 @@ import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
+import { GenresContextProvider } from 'src/context/GenresContext'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   ScrollRestoration: () => <></>,
 }))
 
+jest.mock('src/context/GenresContext')
+
 const user = userEvent.setup()
 
 function renderComponent(component: ReactElement) {
   const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
     <BrowserRouter>
-      <TVShowListsContextProvider>
-        <TVShowDetailsContextProvider>
-          <TVSeasonDetailsContextProvider>
-            <MovieListsContextProvider>
-              <MovieDetailsContextProvider>
-                {children}
-              </MovieDetailsContextProvider>
-            </MovieListsContextProvider>
-          </TVSeasonDetailsContextProvider>
-        </TVShowDetailsContextProvider>
-      </TVShowListsContextProvider>
+      <GenresContextProvider>
+        <TVShowListsContextProvider>
+          <TVShowDetailsContextProvider>
+            <TVSeasonDetailsContextProvider>
+              <MovieListsContextProvider>
+                <MovieDetailsContextProvider>
+                  {children}
+                </MovieDetailsContextProvider>
+              </MovieListsContextProvider>
+            </TVSeasonDetailsContextProvider>
+          </TVShowDetailsContextProvider>
+        </TVShowListsContextProvider>
+      </GenresContextProvider>
     </BrowserRouter>
   )
 

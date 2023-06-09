@@ -7,9 +7,10 @@ import type {
   Video,
 } from '@leandrowkz/tmdb'
 import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
-import { mockGenres } from '../../__mocks__/mockGenres'
 import { mockVideo } from '../../__mocks__/mockVideo'
 import { mockMovieCredits } from '../../__mocks__/mockMovieCredits'
+import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
+import { ListByGenre } from 'src/types/ListByGenre'
 
 class MoviesAPI {
   private getMockMovies(amount: number): MovieItem[] {
@@ -61,8 +62,8 @@ class MoviesAPI {
     return [{ ...mockVideo }]
   }
 
-  public async fetchGenres(): Promise<Genre[]> {
-    return [...mockGenres]
+  public async fetchListsByGenres(): Promise<ListByGenre<MovieItem>[]> {
+    return mockMoviesListsByGenres
   }
 }
 

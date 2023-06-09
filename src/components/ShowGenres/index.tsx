@@ -7,7 +7,7 @@ import type {
   TVShowItem,
 } from '@leandrowkz/tmdb'
 import { Text } from '../Text'
-import { MovieGenresContext } from '../../context/MovieGenresContext'
+import { GenresContext } from 'src/context/GenresContext'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: MovieItem | Movie | TVShowItem
@@ -31,7 +31,9 @@ export function ShowGenres({
     return <></>
   }
 
-  const { genres: genresFromContext } = useContext(MovieGenresContext)
+  const { moviesGenres, tvShowsGenres } = useContext(GenresContext)
+  const genresFromContext =
+    show.media_type === 'tv' ? tvShowsGenres : moviesGenres
 
   let showGenres: Genre[] = []
 

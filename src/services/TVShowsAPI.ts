@@ -1,5 +1,6 @@
 import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
 import { APIFetcher } from './APIFetcher'
+import { ListByGenre } from 'src/types/ListByGenre'
 
 class TVShowsAPI extends APIFetcher {
   constructor() {
@@ -59,6 +60,15 @@ class TVShowsAPI extends APIFetcher {
     const path = this.getPath('api/tv-shows/by-genre', fetchFilters)
 
     return this.get<TVShowItem[]>(path)
+  }
+
+  public async fetchListsByGenres(
+    genres: number[]
+  ): Promise<ListByGenre<TVShowItem>[]> {
+    const fetchFilters = { with_genres: genres.join(',') }
+    const path = this.getPath('api/tv-shows/lists-by-genres', fetchFilters)
+
+    return this.get<ListByGenre<TVShowItem>[]>(path)
   }
 
   public async fetchCredits(tvShowId: number): Promise<TVShowCredits> {

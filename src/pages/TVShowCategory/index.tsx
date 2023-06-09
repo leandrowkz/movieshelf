@@ -1,26 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../context/MovieListsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { Container } from '../../components/Container'
 import { ShowList } from 'src/components/ShowList'
 import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
 
-export function MovieCategory(): JSX.Element {
+export function TVShowCategory(): JSX.Element {
   const { genreId } = useParams()
-  const { moviesGenres: genres } = useContext(GenresContext)
-  const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
-    useContext(MovieListsContext)
-  const [title, setTitle] = useState('Movies')
+  const { tvShowsGenres: genres } = useContext(GenresContext)
+  const { genre, isLoadingByGenre, hasGenreErrors, fetchByGenre } =
+    useContext(TVShowListsContext)
+  const [title, setTitle] = useState('TV Shows')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
 
   useEffect(() => {
     const id = Number(genreId)
 
-    fetchByCategory(id)
+    fetchByGenre(id)
   }, [genreId])
 
   useEffect(() => {
@@ -28,10 +28,10 @@ export function MovieCategory(): JSX.Element {
       name: 'Genre',
     }
 
-    setTitle(`${genre.name} movies`)
+    setTitle(`${genre.name} TV Shows`)
   }, [genreId, genres])
 
-  if (hasCategoryErrors) {
+  if (hasGenreErrors) {
     return <NotFound data-testid="category-not-found" />
   }
 
@@ -40,11 +40,11 @@ export function MovieCategory(): JSX.Element {
       <Container>
         <ShowList
           title={title}
-          shows={category}
+          shows={genre}
           size={size}
-          isLoading={isLoadingByCategory}
-          data-testid="list-movies-by-category"
-          type="movie"
+          isLoading={isLoadingByGenre}
+          data-testid="list-tv-shows-by-category"
+          type="tv"
         />
       </Container>
     </Page>

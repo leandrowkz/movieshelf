@@ -1,14 +1,14 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
-import { Movies } from '.'
+import { TVShows } from '.'
 
 const { renderComponent, screen, user } = useTesting()
 
-jest.mock('src/services/MoviesAPI')
+jest.mock('src/services/TVShowsAPI')
 
-test('Should render movies page properly', async () => {
-  renderComponent(<Movies />)
+test('Should render TVShows page properly', async () => {
+  renderComponent(<TVShows />)
 
   expect((await screen.findAllByRole('list')).length).toEqual(
     mockMoviesListsByGenres.length
@@ -16,7 +16,7 @@ test('Should render movies page properly', async () => {
 })
 
 test('Should properly hide/show carousels when filtering single', async () => {
-  renderComponent(<Movies />)
+  renderComponent(<TVShows />)
 
   const buttonAction = await screen.findByTestId(`button-filter-28`)
 
@@ -26,7 +26,7 @@ test('Should properly hide/show carousels when filtering single', async () => {
 })
 
 test('Should properly hide/show carousels when filtering multiple', async () => {
-  renderComponent(<Movies />)
+  renderComponent(<TVShows />)
 
   const buttonAction = await screen.findByTestId(`button-filter-28`)
   const buttonAnimation = await screen.findByTestId(`button-filter-16`)
@@ -37,7 +37,7 @@ test('Should properly hide/show carousels when filtering multiple', async () => 
 })
 
 test('Should properly hide/show carousels when filtering and clearing multiple', async () => {
-  renderComponent(<Movies />)
+  renderComponent(<TVShows />)
 
   const buttonAction = await screen.findByTestId(`button-filter-28`)
   const buttonAnimation = await screen.findByTestId(`button-filter-16`)

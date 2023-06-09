@@ -1,4 +1,4 @@
-import { json, tmdb } from './api'
+import { json, tmdb } from '../api'
 
 export const config = {
   runtime: 'edge',
@@ -8,7 +8,7 @@ export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
   const id = Number(searchParams.get('movieId'))
 
-  const movie = await tmdb.movies.details(id)
+  const { results } = await tmdb.movies.recommendations(id)
 
-  return json(movie)
+  return json(results)
 }

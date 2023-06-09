@@ -21,8 +21,9 @@ export function Footer({
   ...props
 }: ComponentPropsWithoutRef<'footer'>) {
   const isMobile = useScreenSize('mobile')
+  const isTablet = useScreenSize('tablet')
   const classes = classNames(styles.footer, className, {
-    [styles.mobile]: isMobile,
+    [styles.mobile]: isMobile || isTablet,
   })
 
   return (

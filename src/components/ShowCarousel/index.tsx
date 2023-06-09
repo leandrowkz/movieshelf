@@ -8,13 +8,14 @@ import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 import { Link } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { ShowType } from 'src/types/ShowType'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]
   title: string
   isLoading?: boolean
   size?: 'large' | 'medium' | 'small'
-  type?: 'movie' | 'tv'
+  type?: ShowType
   genreId?: number
 }
 
@@ -24,7 +25,7 @@ export function ShowCarousel({
   className,
   isLoading = false,
   size = 'medium',
-  type,
+  type = 'movie',
   genreId,
   ...props
 }: Props) {
@@ -43,7 +44,7 @@ export function ShowCarousel({
   if (isLoading) {
     return (
       <div className={classes}>
-        <Header title={title} genreId={genreId} />
+        <Header title={title} genreId={genreId} type={type} />
         <Motion data-testid="loader">
           <ShowCarouselLoader />
         </Motion>
@@ -78,7 +79,7 @@ export function ShowCarousel({
 
   return (
     <div className={classes} {...props}>
-      <Header title={title} genreId={genreId} />
+      <Header title={title} genreId={genreId} type={type} />
       {pages}
     </div>
   )
@@ -87,14 +88,17 @@ export function ShowCarousel({
 type HeaderProps = {
   title: string
   genreId?: number
+  type: ShowType
 }
 
-function Header({ title, genreId }: HeaderProps) {
+function Header({ title, genreId, type }: HeaderProps) {
+  const path = type === 'movie' ? '/movies/category' : '/tv/category'
+
   return (
     <div className={styles.header}>
       <Heading title={title} level={2}></Heading>
       {genreId && (
-        <Link to={`/movies/category/${genreId}`} className={styles.link}>
+        <Link to={`${path}/${genreId}`} className={styles.link}>
           View all ➡️
         </Link>
       )}
