@@ -5,23 +5,26 @@ import React, {
   useState,
 } from 'react'
 import { api } from '../services/AuthAPI'
-import type { EmailAndPasswordOnly, User, WithPassword } from 'src/types/User'
+import type { User } from 'src/types/User'
+import type { Session } from 'src/types/Session'
+import { Nullable } from 'src/types/Nullable'
+import { Falsable } from 'src/types/Falsable'
 
 type AuthState = {
-  session: any
+  session: Nullable<Session>
 
-  isLoadingSignUp: boolean
   isLoadingSignIn: boolean
+  isLoadingSignUp: boolean
 
-  signUpErrors: Error | false
-  signInErrors: Error | false
+  signInErrors: Falsable<Error>
+  signUpErrors: Falsable<Error>
 
-  signUp: (user: WithPassword<User>) => void
-  signIn: ({ email, password }: EmailAndPasswordOnly) => void
+  signIn: ({ email, password }: Pick<User, 'email' | 'password'>) => void
+  signUp: (user: User) => void
 }
 
 export const AuthContext = createContext<AuthState>({
-  session: {},
+  session: null,
 
   isLoadingSignUp: false,
   isLoadingSignIn: false,
@@ -29,24 +32,24 @@ export const AuthContext = createContext<AuthState>({
   signUpErrors: false,
   signInErrors: false,
 
-  signUp: () => null,
   signIn: () => null,
+  signUp: () => null,
 })
 
-export const GenresContextProvider = ({ children }: PropsWithChildren) => {
-  const [session, setSession] = useState(null)
+export const AuthContextProvider = ({ children }: PropsWithChildren) => {
+  const [session, setSession] = useState<Nullable<Session>>(null)
   const [signUpErrors, setSignUpErrors] = useState<Error | false>(false)
   const [signInErrors, setSignInErrors] = useState<Error | false>(false)
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false)
   const [isLoadingSignIn, setIsLoadingSignIn] = useState(false)
 
   const signIn = useCallback(
-    async ({ email, password }: EmailAndPasswordOnly) => {
+    async ({ email, password }: Pick<User, 'email' | 'password'>) => {
       try {
         setIsLoadingSignIn(true)
         setSignInErrors(false)
 
-        const data = await api.signIn(email, password)
+        const data = await api.signIn(email, password || '')
 
         setSession(data)
       } catch (e) {
@@ -61,7 +64,7 @@ export const GenresContextProvider = ({ children }: PropsWithChildren) => {
   )
 
   const signUp = useCallback(
-    async (user: WithPassword<User>) => {
+    async (user: User) => {
       try {
         setIsLoadingSignUp(true)
         setSignUpErrors(false)

@@ -8,12 +8,17 @@ import { TVShowDetails } from '../pages/TVShowDetails'
 import { NotFound } from 'src/pages/404'
 import { TVShows } from 'src/pages/TVShows'
 import { TVShowCategory } from 'src/pages/TVShowCategory'
+import { SignUp } from 'src/pages/SignUp'
 
 export const router = createBrowserRouter([
   {
     index: true,
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/sign-up',
+    element: <SignUp />,
   },
   {
     path: '/movies',

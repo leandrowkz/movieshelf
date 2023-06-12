@@ -1,0 +1,17 @@
+.container {
+  max-width: 500px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--spacer-large);
+}
+
+.actions {
+  margin-top: var(--spacer-large);
+}

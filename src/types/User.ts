@@ -1,12 +1,10 @@
-export type User = {
-  id: number
-  name: string
-  email: string
-}
+import { z } from 'zod'
 
-export type WithPassword<T> = T & { password: string }
+export const UserSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().nonempty(),
+  email: z.string().email(),
+  password: z.string().nonempty().optional(),
+})
 
-export type EmailAndPasswordOnly = Pick<
-  WithPassword<User>,
-  'email' | 'password'
->
+export type User = z.infer<typeof UserSchema>
