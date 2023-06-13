@@ -1,4 +1,5 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { HTMLAttributes, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container } from 'src/components/Container'
 import { Heading } from 'src/components/Heading'
@@ -19,38 +20,64 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
   } = useForm<User>({
     resolver: zodResolver(UserSchema.required({ password: true })),
   })
-  const { signUp, isLoadingSignUp } = useContext(AuthContext)
+  const { signUp, isLoadingSignUp, signUpErrors, clearSignUpErrors } =
+    useContext(AuthContext)
+  const navigate = useNavigate()
 
-  const onSubmit = (data: User) => signUp(data)
+  const onSubmit = async (data: User) => {
+    try {
+      await signUp(data)
+      navigate('/')
+    } catch {
+      /* empty */
+    }
+  }
+
+  useEffect(() => {
+    clearSignUpErrors()
+  }, [])
 
   return (
     <Page {...props}>
       <Container className={styles.container}>
-        <Heading title="🔐 Create an account" level={2} />
+        <Heading title="🍿 Create an account" level={2} />
         <Text isParagraph isMuted>
           Sign up to movieshelf to save your favorite movies and TV shows,
           create lists and more. It&apos;s that easy.
         </Text>
+        {signUpErrors && (
+          <Text variant="error" isParagraph>
+            {signUpErrors.message}
+          </Text>
+        )}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <Controller
             name="name"
             control={control}
             defaultValue={''}
             render={({ field }) => (
-              <Input {...field} type="name" placeholder="😌 Your name" />
+              <Input
+                {...field}
+                type="name"
+                placeholder="😌 Your name"
+                errorMessage={errors.name?.message}
+              />
             )}
           />
-          {errors.name && <span>This field is required</span>}
 
           <Controller
             name="email"
             control={control}
             defaultValue={''}
             render={({ field }) => (
-              <Input {...field} type="email" placeholder="💌 Your email" />
+              <Input
+                {...field}
+                type="email"
+                placeholder="💌 Your email"
+                errorMessage={errors.email?.message}
+              />
             )}
           />
-          {errors.email && <span>This field is required</span>}
 
           <Controller
             name="password"
@@ -61,11 +88,10 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="password"
                 placeholder="🔐 Define a password"
+                errorMessage={errors.password?.message}
               />
             )}
           />
-
-          {errors.password && <span>This field is required</span>}
 
           <Button type="submit" disabled={isLoadingSignUp}>
             Sign up

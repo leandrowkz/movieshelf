@@ -72,12 +72,14 @@ export abstract class APIFetcher {
     return this.toJSON<T>(response)
   }
 
-  private toJSON<T>(response: Response) {
+  private async toJSON<T>(response: Response) {
     if (response.ok) {
       return response.json() as unknown as T
     }
 
-    throw Error(response.statusText)
+    const error = await response.json()
+
+    throw Error(error.message || error)
   }
 
   protected getPath(

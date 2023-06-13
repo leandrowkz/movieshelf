@@ -19,8 +19,13 @@ type AuthState = {
   signInErrors: Falsable<Error>
   signUpErrors: Falsable<Error>
 
-  signIn: ({ email, password }: Pick<User, 'email' | 'password'>) => void
-  signUp: (user: User) => void
+  signIn: ({
+    email,
+    password,
+  }: Pick<User, 'email' | 'password'>) => Promise<void>
+  signUp: (user: User) => Promise<void>
+  clearSignInErrors: () => void
+  clearSignUpErrors: () => void
 }
 
 export const AuthContext = createContext<AuthState>({
@@ -32,8 +37,10 @@ export const AuthContext = createContext<AuthState>({
   signUpErrors: false,
   signInErrors: false,
 
-  signIn: () => null,
-  signUp: () => null,
+  signIn: () => Promise.resolve(),
+  signUp: () => Promise.resolve(),
+  clearSignInErrors: () => null,
+  clearSignUpErrors: () => null,
 })
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
@@ -46,8 +53,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const signIn = useCallback(
     async ({ email, password }: Pick<User, 'email' | 'password'>) => {
       try {
+        clearSignInErrors()
         setIsLoadingSignIn(true)
-        setSignInErrors(false)
 
         const data = await api.signIn(email, password || '')
 
@@ -66,8 +73,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const signUp = useCallback(
     async (user: User) => {
       try {
+        clearSignUpErrors()
         setIsLoadingSignUp(true)
-        setSignUpErrors(false)
 
         const data = await api.signUp(user)
 
@@ -76,12 +83,16 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         if (e instanceof Error) {
           setSignUpErrors(e)
         }
+        throw e
       } finally {
         setIsLoadingSignUp(false)
       }
     },
     [api]
   )
+
+  const clearSignInErrors = () => setSignInErrors(false)
+  const clearSignUpErrors = () => setSignUpErrors(false)
 
   const state = {
     session,
@@ -94,6 +105,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
     signIn,
     signUp,
+    clearSignInErrors,
+    clearSignUpErrors,
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
