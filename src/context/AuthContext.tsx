@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useState,
 } from 'react'
+import { createClient } from '@supabase/supabase-js'
 import { api } from '../services/AuthAPI'
 import type { User } from 'src/types/User'
 import type { Session } from 'src/types/Session'
@@ -26,6 +27,30 @@ type AuthState = {
   signUp: (user: User) => Promise<void>
   clearSignInErrors: () => void
   clearSignUpErrors: () => void
+  signInFromStorage: () => void
+}
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_API_URL || '',
+  process.env.REACT_APP_SUPABASE_API_SECRET_TOKEN || ''
+)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function transform(data: any): Session {
+  console.log('TRYING TO TRANSFORM', data)
+  const { user } = data
+
+  return {
+    user: {
+      id: user.id,
+      name: user.user_metadata.name,
+      email: user.email,
+    },
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token,
+    tokenType: data.token_type,
+    expiresIn: data.expires_in,
+  }
 }
 
 export const AuthContext = createContext<AuthState>({
@@ -41,6 +66,7 @@ export const AuthContext = createContext<AuthState>({
   signUp: () => Promise.resolve(),
   clearSignInErrors: () => null,
   clearSignUpErrors: () => null,
+  signInFromStorage: () => null,
 })
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
@@ -58,7 +84,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
         const data = await api.signIn(email, password || '')
 
-        setSession(data)
+        defineSession(data)
       } catch (e) {
         if (e instanceof Error) {
           setSignInErrors(e)
@@ -76,9 +102,17 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         clearSignUpErrors()
         setIsLoadingSignUp(true)
 
-        const data = await api.signUp(user)
+        const { name, email, password = '' } = user
 
-        setSession(data)
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { name },
+          },
+        })
+
+        defineSession(transform(data))
       } catch (e) {
         if (e instanceof Error) {
           setSignUpErrors(e)
@@ -90,6 +124,25 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     },
     [api]
   )
+
+  const signInFromStorage = async () => {
+    try {
+      defineSession(null)
+      const { data, error } = await supabase.auth.getSession()
+
+      console.log('SIGNIN FROM STORAGE', transform(data.session))
+
+      defineSession(transform(data.session))
+    } catch (e) {
+      console.log('ERROR', e)
+      /* emmpty */
+    }
+  }
+
+  const defineSession = (session: Nullable<Session>) => {
+    console.log('DEFINE SESSION', session)
+    setSession(session)
+  }
 
   const clearSignInErrors = () => setSignInErrors(false)
   const clearSignUpErrors = () => setSignUpErrors(false)
@@ -107,6 +160,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     signUp,
     clearSignInErrors,
     clearSignUpErrors,
+    signInFromStorage,
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>

@@ -22,6 +22,12 @@ export class AuthAPI extends APIFetcher {
 
     return this.post(path, user)
   }
+
+  public async fetchSession(jwt: string): Promise<Session> {
+    const path = this.getPath('/api/auth/session')
+
+    return this.post(path, { token: jwt })
+  }
 }
 
 export const api = new AuthAPI()

@@ -26,16 +26,6 @@ export function Header({ darkBackground = false, ...props }: Props) {
         />
         <Menu darkBackground={darkBackground} />
         <UserMenu />
-        <Link
-          to="https://github.com/sponsors/leandrowkz"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          data-testid="sponsor"
-        >
-          <Button variant="secondary" size="small" className={styles.sponsor}>
-            Sponsor 💜
-          </Button>
-        </Link>
       </header>
     </Container>
   )
@@ -68,6 +58,13 @@ function Menu({ darkBackground = false }: MenuProps) {
       <NavLink className={activeClassName} to="/tv" data-testid="menu-tv-shows">
         TV Shows
       </NavLink>
+      <Link
+        className={activeClassName({ isActive: false })}
+        to="https://github.com/sponsors/leandrowkz"
+        target="_blank"
+      >
+        Be a sponsor
+      </Link>
     </div>
   )
 }
