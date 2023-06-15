@@ -1,0 +1,39 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  cursor: pointer;
+}
+
+.menu {
+  min-width: 200px;
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: var(--transition-base);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-gray-200);
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.item {
+  height: var(--input-height);
+  padding: var(--spacer-small) var(--spacer-base);
+}
+
+.item:hover {
+  background-color: var(--color-gray-100);
+}
+
