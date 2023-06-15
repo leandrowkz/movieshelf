@@ -3,11 +3,11 @@ import { AuthContext } from 'src/context/AuthContext'
 import { GenresContext } from 'src/context/GenresContext'
 
 export const Root = ({ children }: PropsWithChildren) => {
-  const { signInFromStorage } = useContext(AuthContext)
+  const { autoSignIn } = useContext(AuthContext)
   const { fetchMoviesGenres, fetchTVShowsGenres } = useContext(GenresContext)
 
   useEffect(() => {
-    signInFromStorage()
+    autoSignIn()
     fetchMoviesGenres()
     fetchTVShowsGenres()
   }, [])

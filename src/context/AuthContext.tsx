@@ -4,53 +4,34 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { createClient } from '@supabase/supabase-js'
-import { api } from '../services/AuthAPI'
 import type { User } from 'src/types/User'
 import type { Session } from 'src/types/Session'
 import { Nullable } from 'src/types/Nullable'
 import { Falsable } from 'src/types/Falsable'
+import { useSupabase } from 'src/hooks/useSupabase'
+
+const { supabase, transformSession } = useSupabase()
 
 type AuthState = {
   session: Nullable<Session>
 
   isLoadingSignIn: boolean
   isLoadingSignUp: boolean
+  isLoadingSignOut: boolean
 
   signInErrors: Falsable<Error>
   signUpErrors: Falsable<Error>
+  signOutErrors: Falsable<Error>
 
   signIn: ({
     email,
     password,
   }: Pick<User, 'email' | 'password'>) => Promise<void>
   signUp: (user: User) => Promise<void>
+  signOut: () => void
+  autoSignIn: () => void
   clearSignInErrors: () => void
   clearSignUpErrors: () => void
-  signInFromStorage: () => void
-}
-
-const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_API_URL || '',
-  process.env.REACT_APP_SUPABASE_API_SECRET_TOKEN || ''
-)
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function transform(data: any): Session {
-  console.log('TRYING TO TRANSFORM', data)
-  const { user } = data
-
-  return {
-    user: {
-      id: user.id,
-      name: user.user_metadata.name,
-      email: user.email,
-    },
-    accessToken: data.access_token,
-    refreshToken: data.refresh_token,
-    tokenType: data.token_type,
-    expiresIn: data.expires_in,
-  }
 }
 
 export const AuthContext = createContext<AuthState>({
@@ -58,90 +39,108 @@ export const AuthContext = createContext<AuthState>({
 
   isLoadingSignUp: false,
   isLoadingSignIn: false,
+  isLoadingSignOut: false,
 
   signUpErrors: false,
   signInErrors: false,
+  signOutErrors: false,
 
   signIn: () => Promise.resolve(),
   signUp: () => Promise.resolve(),
+  signOut: () => Promise.resolve(),
+  autoSignIn: () => Promise.resolve(),
   clearSignInErrors: () => null,
   clearSignUpErrors: () => null,
-  signInFromStorage: () => null,
 })
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Nullable<Session>>(null)
   const [signUpErrors, setSignUpErrors] = useState<Error | false>(false)
   const [signInErrors, setSignInErrors] = useState<Error | false>(false)
+  const [signOutErrors, setSignOutErrors] = useState<Error | false>(false)
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false)
   const [isLoadingSignIn, setIsLoadingSignIn] = useState(false)
+  const [isLoadingSignOut, setIsLoadingSignOut] = useState(false)
 
   const signIn = useCallback(
-    async ({ email, password }: Pick<User, 'email' | 'password'>) => {
-      try {
-        clearSignInErrors()
-        setIsLoadingSignIn(true)
+    async ({ email, password = '' }: Pick<User, 'email' | 'password'>) => {
+      clearSignInErrors()
+      setIsLoadingSignIn(true)
 
-        const data = await api.signIn(email, password || '')
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
 
-        defineSession(data)
-      } catch (e) {
-        if (e instanceof Error) {
-          setSignInErrors(e)
-        }
-      } finally {
-        setIsLoadingSignIn(false)
+      setIsLoadingSignIn(false)
+
+      if (error) {
+        setSignInErrors(error)
+        throw error
       }
+
+      setSession(transformSession(data))
     },
-    [api]
+    [supabase]
   )
 
   const signUp = useCallback(
     async (user: User) => {
-      try {
-        clearSignUpErrors()
-        setIsLoadingSignUp(true)
+      clearSignUpErrors()
+      setIsLoadingSignUp(true)
 
-        const { name, email, password = '' } = user
+      const { name, email, password = '' } = user
 
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: { name },
-          },
-        })
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name },
+        },
+      })
 
-        defineSession(transform(data))
-      } catch (e) {
-        if (e instanceof Error) {
-          setSignUpErrors(e)
-        }
-        throw e
-      } finally {
-        setIsLoadingSignUp(false)
+      setIsLoadingSignUp(false)
+
+      if (error) {
+        setSignUpErrors(error)
+        throw error
       }
+
+      setSession(transformSession(data))
     },
-    [api]
+    [supabase]
   )
 
-  const signInFromStorage = async () => {
-    try {
-      defineSession(null)
-      const { data, error } = await supabase.auth.getSession()
+  const signOut = async () => {
+    setSession(null)
+    setSignOutErrors(false)
+    setIsLoadingSignOut(true)
 
-      console.log('SIGNIN FROM STORAGE', transform(data.session))
+    const { error } = await supabase.auth.signOut()
 
-      defineSession(transform(data.session))
-    } catch (e) {
-      console.log('ERROR', e)
-      /* emmpty */
+    setIsLoadingSignOut(false)
+
+    if (error) {
+      setSignOutErrors(error)
+      throw error
     }
   }
 
-  const defineSession = (session: Nullable<Session>) => {
-    console.log('DEFINE SESSION', session)
-    setSession(session)
+  const autoSignIn = async () => {
+    setSession(null)
+    setSignInErrors(false)
+    setIsLoadingSignIn(true)
+
+    const { data, error } = await supabase.auth.getSession()
+
+    setIsLoadingSignIn(false)
+
+    if (error) {
+      setSignInErrors(error)
+      throw error
+    }
+
+    setSession(transformSession(data))
   }
 
   const clearSignInErrors = () => setSignInErrors(false)
@@ -152,15 +151,18 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
     signInErrors,
     signUpErrors,
+    signOutErrors,
 
     isLoadingSignIn,
     isLoadingSignUp,
+    isLoadingSignOut,
 
     signIn,
     signUp,
+    signOut,
+    autoSignIn,
     clearSignInErrors,
     clearSignUpErrors,
-    signInFromStorage,
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
