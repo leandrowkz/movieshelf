@@ -11,25 +11,7 @@ import {
   DropdownContext,
   DropdownContextProvider,
 } from 'src/context/DropdownContext'
-
-function useOutsideAlerter(
-  ref: RefObject<HTMLDivElement>,
-  handleClickOutside: () => void
-) {
-  useEffect(() => {
-    function onHandleClickOutside(event: Event) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        handleClickOutside()
-      }
-    }
-
-    document.addEventListener('mousedown', onHandleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', onHandleClickOutside)
-    }
-  }, [ref, handleClickOutside])
-}
+import { useClickOutside } from 'src/hooks/useClickOutside'
 
 const Wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   return (
@@ -56,7 +38,7 @@ const Menu = ({ children }: HTMLAttributes<HTMLDivElement>) => {
     [styles.open]: isOpen,
   })
 
-  useOutsideAlerter(wrapperRef, close)
+  useClickOutside(wrapperRef, close)
 
   return (
     <div className={classes} ref={wrapperRef}>
@@ -69,9 +51,14 @@ const Item = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   return <div className={styles.item}>{children}</div>
 }
 
+const Header = ({ children }: HTMLAttributes<HTMLDivElement>) => {
+  return <div className={styles.header}>{children}</div>
+}
+
 export const Dropdown = {
   Item,
   Menu,
+  Header,
   Trigger,
   Wrapper,
 }

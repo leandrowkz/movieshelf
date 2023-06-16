@@ -9,6 +9,7 @@ import { NotFound } from 'src/pages/404'
 import { TVShows } from 'src/pages/TVShows'
 import { TVShowCategory } from 'src/pages/TVShowCategory'
 import { SignUp } from 'src/pages/SignUp'
+import { SignIn } from 'src/pages/SignIn'
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
   {
     path: '/sign-up',
     element: <SignUp />,
+  },
+  {
+    path: '/sign-in',
+    element: <SignIn />,
   },
   {
     path: '/movies',

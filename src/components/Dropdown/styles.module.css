@@ -28,9 +28,17 @@
   visibility: visible;
 }
 
+.header {
+  min-height: var(--input-height);
+  padding: var(--spacer-small) var(--spacer-base);
+  cursor: default;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
 .item {
   height: var(--input-height);
   padding: var(--spacer-small) var(--spacer-base);
+  cursor: pointer;
 }
 
 .item:hover {

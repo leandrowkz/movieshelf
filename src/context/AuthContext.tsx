@@ -67,6 +67,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       clearSignInErrors()
       setIsLoadingSignIn(true)
 
+      console.log(email, password)
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,

@@ -12,21 +12,24 @@ import { Input } from 'src/components/Input'
 import { User, UserSchema } from 'src/types/User'
 import { AuthContext } from 'src/context/AuthContext'
 
-export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
+export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<User>({
-    resolver: zodResolver(UserSchema.required({ password: true })),
+    resolver: zodResolver(
+      UserSchema.partial().required({ email: true, password: true })
+    ),
   })
-  const { signUp, isLoadingSignUp, signUpErrors, clearSignUpErrors } =
+  const { signIn, isLoadingSignIn, signInErrors, clearSignInErrors } =
     useContext(AuthContext)
   const navigate = useNavigate()
 
   const onSubmit = async (data: User) => {
+    console.log(data)
     try {
-      await signUp(data)
+      await signIn(data)
       navigate('/')
     } catch {
       /* empty */
@@ -34,37 +37,23 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
   }
 
   useEffect(() => {
-    clearSignUpErrors()
+    clearSignInErrors()
   }, [])
 
   return (
     <Page {...props}>
       <Container className={styles.container}>
-        <Heading title="🍿 Create an account" level={2} />
+        <Heading title="➡️ Login to movieshelf" level={2} />
         <Text isParagraph isMuted>
-          Sign up to movieshelf to save your favorite movies and TV shows,
-          create lists and more. It&apos;s that easy.
+          Sign in to movieshelf to continue saving your favorite movies and TV
+          shows.
         </Text>
-        {signUpErrors && (
+        {signInErrors && (
           <Text variant="error" isParagraph>
-            {signUpErrors.message}
+            {signInErrors.message}
           </Text>
         )}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <Controller
-            name="name"
-            control={control}
-            defaultValue={''}
-            render={({ field }) => (
-              <Input
-                {...field}
-                type="name"
-                placeholder="😌 Your name"
-                errorMessage={errors.name?.message}
-              />
-            )}
-          />
-
           <Controller
             name="email"
             control={control}
@@ -87,19 +76,19 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
               <Input
                 {...field}
                 type="password"
-                placeholder="🔐 Define a password"
+                placeholder="🔐 Your password"
                 errorMessage={errors.password?.message}
               />
             )}
           />
 
-          <Button type="submit" disabled={isLoadingSignUp}>
-            Sign up
+          <Button type="submit" disabled={isLoadingSignIn}>
+            Sign in
           </Button>
         </form>
         <div className={styles.alreadyHaveAccount}>
           <Text>
-            Already have an account? Try <Link to="/sign-in">Sign in</Link>.
+            Do not have an account yet? <Link to="/sign-up">Sign up</Link> now.
           </Text>
         </div>
       </Container>
