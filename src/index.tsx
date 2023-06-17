@@ -12,27 +12,30 @@ import { TVShowListsContextProvider } from './context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
+import { AuthContextProvider } from './context/AuthContext'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <GenresContextProvider>
-        <MovieListsContextProvider>
-          <MovieDetailsContextProvider>
-            <TVShowListsContextProvider>
-              <TVShowDetailsContextProvider>
-                <TVSeasonDetailsContextProvider>
-                  <NewsletterContextProvider>
-                    <Root>
-                      <RouterProvider router={router} />
-                    </Root>
-                  </NewsletterContextProvider>
-                </TVSeasonDetailsContextProvider>
-              </TVShowDetailsContextProvider>
-            </TVShowListsContextProvider>
-          </MovieDetailsContextProvider>
-        </MovieListsContextProvider>
-      </GenresContextProvider>
+      <AuthContextProvider>
+        <GenresContextProvider>
+          <MovieListsContextProvider>
+            <MovieDetailsContextProvider>
+              <TVShowListsContextProvider>
+                <TVShowDetailsContextProvider>
+                  <TVSeasonDetailsContextProvider>
+                    <NewsletterContextProvider>
+                      <Root>
+                        <RouterProvider router={router} />
+                      </Root>
+                    </NewsletterContextProvider>
+                  </TVSeasonDetailsContextProvider>
+                </TVShowDetailsContextProvider>
+              </TVShowListsContextProvider>
+            </MovieDetailsContextProvider>
+          </MovieListsContextProvider>
+        </GenresContextProvider>
+      </AuthContextProvider>
     </React.StrictMode>
   )
 }

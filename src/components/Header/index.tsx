@@ -3,9 +3,9 @@ import { Logo } from '../Logo'
 import styles from './styles.module.css'
 import { Container } from '../Container'
 import { Link, NavLink } from 'react-router-dom'
-import { Button } from '../Button'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
+import { UserMenu } from '../UserMenu'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   darkBackground?: boolean
@@ -24,16 +24,7 @@ export function Header({ darkBackground = false, ...props }: Props) {
           onlyIcon={isMobile || isTablet}
         />
         <Menu darkBackground={darkBackground} />
-        <Link
-          to="https://github.com/sponsors/leandrowkz"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          data-testid="sponsor"
-        >
-          <Button variant="secondary" size="small" className={styles.sponsor}>
-            Sponsor 💜
-          </Button>
-        </Link>
+        <UserMenu data-testid="user-menu" />
       </header>
     </Container>
   )
@@ -66,6 +57,14 @@ function Menu({ darkBackground = false }: MenuProps) {
       <NavLink className={activeClassName} to="/tv" data-testid="menu-tv-shows">
         TV Shows
       </NavLink>
+      <Link
+        className={activeClassName({ isActive: false })}
+        to="https://github.com/sponsors/leandrowkz"
+        target="_blank"
+        data-testid="menu-sponsor"
+      >
+        Sponsor
+      </Link>
     </div>
   )
 }

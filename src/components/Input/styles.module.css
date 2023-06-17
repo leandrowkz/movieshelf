@@ -1,5 +1,12 @@
-.input {
+.container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacer-small) * 0.5);
+  align-items: stretch;
+}
+
+.input {
   border: 1px solid var(--input-border-color);
   border-radius: var(--input-medium-radius);
   height: var(--input-medium-height);
@@ -21,6 +28,11 @@
 .input:focus, .input:active {
   border-color: var(--input-active-border-color);
   box-shadow: 0 0 0 1px var(--input-active-border-color);
+}
+
+.descriptionText {
+  font-size: var(--font-size-small);
+  color: red;
 }
 
 .small {

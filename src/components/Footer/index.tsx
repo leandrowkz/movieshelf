@@ -124,8 +124,8 @@ function MenuSection() {
         <Link to="/">Home</Link>
         <Link to="/movies">Movies</Link>
         <Link to="/tv">TV shows</Link>
-        <Link to="/signin">Sign in</Link>
-        <Link to="/signup">Sign up</Link>
+        <Link to="/sign-in">Sign in</Link>
+        <Link to="/sign-up">Sign up</Link>
       </div>
       <div className={styles.menu}>
         <Text size="small" isBold isMuted>
