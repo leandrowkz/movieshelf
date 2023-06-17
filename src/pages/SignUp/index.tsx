@@ -60,6 +60,7 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="name"
                 placeholder="😌 Your name"
+                data-testid="input-name"
                 errorMessage={errors.name?.message}
               />
             )}
@@ -74,6 +75,7 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="email"
                 placeholder="📧 Your email"
+                data-testid="input-email"
                 errorMessage={errors.email?.message}
               />
             )}
@@ -88,12 +90,17 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="password"
                 placeholder="🔐 Define a password"
+                data-testid="input-password"
                 errorMessage={errors.password?.message}
               />
             )}
           />
 
-          <Button type="submit" disabled={isLoadingSignUp}>
+          <Button
+            type="submit"
+            disabled={isLoadingSignUp}
+            data-testid="btn-submit"
+          >
             Sign up
           </Button>
         </form>

@@ -24,7 +24,7 @@ export function Header({ darkBackground = false, ...props }: Props) {
           onlyIcon={isMobile || isTablet}
         />
         <Menu darkBackground={darkBackground} />
-        <UserMenu />
+        <UserMenu data-testid="user-menu" />
       </header>
     </Container>
   )
@@ -61,8 +61,9 @@ function Menu({ darkBackground = false }: MenuProps) {
         className={activeClassName({ isActive: false })}
         to="https://github.com/sponsors/leandrowkz"
         target="_blank"
+        data-testid="menu-sponsor"
       >
-        Be a sponsor
+        Sponsor
       </Link>
     </div>
   )

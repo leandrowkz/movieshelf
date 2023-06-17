@@ -1,10 +1,4 @@
-import React, {
-  HTMLAttributes,
-  RefObject,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react'
+import React, { HTMLAttributes, useContext, useRef } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import {
@@ -31,7 +25,7 @@ const Trigger = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   )
 }
 
-const Menu = ({ children }: HTMLAttributes<HTMLDivElement>) => {
+const Menu = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
   const wrapperRef = useRef(null)
   const { isOpen, close } = useContext(DropdownContext)
   const classes = classNames(styles.menu, {
@@ -41,7 +35,7 @@ const Menu = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   useClickOutside(wrapperRef, close)
 
   return (
-    <div className={classes} ref={wrapperRef}>
+    <div className={classes} ref={wrapperRef} {...props}>
       {children}
     </div>
   )

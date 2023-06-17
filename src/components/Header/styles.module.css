@@ -37,10 +37,11 @@
   }
 
   .menu {
-    gap: var(--spacer-small);
+    gap: calc(var(--spacer-small) * .8);
   }
 
   .menuItem {
     font-size: var(--font-size-small);
+    white-space: nowrap;
   }
 }

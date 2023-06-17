@@ -7,10 +7,9 @@ const { renderComponent, screen } = useTesting()
 test('should render content properly', () => {
   renderComponent(<SignIn />)
 
-  expect(screen.getByText('🍿')).toBeVisible()
-  expect(screen.getByText('Not found.')).toBeVisible()
-  expect(
-    screen.getByText(/The page you requested does not exist/i)
-  ).toBeVisible()
-  expect(screen.getByText(/Go home/i)).toBeVisible()
+  expect(screen.getByText('➡️ Login to movieshelf')).toBeVisible()
+  expect(screen.getByTestId('input-email')).toBeVisible()
+  expect(screen.getByTestId('input-password')).toBeVisible()
+  expect(screen.getByTestId('btn-submit')).toBeVisible()
+  expect(screen.getByText(/Do not have an account yet?/i)).toBeVisible()
 })

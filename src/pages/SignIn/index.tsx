@@ -27,7 +27,6 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate()
 
   const onSubmit = async (data: User) => {
-    console.log(data)
     try {
       await signIn(data)
       navigate('/')
@@ -63,6 +62,7 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="email"
                 placeholder="📧 Your email"
+                data-testid="input-email"
                 errorMessage={errors.email?.message}
               />
             )}
@@ -77,12 +77,17 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="password"
                 placeholder="🔐 Your password"
+                data-testid="input-password"
                 errorMessage={errors.password?.message}
               />
             )}
           />
 
-          <Button type="submit" disabled={isLoadingSignIn}>
+          <Button
+            type="submit"
+            disabled={isLoadingSignIn}
+            data-testid="btn-submit"
+          >
             Sign in
           </Button>
         </form>
