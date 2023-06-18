@@ -168,6 +168,11 @@ function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
       <Link to={trailer} target="_blank" data-testid="show-trailer">
         <Button size="large">▶ Play trailer</Button>
       </Link>
+      <Link to={trailer} target="_blank" data-testid="show-trailer">
+        <Button size="large" variant="outlined">
+          ➕ Favorite
+        </Button>
+      </Link>
     </Motion>
   )
 }
