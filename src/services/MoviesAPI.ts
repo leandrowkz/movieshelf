@@ -1,8 +1,8 @@
 import type { MovieItem, Movie, Video, MovieCredits } from '@leandrowkz/tmdb'
-import { APIFetcher } from './APIFetcher'
+import { APIFetcherPublic } from './APIFetcherPublic'
 import { ListByGenre } from 'src/types/ListByGenre'
 
-export class MoviesAPI extends APIFetcher {
+export class MoviesAPI extends APIFetcherPublic {
   constructor() {
     super('')
   }

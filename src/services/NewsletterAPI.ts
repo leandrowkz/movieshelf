@@ -1,6 +1,6 @@
-import { APIFetcher } from './APIFetcher'
+import { APIFetcherPublic } from './APIFetcherPublic'
 
-export class NewsletterAPI extends APIFetcher {
+export class NewsletterAPI extends APIFetcherPublic {
   constructor() {
     super('')
   }

@@ -1,7 +1,7 @@
 import type { TVSeason } from '@leandrowkz/tmdb'
-import { APIFetcher } from './APIFetcher'
+import { APIFetcherPublic } from './APIFetcherPublic'
 
-class TVSeasonsAPI extends APIFetcher {
+class TVSeasonsAPI extends APIFetcherPublic {
   constructor() {
     super('')
   }

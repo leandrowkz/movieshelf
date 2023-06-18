@@ -1,7 +1,7 @@
 import type { Genre } from '@leandrowkz/tmdb'
-import { APIFetcher } from './APIFetcher'
+import { APIFetcherPublic } from './APIFetcherPublic'
 
-export class GenresAPI extends APIFetcher {
+export class GenresAPI extends APIFetcherPublic {
   constructor() {
     super('')
   }

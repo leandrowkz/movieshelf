@@ -1,8 +1,8 @@
 import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
-import { APIFetcher } from './APIFetcher'
+import { APIFetcherPublic } from './APIFetcherPublic'
 import { ListByGenre } from 'src/types/ListByGenre'
 
-class TVShowsAPI extends APIFetcher {
+class TVShowsAPI extends APIFetcherPublic {
   constructor() {
     super('')
   }
