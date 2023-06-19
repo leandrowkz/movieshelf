@@ -56,7 +56,9 @@ export abstract class APIFetcherPublic {
   }
 
   public addHeader(key: string, value: string) {
-    this.headers.append(key, value)
+    if (!this.headers.has(key)) {
+      this.headers.append(key, value)
+    }
   }
 
   private async request<T>({ path, method, body }: RequestPayload) {

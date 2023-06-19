@@ -1,4 +1,4 @@
-import type { MovieItem } from '@leandrowkz/tmdb'
+import type { TVShowItem } from '@leandrowkz/tmdb'
 import type { ListByGenre } from '../../src/types/ListByGenre'
 import { json, tmdb } from '../api'
 
@@ -8,14 +8,14 @@ export const config = {
 
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
-  const { genres } = await tmdb.genres.movie()
+  const { genres } = await tmdb.genres.tv()
 
-  const lists: ListByGenre<MovieItem>[] = []
+  const lists: ListByGenre<TVShowItem>[] = []
   const genreIds = searchParams.get('with_genres')?.split(',') || []
 
   await Promise.all(
     genreIds.map(async (genreId) => {
-      const { results: data } = await tmdb.discover.movies({
+      const { results: data } = await tmdb.discover.tv({
         with_genres: [genreId],
       })
 

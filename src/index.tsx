@@ -13,27 +13,30 @@ import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
+import { FavoritesContextProvider } from './context/FavoritesContext'
 
 const App = () => {
   return (
     <React.StrictMode>
       <AuthContextProvider>
         <GenresContextProvider>
-          <MovieListsContextProvider>
-            <MovieDetailsContextProvider>
-              <TVShowListsContextProvider>
-                <TVShowDetailsContextProvider>
-                  <TVSeasonDetailsContextProvider>
-                    <NewsletterContextProvider>
-                      <Root>
-                        <RouterProvider router={router} />
-                      </Root>
-                    </NewsletterContextProvider>
-                  </TVSeasonDetailsContextProvider>
-                </TVShowDetailsContextProvider>
-              </TVShowListsContextProvider>
-            </MovieDetailsContextProvider>
-          </MovieListsContextProvider>
+          <FavoritesContextProvider>
+            <MovieListsContextProvider>
+              <MovieDetailsContextProvider>
+                <TVShowListsContextProvider>
+                  <TVShowDetailsContextProvider>
+                    <TVSeasonDetailsContextProvider>
+                      <NewsletterContextProvider>
+                        <Root>
+                          <RouterProvider router={router} />
+                        </Root>
+                      </NewsletterContextProvider>
+                    </TVSeasonDetailsContextProvider>
+                  </TVShowDetailsContextProvider>
+                </TVShowListsContextProvider>
+              </MovieDetailsContextProvider>
+            </MovieListsContextProvider>
+          </FavoritesContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
     </React.StrictMode>

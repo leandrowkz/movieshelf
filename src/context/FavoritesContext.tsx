@@ -4,7 +4,7 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import { api } from '../services/GenresAPI'
+import { api } from '../services/FavoritesAPI'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
 
@@ -64,9 +64,9 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
       setIsLoadingMoviesFavorites(true)
       setHasMoviesFavoritesErrors(false)
 
-      // const data = await api.fetchMoviesGenres()
+      const data = await api.fetchMovieFavorites()
 
-      setMovies([])
+      setMovies(data)
     } catch (e) {
       setHasMoviesFavoritesErrors(true)
     } finally {
@@ -80,9 +80,9 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
       setIsLoadingTVShowsFavorites(true)
       setHasTVShowsFavoritesErrors(false)
 
-      // const data = await api.fetchMoviesGenres()
+      const data = await api.fetchTVShowsFavorites()
 
-      setTVShows([])
+      setTVShows(data)
     } catch (e) {
       setHasTVShowsFavoritesErrors(true)
     } finally {
@@ -96,11 +96,11 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
         setIsLoadingAddFavorite(true)
         setHasAddFavoriteErrors(false)
 
+        await api.addFavorite(showId, showType)
+
         if (showType === 'movie') {
-          // const data = await api.fetchMoviesGenres()
           fetchMoviesFavorites()
         } else {
-          // const data = await api.fetchMoviesGenres()
           fetchTVShowsFavorites()
         }
       } catch (e) {
@@ -118,11 +118,11 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
         setIsLoadingRemoveFavorite(true)
         setHasRemoveFavoriteErrors(false)
 
+        await api.removeFavorite(showId, showType)
+
         if (showType === 'movie') {
-          // const data = await api.fetchMoviesGenres()
           fetchMoviesFavorites()
         } else {
-          // const data = await api.fetchMoviesGenres()
           fetchTVShowsFavorites()
         }
       } catch (e) {

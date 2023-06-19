@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { HTMLAttributes, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import type {
   Movie,
@@ -24,6 +24,7 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { FavoritesContext } from 'src/context/FavoritesContext'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -36,6 +37,7 @@ type CastProps = {
 }
 
 type ActionProps = {
+  show: Movie | TVShow
   videos: Video[]
   isLoading?: boolean
 }
@@ -79,7 +81,7 @@ export function ShowDetails({
       <div className={styles.movieInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
-        <Actions videos={videos} isLoading={isLoadingVideos} />
+        <Actions show={show} videos={videos} isLoading={isLoadingVideos} />
       </div>
       <div className={styles.poster}>
         <Poster show={show} isLoading={isLoadingShow} />
@@ -154,7 +156,13 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
   )
 }
 
-function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
+function Actions({
+  show,
+  videos,
+  isLoading = false,
+}: ActionProps): JSX.Element {
+  const { addFavorite, isLoadingAddFavorite } = useContext(FavoritesContext)
+
   if (isLoading) {
     return <LoaderActions />
   }
@@ -168,11 +176,14 @@ function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
       <Link to={trailer} target="_blank" data-testid="show-trailer">
         <Button size="large">▶ Play trailer</Button>
       </Link>
-      <Link to={trailer} target="_blank" data-testid="show-trailer">
-        <Button size="large" variant="outlined">
-          ➕ Favorite
-        </Button>
-      </Link>
+      <Button
+        size="large"
+        variant="outlined"
+        disabled={isLoadingAddFavorite}
+        onClick={() => addFavorite(show.id, show.media_type || 'movie')}
+      >
+        ➕ Favorite
+      </Button>
     </Motion>
   )
 }

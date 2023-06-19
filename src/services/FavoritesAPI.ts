@@ -1,5 +1,6 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { APIFetcherAuth } from './APIFetcherAuth'
+import { ShowType } from 'src/types/ShowType'
 
 export class FavoritesAPI extends APIFetcherAuth {
   constructor() {
@@ -20,6 +21,22 @@ export class FavoritesAPI extends APIFetcherAuth {
     const path = this.getPath('/api/favorites/tv')
 
     return this.get<TVShowItem[]>(path)
+  }
+
+  public async addFavorite(showId: number, showType: ShowType) {
+    await this.initializeAuthentication()
+
+    const path = this.getPath('/api/favorites/add')
+
+    return this.post(path, { showId, showType })
+  }
+
+  public async removeFavorite(showId: number, showType: ShowType) {
+    await this.initializeAuthentication()
+
+    const path = this.getPath('/api/favorites/remove')
+
+    return this.post(path, { showId, showType })
   }
 }
 
