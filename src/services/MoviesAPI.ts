@@ -1,8 +1,14 @@
-import type { MovieItem, Movie, Video, MovieCredits } from '@leandrowkz/tmdb'
-import { APIFetcherPublic } from './APIFetcherPublic'
+import type {
+  MovieItem,
+  Movie,
+  Video,
+  MovieCredits,
+  MovieAccountStates,
+} from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { APIFetcherAuth } from './APIFetcherAuth'
 
-export class MoviesAPI extends APIFetcherPublic {
+export class MoviesAPI extends APIFetcherAuth {
   constructor() {
     super('')
   }
@@ -77,6 +83,15 @@ export class MoviesAPI extends APIFetcherPublic {
     const path = this.getPath('/api/movies/videos', { movieId })
 
     return this.get<Video[]>(path)
+  }
+
+  public async fetchAccountStates(
+    movieId: number
+  ): Promise<MovieAccountStates> {
+    await this.initializeAuthentication()
+    const path = this.getPath('/api/movies/account-states', { movieId })
+
+    return this.get<MovieAccountStates>(path)
   }
 }
 

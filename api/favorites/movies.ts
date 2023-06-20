@@ -1,7 +1,7 @@
 import type { MovieItem } from '@leandrowkz/tmdb'
-import { json, tmdb } from '../api'
+import { json, tmdb, authorize } from '../api'
 import { User } from '@supabase/supabase-js'
-import { authorize, getFavoritesList } from './helpers'
+import { getFavoritesList } from './helpers'
 
 export const config = {
   runtime: 'edge',

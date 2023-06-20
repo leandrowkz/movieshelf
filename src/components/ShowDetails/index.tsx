@@ -2,9 +2,11 @@ import React, { HTMLAttributes, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import type {
   Movie,
+  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
+  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -25,6 +27,9 @@ import {
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { FavoritesContext } from 'src/context/FavoritesContext'
+import { ShowType } from 'src/types/ShowType'
+import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
+import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -38,7 +43,9 @@ type CastProps = {
 
 type ActionProps = {
   show: Movie | TVShow
+  type: ShowType
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoading?: boolean
 }
 
@@ -49,20 +56,24 @@ type PosterProps = {
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
+  type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
-  isLoadingVideos: boolean
+  isLoadingActions: boolean
 }
 
 export function ShowDetails({
   show,
+  type = 'movie',
   people,
   videos,
+  accountStates,
   isLoadingShow,
   isLoadingPeople,
-  isLoadingVideos,
+  isLoadingActions,
   ...props
 }: Props): JSX.Element {
   if (!show) {
@@ -81,7 +92,13 @@ export function ShowDetails({
       <div className={styles.movieInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
-        <Actions show={show} videos={videos} isLoading={isLoadingVideos} />
+        <Actions
+          show={show}
+          type={type}
+          videos={videos}
+          accountStates={accountStates}
+          isLoading={isLoadingActions}
+        />
       </div>
       <div className={styles.poster}>
         <Poster show={show} isLoading={isLoadingShow} />
@@ -158,31 +175,69 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 
 function Actions({
   show,
+  type,
+  accountStates,
   videos,
   isLoading = false,
 }: ActionProps): JSX.Element {
-  const { addFavorite, isLoadingAddFavorite } = useContext(FavoritesContext)
+  const {
+    addFavorite,
+    removeFavorite,
+    isLoadingAddFavorite,
+    isLoadingRemoveFavorite,
+  } = useContext(FavoritesContext)
+  const {
+    fetchAccountStates: fetchMovieAccountStates,
+    isLoadingAccountStates: isLoadingMovieAccountStates,
+  } = useContext(MovieDetailsContext)
+  const {
+    fetchAccountStates: fetchTVShowAccountStates,
+    isLoadingAccountStates: isLoadingTVShowAccountStates,
+  } = useContext(TVShowDetailsContext)
 
   if (isLoading) {
     return <LoaderActions />
   }
 
+  const { favorite } = accountStates
   const { getShowTrailerUrl } = useHelpers()
-
   const trailer = getShowTrailerUrl(videos)
+
+  const toggleFavorite = async (
+    showId: number,
+    type: ShowType,
+    favorite: boolean
+  ) => {
+    if (!favorite) {
+      await addFavorite(showId, type)
+    } else {
+      await removeFavorite(showId, type)
+    }
+
+    if (type === 'movie') {
+      fetchMovieAccountStates(showId)
+    } else {
+      fetchTVShowAccountStates(showId)
+    }
+  }
 
   return (
     <Motion className={styles.buttons}>
       <Link to={trailer} target="_blank" data-testid="show-trailer">
-        <Button size="large">▶ Play trailer</Button>
+        <Button size="large">▶ Trailer</Button>
       </Link>
       <Button
         size="large"
-        variant="outlined"
-        disabled={isLoadingAddFavorite}
-        onClick={() => addFavorite(show.id, show.media_type || 'movie')}
+        variant={favorite ? 'secondary' : 'outlined'}
+        disabled={
+          isLoadingAddFavorite ||
+          isLoadingRemoveFavorite ||
+          isLoadingMovieAccountStates ||
+          isLoadingTVShowAccountStates
+        }
+        onClick={() => toggleFavorite(show.id, type, favorite)}
       >
-        ➕ Favorite
+        {favorite ? '💜 Favorited' : '🤍 Add Favorite'}
       </Button>
     </Motion>
   )

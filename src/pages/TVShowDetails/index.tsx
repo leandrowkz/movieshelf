@@ -18,6 +18,7 @@ export function TVShowDetails(): JSX.Element {
     cast,
     crew,
     videos,
+    accountStates,
     isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
@@ -25,6 +26,7 @@ export function TVShowDetails(): JSX.Element {
     fetchTVShow,
     fetchCredits,
     fetchVideos,
+    fetchAccountStates,
   } = useContext(TVShowDetailsContext)
 
   const {
@@ -45,6 +47,7 @@ export function TVShowDetails(): JSX.Element {
     fetchTVShow(id)
     fetchCredits(id)
     fetchVideos(id)
+    fetchAccountStates(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchPopular()
@@ -60,12 +63,14 @@ export function TVShowDetails(): JSX.Element {
   return (
     <Page darkBackground>
       <ShowDetails
+        type="tv"
         show={tvShow}
         people={people}
         videos={videos}
+        accountStates={accountStates}
         isLoadingShow={isLoadingTVShow}
         isLoadingPeople={isLoadingCredits}
-        isLoadingVideos={isLoadingVideos}
+        isLoadingActions={isLoadingVideos}
         data-testid="show-details"
       />
       <TVSeasonsTabs

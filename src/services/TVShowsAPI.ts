@@ -1,8 +1,14 @@
-import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
-import { APIFetcherPublic } from './APIFetcherPublic'
+import type {
+  TVShow,
+  TVShowAccountStates,
+  TVShowCredits,
+  TVShowItem,
+  Video,
+} from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { APIFetcherAuth } from './APIFetcherAuth'
 
-class TVShowsAPI extends APIFetcherPublic {
+class TVShowsAPI extends APIFetcherAuth {
   constructor() {
     super('')
   }
@@ -81,6 +87,15 @@ class TVShowsAPI extends APIFetcherPublic {
     const path = this.getPath('/api/tv-shows/videos', { tvShowId })
 
     return this.get<Video[]>(path)
+  }
+
+  public async fetchAccountStates(
+    tvShowId: number
+  ): Promise<TVShowAccountStates> {
+    await this.initializeAuthentication()
+    const path = this.getPath('/api/tv-shows/account-states', { tvShowId })
+
+    return this.get<TVShowAccountStates>(path)
   }
 }
 

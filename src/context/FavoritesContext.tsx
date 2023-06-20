@@ -21,8 +21,8 @@ type FavoritesState = {
   hasRemoveFavoriteErrors: boolean
   fetchMoviesFavorites: () => void
   fetchTVShowsFavorites: () => void
-  addFavorite: (showId: number, showType: ShowType) => void
-  removeFavorite: (showId: number, showType: ShowType) => void
+  addFavorite: (showId: number, showType: ShowType) => Promise<void>
+  removeFavorite: (showId: number, showType: ShowType) => Promise<void>
 }
 
 export const FavoritesContext = createContext<FavoritesState>({
@@ -38,8 +38,8 @@ export const FavoritesContext = createContext<FavoritesState>({
   hasTVShowsFavoritesErrors: false,
   fetchMoviesFavorites: () => null,
   fetchTVShowsFavorites: () => null,
-  addFavorite: () => null,
-  removeFavorite: () => null,
+  addFavorite: () => Promise.resolve(),
+  removeFavorite: () => Promise.resolve(),
 })
 
 export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
@@ -90,49 +90,43 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
     }
   }, [api])
 
-  const addFavorite = useCallback(
-    async (showId: number, showType: ShowType) => {
-      try {
-        setIsLoadingAddFavorite(true)
-        setHasAddFavoriteErrors(false)
+  const addFavorite = async (showId: number, showType: ShowType) => {
+    try {
+      setIsLoadingAddFavorite(true)
+      setHasAddFavoriteErrors(false)
 
-        await api.addFavorite(showId, showType)
+      await api.addFavorite(showId, showType)
 
-        if (showType === 'movie') {
-          fetchMoviesFavorites()
-        } else {
-          fetchTVShowsFavorites()
-        }
-      } catch (e) {
-        setHasAddFavoriteErrors(true)
-      } finally {
-        setIsLoadingAddFavorite(false)
+      if (showType === 'movie') {
+        fetchMoviesFavorites()
+      } else {
+        fetchTVShowsFavorites()
       }
-    },
-    [api]
-  )
+    } catch (e) {
+      setHasAddFavoriteErrors(true)
+    } finally {
+      setIsLoadingAddFavorite(false)
+    }
+  }
 
-  const removeFavorite = useCallback(
-    async (showId: number, showType: ShowType) => {
-      try {
-        setIsLoadingRemoveFavorite(true)
-        setHasRemoveFavoriteErrors(false)
+  const removeFavorite = async (showId: number, showType: ShowType) => {
+    try {
+      setIsLoadingRemoveFavorite(true)
+      setHasRemoveFavoriteErrors(false)
 
-        await api.removeFavorite(showId, showType)
+      await api.removeFavorite(showId, showType)
 
-        if (showType === 'movie') {
-          fetchMoviesFavorites()
-        } else {
-          fetchTVShowsFavorites()
-        }
-      } catch (e) {
-        setHasRemoveFavoriteErrors(true)
-      } finally {
-        setIsLoadingRemoveFavorite(false)
+      if (showType === 'movie') {
+        fetchMoviesFavorites()
+      } else {
+        fetchTVShowsFavorites()
       }
-    },
-    [api]
-  )
+    } catch (e) {
+      setHasRemoveFavoriteErrors(true)
+    } finally {
+      setIsLoadingRemoveFavorite(false)
+    }
+  }
 
   const state = {
     movies,

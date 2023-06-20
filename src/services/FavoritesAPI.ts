@@ -18,7 +18,7 @@ export class FavoritesAPI extends APIFetcherAuth {
   public async fetchTVShowsFavorites(): Promise<TVShowItem[]> {
     await this.initializeAuthentication()
 
-    const path = this.getPath('/api/favorites/tv')
+    const path = this.getPath('/api/favorites/tv-shows')
 
     return this.get<TVShowItem[]>(path)
   }

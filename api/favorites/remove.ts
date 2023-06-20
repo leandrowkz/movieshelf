@@ -1,6 +1,6 @@
 import { json, authorize } from '../api'
 import { User } from '@supabase/supabase-js'
-import { addFavorite } from './helpers'
+import { removeFavorite } from './helpers'
 
 export const config = {
   runtime: 'edge',
@@ -21,7 +21,7 @@ export default async (req: Request) => {
   const { showId, showType } = body
 
   try {
-    await addFavorite(user.id, showId, showType)
+    await removeFavorite(user.id, showId, showType)
 
     return json({ status: 'success' })
   } catch (e) {

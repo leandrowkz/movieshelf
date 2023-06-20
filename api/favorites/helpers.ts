@@ -1,6 +1,8 @@
 import { supabase } from '../api'
 
-export async function getFavoritesList(userId: string, type: 'tv' | 'movie') {
+type ShowType = 'tv' | 'movie'
+
+export async function getFavoritesList(userId: string, type: ShowType) {
   const favorites = await supabase
     .from('favorites')
     .select()
@@ -13,25 +15,37 @@ export async function getFavoritesList(userId: string, type: 'tv' | 'movie') {
 export async function addFavorite(
   userId: string,
   showId: string,
-  type: 'tv' | 'movie'
+  type: ShowType
 ) {
   await supabase
     .from('favorites')
     .upsert({ user_id: userId, media_id: showId, media_type: type })
 }
 
-export async function authorize(req: Request) {
-  const token = req.headers.get('Authorization')?.replace('Bearer ', '')
+export async function removeFavorite(
+  userId: string,
+  showId: string,
+  type: ShowType
+) {
+  await supabase
+    .from('favorites')
+    .delete()
+    .eq('user_id', userId)
+    .eq('media_id', showId)
+    .eq('media_type', type)
+}
 
-  if (!token) {
-    throw new Error('INVALID_ACCESS_TOKEN')
-  }
+export async function isFavorite(
+  userId: string,
+  showId: string,
+  type: ShowType
+): Promise<boolean> {
+  const favorites = await supabase
+    .from('favorites')
+    .select()
+    .eq('user_id', userId)
+    .eq('media_id', showId)
+    .eq('media_type', type)
 
-  const { data, error } = await supabase.auth.getUser(token)
-
-  if (error) {
-    throw new Error('UNAUTHORIZED')
-  }
-
-  return data.user
+  return Boolean(favorites.data?.length)
 }

@@ -9,6 +9,7 @@ import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
+  MovieAccountStates,
   MovieItem,
   PersonCast,
   TVEpisode,
@@ -24,6 +25,7 @@ import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 import { GenresContextProvider } from 'src/context/GenresContext'
 import { AuthContextProvider } from 'src/context/AuthContext'
+import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -119,6 +121,16 @@ function getMockVideos(amount = 10) {
   return mockVideos
 }
 
+function getMockMovieAccountStates(amount = 10) {
+  const list: MovieAccountStates[] = []
+
+  for (let i = 0; i < amount; i++) {
+    list.push({ ...mockMovieAccountStates })
+  }
+
+  return list
+}
+
 export const useTesting = () => ({
   user,
   screen,
@@ -128,5 +140,6 @@ export const useTesting = () => ({
   getMockTVSeasons,
   getMockTVEpisodes,
   getMockVideos,
+  getMockMovieAccountStates,
   renderComponent,
 })
