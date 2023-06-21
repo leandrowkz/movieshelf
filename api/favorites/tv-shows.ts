@@ -25,10 +25,14 @@ export default async (req: Request) => {
     if (data) {
       await Promise.all(
         data.map(async (row) => {
-          const tvShow = await tmdb.tvShows.details(Number(row.media_id))
+          try {
+            const tvShow = await tmdb.tvShows.details(Number(row.media_id))
 
-          if (tvShow) {
-            favorites.push(tvShow)
+            if (tvShow) {
+              favorites.push(tvShow)
+            }
+          } catch (e) {
+            /* empty */
           }
         })
       )

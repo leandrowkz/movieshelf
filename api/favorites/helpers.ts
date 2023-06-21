@@ -8,6 +8,7 @@ export async function getFavoritesList(userId: string, type: ShowType) {
     .select()
     .eq('user_id', userId)
     .eq('media_type', type)
+    .order('created_at', { ascending: false })
 
   return favorites
 }
@@ -17,9 +18,13 @@ export async function addFavorite(
   showId: string,
   type: ShowType
 ) {
-  await supabase
-    .from('favorites')
-    .upsert({ user_id: userId, media_id: showId, media_type: type })
+  const favorited = await isFavorite(userId, showId, type)
+
+  if (!favorited) {
+    await supabase
+      .from('favorites')
+      .upsert({ user_id: userId, media_id: showId, media_type: type })
+  }
 }
 
 export async function removeFavorite(

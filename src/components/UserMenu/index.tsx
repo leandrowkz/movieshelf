@@ -38,12 +38,12 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
               {user.email}
             </Text>
           </Dropdown.Header>
-          {/* <Dropdown.Item>
+          <Dropdown.Item>
             <Link to="/favorites">💜 Favorites</Link>
           </Dropdown.Item>
-          <Dropdown.Item>
-            <Link to="/settings">⚙️ Preferences</Link>
-          </Dropdown.Item> */}
+          {/* <Dropdown.Item>
+          //   <Link to="/settings">⚙️ Preferences</Link>
+          // </Dropdown.Item> */}
           <Dropdown.Item onClick={signOut}>
             <Link to="#" onClick={signOut}>
               🚪 Sign out

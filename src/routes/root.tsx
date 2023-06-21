@@ -10,6 +10,7 @@ import { TVShows } from 'src/pages/TVShows'
 import { TVShowCategory } from 'src/pages/TVShowCategory'
 import { SignUp } from 'src/pages/SignUp'
 import { SignIn } from 'src/pages/SignIn'
+import { Favorites } from 'src/pages/Favorites'
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
   {
     path: '/sign-in',
     element: <SignIn />,
+  },
+  {
+    path: '/favorites',
+    element: <Favorites />,
   },
   {
     path: '/movies',

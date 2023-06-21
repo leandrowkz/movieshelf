@@ -25,15 +25,20 @@ export default async (req: Request) => {
     if (data) {
       await Promise.all(
         data.map(async (row) => {
-          const movie = await tmdb.movies.details(Number(row.media_id))
+          try {
+            const movie = await tmdb.movies.details(Number(row.media_id))
 
-          if (movie) {
-            favorites.push(movie)
+            if (movie) {
+              favorites.push(movie)
+            }
+          } catch (e) {
+            /* empty */
           }
         })
       )
     }
   } catch (e) {
+    console.log(e)
     const error = e instanceof Error ? e : new Error(String(e))
 
     return json(error.message, 400)
