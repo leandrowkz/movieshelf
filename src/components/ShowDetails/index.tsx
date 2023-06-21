@@ -1,12 +1,10 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import type {
   Movie,
-  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
-  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -26,13 +24,8 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { FavoritesContext } from 'src/context/FavoritesContext'
 import { ShowType } from 'src/types/ShowType'
-import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
-import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
-import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
-import { Image } from '../Image'
+import { FavoriteButton } from '../FavoriteButton'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -48,7 +41,6 @@ type ActionProps = {
   show: Movie | TVShow
   type: ShowType
   videos: Video[]
-  accountStates: MovieAccountStates | TVShowAccountStates
   isLoading?: boolean
 }
 
@@ -62,7 +54,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
-  accountStates: MovieAccountStates | TVShowAccountStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
   isLoadingActions: boolean
@@ -73,7 +64,6 @@ export function ShowDetails({
   type = 'movie',
   people,
   videos,
-  accountStates,
   isLoadingShow,
   isLoadingPeople,
   isLoadingActions,
@@ -99,7 +89,6 @@ export function ShowDetails({
           show={show}
           type={type}
           videos={videos}
-          accountStates={accountStates}
           isLoading={isLoadingActions}
         />
       </div>
@@ -179,74 +168,22 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 function Actions({
   show,
   type,
-  accountStates,
   videos,
   isLoading = false,
 }: ActionProps): JSX.Element {
-  const {
-    addFavorite,
-    removeFavorite,
-    isLoadingAddFavorite,
-    isLoadingRemoveFavorite,
-  } = useContext(FavoritesContext)
-  const {
-    fetchAccountStates: fetchMovieAccountStates,
-    isLoadingAccountStates: isLoadingMovieAccountStates,
-  } = useContext(MovieDetailsContext)
-  const {
-    fetchAccountStates: fetchTVShowAccountStates,
-    isLoadingAccountStates: isLoadingTVShowAccountStates,
-  } = useContext(TVShowDetailsContext)
-
   if (isLoading) {
     return <LoaderActions />
   }
 
-  const { favorite } = accountStates
   const { getShowTrailerUrl } = useHelpers()
   const trailer = getShowTrailerUrl(videos)
-
-  const toggleFavorite = async (
-    showId: number,
-    type: ShowType,
-    favorite: boolean
-  ) => {
-    if (!favorite) {
-      await addFavorite(showId, type)
-    } else {
-      await removeFavorite(showId, type)
-    }
-
-    if (type === 'movie') {
-      fetchMovieAccountStates(showId)
-    } else {
-      fetchTVShowAccountStates(showId)
-    }
-  }
 
   return (
     <Motion className={styles.buttons}>
       <Link to={trailer} target="_blank" data-testid="show-trailer">
         <Button size="large">▶ Trailer</Button>
       </Link>
-      <Button
-        size="large"
-        variant={favorite ? 'secondary' : 'outlined'}
-        disabled={
-          isLoadingAddFavorite ||
-          isLoadingRemoveFavorite ||
-          isLoadingMovieAccountStates ||
-          isLoadingTVShowAccountStates
-        }
-        onClick={() => toggleFavorite(show.id, type, favorite)}
-        className={styles.buttonAction}
-      >
-        <Image
-          src={favorite ? favoriteIconOn : favoriteIconOff}
-          className={styles.favoriteIcon}
-        />
-        <span>{favorite ? 'Favorited' : 'Add Favorite'}</span>
-      </Button>
+      <FavoriteButton show={show} type={type} />
     </Motion>
   )
 }

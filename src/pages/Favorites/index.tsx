@@ -5,8 +5,12 @@ import { Container } from 'src/components/Container'
 import { FavoritesContext } from 'src/context/FavoritesContext'
 import { ShowList } from 'src/components/ShowList'
 import styles from './styles.module.css'
+import { AuthContext } from 'src/context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 export function Favorites(): JSX.Element {
+  const navigate = useNavigate()
+  const { session } = useContext(AuthContext)
   const {
     movies,
     tvShows,
@@ -15,6 +19,11 @@ export function Favorites(): JSX.Element {
     fetchMoviesFavorites,
     fetchTVShowsFavorites,
   } = useContext(FavoritesContext)
+
+  if (!session) {
+    navigate('/sign-up')
+    return <></>
+  }
 
   useEffect(() => {
     fetchMoviesFavorites()

@@ -18,7 +18,6 @@ export function TVShowDetails(): JSX.Element {
     cast,
     crew,
     videos,
-    accountStates,
     isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
@@ -67,7 +66,6 @@ export function TVShowDetails(): JSX.Element {
         show={tvShow}
         people={people}
         videos={videos}
-        accountStates={accountStates}
         isLoadingShow={isLoadingTVShow}
         isLoadingPeople={isLoadingCredits}
         isLoadingActions={isLoadingVideos}

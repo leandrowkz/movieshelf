@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import styles from './styles.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../Button'
 import { AuthContext } from 'src/context/AuthContext'
 import { Dropdown } from '../Dropdown'
@@ -11,7 +11,13 @@ import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
   const isMobile = useScreenSize('mobile')
+  const navigate = useNavigate()
   const { session, signOut } = useContext(AuthContext)
+
+  const doSignOut = () => {
+    signOut()
+    navigate('/')
+  }
 
   if (!session) {
     return (
@@ -38,17 +44,13 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
               {user.email}
             </Text>
           </Dropdown.Header>
-          <Dropdown.Item>
-            <Link to="/favorites">💜 Favorites</Link>
+          <Dropdown.Item onClick={() => navigate('/favorites')}>
+            💜 Favorites
           </Dropdown.Item>
           {/* <Dropdown.Item>
           //   <Link to="/settings">⚙️ Preferences</Link>
           // </Dropdown.Item> */}
-          <Dropdown.Item onClick={signOut}>
-            <Link to="#" onClick={signOut}>
-              🚪 Sign out
-            </Link>
-          </Dropdown.Item>
+          <Dropdown.Item onClick={() => doSignOut()}>🚪 Sign out</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Wrapper>
     </div>
