@@ -30,6 +30,9 @@ import { FavoritesContext } from 'src/context/FavoritesContext'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
+import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
+import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
+import { Image } from '../Image'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -236,8 +239,13 @@ function Actions({
           isLoadingTVShowAccountStates
         }
         onClick={() => toggleFavorite(show.id, type, favorite)}
+        className={styles.buttonAction}
       >
-        {favorite ? '💜 Favorited' : '🤍 Add Favorite'}
+        <Image
+          src={favorite ? favoriteIconOn : favoriteIconOff}
+          className={styles.favoriteIcon}
+        />
+        <span>{favorite ? 'Favorited' : 'Add Favorite'}</span>
       </Button>
     </Motion>
   )

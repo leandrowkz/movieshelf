@@ -79,6 +79,18 @@
   min-width: 300px;
 }
 
+.favoriteIcon {
+  position: relative;
+  display: inline-block;
+  max-width: 20px;
+  margin-right: var(--spacer-small);
+}
+
+.buttonAction {
+  display: inline-flex;
+  align-items: center;
+}
+
 .loaderTitle {
   display: flex;
   gap: var(--spacer-base);
