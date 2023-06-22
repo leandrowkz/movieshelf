@@ -1,0 +1,11 @@
+.icon {
+  position: relative;
+  display: inline-block;
+  max-width: 20px;
+  margin-right: var(--spacer-small);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+}
