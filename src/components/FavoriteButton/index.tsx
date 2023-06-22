@@ -75,15 +75,16 @@ export function FavoriteButton({ show, type }: Props): JSX.Element {
     <Button
       size="large"
       variant={favorite ? 'secondary' : 'outlined'}
-      disabled={isLoading}
+      isLoading={isLoading}
+      icon={
+        <Image
+          src={favorite ? favoriteIconOn : favoriteIconOff}
+          className={styles.icon}
+        />
+      }
       onClick={() => toggleFavorite(show.id, type, favorite)}
-      className={styles.button}
     >
-      <Image
-        src={favorite ? favoriteIconOn : favoriteIconOff}
-        className={styles.icon}
-      />
-      <span>{favorite ? 'Favorited' : 'Add Favorite'}</span>
+      <span>{favorite ? 'Favorited' : 'Favorite'}</span>
     </Button>
   )
 }

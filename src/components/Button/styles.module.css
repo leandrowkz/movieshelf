@@ -1,5 +1,7 @@
 .button {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid var(--button-color);
   height: var(--button-medium-height);
   line-height: var(--button-medium-height);
@@ -15,6 +17,7 @@
   white-space: nowrap;
   transition: var(--transition-base);
   text-transform: uppercase;
+  overflow: hidden;
 }
 
 .button:disabled {
@@ -52,13 +55,15 @@
 }
 
 .secondary {
-  border-color: var(--color-primary-lighter);
-  background-color: var(--color-primary-lighter);
-  color: var(--button-color);
+  border-color: var(--button-secondary-color);
+  background-color: var(--button-secondary-color);
+  color: var(--button-secondary-text-color);
 }
 
 .secondary:hover {
-  border-color: var(--button-color-hover);
+  color: var(--button-secondary-text-color-hover) !important;
+  border-color: var(--button-secondary-color-hover);
+  background-color: var(--button-secondary-color-hover);
 }
 
 .outlined {
@@ -74,13 +79,40 @@
 }
 
 .outlined:hover {
-  border-color: var(--color-primary-lighter);
-  background-color: var(--color-primary-lighter);
-  color: var(--button-color);
+  border-color: var(--button-secondary-color-hover);
+  background-color: var(--button-secondary-color-hover);
+  color: var(--button-secondary-text-color-hover);
 }
 
 .secondary:hover {
   color: var(--button-text-color);
+}
+
+.icon {
+  margin-top: 6px;
+  margin-right: var(--spacer-small);
+  width: 20px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+.spinner {
+  margin-top: 0;
+}
+
+.isLoading {
+  cursor: no-drop;
+  pointer-events: none;
+}
+
+.isLoading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .4);
 }
 
 .mobile {
