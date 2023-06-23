@@ -8,7 +8,7 @@ export const config = {
 
 export default async (req: Request) => {
   const { searchParams } = new URL(req.url)
-  const { genres } = await tmdb.genres.tv()
+  const { genres } = await tmdb.genres.movie()
 
   const lists: ListByGenre<MovieItem>[] = []
   const genreIds = searchParams.get('with_genres')?.split(',') || []
