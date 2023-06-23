@@ -7,51 +7,13 @@ import React, {
 import type { User } from 'src/types/User'
 import type { Session } from 'src/types/Session'
 import { Nullable } from 'src/types/Nullable'
-import { Falsable } from 'src/types/Falsable'
 import { useSupabase } from 'src/hooks/useSupabase'
+import { AuthState } from './types'
+import { initialState } from './state'
 
 const { supabase, transformSession } = useSupabase()
 
-type AuthState = {
-  session: Nullable<Session>
-
-  isLoadingSignIn: boolean
-  isLoadingSignUp: boolean
-  isLoadingSignOut: boolean
-
-  signInErrors: Falsable<Error>
-  signUpErrors: Falsable<Error>
-  signOutErrors: Falsable<Error>
-
-  signIn: ({
-    email,
-    password,
-  }: Pick<User, 'email' | 'password'>) => Promise<void>
-  signUp: (user: User) => Promise<void>
-  signOut: () => void
-  autoSignIn: () => void
-  clearSignInErrors: () => void
-  clearSignUpErrors: () => void
-}
-
-export const AuthContext = createContext<AuthState>({
-  session: null,
-
-  isLoadingSignUp: false,
-  isLoadingSignIn: false,
-  isLoadingSignOut: false,
-
-  signUpErrors: false,
-  signInErrors: false,
-  signOutErrors: false,
-
-  signIn: () => Promise.resolve(),
-  signUp: () => Promise.resolve(),
-  signOut: () => Promise.resolve(),
-  autoSignIn: () => Promise.resolve(),
-  clearSignInErrors: () => null,
-  clearSignUpErrors: () => null,
-})
+export const AuthContext = createContext<AuthState>({ ...initialState })
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Nullable<Session>>(null)

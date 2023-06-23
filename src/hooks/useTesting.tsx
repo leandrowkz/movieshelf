@@ -26,6 +26,7 @@ import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 import { GenresContextProvider } from 'src/context/GenresContext'
 import { AuthContextProvider } from 'src/context/AuthContext'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
+import { FavoritesContextProvider } from 'src/context/FavoritesContext'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -33,6 +34,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('src/hooks/useSupabase')
+jest.mock('src/context/AuthContext')
 jest.mock('src/context/GenresContext')
 
 const user = userEvent.setup()
@@ -42,17 +44,19 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <AuthContextProvider>
         <GenresContextProvider>
-          <TVShowListsContextProvider>
-            <TVShowDetailsContextProvider>
-              <TVSeasonDetailsContextProvider>
-                <MovieListsContextProvider>
-                  <MovieDetailsContextProvider>
-                    {children}
-                  </MovieDetailsContextProvider>
-                </MovieListsContextProvider>
-              </TVSeasonDetailsContextProvider>
-            </TVShowDetailsContextProvider>
-          </TVShowListsContextProvider>
+          <FavoritesContextProvider>
+            <TVShowListsContextProvider>
+              <TVShowDetailsContextProvider>
+                <TVSeasonDetailsContextProvider>
+                  <MovieListsContextProvider>
+                    <MovieDetailsContextProvider>
+                      {children}
+                    </MovieDetailsContextProvider>
+                  </MovieListsContextProvider>
+                </TVSeasonDetailsContextProvider>
+              </TVShowDetailsContextProvider>
+            </TVShowListsContextProvider>
+          </FavoritesContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

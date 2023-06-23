@@ -20,20 +20,23 @@ export function Favorites(): JSX.Element {
     fetchTVShowsFavorites,
   } = useContext(FavoritesContext)
 
-  if (!session) {
-    navigate('/sign-up')
-    return <></>
-  }
-
   useEffect(() => {
+    if (!session) {
+      return navigate('/sign-up')
+    }
+
     fetchMoviesFavorites()
     fetchTVShowsFavorites()
   }, [])
 
+  if (!session) {
+    return <></>
+  }
+
   return (
     <Page>
       <Container>
-        <Heading level={1} title="💜 Favorites" />
+        <Heading level={1} title="💜 Favorites" data-testid="heading" />
         <ShowList
           shows={movies}
           type="movie"
