@@ -2,9 +2,11 @@ import React, { HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import type {
   Movie,
+  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
+  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -24,6 +26,8 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { ShowType } from 'src/types/ShowType'
+import { FavoriteButton } from '../FavoriteButton'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -36,7 +40,10 @@ type CastProps = {
 }
 
 type ActionProps = {
+  show: Movie | TVShow
+  type: ShowType
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoading?: boolean
 }
 
@@ -47,20 +54,24 @@ type PosterProps = {
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
+  type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
-  isLoadingVideos: boolean
+  isLoadingActions: boolean
 }
 
 export function ShowDetails({
   show,
+  type = 'movie',
   people,
   videos,
+  accountStates,
   isLoadingShow,
   isLoadingPeople,
-  isLoadingVideos,
+  isLoadingActions,
   ...props
 }: Props): JSX.Element {
   if (!show) {
@@ -79,7 +90,13 @@ export function ShowDetails({
       <div className={styles.movieInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
-        <Actions videos={videos} isLoading={isLoadingVideos} />
+        <Actions
+          show={show}
+          type={type}
+          videos={videos}
+          accountStates={accountStates}
+          isLoading={isLoadingActions}
+        />
       </div>
       <div className={styles.poster}>
         <Poster show={show} isLoading={isLoadingShow} />
@@ -154,20 +171,26 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
   )
 }
 
-function Actions({ videos, isLoading = false }: ActionProps): JSX.Element {
+function Actions({
+  show,
+  type,
+  videos,
+  accountStates,
+  isLoading = false,
+}: ActionProps): JSX.Element {
   if (isLoading) {
     return <LoaderActions />
   }
 
   const { getShowTrailerUrl } = useHelpers()
-
   const trailer = getShowTrailerUrl(videos)
 
   return (
     <Motion className={styles.buttons}>
       <Link to={trailer} target="_blank" data-testid="show-trailer">
-        <Button size="large">▶ Play trailer</Button>
+        <Button size="large">▶ Trailer</Button>
       </Link>
+      <FavoriteButton show={show} accountStates={accountStates} type={type} />
     </Motion>
   )
 }

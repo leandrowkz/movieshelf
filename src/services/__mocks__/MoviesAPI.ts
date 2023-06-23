@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type {
-  Genre,
   Movie,
+  MovieAccountStates,
   MovieCredits,
   MovieItem,
   Video,
@@ -11,6 +11,7 @@ import { mockVideo } from '../../__mocks__/mockVideo'
 import { mockMovieCredits } from '../../__mocks__/mockMovieCredits'
 import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 
 class MoviesAPI {
   private getMockMovies(amount: number): MovieItem[] {
@@ -64,6 +65,10 @@ class MoviesAPI {
 
   public async fetchListsByGenres(): Promise<ListByGenre<MovieItem>[]> {
     return mockMoviesListsByGenres
+  }
+
+  public async fetchAccountStates(): Promise<MovieAccountStates> {
+    return { ...mockMovieAccountStates }
   }
 }
 

@@ -41,12 +41,20 @@ const Menu = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
   )
 }
 
-const Item = ({ children }: HTMLAttributes<HTMLDivElement>) => {
-  return <div className={styles.item}>{children}</div>
+const Item = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={styles.item} {...props}>
+      {children}
+    </div>
+  )
 }
 
-const Header = ({ children }: HTMLAttributes<HTMLDivElement>) => {
-  return <div className={styles.header}>{children}</div>
+const Header = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={styles.header} {...props}>
+      {children}
+    </div>
+  )
 }
 
 export const Dropdown = {

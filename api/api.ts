@@ -20,3 +20,19 @@ export const json = (content: any, status = 200) => {
 
   return new Response(body, { headers, status })
 }
+
+export async function authorize(req: Request) {
+  const token = req.headers.get('Authorization')?.replace('Bearer ', '')
+
+  if (!token) {
+    throw new Error('INVALID_ACCESS_TOKEN')
+  }
+
+  const { data, error } = await supabase.auth.getUser(token)
+
+  if (error) {
+    throw new Error('UNAUTHORIZED')
+  }
+
+  return data.user
+}

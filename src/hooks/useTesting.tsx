@@ -9,6 +9,7 @@ import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
+  MovieAccountStates,
   MovieItem,
   PersonCast,
   TVEpisode,
@@ -24,6 +25,8 @@ import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 import { GenresContextProvider } from 'src/context/GenresContext'
 import { AuthContextProvider } from 'src/context/AuthContext'
+import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
+import { FavoritesContextProvider } from 'src/context/FavoritesContext'
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -31,6 +34,7 @@ jest.mock('react-router-dom', () => ({
 }))
 
 jest.mock('src/hooks/useSupabase')
+jest.mock('src/context/AuthContext')
 jest.mock('src/context/GenresContext')
 
 const user = userEvent.setup()
@@ -40,17 +44,19 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <AuthContextProvider>
         <GenresContextProvider>
-          <TVShowListsContextProvider>
-            <TVShowDetailsContextProvider>
-              <TVSeasonDetailsContextProvider>
-                <MovieListsContextProvider>
-                  <MovieDetailsContextProvider>
-                    {children}
-                  </MovieDetailsContextProvider>
-                </MovieListsContextProvider>
-              </TVSeasonDetailsContextProvider>
-            </TVShowDetailsContextProvider>
-          </TVShowListsContextProvider>
+          <FavoritesContextProvider>
+            <TVShowListsContextProvider>
+              <TVShowDetailsContextProvider>
+                <TVSeasonDetailsContextProvider>
+                  <MovieListsContextProvider>
+                    <MovieDetailsContextProvider>
+                      {children}
+                    </MovieDetailsContextProvider>
+                  </MovieListsContextProvider>
+                </TVSeasonDetailsContextProvider>
+              </TVShowDetailsContextProvider>
+            </TVShowListsContextProvider>
+          </FavoritesContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
@@ -119,6 +125,16 @@ function getMockVideos(amount = 10) {
   return mockVideos
 }
 
+function getMockMovieAccountStates(amount = 10) {
+  const list: MovieAccountStates[] = []
+
+  for (let i = 0; i < amount; i++) {
+    list.push({ ...mockMovieAccountStates })
+  }
+
+  return list
+}
+
 export const useTesting = () => ({
   user,
   screen,
@@ -128,5 +144,6 @@ export const useTesting = () => ({
   getMockTVSeasons,
   getMockTVEpisodes,
   getMockVideos,
+  getMockMovieAccountStates,
   renderComponent,
 })

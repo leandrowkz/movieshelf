@@ -6,7 +6,7 @@ type RequestPayload = {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS'
 }
 
-export abstract class APIFetcher {
+export abstract class APIFetcherPublic {
   private headers: Headers
   private url: string
 
@@ -56,7 +56,9 @@ export abstract class APIFetcher {
   }
 
   public addHeader(key: string, value: string) {
-    this.headers.append(key, value)
+    if (!this.headers.has(key)) {
+      this.headers.append(key, value)
+    }
   }
 
   private async request<T>({ path, method, body }: RequestPayload) {
