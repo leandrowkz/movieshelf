@@ -1,20 +1,38 @@
 import React from 'react'
+import { Movie } from '@leandrowkz/tmdb'
+import { moviesAPI } from 'src/services/MoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { FavoriteButton } from '.'
-import { Movie } from '@leandrowkz/tmdb'
+import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 
-const { renderComponent, getMockMovies, screen } = useTesting()
+const { renderComponent, getMockMovies, getMockMovieAccountStates, screen } =
+  useTesting()
+
+jest.mock('src/services/MoviesAPI')
+
+function getComponent(favorite = true) {
+  const show = { ...(getMockMovies(1)[0] as Movie) }
+  const accountStates = { ...getMockMovieAccountStates(1)[0], favorite }
+
+  return (
+    <FavoriteButton type="movie" show={show} accountStates={accountStates} />
+  )
+}
 
 test('Should render FavoriteButton properly', async () => {
-  renderComponent(
-    <FavoriteButton type="movie" show={getMockMovies(1)[0] as Movie} />
-  )
+  renderComponent(getComponent(false))
 
-  expect(screen.getByTestId('show-title')).toBeVisible()
-  expect(screen.getByTestId('show-overview')).toBeVisible()
-  expect(screen.getByTestId('show-year')).toBeVisible()
-  expect(screen.getByTestId('show-genres')).toBeVisible()
-  expect(screen.getByTestId('show-countries')).toBeVisible()
-  expect(screen.getByTestId('show-poster')).toBeVisible()
-  expect(screen.getByTestId('show-cast')).toBeVisible()
+  expect(screen.getByText('Favorite')).toBeVisible()
+})
+
+test('Should render favorited properly', async () => {
+  const movie = getMockMovies(1)[0]
+  const accountStates = { ...mockMovieAccountStates, id: movie.id }
+  moviesAPI.fetchAccountStates = jest
+    .fn()
+    .mockResolvedValueOnce({ ...accountStates })
+
+  renderComponent(getComponent())
+
+  expect(screen.getByText('Favorited')).toBeVisible()
 })

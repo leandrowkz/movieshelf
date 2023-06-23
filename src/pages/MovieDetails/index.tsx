@@ -17,6 +17,7 @@ export function MovieDetails(): JSX.Element {
     cast,
     crew,
     videos,
+    accountStates,
     isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
@@ -64,6 +65,7 @@ export function MovieDetails(): JSX.Element {
         show={movie}
         people={people}
         videos={videos}
+        accountStates={accountStates}
         isLoadingShow={isLoadingMovie}
         isLoadingPeople={isLoadingCredits}
         isLoadingActions={isLoadingVideos}

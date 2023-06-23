@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
+import type {
+  TVShow,
+  TVShowAccountStates,
+  TVShowCredits,
+  TVShowItem,
+  Video,
+} from '@leandrowkz/tmdb'
 import { mockTVShow } from '../../__mocks__/mockTVShow'
 import { mockVideo } from '../../__mocks__/mockVideo'
 import { mockTVShowCredits } from '../../__mocks__/mockTVShowCredits'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { mockTVShowsListsByGenres } from 'src/__mocks__/mockTVShowsListsByGenres'
+import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 
 class TVShowsAPI {
   private getMockTVShows(amount: number): TVShowItem[] {
@@ -62,6 +69,10 @@ class TVShowsAPI {
 
   public async fetchListsByGenres(): Promise<ListByGenre<TVShowItem>[]> {
     return mockTVShowsListsByGenres
+  }
+
+  public async fetchAccountStates(): Promise<TVShowAccountStates> {
+    return { ...(mockMovieAccountStates as TVShowAccountStates) }
   }
 }
 

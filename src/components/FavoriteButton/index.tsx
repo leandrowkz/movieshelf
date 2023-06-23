@@ -1,6 +1,11 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type { Movie, TVShow } from '@leandrowkz/tmdb'
+import type {
+  Movie,
+  MovieAccountStates,
+  TVShow,
+  TVShowAccountStates,
+} from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
 import styles from './styles.module.css'
 import { FavoritesContext } from 'src/context/FavoritesContext'
@@ -14,10 +19,15 @@ import { AuthContext } from 'src/context/AuthContext'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
+  accountStates: MovieAccountStates | TVShowAccountStates
   type: ShowType
 }
 
-export function FavoriteButton({ show, type }: Props): JSX.Element {
+export function FavoriteButton({
+  show,
+  type,
+  accountStates,
+}: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
   const {
@@ -27,18 +37,15 @@ export function FavoriteButton({ show, type }: Props): JSX.Element {
     isLoadingRemoveFavorite,
   } = useContext(FavoritesContext)
   const {
-    accountStates: movieAccountStates,
     fetchAccountStates: fetchMovieAccountStates,
     isLoadingAccountStates: isLoadingMovieAccountStates,
   } = useContext(MovieDetailsContext)
   const {
-    accountStates: tvShowAccountStates,
     fetchAccountStates: fetchTVShowAccountStates,
     isLoadingAccountStates: isLoadingTVShowAccountStates,
   } = useContext(TVShowDetailsContext)
 
-  const { favorite } =
-    type === 'movie' ? movieAccountStates : tvShowAccountStates
+  const { favorite } = accountStates
 
   const isLoading =
     (isLoadingAddFavorite ||
@@ -46,8 +53,6 @@ export function FavoriteButton({ show, type }: Props): JSX.Element {
       isLoadingMovieAccountStates ||
       isLoadingTVShowAccountStates) &&
     Boolean(session)
-
-  console.log(isLoading)
 
   const toggleFavorite = async (
     showId: number,

@@ -22,7 +22,7 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
   if (!session) {
     return (
       <div {...props}>
-        <Link to="/sign-up" data-testid="user-menu-sign-up">
+        <Link to="/sign-up" data-testid="sign-up">
           <Button size={isMobile ? 'small' : 'medium'}>Sign up</Button>
         </Link>
       </div>
@@ -32,7 +32,7 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
   const { user } = session
 
   return (
-    <div {...props}>
+    <div {...props} data-testid="user-menu">
       <Dropdown.Wrapper>
         <Dropdown.Trigger>
           <Avatar />
@@ -69,7 +69,7 @@ const Avatar = () => {
   const img = `https://www.gravatar.com/avatar/${hash}?d=mp`
 
   return (
-    <div className={styles.avatar} data-testid="user-menu-avatar">
+    <div className={styles.avatar} data-testid="user-avatar">
       <img src={img} />
     </div>
   )

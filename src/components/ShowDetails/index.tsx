@@ -2,9 +2,11 @@ import React, { HTMLAttributes } from 'react'
 import { Link } from 'react-router-dom'
 import type {
   Movie,
+  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
+  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -41,6 +43,7 @@ type ActionProps = {
   show: Movie | TVShow
   type: ShowType
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoading?: boolean
 }
 
@@ -54,6 +57,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
+  accountStates: MovieAccountStates | TVShowAccountStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
   isLoadingActions: boolean
@@ -64,6 +68,7 @@ export function ShowDetails({
   type = 'movie',
   people,
   videos,
+  accountStates,
   isLoadingShow,
   isLoadingPeople,
   isLoadingActions,
@@ -89,6 +94,7 @@ export function ShowDetails({
           show={show}
           type={type}
           videos={videos}
+          accountStates={accountStates}
           isLoading={isLoadingActions}
         />
       </div>
@@ -169,6 +175,7 @@ function Actions({
   show,
   type,
   videos,
+  accountStates,
   isLoading = false,
 }: ActionProps): JSX.Element {
   if (isLoading) {
@@ -183,7 +190,7 @@ function Actions({
       <Link to={trailer} target="_blank" data-testid="show-trailer">
         <Button size="large">▶ Trailer</Button>
       </Link>
-      <FavoriteButton show={show} type={type} />
+      <FavoriteButton show={show} accountStates={accountStates} type={type} />
     </Motion>
   )
 }
