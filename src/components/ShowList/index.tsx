@@ -26,14 +26,14 @@ export function ShowList({
   type = 'movie',
   ...props
 }: Props) {
-  if (!shows.length && !isLoading) {
-    return <></>
-  }
-
   const isMobile = useScreenSize('mobile')
   const classes = classNames(styles.container, className, {
     [styles.mobile]: isMobile,
   })
+
+  if (!shows.length && !isLoading) {
+    return <></>
+  }
 
   if (isLoading) {
     return (
