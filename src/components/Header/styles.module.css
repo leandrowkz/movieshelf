@@ -1,15 +1,51 @@
 .header {
-  position: relative;
-  z-index: 2;
+  z-index: 5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  padding: 0 var(--container-spacer);
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "logo menu user";
+  align-items: center;
   height: var(--header-height);
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  background: #fff;
+  box-sizing: border-box;
   gap: var(--spacer-extra-large);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.logo {
+  grid-area: logo;
+  z-index: 11;
+  position: relative;
 }
 
 .menu {
+  grid-area: menu;
+}
+
+.user {
+  grid-area: user;
+}
+
+.menuCheckbox {
+  display: none;
+}
+
+.menuSandwichButton {
+  display: none;
+  cursor: pointer;
+}
+
+.menuSandwichButton > * {
+  margin: 0;
+  line-height: 1;
+  height: 38px;
+}
+
+.menuItems {
   flex: 1;
   display: flex;
   align-items: center;
@@ -21,27 +57,65 @@
   color: var(--font-color-base);
 }
 
-.menuDarkBackground {
+.darkBackground {
+  background: rgba(0,0,0, .7);
+  border-bottom: 1px solid transparent;
+}
+
+.darkBackground .menuSandwichButton {
+  color: white;
+}
+
+.darkBackground .menuItem {
   color: white;
 }
 
 .menuActive {
   font-weight: bold;
-  color: var(--color-primary);
+  color: var(--color-primary) !important;
 }
 
-@media screen and (max-width: 768px) {
-  .header {
-    height: calc(var(--header-height) * .8);
-    gap: var(--spacer-small);
-  }
+.mobile.header {
+  gap: var(--spacer-base);
+  grid-template-areas: "menu logo user";
+}
 
-  .menu {
-    gap: calc(var(--spacer-small) * .8);
-  }
+.mobile .logo {
+  display: block;
+  text-align: center;
+  transform: scale(80%);
+}
 
-  .menuItem {
-    font-size: var(--font-size-small);
-    white-space: nowrap;
-  }
+.mobile .menuSandwichButton {
+  display: block;
+}
+
+.mobile .menuItems {
+  left: calc(var(--container-spacer) * -1);
+  top: 0;
+  margin-top: var(--header-height);
+  position: absolute;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  padding: 0 var(--container-spacer);
+  width: calc(100% + calc(var(--container-spacer) * 2));
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  background: #fff;
+  transition: var(--transition-base);
+  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.mobile .menuItem {
+  width: 100%;
+  color: var(--font-color-base);
+  padding: var(--spacer-small) var(--container-spacer);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.mobile .menuCheckbox:checked ~ .menuItems {
+  opacity: 1;
+  visibility: visible;
 }

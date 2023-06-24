@@ -132,7 +132,7 @@
 
 @media screen and (max-width: 768px) {
   .details {
-    padding-top: var(--header-height);
+    padding-top: calc(var(--header-height) + var(--spacer-large));
     padding-bottom: var(--spacer-extra-large);
     flex-wrap: wrap;
     flex-direction: column-reverse;
@@ -171,5 +171,9 @@
 
   .loaderOverview {
     width: 100%;
+  }
+
+  .buttons {
+    gap: var(--spacer-base);
   }
 }
