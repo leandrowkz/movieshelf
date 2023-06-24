@@ -6,13 +6,13 @@ import { Header } from '../Header'
 import classNames from 'classnames'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  darkBackground?: boolean
+  darkHeader?: boolean
 }
 
 export function Page({
   children,
   className,
-  darkBackground = false,
+  darkHeader = false,
   ...props
 }: Props) {
   const classes = classNames(styles.page, className)
@@ -23,7 +23,7 @@ export function Page({
       <Header
         data-testid="header"
         className={styles.header}
-        darkBackground={darkBackground}
+        darkBackground={darkHeader}
       />
       <section data-testid="content" className={styles.content}>
         {children}

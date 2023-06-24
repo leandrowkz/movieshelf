@@ -60,7 +60,7 @@ export function MovieDetails(): JSX.Element {
   const people = director ? [director, ...cast] : cast
 
   return (
-    <Page darkBackground>
+    <Page darkHeader>
       <ShowDetails
         show={movie}
         people={people}

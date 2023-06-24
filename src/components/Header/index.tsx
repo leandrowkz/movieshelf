@@ -1,70 +1,86 @@
 import React, { HTMLAttributes } from 'react'
 import { Logo } from '../Logo'
 import styles from './styles.module.css'
-import { Container } from '../Container'
 import { Link, NavLink } from 'react-router-dom'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
 import { UserMenu } from '../UserMenu'
+import { Heading } from '../Heading'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   darkBackground?: boolean
 }
 
-export function Header({ darkBackground = false, ...props }: Props) {
+export function Header({ darkBackground = false, className, ...props }: Props) {
   const isMobile = useScreenSize('mobile')
   const isTablet = useScreenSize('tablet')
 
+  const classes = classNames(styles.header, className, {
+    [styles.mobile]: isMobile || isTablet,
+    [styles.darkBackground]: darkBackground,
+  })
+
   return (
-    <Container {...props}>
-      <header className={styles.header}>
-        <Logo
-          className={styles.logo}
-          data-testid="logo"
-          onlyIcon={isMobile || isTablet}
-        />
-        <Menu darkBackground={darkBackground} />
-        <UserMenu data-testid="user-menu" />
-      </header>
-    </Container>
+    <header {...props} className={classes}>
+      <Logo className={styles.logo} data-testid="logo" />
+      <Menu data-testid="menu" />
+      <UserMenu className={styles.user} data-testid="user-menu" />
+    </header>
   )
 }
 
-type MenuProps = {
-  darkBackground: boolean
-}
-
-function Menu({ darkBackground = false }: MenuProps) {
+function Menu(props: HTMLAttributes<HTMLDivElement>) {
   const activeClassName = ({ isActive }: { isActive: boolean }) => {
     return classNames(styles.menuItem, {
       [styles.menuActive]: isActive,
-      [styles.menuDarkBackground]: darkBackground,
     })
   }
 
   return (
-    <div className={styles.menu} data-testid="menu">
-      <NavLink className={activeClassName} to="/" data-testid="menu-all">
-        All
-      </NavLink>
-      <NavLink
-        className={activeClassName}
-        to="/movies"
-        data-testid="menu-movies"
-      >
-        Movies
-      </NavLink>
-      <NavLink className={activeClassName} to="/tv" data-testid="menu-tv-shows">
-        TV Shows
-      </NavLink>
-      <Link
-        className={activeClassName({ isActive: false })}
-        to="https://github.com/sponsors/leandrowkz"
-        target="_blank"
-        data-testid="menu-sponsor"
-      >
-        Sponsor
-      </Link>
+    <div {...props} className={styles.menu}>
+      <input
+        className={styles.menuCheckbox}
+        type="checkbox"
+        name="checkbox-menu"
+        id="checkbox-menu"
+      />
+      <label htmlFor="checkbox-menu" className={styles.menuSandwichButton}>
+        <Heading title="☰" level={2} />
+      </label>
+      <div className={styles.menuItems}>
+        <NavLink className={activeClassName} to="/" data-testid="menu-all">
+          All
+        </NavLink>
+        <NavLink
+          className={activeClassName}
+          to="/movies"
+          data-testid="menu-movies"
+        >
+          Movies
+        </NavLink>
+        <NavLink
+          className={activeClassName}
+          to="/tv"
+          data-testid="menu-tv-shows"
+        >
+          TV Shows
+        </NavLink>
+        <NavLink
+          className={activeClassName}
+          to="/favorites"
+          data-testid="menu-favorites"
+        >
+          Favorites
+        </NavLink>
+        <Link
+          className={activeClassName({ isActive: false })}
+          to="https://github.com/sponsors/leandrowkz"
+          target="_blank"
+          data-testid="menu-sponsor"
+        >
+          Sponsor
+        </Link>
+      </div>
     </div>
   )
 }

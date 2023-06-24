@@ -78,7 +78,7 @@ export function BannerPages({ shows, ...props }: Props) {
               <Text>{show.overview}</Text>
             </Motion>
             <Link to={`/movies/${show.id}`} data-testid="show-link">
-              <Button size="large">See more &nbsp;🎬</Button>
+              <Button size="large">🎬&nbsp; See more</Button>
             </Link>
           </div>
         </div>

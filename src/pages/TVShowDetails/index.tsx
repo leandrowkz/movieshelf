@@ -61,7 +61,7 @@ export function TVShowDetails(): JSX.Element {
   const people = director ? [director, ...cast] : cast
 
   return (
-    <Page darkBackground>
+    <Page darkHeader>
       <ShowDetails
         type="tv"
         show={tvShow}

@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
 import { ShowType } from 'src/types/ShowType'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]
@@ -29,7 +30,10 @@ export function ShowList({
     return <></>
   }
 
-  const classes = classNames(styles.container, className)
+  const isMobile = useScreenSize('mobile')
+  const classes = classNames(styles.container, className, {
+    [styles.mobile]: isMobile,
+  })
 
   if (isLoading) {
     return (

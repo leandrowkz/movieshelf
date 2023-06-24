@@ -38,3 +38,18 @@
   grid-column-start: 3;
   grid-column-end: 4;
 }
+
+.mobile .loaderItem {
+  width: auto;
+}
+
+.mobile .list {
+  gap: var(--spacer-large);
+  justify-content: start;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mobile .show {
+  width: auto;
+  min-width: auto;
+}

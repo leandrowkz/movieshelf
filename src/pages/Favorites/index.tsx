@@ -7,9 +7,11 @@ import { ShowList } from 'src/components/ShowList'
 import styles from './styles.module.css'
 import { AuthContext } from 'src/context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 export function Favorites(): JSX.Element {
   const navigate = useNavigate()
+  const isMobile = useScreenSize('mobile')
   const { session } = useContext(AuthContext)
   const {
     movies,
@@ -39,6 +41,7 @@ export function Favorites(): JSX.Element {
         <Heading level={1} title="💜 Favorites" data-testid="heading" />
         <ShowList
           shows={movies}
+          size={isMobile ? 'small' : 'medium'}
           type="movie"
           title="Your favorite movies"
           isLoading={isLoadingMoviesFavorites}
@@ -47,6 +50,7 @@ export function Favorites(): JSX.Element {
         />
         <ShowList
           shows={tvShows}
+          size={isMobile ? 'small' : 'medium'}
           type="tv"
           title="Your favorite TV Shows"
           isLoading={isLoadingTVShowsFavorites}
