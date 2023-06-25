@@ -1,12 +1,7 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, type TVShowItem } from '@leandrowkz/tmdb'
-import { api } from '../services/TVShowsAPI'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { useAPI } from 'src/hooks/useAPI'
 
 type TVShowListsState = {
   airingToday: TVShowItem[]
@@ -70,6 +65,7 @@ export const TVShowListsContext = createContext<TVShowListsState>({
 })
 
 export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useAPI('tv-shows')
   const [airingToday, setAiringToday] = useState<TVShowItem[]>([])
   const [onTheAir, setOnTheAir] = useState<TVShowItem[]>([])
   const [popular, setPopular] = useState<TVShowItem[]>([])
@@ -94,40 +90,34 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoadingByGenre, setIsLoadingByGenre] = useState<boolean>(false)
   const [hasGenreErrors, setHasGenreErrors] = useState<boolean>(false)
 
-  const fetchListsByGenres = useCallback(
-    async (genres: Genre[]) => {
-      setListsByGenres([])
-      setIsLoadingListsByGenres(true)
+  const fetchListsByGenres = async (genres: Genre[]) => {
+    setListsByGenres([])
+    setIsLoadingListsByGenres(true)
 
-      const genreIds = genres.map((genre) => genre.id)
-      const data = await api.fetchListsByGenres(genreIds)
+    const genreIds = genres.map((genre) => genre.id)
+    const data = await api.fetchListsByGenres(genreIds)
 
-      setListsByGenres(data)
-      setIsLoadingListsByGenres(false)
-    },
-    [api]
-  )
+    setListsByGenres(data)
+    setIsLoadingListsByGenres(false)
+  }
 
-  const fetchByGenre = useCallback(
-    async (genreId: number) => {
-      try {
-        setGenre([])
-        setHasGenreErrors(false)
-        setIsLoadingByGenre(true)
+  const fetchByGenre = async (genreId: number) => {
+    try {
+      setGenre([])
+      setHasGenreErrors(false)
+      setIsLoadingByGenre(true)
 
-        const data = await api.fetchListByGenre([genreId])
+      const data = await api.fetchListByGenre([genreId])
 
-        setGenre(data)
-      } catch {
-        setHasGenreErrors(true)
-      } finally {
-        setIsLoadingByGenre(false)
-      }
-    },
-    [api]
-  )
+      setGenre(data)
+    } catch {
+      setHasGenreErrors(true)
+    } finally {
+      setIsLoadingByGenre(false)
+    }
+  }
 
-  const fetchAiringToday = useCallback(async () => {
+  const fetchAiringToday = async () => {
     setAiringToday([])
     setIsLoadingAiringToday(true)
 
@@ -135,9 +125,9 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     setAiringToday(data)
     setIsLoadingAiringToday(false)
-  }, [api])
+  }
 
-  const fetchOnTheAir = useCallback(async () => {
+  const fetchOnTheAir = async () => {
     setOnTheAir([])
     setIsLoadingOnTheAir(true)
 
@@ -145,9 +135,9 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     setOnTheAir(data)
     setIsLoadingOnTheAir(false)
-  }, [api])
+  }
 
-  const fetchPopular = useCallback(async () => {
+  const fetchPopular = async () => {
     setPopular([])
     setIsLoadingPopular(true)
 
@@ -155,9 +145,9 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     setPopular(data)
     setIsLoadingPopular(false)
-  }, [api])
+  }
 
-  const fetchTopRated = useCallback(async () => {
+  const fetchTopRated = async () => {
     setTopRated([])
     setIsLoadingTopRated(true)
 
@@ -165,33 +155,27 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     setTopRated(data)
     setIsLoadingTopRated(false)
-  }, [api])
+  }
 
-  const fetchSimilar = useCallback(
-    async (TVShowId: number) => {
-      setSimilar([])
-      setIsLoadingSimilar(true)
+  const fetchSimilar = async (TVShowId: number) => {
+    setSimilar([])
+    setIsLoadingSimilar(true)
 
-      const data = await api.fetchListSimilar(TVShowId)
+    const data = await api.fetchListSimilar(TVShowId)
 
-      setSimilar(data)
-      setIsLoadingSimilar(false)
-    },
-    [api]
-  )
+    setSimilar(data)
+    setIsLoadingSimilar(false)
+  }
 
-  const fetchRecommended = useCallback(
-    async (TVShowId: number) => {
-      setRecommended([])
-      setIsLoadingRecommended(true)
+  const fetchRecommended = async (TVShowId: number) => {
+    setRecommended([])
+    setIsLoadingRecommended(true)
 
-      const data = await api.fetchListRecommended(TVShowId)
+    const data = await api.fetchListRecommended(TVShowId)
 
-      setRecommended(data)
-      setIsLoadingRecommended(false)
-    },
-    [api]
-  )
+    setRecommended(data)
+    setIsLoadingRecommended(false)
+  }
 
   const state = {
     airingToday,

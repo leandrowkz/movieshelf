@@ -1,17 +1,12 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import type {
   Movie,
   MovieAccountStates,
   PersonCast,
   Video,
 } from '@leandrowkz/tmdb'
-import { moviesAPI } from '../services/MoviesAPI'
 import { Nullable } from '../types/Nullable'
+import { useAPI } from 'src/hooks/useAPI'
 
 type MovieDetailsState = {
   movie: Nullable<Movie>
@@ -50,6 +45,7 @@ export const MovieDetailsContext = createContext<MovieDetailsState>({
 export const MovieDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
+  const api = useAPI('movies')
   const [movie, setMovie] = useState<Movie>({} as Movie)
   const [accountStates, setAccountStates] = useState<MovieAccountStates>(
     {} as MovieAccountStates
@@ -63,62 +59,50 @@ export const MovieDetailsContextProvider = ({
   const [isLoadingAccountStates, setIsLoadingAccountStates] = useState(false)
   const [hasMovieErrors, setHasMovieErrors] = useState(false)
 
-  const fetchMovie = useCallback(
-    async (movieId: number) => {
-      try {
-        setMovie({} as Movie)
-        setIsLoadingMovie(true)
-        setHasMovieErrors(false)
+  const fetchMovie = async (movieId: number) => {
+    try {
+      setMovie({} as Movie)
+      setIsLoadingMovie(true)
+      setHasMovieErrors(false)
 
-        const data = await moviesAPI.fetchDetails(movieId)
+      const data = await api.fetchDetails(movieId)
 
-        setMovie(data)
-      } catch (e) {
-        setHasMovieErrors(true)
-      } finally {
-        setIsLoadingMovie(false)
-      }
-    },
-    [moviesAPI]
-  )
+      setMovie(data)
+    } catch (e) {
+      setHasMovieErrors(true)
+    } finally {
+      setIsLoadingMovie(false)
+    }
+  }
 
-  const fetchCredits = useCallback(
-    async (movieId: number) => {
-      setIsLoadingCredits(true)
+  const fetchCredits = async (movieId: number) => {
+    setIsLoadingCredits(true)
 
-      const { cast, crew } = await moviesAPI.fetchCredits(movieId)
+    const { cast, crew } = await api.fetchCredits(movieId)
 
-      setCast(cast)
-      setCrew(crew)
-      setIsLoadingCredits(false)
-    },
-    [moviesAPI]
-  )
+    setCast(cast)
+    setCrew(crew)
+    setIsLoadingCredits(false)
+  }
 
-  const fetchVideos = useCallback(
-    async (movieId: number) => {
-      setIsLoadingVideos(true)
+  const fetchVideos = async (movieId: number) => {
+    setIsLoadingVideos(true)
 
-      const data = await moviesAPI.fetchVideos(movieId)
+    const data = await api.fetchVideos(movieId)
 
-      setVideos(data)
-      setIsLoadingVideos(false)
-    },
-    [moviesAPI]
-  )
+    setVideos(data)
+    setIsLoadingVideos(false)
+  }
 
-  const fetchAccountStates = useCallback(
-    async (movieId: number) => {
-      setAccountStates({} as MovieAccountStates)
-      setIsLoadingAccountStates(true)
+  const fetchAccountStates = async (movieId: number) => {
+    setAccountStates({} as MovieAccountStates)
+    setIsLoadingAccountStates(true)
 
-      const accountStates = await moviesAPI.fetchAccountStates(movieId)
+    const accountStates = await api.fetchAccountStates(movieId)
 
-      setAccountStates(accountStates)
-      setIsLoadingAccountStates(false)
-    },
-    [moviesAPI]
-  )
+    setAccountStates(accountStates)
+    setIsLoadingAccountStates(false)
+  }
 
   const state = {
     movie,

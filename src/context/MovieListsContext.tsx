@@ -1,12 +1,7 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
-import { moviesAPI } from '../services/MoviesAPI'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { useAPI } from 'src/hooks/useAPI'
 
 type MovieListsState = {
   inTheatres: MovieItem[]
@@ -87,6 +82,7 @@ export const MovieListsContext = createContext<MovieListsState>({
 })
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useAPI('movies')
   const [trending, setTrending] = useState<MovieItem[]>([])
   const [similar, setSimilar] = useState<MovieItem[]>([])
   const [recommended, setRecommended] = useState<MovieItem[]>([])
@@ -120,88 +116,82 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
 
   const [hasCategoryErrors, setHasCategoryErrors] = useState(false)
 
-  const fetchSimilar = useCallback(
-    async (movieId: number) => {
-      setSimilar([])
-      setIsLoadingSimilar(true)
+  const fetchSimilar = async (movieId: number) => {
+    setSimilar([])
+    setIsLoadingSimilar(true)
 
-      const data = await moviesAPI.fetchListSimilar(movieId)
+    const data = await api.fetchListSimilar(movieId)
 
-      setSimilar(data)
-      setIsLoadingSimilar(false)
-    },
-    [moviesAPI]
-  )
+    setSimilar(data)
+    setIsLoadingSimilar(false)
+  }
 
-  const fetchRecommended = useCallback(
-    async (movieId: number) => {
-      setRecommended([])
-      setIsLoadingRecommended(true)
+  const fetchRecommended = async (movieId: number) => {
+    setRecommended([])
+    setIsLoadingRecommended(true)
 
-      const data = await moviesAPI.fetchListRecommended(movieId)
+    const data = await api.fetchListRecommended(movieId)
 
-      setRecommended(data)
-      setIsLoadingRecommended(false)
-    },
-    [moviesAPI]
-  )
+    setRecommended(data)
+    setIsLoadingRecommended(false)
+  }
 
-  const fetchTrending = useCallback(async () => {
+  const fetchTrending = async () => {
     setTrending([])
     setIsLoadingTrending(true)
 
-    const data = await moviesAPI.fetchListTrending()
+    const data = await api.fetchListTrending()
 
     setTrending(data)
     setIsLoadingTrending(false)
-  }, [moviesAPI])
+  }
 
-  const fetchMostPopular = useCallback(async () => {
+  const fetchMostPopular = async () => {
     setMostPopular([])
     setIsLoadingMostPopular(true)
 
-    const data = await moviesAPI.fetchListMostPopular()
+    const data = await api.fetchListMostPopular()
 
     setMostPopular(data)
     setIsLoadingMostPopular(false)
-  }, [moviesAPI])
+  }
 
-  const fetchBestComedies = useCallback(async () => {
+  const fetchBestComedies = async () => {
     setBestComedies([])
     setIsLoadingBestComedies(true)
 
-    const data = await moviesAPI.fetchListByGenre([GenreCode.COMEDY], {
+    const data = await api.fetchListByGenre([GenreCode.COMEDY], {
       'vote_average.gte': 7.5,
     })
 
     setBestComedies(data)
     setIsLoadingBestComedies(false)
-  }, [moviesAPI])
+  }
 
-  const fetchScifiAndFantasy = useCallback(async () => {
+  const fetchScifiAndFantasy = async () => {
     setScifiAndFantasy([])
     setIsLoadingScifiAndFantasy(true)
 
-    const data = await moviesAPI.fetchListByGenre([
+    const data = await api.fetchListByGenre([
       GenreCode.SCIENCE_FICTION,
       GenreCode.FANTASY,
     ])
 
     setScifiAndFantasy(data)
     setIsLoadingScifiAndFantasy(false)
-  }, [moviesAPI])
+  }
 
-  const fetchFamily = useCallback(async () => {
+  const fetchFamily = async () => {
     setFamily([])
     setIsLoadingFamily(true)
 
-    const data = await moviesAPI.fetchListByGenre([GenreCode.FAMILY])
+    const data = await api.fetchListByGenre([GenreCode.FAMILY])
 
     setFamily(data)
     setIsLoadingFamily(false)
-  }, [moviesAPI])
+  }
 
-  const fetchTopRatedDocumentaries = useCallback(async () => {
+  const fetchTopRatedDocumentaries = async () => {
     setTopRatedDocumentaries([])
     setIsLoadingTopRatedDocumentaries(true)
 
@@ -209,57 +199,48 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
       sort_by: 'popularity.desc',
       'vote_average.gte': 9,
     }
-    const data = await moviesAPI.fetchListByGenre(
-      [GenreCode.DOCUMENTARY],
-      filters
-    )
+    const data = await api.fetchListByGenre([GenreCode.DOCUMENTARY], filters)
 
     setTopRatedDocumentaries(data)
     setIsLoadingTopRatedDocumentaries(false)
-  }, [moviesAPI])
+  }
 
-  const fetchInTheatres = useCallback(async () => {
+  const fetchInTheatres = async () => {
     setInTheatres([])
     setIsLoadingInTheatres(true)
 
-    const data = await moviesAPI.fetchListInTheatres()
+    const data = await api.fetchListInTheatres()
 
     setInTheatres(data)
     setIsLoadingInTheatres(false)
-  }, [moviesAPI])
+  }
 
-  const fetchByCategory = useCallback(
-    async (categoryId: number) => {
-      try {
-        setCategory([])
-        setHasCategoryErrors(false)
-        setIsLoadingByCategory(true)
+  const fetchByCategory = async (categoryId: number) => {
+    try {
+      setCategory([])
+      setHasCategoryErrors(false)
+      setIsLoadingByCategory(true)
 
-        const data = await moviesAPI.fetchListByGenre([categoryId])
+      const data = await api.fetchListByGenre([categoryId])
 
-        setCategory(data)
-      } catch {
-        setHasCategoryErrors(true)
-      } finally {
-        setIsLoadingByCategory(false)
-      }
-    },
-    [moviesAPI]
-  )
+      setCategory(data)
+    } catch {
+      setHasCategoryErrors(true)
+    } finally {
+      setIsLoadingByCategory(false)
+    }
+  }
 
-  const fetchListsByGenres = useCallback(
-    async (genres: Genre[]) => {
-      setListsByGenres([])
-      setIsLoadingListsByGenres(true)
+  const fetchListsByGenres = async (genres: Genre[]) => {
+    setListsByGenres([])
+    setIsLoadingListsByGenres(true)
 
-      const genreIds = genres.map((genre) => genre.id)
-      const data = await moviesAPI.fetchListsByGenres(genreIds)
+    const genreIds = genres.map((genre) => genre.id)
+    const data = await api.fetchListsByGenres(genreIds)
 
-      setListsByGenres(data)
-      setIsLoadingListsByGenres(false)
-    },
-    [moviesAPI]
-  )
+    setListsByGenres(data)
+    setIsLoadingListsByGenres(false)
+  }
 
   const state = {
     trending,

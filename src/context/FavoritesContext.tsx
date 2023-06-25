@@ -1,12 +1,7 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
-import { api } from '../services/FavoritesAPI'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
+import { useAPI } from 'src/hooks/useAPI'
 
 type FavoritesState = {
   movies: MovieItem[]
@@ -43,6 +38,7 @@ export const FavoritesContext = createContext<FavoritesState>({
 })
 
 export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useAPI('favorites')
   const [movies, setMovies] = useState<MovieItem[]>([])
   const [tvShows, setTVShows] = useState<TVShowItem[]>([])
   const [isLoadingAddFavorite, setIsLoadingAddFavorite] = useState(false)
@@ -58,7 +54,7 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
   const [hasAddFavoriteErrors, setHasAddFavoriteErrors] = useState(false)
   const [hasRemoveFavoriteErrors, setHasRemoveFavoriteErrors] = useState(false)
 
-  const fetchMoviesFavorites = useCallback(async () => {
+  const fetchMoviesFavorites = async () => {
     try {
       setMovies([])
       setIsLoadingMoviesFavorites(true)
@@ -72,9 +68,9 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
     } finally {
       setIsLoadingMoviesFavorites(false)
     }
-  }, [api])
+  }
 
-  const fetchTVShowsFavorites = useCallback(async () => {
+  const fetchTVShowsFavorites = async () => {
     try {
       setTVShows([])
       setIsLoadingTVShowsFavorites(true)
@@ -88,7 +84,7 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
     } finally {
       setIsLoadingTVShowsFavorites(false)
     }
-  }, [api])
+  }
 
   const addFavorite = async (showId: number, showType: ShowType) => {
     try {

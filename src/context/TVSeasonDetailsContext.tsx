@@ -1,11 +1,6 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
-import { api } from '../services/TVSeasonsAPI'
+import { useAPI } from 'src/hooks/useAPI'
 
 type TVSeasonDetailsState = {
   season: TVSeason
@@ -26,29 +21,27 @@ export const TVSeasonDetailsContext = createContext<TVSeasonDetailsState>({
 export const TVSeasonDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
+  const api = useAPI('tv-seasons')
   const [season, setSeason] = useState<TVSeason>({} as TVSeason)
   const [episodes, setEpisodes] = useState<TVEpisodeItem[]>([])
   const [isLoadingSeason, setIsLoadingSeason] = useState(false)
   const [hasSeasonErrors, setHasSeasonErrors] = useState(false)
 
-  const fetchSeasonDetails = useCallback(
-    async (tvShowId: number, seasonNumber: number) => {
-      try {
-        setSeason({} as TVSeason)
-        setIsLoadingSeason(true)
+  const fetchSeasonDetails = async (tvShowId: number, seasonNumber: number) => {
+    try {
+      setSeason({} as TVSeason)
+      setIsLoadingSeason(true)
 
-        const data = await api.fetchDetails(tvShowId, seasonNumber)
+      const data = await api.fetchDetails(tvShowId, seasonNumber)
 
-        setSeason(data)
-        setEpisodes(data.episodes)
-      } catch (e) {
-        setHasSeasonErrors(true)
-      } finally {
-        setIsLoadingSeason(false)
-      }
-    },
-    [api]
-  )
+      setSeason(data)
+      setEpisodes(data.episodes)
+    } catch (e) {
+      setHasSeasonErrors(true)
+    } finally {
+      setIsLoadingSeason(false)
+    }
+  }
 
   const state = {
     season,

@@ -1,9 +1,4 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import type {
   PersonCast,
   PersonCrew,
@@ -11,7 +6,7 @@ import type {
   TVShowAccountStates,
   TVShowVideos,
 } from '@leandrowkz/tmdb'
-import { api } from '../services/TVShowsAPI'
+import { useAPI } from 'src/hooks/useAPI'
 
 type TVShowDetailsState = {
   tvShow: TVShow
@@ -50,6 +45,7 @@ export const TVShowDetailsContext = createContext<TVShowDetailsState>({
 export const TVShowDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
+  const api = useAPI('tv-shows')
   const [tvShow, setTVShow] = useState<TVShow>({} as TVShow)
   const [cast, setCast] = useState<PersonCast[]>([])
   const [crew, setCrew] = useState<PersonCrew[]>([])
@@ -63,62 +59,50 @@ export const TVShowDetailsContextProvider = ({
   const [isLoadingAccountStates, setIsLoadingAccountStates] = useState(false)
   const [hasTVShowErrors, setHasTVShowErrors] = useState(false)
 
-  const fetchTVShow = useCallback(
-    async (tvShowId: number) => {
-      try {
-        setTVShow({} as TVShow)
-        setIsLoadingTVShow(true)
-        setHasTVShowErrors(false)
+  const fetchTVShow = async (tvShowId: number) => {
+    try {
+      setTVShow({} as TVShow)
+      setIsLoadingTVShow(true)
+      setHasTVShowErrors(false)
 
-        const data = await api.fetchDetails(tvShowId)
+      const data = await api.fetchDetails(tvShowId)
 
-        setTVShow(data)
-      } catch (e) {
-        setHasTVShowErrors(true)
-      } finally {
-        setIsLoadingTVShow(false)
-      }
-    },
-    [api]
-  )
+      setTVShow(data)
+    } catch (e) {
+      setHasTVShowErrors(true)
+    } finally {
+      setIsLoadingTVShow(false)
+    }
+  }
 
-  const fetchCredits = useCallback(
-    async (tvShowId: number) => {
-      setIsLoadingCredits(true)
+  const fetchCredits = async (tvShowId: number) => {
+    setIsLoadingCredits(true)
 
-      const { cast, crew } = await api.fetchCredits(tvShowId)
+    const { cast, crew } = await api.fetchCredits(tvShowId)
 
-      setCast(cast)
-      setCrew(crew)
-      setIsLoadingCredits(false)
-    },
-    [api]
-  )
+    setCast(cast)
+    setCrew(crew)
+    setIsLoadingCredits(false)
+  }
 
-  const fetchVideos = useCallback(
-    async (tvShowId: number) => {
-      setIsLoadingVideos(true)
+  const fetchVideos = async (tvShowId: number) => {
+    setIsLoadingVideos(true)
 
-      const videos = await api.fetchVideos(tvShowId)
+    const videos = await api.fetchVideos(tvShowId)
 
-      setVideos(videos)
-      setIsLoadingVideos(false)
-    },
-    [api]
-  )
+    setVideos(videos)
+    setIsLoadingVideos(false)
+  }
 
-  const fetchAccountStates = useCallback(
-    async (movieId: number) => {
-      setAccountStates({} as TVShowAccountStates)
-      setIsLoadingAccountStates(true)
+  const fetchAccountStates = async (movieId: number) => {
+    setAccountStates({} as TVShowAccountStates)
+    setIsLoadingAccountStates(true)
 
-      const accountStates = await api.fetchAccountStates(movieId)
+    const accountStates = await api.fetchAccountStates(movieId)
 
-      setAccountStates(accountStates)
-      setIsLoadingAccountStates(false)
-    },
-    [api]
-  )
+    setAccountStates(accountStates)
+    setIsLoadingAccountStates(false)
+  }
 
   const state = {
     tvShow,

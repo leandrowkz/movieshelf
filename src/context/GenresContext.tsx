@@ -1,11 +1,6 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
-import { api } from '../services/GenresAPI'
+import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { Genre } from '@leandrowkz/tmdb'
+import { useAPI } from 'src/hooks/useAPI'
 
 type GenresState = {
   moviesGenres: Genre[]
@@ -30,6 +25,7 @@ export const GenresContext = createContext<GenresState>({
 })
 
 export const GenresContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useAPI('genres')
   const [tvShowsGenres, setTVShowsGenres] = useState<Genre[]>([])
   const [moviesGenres, setMoviesGenres] = useState<Genre[]>([])
   const [isLoadingMoviesGenres, setIsLoadingMoviesGenres] = useState(false)
@@ -37,7 +33,7 @@ export const GenresContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoadingTVShowsGenres, setIsLoadingTVShowsGenres] = useState(false)
   const [hasTVShowsGenresErrors, setHasTVShowsGenresErrors] = useState(false)
 
-  const fetchMoviesGenres = useCallback(async () => {
+  const fetchMoviesGenres = async () => {
     try {
       setMoviesGenres([])
       setIsLoadingMoviesGenres(true)
@@ -51,9 +47,9 @@ export const GenresContextProvider = ({ children }: PropsWithChildren) => {
     } finally {
       setIsLoadingMoviesGenres(false)
     }
-  }, [api])
+  }
 
-  const fetchTVShowsGenres = useCallback(async () => {
+  const fetchTVShowsGenres = async () => {
     try {
       setTVShowsGenres([])
       setIsLoadingTVShowsGenres(true)
@@ -67,7 +63,7 @@ export const GenresContextProvider = ({ children }: PropsWithChildren) => {
     } finally {
       setIsLoadingTVShowsGenres(false)
     }
-  }, [api])
+  }
 
   const state = {
     moviesGenres,

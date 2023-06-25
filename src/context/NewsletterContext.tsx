@@ -1,10 +1,5 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
-import { newsletterAPI } from '../services/NewsletterAPI'
+import React, { PropsWithChildren, createContext, useState } from 'react'
+import { useAPI } from 'src/hooks/useAPI'
 
 type MovieDetailsState = {
   isLoadingSubscribe: boolean
@@ -23,26 +18,24 @@ export const NewsletterContext = createContext<MovieDetailsState>({
 })
 
 export const NewsletterContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useAPI('newsletter')
   const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false)
   const [hasSubscribeErrors, setHasSubscribeErrors] = useState(false)
   const [hasSubscribeSuccess, setHasSubscribeSuccess] = useState(false)
 
-  const subscribeNewsletter = useCallback(
-    async (email: string) => {
-      try {
-        setIsLoadingSubscribe(true)
-        clearSubscribeStatuses()
+  const subscribeNewsletter = async (email: string) => {
+    try {
+      setIsLoadingSubscribe(true)
+      clearSubscribeStatuses()
 
-        await newsletterAPI.subscribe(email)
-        setHasSubscribeSuccess(true)
-      } catch (e) {
-        setHasSubscribeErrors(true)
-      } finally {
-        setIsLoadingSubscribe(false)
-      }
-    },
-    [newsletterAPI]
-  )
+      await api.subscribe(email)
+      setHasSubscribeSuccess(true)
+    } catch (e) {
+      setHasSubscribeErrors(true)
+    } finally {
+      setIsLoadingSubscribe(false)
+    }
+  }
 
   const clearSubscribeStatuses = () => {
     setHasSubscribeErrors(false)
