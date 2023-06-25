@@ -1,16 +1,16 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
-import { useAPI } from 'src/hooks/useAPI'
 import { initialState } from './state'
 import { FavoritesState } from './types'
+import { useFavoritesAPI } from 'src/hooks/apis/useFavoritesAPI'
 
 export const FavoritesContext = createContext<FavoritesState>({
   ...initialState,
 })
 
 export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
-  const api = useAPI('favorites')
+  const api = useFavoritesAPI()
   const [movies, setMovies] = useState<MovieItem[]>([])
   const [tvShows, setTVShows] = useState<TVShowItem[]>([])
   const [isLoadingAddFavorite, setIsLoadingAddFavorite] = useState(false)

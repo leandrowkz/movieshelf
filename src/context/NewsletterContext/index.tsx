@@ -1,14 +1,14 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
-import { useAPI } from 'src/hooks/useAPI'
 import { NewsletterState } from './types'
 import { initialState } from './state'
+import { useNewsletterAPI } from 'src/hooks/apis/useNewsletterAPI'
 
 export const NewsletterContext = createContext<NewsletterState>({
   ...initialState,
 })
 
 export const NewsletterContextProvider = ({ children }: PropsWithChildren) => {
-  const api = useAPI('newsletter')
+  const api = useNewsletterAPI()
   const [isLoadingSubscribe, setIsLoadingSubscribe] = useState(false)
   const [hasSubscribeErrors, setHasSubscribeErrors] = useState(false)
   const [hasSubscribeSuccess, setHasSubscribeSuccess] = useState(false)

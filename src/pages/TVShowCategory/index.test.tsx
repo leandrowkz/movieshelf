@@ -1,18 +1,19 @@
 import React from 'react'
 import { act } from '@testing-library/react'
-import { api } from 'src/services/TVShowsAPI'
 import { useTesting } from 'src/hooks/useTesting'
+import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 import { TVShowCategory } from '.'
 
-jest.mock('src/services/TVShowsAPI')
-
 const { renderComponent, screen } = useTesting()
+const api = useTVShowsAPI()
 
 async function safeRenderComponent() {
   return act(async () => {
     renderComponent(<TVShowCategory />)
   })
 }
+
+jest.mock('src/hooks/apis/useTVShowsAPI')
 
 test('should render TVShowCategory properly', async () => {
   await safeRenderComponent()
@@ -21,7 +22,7 @@ test('should render TVShowCategory properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  api['fetchListByGenre'] = jest.fn().mockRejectedValueOnce(false)
+  api.fetchListByGenre = jest.fn().mockRejectedValueOnce(false)
   await safeRenderComponent()
 
   expect(await screen.findByTestId('category-not-found')).toBeVisible()

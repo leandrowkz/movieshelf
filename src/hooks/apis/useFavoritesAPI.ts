@@ -28,9 +28,9 @@ async function removeFavorite(showId: number, showType: ShowType) {
   return api.post(path, { showId, showType })
 }
 
-export default {
+export const useFavoritesAPI = () => ({
   addFavorite,
   removeFavorite,
   fetchMovieFavorites,
   fetchTVShowsFavorites,
-}
+})

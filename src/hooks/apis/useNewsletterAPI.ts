@@ -9,6 +9,6 @@ async function subscribe(email: string): Promise<{ success: boolean }> {
   return api.post(path, body)
 }
 
-export default {
+export const useNewsletterAPI = () => ({
   subscribe,
-}
+})

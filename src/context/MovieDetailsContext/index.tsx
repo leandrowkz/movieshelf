@@ -5,9 +5,9 @@ import type {
   PersonCast,
   Video,
 } from '@leandrowkz/tmdb'
-import { useAPI } from 'src/hooks/useAPI'
 import { MovieDetailsState } from './types'
 import { initialState } from './state'
+import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
   ...initialState,
@@ -16,7 +16,7 @@ export const MovieDetailsContext = createContext<MovieDetailsState>({
 export const MovieDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
-  const api = useAPI('movies')
+  const api = useMoviesAPI()
   const [movie, setMovie] = useState<Movie>({} as Movie)
   const [accountStates, setAccountStates] = useState<MovieAccountStates>(
     {} as MovieAccountStates

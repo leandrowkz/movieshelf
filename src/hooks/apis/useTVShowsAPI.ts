@@ -94,7 +94,7 @@ async function fetchAccountStates(
   return api.get<TVShowAccountStates>(path)
 }
 
-export default {
+export const useTVShowsAPI = () => ({
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -107,4 +107,4 @@ export default {
   fetchListAiringToday,
   fetchListTopRated,
   fetchVideos,
-}
+})

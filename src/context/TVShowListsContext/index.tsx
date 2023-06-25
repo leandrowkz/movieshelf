@@ -1,16 +1,16 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, type TVShowItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
-import { useAPI } from 'src/hooks/useAPI'
 import { TVShowListsState } from './types'
 import { initialState } from './state'
+import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 
 export const TVShowListsContext = createContext<TVShowListsState>({
   ...initialState,
 })
 
 export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
-  const api = useAPI('tv-shows')
+  const api = useTVShowsAPI()
   const [airingToday, setAiringToday] = useState<TVShowItem[]>([])
   const [onTheAir, setOnTheAir] = useState<TVShowItem[]>([])
   const [popular, setPopular] = useState<TVShowItem[]>([])

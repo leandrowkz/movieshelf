@@ -1,16 +1,16 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
-import { useAPI } from 'src/hooks/useAPI'
 import { MovieListsState } from './types'
 import { initialState } from './state'
+import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 
 export const MovieListsContext = createContext<MovieListsState>({
   ...initialState,
 })
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
-  const api = useAPI('movies')
+  const api = useMoviesAPI()
   const [trending, setTrending] = useState<MovieItem[]>([])
   const [similar, setSimilar] = useState<MovieItem[]>([])
   const [recommended, setRecommended] = useState<MovieItem[]>([])

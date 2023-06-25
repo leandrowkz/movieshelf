@@ -15,6 +15,6 @@ async function fetchDetails(
   return api.get<TVSeason>(path)
 }
 
-export default {
+export const useTVSeasonsAPI = () => ({
   fetchDetails,
-}
+})

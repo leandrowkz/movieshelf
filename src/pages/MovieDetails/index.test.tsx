@@ -1,9 +1,9 @@
 import React from 'react'
-import { moviesAPI } from 'src/services/MoviesAPI'
+import { fetchDetails } from 'src/hooks/apis/__mocks__/useMoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { MovieDetails } from '.'
 
-jest.mock('src/services/MoviesAPI')
+jest.mock('src/hooks/apis/useMoviesAPI')
 
 const { renderComponent, screen } = useTesting()
 
@@ -17,7 +17,7 @@ test('should render MovieDetails properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  moviesAPI['fetchDetails'] = jest.fn().mockRejectedValueOnce(false)
+  fetchDetails.mockRejectedValueOnce(false)
   renderComponent(<MovieDetails />)
 
   expect(await screen.findByTestId('show-not-found')).toBeVisible()

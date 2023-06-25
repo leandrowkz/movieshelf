@@ -2,9 +2,9 @@ import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { Favorites } from '.'
 
-const { renderComponent, screen } = useTesting()
+jest.mock('src/hooks/apis/useFavoritesAPI')
 
-jest.mock('src/services/FavoritesAPI')
+const { renderComponent, screen } = useTesting()
 
 test('Should render page properly', async () => {
   renderComponent(<Favorites />)

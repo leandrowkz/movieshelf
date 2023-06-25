@@ -90,7 +90,7 @@ async function fetchAccountStates(
   return api.get<MovieAccountStates>(path)
 }
 
-export default {
+export const useMoviesAPI = () => ({
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -102,4 +102,4 @@ export default {
   fetchListTrending,
   fetchListsByGenres,
   fetchVideos,
-}
+})

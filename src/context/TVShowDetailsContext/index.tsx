@@ -6,9 +6,9 @@ import type {
   TVShowAccountStates,
   TVShowVideos,
 } from '@leandrowkz/tmdb'
-import { useAPI } from 'src/hooks/useAPI'
 import { TVShowDetailsState } from './types'
 import { initialState } from './state'
+import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 
 export const TVShowDetailsContext = createContext<TVShowDetailsState>({
   ...initialState,
@@ -17,7 +17,7 @@ export const TVShowDetailsContext = createContext<TVShowDetailsState>({
 export const TVShowDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
-  const api = useAPI('tv-shows')
+  const api = useTVShowsAPI()
   const [tvShow, setTVShow] = useState<TVShow>({} as TVShow)
   const [cast, setCast] = useState<PersonCast[]>([])
   const [crew, setCrew] = useState<PersonCrew[]>([])

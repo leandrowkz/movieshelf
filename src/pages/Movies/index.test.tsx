@@ -5,7 +5,7 @@ import { Movies } from '.'
 
 const { renderComponent, screen, user } = useTesting()
 
-jest.mock('src/services/MoviesAPI')
+jest.mock('src/hooks/apis/useMoviesAPI')
 
 test('Should render movies page properly', async () => {
   renderComponent(<Movies />)

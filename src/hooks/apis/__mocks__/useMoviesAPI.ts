@@ -23,54 +23,49 @@ function getMockMovies(amount: number): MovieItem[] {
   return movies
 }
 
-async function fetchDetails(movieId: number): Promise<Movie> {
-  return { ...mockMovieDetails }
-}
+export const fetchDetails = jest.fn().mockResolvedValue({ ...mockMovieDetails })
 
-async function fetchListSimilar(movieId: number): Promise<MovieItem[]> {
+export async function fetchListSimilar(movieId: number): Promise<MovieItem[]> {
   return getMockMovies(10)
 }
 
-async function fetchListRecommended(movieId: number): Promise<MovieItem[]> {
-  return getMockMovies(10)
-}
-
-async function fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
-  return getMockMovies(10)
-}
-
-async function fetchListByGenre(
-  genres: number[],
-  filters = {}
+export async function fetchListRecommended(
+  movieId: number
 ): Promise<MovieItem[]> {
   return getMockMovies(10)
 }
 
-async function fetchListMostPopular(page = 1): Promise<MovieItem[]> {
+export async function fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
   return getMockMovies(10)
 }
 
-async function fetchListTrending(): Promise<MovieItem[]> {
+export const fetchListByGenre = jest.fn().mockResolvedValue(getMockMovies(10))
+
+export async function fetchListMostPopular(page = 1): Promise<MovieItem[]> {
   return getMockMovies(10)
 }
 
-async function fetchCredits(movieId: number): Promise<MovieCredits> {
+export async function fetchListTrending(): Promise<MovieItem[]> {
+  return getMockMovies(10)
+}
+
+export async function fetchCredits(movieId: number): Promise<MovieCredits> {
   return { ...mockMovieCredits }
 }
 
-async function fetchVideos(movieId: number): Promise<Video[]> {
+export async function fetchVideos(movieId: number): Promise<Video[]> {
   return [{ ...mockVideo }]
 }
 
-async function fetchListsByGenres(): Promise<ListByGenre<MovieItem>[]> {
+export async function fetchListsByGenres(): Promise<ListByGenre<MovieItem>[]> {
   return mockMoviesListsByGenres
 }
 
-async function fetchAccountStates(): Promise<MovieAccountStates> {
+export async function fetchAccountStates(): Promise<MovieAccountStates> {
   return { ...mockMovieAccountStates }
 }
 
-export default {
+export const useMoviesAPI = () => ({
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -82,4 +77,4 @@ export default {
   fetchListTrending,
   fetchListsByGenres,
   fetchVideos,
-}
+})

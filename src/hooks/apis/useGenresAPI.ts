@@ -15,7 +15,7 @@ async function fetchTVShowsGenres(): Promise<Genre[]> {
   return api.get<Genre[]>(path)
 }
 
-export default {
+export const useGenresAPI = () => ({
   fetchMoviesGenres,
   fetchTVShowsGenres,
-}
+})

@@ -23,58 +23,55 @@ function getMockTVShows(amount: number): TVShowItem[] {
   return TVShows
 }
 
-async function fetchDetails(tvShowId: number): Promise<TVShow> {
-  return { ...mockTVShow }
-}
+export const fetchDetails = jest.fn().mockResolvedValue({ ...mockTVShow })
 
-async function fetchListSimilar(tvShowId: number): Promise<TVShowItem[]> {
-  return getMockTVShows(10)
-}
-
-async function fetchListRecommended(tvShowId: number): Promise<TVShowItem[]> {
-  return getMockTVShows(10)
-}
-
-async function fetchListByGenre(
-  genres: number[],
-  filters = {}
+export async function fetchListSimilar(
+  tvShowId: number
 ): Promise<TVShowItem[]> {
   return getMockTVShows(10)
 }
 
-async function fetchCredits(TVShowId: number): Promise<TVShowCredits> {
+export async function fetchListRecommended(
+  tvShowId: number
+): Promise<TVShowItem[]> {
+  return getMockTVShows(10)
+}
+
+export const fetchListByGenre = jest.fn().mockResolvedValue(getMockTVShows(10))
+
+export async function fetchCredits(TVShowId: number): Promise<TVShowCredits> {
   return { ...mockTVShowCredits }
 }
 
-async function fetchVideos(TVShowId: number): Promise<Video[]> {
+export async function fetchVideos(TVShowId: number): Promise<Video[]> {
   return [{ ...mockVideo }]
 }
 
-async function fetchListPopular(): Promise<TVShowItem[]> {
+export async function fetchListPopular(): Promise<TVShowItem[]> {
   return getMockTVShows(10)
 }
 
-async function fetchListOnTheAir(): Promise<TVShowItem[]> {
+export async function fetchListOnTheAir(): Promise<TVShowItem[]> {
   return getMockTVShows(10)
 }
 
-async function fetchListAiringToday(): Promise<TVShowItem[]> {
+export async function fetchListAiringToday(): Promise<TVShowItem[]> {
   return getMockTVShows(10)
 }
 
-async function fetchListTopRated(): Promise<TVShowItem[]> {
+export async function fetchListTopRated(): Promise<TVShowItem[]> {
   return getMockTVShows(10)
 }
 
-async function fetchListsByGenres(): Promise<ListByGenre<TVShowItem>[]> {
+export async function fetchListsByGenres(): Promise<ListByGenre<TVShowItem>[]> {
   return mockTVShowsListsByGenres
 }
 
-async function fetchAccountStates(): Promise<TVShowAccountStates> {
+export async function fetchAccountStates(): Promise<TVShowAccountStates> {
   return { ...(mockMovieAccountStates as TVShowAccountStates) }
 }
 
-export default {
+export const useTVShowsAPI = () => ({
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -87,4 +84,4 @@ export default {
   fetchListTopRated,
   fetchListsByGenres,
   fetchVideos,
-}
+})
