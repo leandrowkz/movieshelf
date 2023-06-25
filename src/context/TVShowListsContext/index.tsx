@@ -2,66 +2,11 @@ import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, type TVShowItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { useAPI } from 'src/hooks/useAPI'
-
-type TVShowListsState = {
-  airingToday: TVShowItem[]
-  onTheAir: TVShowItem[]
-  popular: TVShowItem[]
-  topRated: TVShowItem[]
-  similar: TVShowItem[]
-  recommended: TVShowItem[]
-  listsByGenres: ListByGenre<TVShowItem>[]
-  genre: TVShowItem[]
-
-  isLoadingAiringToday: boolean
-  isLoadingOnTheAir: boolean
-  isLoadingPopular: boolean
-  isLoadingTopRated: boolean
-  isLoadingSimilar: boolean
-  isLoadingRecommended: boolean
-  isLoadingByGenre: boolean
-  isLoadingListsByGenres: boolean
-  hasGenreErrors: boolean
-
-  fetchAiringToday: () => void
-  fetchOnTheAir: () => void
-  fetchPopular: () => void
-  fetchTopRated: () => void
-  fetchSimilar: (tvShowId: number) => void
-  fetchRecommended: (tvShowId: number) => void
-  fetchByGenre: (genreId: number) => void
-  fetchListsByGenres: (genres: Genre[]) => void
-}
+import { TVShowListsState } from './types'
+import { initialState } from './state'
 
 export const TVShowListsContext = createContext<TVShowListsState>({
-  airingToday: [],
-  onTheAir: [],
-  popular: [],
-  topRated: [],
-  similar: [],
-  recommended: [],
-  listsByGenres: [],
-  genre: [],
-
-  isLoadingAiringToday: false,
-  isLoadingOnTheAir: false,
-  isLoadingPopular: false,
-  isLoadingTopRated: false,
-  isLoadingSimilar: false,
-  isLoadingRecommended: false,
-  isLoadingListsByGenres: false,
-  isLoadingByGenre: false,
-
-  hasGenreErrors: false,
-
-  fetchAiringToday: () => null,
-  fetchOnTheAir: () => null,
-  fetchPopular: () => null,
-  fetchTopRated: () => null,
-  fetchSimilar: () => null,
-  fetchRecommended: () => null,
-  fetchByGenre: () => null,
-  fetchListsByGenres: () => null,
+  ...initialState,
 })
 
 export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {

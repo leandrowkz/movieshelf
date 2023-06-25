@@ -2,39 +2,11 @@ import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
 import { useAPI } from 'src/hooks/useAPI'
-
-type FavoritesState = {
-  movies: MovieItem[]
-  tvShows: TVShowItem[]
-  isLoadingMoviesFavorites: boolean
-  isLoadingTVShowsFavorites: boolean
-  isLoadingAddFavorite: boolean
-  isLoadingRemoveFavorite: boolean
-  hasMoviesFavoritesErrors: boolean
-  hasTVShowsFavoritesErrors: boolean
-  hasAddFavoriteErrors: boolean
-  hasRemoveFavoriteErrors: boolean
-  fetchMoviesFavorites: () => void
-  fetchTVShowsFavorites: () => void
-  addFavorite: (showId: number, showType: ShowType) => Promise<void>
-  removeFavorite: (showId: number, showType: ShowType) => Promise<void>
-}
+import { initialState } from './state'
+import { FavoritesState } from './types'
 
 export const FavoritesContext = createContext<FavoritesState>({
-  movies: [],
-  tvShows: [],
-  isLoadingMoviesFavorites: false,
-  isLoadingTVShowsFavorites: false,
-  isLoadingAddFavorite: false,
-  isLoadingRemoveFavorite: false,
-  hasAddFavoriteErrors: false,
-  hasRemoveFavoriteErrors: false,
-  hasMoviesFavoritesErrors: false,
-  hasTVShowsFavoritesErrors: false,
-  fetchMoviesFavorites: () => null,
-  fetchTVShowsFavorites: () => null,
-  addFavorite: () => Promise.resolve(),
-  removeFavorite: () => Promise.resolve(),
+  ...initialState,
 })
 
 export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {

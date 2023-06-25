@@ -11,11 +11,10 @@ import { useSupabase } from 'src/hooks/useSupabase'
 import { AuthState } from './types'
 import { initialState } from './state'
 
-const { supabase, transformSession } = useSupabase()
-
 export const AuthContext = createContext<AuthState>({ ...initialState })
 
 export const AuthContextProvider = ({ children }: PropsWithChildren) => {
+  const { supabase, transformSession } = useSupabase()
   const [session, setSession] = useState<Nullable<Session>>(null)
   const [signUpErrors, setSignUpErrors] = useState<Error | false>(false)
   const [signInErrors, setSignInErrors] = useState<Error | false>(false)

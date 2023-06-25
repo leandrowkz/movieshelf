@@ -5,41 +5,12 @@ import type {
   PersonCast,
   Video,
 } from '@leandrowkz/tmdb'
-import { Nullable } from '../types/Nullable'
 import { useAPI } from 'src/hooks/useAPI'
-
-type MovieDetailsState = {
-  movie: Nullable<Movie>
-  accountStates: MovieAccountStates
-  cast: PersonCast[]
-  crew: PersonCast[]
-  videos: Video[]
-  isLoadingMovie: boolean
-  isLoadingCredits: boolean
-  isLoadingVideos: boolean
-  isLoadingAccountStates: boolean
-  hasMovieErrors: boolean
-  fetchMovie: (movieId: number) => void
-  fetchCredits: (movieId: number) => void
-  fetchVideos: (movieId: number) => void
-  fetchAccountStates: (movieId: number) => void
-}
+import { MovieDetailsState } from './types'
+import { initialState } from './state'
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
-  movie: {} as Movie,
-  accountStates: {} as MovieAccountStates,
-  cast: [],
-  crew: [],
-  videos: [],
-  isLoadingMovie: false,
-  isLoadingCredits: false,
-  isLoadingVideos: false,
-  isLoadingAccountStates: false,
-  hasMovieErrors: false,
-  fetchMovie: () => null,
-  fetchCredits: () => null,
-  fetchVideos: () => null,
-  fetchAccountStates: () => null,
+  ...initialState,
 })
 
 export const MovieDetailsContextProvider = ({

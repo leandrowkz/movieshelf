@@ -1,16 +1,8 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
+import { DropdownState } from './types'
+import { initialState } from './state'
 
-type DropdownState = {
-  isOpen: boolean
-  close: () => void
-  toggle: () => void
-}
-
-export const DropdownContext = createContext<DropdownState>({
-  isOpen: false,
-  close: () => null,
-  toggle: () => null,
-})
+export const DropdownContext = createContext<DropdownState>({ ...initialState })
 
 export const DropdownContextProvider = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState(false)

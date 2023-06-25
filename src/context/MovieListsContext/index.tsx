@@ -2,83 +2,11 @@ import React, { PropsWithChildren, createContext, useState } from 'react'
 import { Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { useAPI } from 'src/hooks/useAPI'
-
-type MovieListsState = {
-  inTheatres: MovieItem[]
-  trending: MovieItem[]
-  similar: MovieItem[]
-  recommended: MovieItem[]
-  mostPopular: MovieItem[]
-  bestComedies: MovieItem[]
-  scifiAndFantasy: MovieItem[]
-  topRatedDocumentaries: MovieItem[]
-  family: MovieItem[]
-  listsByGenres: ListByGenre<MovieItem>[]
-  category: MovieItem[]
-
-  isLoadingTrending: boolean
-  isLoadingInTheatres: boolean
-  isLoadingSimilar: boolean
-  isLoadingRecommended: boolean
-  isLoadingMostPopular: boolean
-  isLoadingBestComedies: boolean
-  isLoadingScifiAndFantasy: boolean
-  isLoadingFamily: boolean
-  isLoadingTopRatedDocumentaries: boolean
-  isLoadingByCategory: boolean
-  isLoadingListsByGenres: boolean
-  hasCategoryErrors: boolean
-
-  fetchTrending: () => void
-  fetchInTheatres: () => void
-  fetchSimilar: (movieId: number) => void
-  fetchRecommended: (movieId: number) => void
-  fetchMostPopular: () => void
-  fetchBestComedies: () => void
-  fetchScifiAndFantasy: () => void
-  fetchFamily: () => void
-  fetchTopRatedDocumentaries: () => void
-  fetchByCategory: (categoryId: number) => void
-  fetchListsByGenres: (genres: Genre[]) => void
-}
+import { MovieListsState } from './types'
+import { initialState } from './state'
 
 export const MovieListsContext = createContext<MovieListsState>({
-  trending: [],
-  inTheatres: [],
-  similar: [],
-  recommended: [],
-  mostPopular: [],
-  bestComedies: [],
-  topRatedDocumentaries: [],
-  scifiAndFantasy: [],
-  family: [],
-  category: [],
-  listsByGenres: [],
-
-  isLoadingTrending: false,
-  isLoadingInTheatres: false,
-  isLoadingSimilar: false,
-  isLoadingRecommended: false,
-  isLoadingMostPopular: false,
-  isLoadingBestComedies: false,
-  isLoadingScifiAndFantasy: false,
-  isLoadingFamily: false,
-  isLoadingTopRatedDocumentaries: false,
-  isLoadingListsByGenres: false,
-  isLoadingByCategory: false,
-  hasCategoryErrors: false,
-
-  fetchTrending: () => null,
-  fetchSimilar: () => null,
-  fetchRecommended: () => null,
-  fetchMostPopular: () => null,
-  fetchBestComedies: () => null,
-  fetchScifiAndFantasy: () => null,
-  fetchFamily: () => null,
-  fetchTopRatedDocumentaries: () => null,
-  fetchInTheatres: () => null,
-  fetchByCategory: () => null,
-  fetchListsByGenres: () => null,
+  ...initialState,
 })
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {

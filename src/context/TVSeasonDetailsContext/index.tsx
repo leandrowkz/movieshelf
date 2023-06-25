@@ -1,21 +1,11 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
 import { useAPI } from 'src/hooks/useAPI'
-
-type TVSeasonDetailsState = {
-  season: TVSeason
-  episodes: TVEpisodeItem[]
-  isLoadingSeason: boolean
-  hasSeasonErrors: boolean
-  fetchSeasonDetails: (tvShowId: number, seasonNumber: number) => void
-}
+import { TVSeasonDetailsState } from './types'
+import { initialState } from './state'
 
 export const TVSeasonDetailsContext = createContext<TVSeasonDetailsState>({
-  season: {} as TVSeason,
-  episodes: [],
-  isLoadingSeason: false,
-  hasSeasonErrors: false,
-  fetchSeasonDetails: () => null,
+  ...initialState,
 })
 
 export const TVSeasonDetailsContextProvider = ({

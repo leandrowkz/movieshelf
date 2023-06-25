@@ -1,91 +1,22 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useState,
-} from 'react'
-import { api } from '../../services/GenresAPI'
-import type { Genre } from '@leandrowkz/tmdb'
+import React, { createContext } from 'react'
+import { initialState } from '../GenresContext/state'
+import type { GenresState } from '../GenresContext/types'
 import { mockGenresTVShows } from 'src/__mocks__/mockGenresTVShows'
 import { mockGenresMovies } from 'src/__mocks__/mockGenresMovies'
+import { PropsWithState } from 'src/types/PropsWithState'
 
-type GenresState = {
-  moviesGenres: Genre[]
-  tvShowsGenres: Genre[]
-  isLoadingMoviesGenres: boolean
-  isLoadingTVShowsGenres: boolean
-  hasMoviesGenresErrors: boolean
-  hasTVShowsGenresErrors: boolean
-  fetchMoviesGenres: () => void
-  fetchTVShowsGenres: () => void
+const mockState: GenresState = {
+  ...initialState,
+  moviesGenres: [...mockGenresMovies],
+  tvShowsGenres: [...mockGenresTVShows],
 }
 
-export const GenresContext = createContext<GenresState>({
-  moviesGenres: [],
-  tvShowsGenres: [],
-  isLoadingMoviesGenres: false,
-  isLoadingTVShowsGenres: false,
-  hasMoviesGenresErrors: false,
-  hasTVShowsGenresErrors: false,
-  fetchMoviesGenres: () => null,
-  fetchTVShowsGenres: () => null,
-})
+export const GenresContext = createContext<GenresState>({ ...mockState })
 
-export const GenresContextProvider = ({ children }: PropsWithChildren) => {
-  const [tvShowsGenres, setTVShowsGenres] = useState<Genre[]>([
-    ...mockGenresTVShows,
-  ])
-  const [moviesGenres, setMoviesGenres] = useState<Genre[]>([
-    ...mockGenresMovies,
-  ])
-  const [isLoadingMoviesGenres, setIsLoadingMoviesGenres] = useState(false)
-  const [hasMoviesGenresErrors, setHasMoviesGenresErrors] = useState(false)
-  const [isLoadingTVShowsGenres, setIsLoadingTVShowsGenres] = useState(false)
-  const [hasTVShowsGenresErrors, setHasTVShowsGenresErrors] = useState(false)
-
-  const fetchMoviesGenres = useCallback(async () => {
-    try {
-      setMoviesGenres([])
-      setIsLoadingMoviesGenres(true)
-      setHasMoviesGenresErrors(false)
-
-      const data = await api.fetchMoviesGenres()
-
-      setMoviesGenres(data)
-    } catch (e) {
-      setHasMoviesGenresErrors(true)
-    } finally {
-      setIsLoadingMoviesGenres(false)
-    }
-  }, [api])
-
-  const fetchTVShowsGenres = useCallback(async () => {
-    try {
-      setTVShowsGenres([])
-      setIsLoadingTVShowsGenres(true)
-      setHasTVShowsGenresErrors(false)
-
-      const data = await api.fetchTVShowsGenres()
-
-      setTVShowsGenres(data)
-    } catch (e) {
-      setHasTVShowsGenresErrors(true)
-    } finally {
-      setIsLoadingTVShowsGenres(false)
-    }
-  }, [api])
-
-  const state = {
-    moviesGenres,
-    tvShowsGenres,
-    isLoadingMoviesGenres,
-    isLoadingTVShowsGenres,
-    hasMoviesGenresErrors,
-    hasTVShowsGenresErrors,
-    fetchMoviesGenres,
-    fetchTVShowsGenres,
-  }
-
+export const GenresContextProvider = ({
+  children,
+  state = { ...mockState },
+}: PropsWithState<GenresState>) => {
   return (
     <GenresContext.Provider value={state}>{children}</GenresContext.Provider>
   )

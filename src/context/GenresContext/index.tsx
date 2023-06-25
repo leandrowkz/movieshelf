@@ -1,28 +1,10 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import type { Genre } from '@leandrowkz/tmdb'
 import { useAPI } from 'src/hooks/useAPI'
+import { initialState } from './state'
+import { GenresState } from './types'
 
-type GenresState = {
-  moviesGenres: Genre[]
-  tvShowsGenres: Genre[]
-  isLoadingMoviesGenres: boolean
-  isLoadingTVShowsGenres: boolean
-  hasMoviesGenresErrors: boolean
-  hasTVShowsGenresErrors: boolean
-  fetchMoviesGenres: () => void
-  fetchTVShowsGenres: () => void
-}
-
-export const GenresContext = createContext<GenresState>({
-  moviesGenres: [],
-  tvShowsGenres: [],
-  isLoadingMoviesGenres: false,
-  isLoadingTVShowsGenres: false,
-  hasMoviesGenresErrors: false,
-  hasTVShowsGenresErrors: false,
-  fetchMoviesGenres: () => null,
-  fetchTVShowsGenres: () => null,
-})
+export const GenresContext = createContext<GenresState>({ ...initialState })
 
 export const GenresContextProvider = ({ children }: PropsWithChildren) => {
   const api = useAPI('genres')

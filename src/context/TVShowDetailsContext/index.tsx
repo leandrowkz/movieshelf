@@ -7,39 +7,11 @@ import type {
   TVShowVideos,
 } from '@leandrowkz/tmdb'
 import { useAPI } from 'src/hooks/useAPI'
-
-type TVShowDetailsState = {
-  tvShow: TVShow
-  cast: PersonCast[]
-  crew: PersonCrew[]
-  videos: TVShowVideos['results']
-  accountStates: TVShowAccountStates
-  isLoadingTVShow: boolean
-  isLoadingCredits: boolean
-  isLoadingVideos: boolean
-  isLoadingAccountStates: boolean
-  hasTVShowErrors: boolean
-  fetchTVShow: (tvShowId: number) => void
-  fetchCredits: (tvShowId: number) => void
-  fetchVideos: (tvShowId: number) => void
-  fetchAccountStates: (movieId: number) => void
-}
+import { TVShowDetailsState } from './types'
+import { initialState } from './state'
 
 export const TVShowDetailsContext = createContext<TVShowDetailsState>({
-  tvShow: {} as TVShow,
-  cast: [],
-  crew: [],
-  videos: [],
-  accountStates: {} as TVShowAccountStates,
-  isLoadingTVShow: false,
-  isLoadingCredits: false,
-  isLoadingVideos: false,
-  hasTVShowErrors: false,
-  isLoadingAccountStates: false,
-  fetchTVShow: () => null,
-  fetchCredits: () => null,
-  fetchVideos: () => null,
-  fetchAccountStates: () => null,
+  ...initialState,
 })
 
 export const TVShowDetailsContextProvider = ({

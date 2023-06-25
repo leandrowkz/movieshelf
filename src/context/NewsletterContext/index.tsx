@@ -1,20 +1,10 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { useAPI } from 'src/hooks/useAPI'
+import { NewsletterState } from './types'
+import { initialState } from './state'
 
-type MovieDetailsState = {
-  isLoadingSubscribe: boolean
-  hasSubscribeErrors: boolean
-  hasSubscribeSuccess: boolean
-  clearSubscribeStatuses: () => void
-  subscribeNewsletter: (email: string) => void
-}
-
-export const NewsletterContext = createContext<MovieDetailsState>({
-  isLoadingSubscribe: false,
-  hasSubscribeErrors: false,
-  hasSubscribeSuccess: false,
-  clearSubscribeStatuses: () => null,
-  subscribeNewsletter: () => null,
+export const NewsletterContext = createContext<NewsletterState>({
+  ...initialState,
 })
 
 export const NewsletterContextProvider = ({ children }: PropsWithChildren) => {
