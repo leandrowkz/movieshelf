@@ -2,10 +2,10 @@ import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { Home } from '.'
 
-const { renderComponent, screen } = useTesting()
+jest.mock('src/hooks/apis/useMoviesAPI')
+jest.mock('src/hooks/apis/useTVShowsAPI')
 
-jest.mock('src/services/MoviesAPI')
-jest.mock('src/services/TVShowsAPI')
+const { renderComponent, screen } = useTesting()
 
 test('Should render Home properly', async () => {
   renderComponent(<Home />)

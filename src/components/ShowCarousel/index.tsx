@@ -32,7 +32,7 @@ export function ShowCarousel({
   const isTablet = useScreenSize('tablet')
   const isMobile = useScreenSize('mobile')
 
-  if (!shows.length && !isLoading) {
+  if ((!shows || !shows.length) && !isLoading) {
     return <></>
   }
 

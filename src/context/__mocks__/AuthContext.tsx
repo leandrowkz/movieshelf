@@ -1,7 +1,8 @@
-import React, { PropsWithChildren, createContext } from 'react'
+import React, { createContext } from 'react'
 import { mockSession } from 'src/__mocks__/mockSession'
-import { initialState } from '../state'
-import type { AuthState } from '../types'
+import { initialState } from '../AuthContext/state'
+import type { AuthState } from '../AuthContext/types'
+import { PropsWithState } from 'src/types/PropsWithState'
 
 const mockState: AuthState = {
   ...initialState,
@@ -13,6 +14,6 @@ export const AuthContext = createContext<AuthState>({ ...mockState })
 export const AuthContextProvider = ({
   children,
   state = { ...mockState },
-}: PropsWithChildren & { state?: AuthState }) => {
+}: PropsWithState<AuthState>) => {
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
 }

@@ -4,7 +4,7 @@ import { TVSeasonsTabs } from '.'
 import { TVShow } from '@leandrowkz/tmdb'
 import { act } from '@testing-library/react'
 
-jest.mock('src/services/TVSeasonsAPI')
+jest.mock('src/hooks/apis/useTVSeasonsAPI')
 
 const { renderComponent, getMockTVShows, screen } = useTesting()
 

@@ -23,27 +23,43 @@ import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
-import { GenresContextProvider } from 'src/context/GenresContext'
-import { AuthContextProvider } from 'src/context/AuthContext'
+import {
+  AuthContext as MockAuthContext,
+  AuthContextProvider as MockAuthContextProvider,
+} from 'src/context/__mocks__/AuthContext'
+import {
+  GenresContext as MockGenresContext,
+  GenresContextProvider as MockGenresContextProvider,
+} from 'src/context/__mocks__/GenresContext'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 import { FavoritesContextProvider } from 'src/context/FavoritesContext'
+
+jest.mock('src/hooks/useSupabase')
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   ScrollRestoration: () => <></>,
 }))
 
-jest.mock('src/hooks/useSupabase')
-jest.mock('src/context/AuthContext')
-jest.mock('src/context/GenresContext')
+jest.mock('src/context/AuthContext', () => ({
+  ...jest.requireActual('src/context/AuthContext'),
+  AuthContext: MockAuthContext,
+  AuthContextProvider: MockAuthContextProvider,
+}))
+
+jest.mock('src/context/GenresContext', () => ({
+  ...jest.requireActual('src/context/GenresContext'),
+  GenresContext: MockGenresContext,
+  GenresContextProvider: MockGenresContextProvider,
+}))
 
 const user = userEvent.setup()
 
 function renderComponent(component: ReactElement) {
   const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
     <BrowserRouter>
-      <AuthContextProvider>
-        <GenresContextProvider>
+      <MockAuthContextProvider>
+        <MockGenresContextProvider>
           <FavoritesContextProvider>
             <TVShowListsContextProvider>
               <TVShowDetailsContextProvider>
@@ -57,8 +73,8 @@ function renderComponent(component: ReactElement) {
               </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
           </FavoritesContextProvider>
-        </GenresContextProvider>
-      </AuthContextProvider>
+        </MockGenresContextProvider>
+      </MockAuthContextProvider>
     </BrowserRouter>
   )
 
