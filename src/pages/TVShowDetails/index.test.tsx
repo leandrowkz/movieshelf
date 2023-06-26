@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTVShowsAPI } from 'src/hooks/apis/__mocks__/useTVShowsAPI'
+import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { TVShowDetails } from '.'
 
@@ -20,7 +20,7 @@ test('should render TVShowDetails properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  api['fetchDetails'] = jest.fn().mockRejectedValueOnce(false)
+  api.fetchDetails = jest.fn().mockRejectedValueOnce(false)
   renderComponent(<TVShowDetails />)
 
   expect(await screen.findByTestId('show-not-found')).toBeVisible()

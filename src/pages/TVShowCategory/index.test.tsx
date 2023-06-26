@@ -4,6 +4,8 @@ import { useTesting } from 'src/hooks/useTesting'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 import { TVShowCategory } from '.'
 
+jest.mock('src/hooks/apis/useTVShowsAPI')
+
 const { renderComponent, screen } = useTesting()
 const api = useTVShowsAPI()
 
@@ -12,8 +14,6 @@ async function safeRenderComponent() {
     renderComponent(<TVShowCategory />)
   })
 }
-
-jest.mock('src/hooks/apis/useTVShowsAPI')
 
 test('should render TVShowCategory properly', async () => {
   await safeRenderComponent()

@@ -1,77 +1,69 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import type {
-  TVShow,
-  TVShowAccountStates,
-  TVShowCredits,
-  TVShowItem,
-  Video,
-} from '@leandrowkz/tmdb'
+import type { TVShowItem } from '@leandrowkz/tmdb'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVShowCredits } from 'src/__mocks__/mockTVShowCredits'
-import { ListByGenre } from 'src/types/ListByGenre'
 import { mockTVShowsListsByGenres } from 'src/__mocks__/mockTVShowsListsByGenres'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
 
 function getMockTVShows(amount: number): TVShowItem[] {
-  const TVShows: TVShowItem[] = []
+  const shows: TVShowItem[] = []
 
   for (let i = 0; i < amount; i++) {
-    TVShows.push({ ...mockTVShow })
+    shows.push({ ...mockTVShow })
   }
 
-  return TVShows
+  return shows
 }
 
-export const fetchDetails = jest.fn().mockResolvedValue({ ...mockTVShow })
+async function fetchDetails() {
+  return { ...mockTVShow }
+}
 
-export async function fetchListSimilar(
-  tvShowId: number
-): Promise<TVShowItem[]> {
+async function fetchListSimilar() {
   return getMockTVShows(10)
 }
 
-export async function fetchListRecommended(
-  tvShowId: number
-): Promise<TVShowItem[]> {
+async function fetchListRecommended() {
   return getMockTVShows(10)
 }
 
-export const fetchListByGenre = jest.fn().mockResolvedValue(getMockTVShows(10))
+async function fetchListByGenre() {
+  return getMockTVShows(10)
+}
 
-export async function fetchCredits(TVShowId: number): Promise<TVShowCredits> {
+async function fetchCredits() {
   return { ...mockTVShowCredits }
 }
 
-export async function fetchVideos(TVShowId: number): Promise<Video[]> {
+async function fetchVideos() {
   return [{ ...mockVideo }]
 }
 
-export async function fetchListPopular(): Promise<TVShowItem[]> {
+async function fetchListPopular() {
   return getMockTVShows(10)
 }
 
-export async function fetchListOnTheAir(): Promise<TVShowItem[]> {
+async function fetchListOnTheAir() {
   return getMockTVShows(10)
 }
 
-export async function fetchListAiringToday(): Promise<TVShowItem[]> {
+async function fetchListAiringToday() {
   return getMockTVShows(10)
 }
 
-export async function fetchListTopRated(): Promise<TVShowItem[]> {
+async function fetchListTopRated() {
   return getMockTVShows(10)
 }
 
-export async function fetchListsByGenres(): Promise<ListByGenre<TVShowItem>[]> {
+async function fetchListsByGenres() {
   return mockTVShowsListsByGenres
 }
 
-export async function fetchAccountStates(): Promise<TVShowAccountStates> {
-  return { ...(mockMovieAccountStates as TVShowAccountStates) }
+async function fetchAccountStates() {
+  return { ...mockMovieAccountStates }
 }
 
-export const useTVShowsAPI = () => ({
+const apis = {
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -84,4 +76,6 @@ export const useTVShowsAPI = () => ({
   fetchListTopRated,
   fetchListsByGenres,
   fetchVideos,
-})
+}
+
+export const useTVShowsAPI = () => apis

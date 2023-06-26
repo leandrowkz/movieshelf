@@ -3,9 +3,9 @@ import { useTesting } from 'src/hooks/useTesting'
 import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
 import { Movies } from '.'
 
-const { renderComponent, screen, user } = useTesting()
-
 jest.mock('src/hooks/apis/useMoviesAPI')
+
+const { renderComponent, screen, user } = useTesting()
 
 test('Should render movies page properly', async () => {
   renderComponent(<Movies />)

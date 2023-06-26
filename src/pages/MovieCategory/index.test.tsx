@@ -1,12 +1,13 @@
 import React from 'react'
-import { fetchListByGenre } from 'src/hooks/apis/__mocks__/useMoviesAPI'
-import { useTesting } from 'src/hooks/useTesting'
-import { MovieCategory } from '.'
 import { act } from '@testing-library/react'
+import { useTesting } from 'src/hooks/useTesting'
+import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { MovieCategory } from '.'
 
 jest.mock('src/hooks/apis/useMoviesAPI')
 
 const { renderComponent, screen } = useTesting()
+const api = useMoviesAPI()
 
 async function safeRenderComponent() {
   return act(async () => {
@@ -21,7 +22,7 @@ test('should render MovieCategory properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  fetchListByGenre.mockRejectedValueOnce(false)
+  api.fetchListByGenre = jest.fn().mockRejectedValueOnce(false)
   await safeRenderComponent()
 
   expect(await screen.findByTestId('category-not-found')).toBeVisible()

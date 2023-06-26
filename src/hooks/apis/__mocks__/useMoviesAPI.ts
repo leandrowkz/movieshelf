@@ -23,49 +23,51 @@ function getMockMovies(amount: number): MovieItem[] {
   return movies
 }
 
-export const fetchDetails = jest.fn().mockResolvedValue({ ...mockMovieDetails })
+async function fetchDetails() {
+  return { ...mockMovieDetails }
+}
 
-export async function fetchListSimilar(movieId: number): Promise<MovieItem[]> {
+async function fetchListSimilar() {
   return getMockMovies(10)
 }
 
-export async function fetchListRecommended(
-  movieId: number
-): Promise<MovieItem[]> {
+async function fetchListRecommended() {
   return getMockMovies(10)
 }
 
-export async function fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
+async function fetchListInTheatres() {
   return getMockMovies(10)
 }
 
-export const fetchListByGenre = jest.fn().mockResolvedValue(getMockMovies(10))
-
-export async function fetchListMostPopular(page = 1): Promise<MovieItem[]> {
+async function fetchListByGenre() {
   return getMockMovies(10)
 }
 
-export async function fetchListTrending(): Promise<MovieItem[]> {
+async function fetchListMostPopular() {
   return getMockMovies(10)
 }
 
-export async function fetchCredits(movieId: number): Promise<MovieCredits> {
+async function fetchListTrending() {
+  return getMockMovies(10)
+}
+
+async function fetchCredits() {
   return { ...mockMovieCredits }
 }
 
-export async function fetchVideos(movieId: number): Promise<Video[]> {
+async function fetchVideos() {
   return [{ ...mockVideo }]
 }
 
-export async function fetchListsByGenres(): Promise<ListByGenre<MovieItem>[]> {
-  return mockMoviesListsByGenres
+async function fetchListsByGenres() {
+  return [...mockMoviesListsByGenres]
 }
 
-export async function fetchAccountStates(): Promise<MovieAccountStates> {
+async function fetchAccountStates() {
   return { ...mockMovieAccountStates }
 }
 
-export const useMoviesAPI = () => ({
+const actions = {
   fetchAccountStates,
   fetchCredits,
   fetchDetails,
@@ -77,4 +79,6 @@ export const useMoviesAPI = () => ({
   fetchListTrending,
   fetchListsByGenres,
   fetchVideos,
-})
+}
+
+export const useMoviesAPI = () => actions
