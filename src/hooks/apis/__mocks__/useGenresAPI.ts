@@ -1,16 +1,17 @@
-import type { Genre } from '@leandrowkz/tmdb'
 import { mockGenresMovies } from 'src/__mocks__/mockGenresMovies'
 import { mockGenresTVShows } from 'src/__mocks__/mockGenresTVShows'
 
-export async function fetchMoviesGenres(): Promise<Genre[]> {
-  return mockGenresMovies
+async function fetchMoviesGenres() {
+  return [...mockGenresMovies]
 }
 
-export async function fetchTVShowsGenres(): Promise<Genre[]> {
-  return mockGenresTVShows
+async function fetchTVShowsGenres() {
+  return [...mockGenresTVShows]
 }
 
-export const useGenresAPI = () => ({
+const actions = {
   fetchMoviesGenres,
   fetchTVShowsGenres,
-})
+}
+
+export const useGenresAPI = () => actions

@@ -1,8 +1,7 @@
-import { Movie, TVShow } from '@leandrowkz/tmdb'
 import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
 
-export async function fetchMovieFavorites(): Promise<Movie[]> {
+async function fetchMovieFavorites() {
   return [
     { ...mockMovieDetails },
     { ...mockMovieDetails },
@@ -11,7 +10,7 @@ export async function fetchMovieFavorites(): Promise<Movie[]> {
   ]
 }
 
-export async function fetchTVShowsFavorites(): Promise<TVShow[]> {
+async function fetchTVShowsFavorites() {
   return [
     { ...mockTVShow },
     { ...mockTVShow },
@@ -28,9 +27,11 @@ async function removeFavoriteMovie() {
   return { status: 'success' }
 }
 
-export const useFavoritesAPI = () => ({
+const actions = {
   addFavoriteMovie,
   removeFavoriteMovie,
   fetchMovieFavorites,
   fetchTVShowsFavorites,
-})
+}
+
+export const useFavoritesAPI = () => actions

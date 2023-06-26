@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
 
-export async function fetchDetails(tvShowId: number, seasonNumber: number) {
+async function fetchDetails() {
   return { ...mockTVSeason }
 }
 
-export const useTVSeasonsAPI = () => ({
+const actions = {
   fetchDetails,
-})
+}
+
+export const useTVSeasonsAPI = () => actions
