@@ -14,12 +14,14 @@ interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem
   size?: 'small' | 'medium' | 'large'
   type?: ShowType
+  isSoftLoading?: boolean
 }
 
 export function ShowItem({
   show,
   size = 'medium',
   type = 'movie',
+  isSoftLoading = false,
   className,
   ...props
 }: Props) {
@@ -28,6 +30,7 @@ export function ShowItem({
     [styles.small]: size === 'small',
     [styles.medium]: size === 'medium',
     [styles.large]: size === 'large',
+    [styles.softLoading]: isSoftLoading,
   })
 
   const path = type === 'movie' ? '/movies' : '/tv'

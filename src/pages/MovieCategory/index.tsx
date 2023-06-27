@@ -48,7 +48,7 @@ export function MovieCategory(): JSX.Element {
           title={title}
           shows={category.data}
           size={size}
-          isLoading={isLoadingByCategory}
+          isSoftLoading={isLoadingByCategory}
           data-testid="list-movies-by-category"
           type="movie"
         />
@@ -56,6 +56,7 @@ export function MovieCategory(): JSX.Element {
           className={styles.pagination}
           pages={category.pages || 0}
           current={category.page}
+          isLoading={isLoadingByCategory}
           onPageChange={(page) => fetchListCategory(Number(genreId), page)}
         />
       </Container>

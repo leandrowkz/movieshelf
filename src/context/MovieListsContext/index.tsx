@@ -148,7 +148,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
 
   const fetchListCategory = async (categoryId: number, page = 1) => {
     try {
-      setCategory([])
       setHasCategoryErrors(false)
       setIsLoadingByCategory(true)
 
@@ -161,7 +160,9 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
       setCategory(data)
       setPageCategory(current)
       setPagesCategory(pages)
+      window.scrollTo(0, 0)
     } catch {
+      setCategory([])
       setHasCategoryErrors(true)
     } finally {
       setIsLoadingByCategory(false)

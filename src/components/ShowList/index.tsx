@@ -15,6 +15,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   type?: ShowType
   size?: 'large' | 'medium' | 'small'
   isLoading?: boolean
+  isSoftLoading?: boolean
 }
 
 export function ShowList({
@@ -22,6 +23,7 @@ export function ShowList({
   title,
   className,
   isLoading = false,
+  isSoftLoading = false,
   size = 'medium',
   type = 'movie',
   ...props
@@ -49,7 +51,12 @@ export function ShowList({
   return (
     <div className={classes} {...props}>
       <Header title={title} />
-      <List size={size} shows={shows} type={type} />
+      <List
+        size={size}
+        shows={shows}
+        type={type}
+        isSoftLoading={isSoftLoading}
+      />
     </div>
   )
 }
@@ -62,7 +69,12 @@ function Header({ title }: Pick<Props, 'title'>) {
   )
 }
 
-function List({ size, shows, type }: Pick<Props, 'size' | 'shows' | 'type'>) {
+function List({
+  size,
+  shows,
+  type,
+  isSoftLoading,
+}: Pick<Props, 'size' | 'shows' | 'type' | 'isSoftLoading'>) {
   const classes = classNames(styles.list, {
     [styles.listSmall]: size === 'small',
     [styles.listLarge]: size === 'large',
@@ -73,10 +85,11 @@ function List({ size, shows, type }: Pick<Props, 'size' | 'shows' | 'type'>) {
       {shows.map((show, index) => (
         <Motion key={`show-${show.id}-${index}`}>
           <ShowItem
-            className={styles.show}
             show={show}
             size={size}
             type={type}
+            isSoftLoading={isSoftLoading}
+            className={styles.show}
             data-testid="show-item"
           />
         </Motion>

@@ -6,12 +6,14 @@ import classNames from 'classnames'
 interface Props extends HTMLAttributes<HTMLDivElement> {
   pages: number
   current?: number
+  isLoading?: boolean
   onPageChange: (page: number) => void
 }
 
 export function Pagination({
   pages,
   current = 1,
+  isLoading,
   onPageChange,
   className,
 }: Props) {
@@ -21,6 +23,10 @@ export function Pagination({
   const startPage = currentPageChunk * maximumPages - maximumPages + 1
   const endPage =
     startPage + maximumPages > pages ? pages : startPage + maximumPages - 1
+
+  if (pages <= 0) {
+    return <></>
+  }
 
   content.push(
     <Button
@@ -55,7 +61,9 @@ export function Pagination({
     >{`>`}</Button>
   )
 
-  const classes = classNames(styles.pagination, className)
+  const classes = classNames(styles.pagination, className, {
+    [styles.loading]: isLoading,
+  })
 
   return <section className={classes}>{content}</section>
 }

@@ -52,3 +52,9 @@ test('Should not call prev/next if current is first or last', async () => {
 
   expect(onPageChange).not.toHaveBeenCalled()
 })
+
+test('Should not render if pages are not set', async () => {
+  renderComponent(<Pagination pages={0} onPageChange={jest.fn()} />)
+
+  expect(screen.queryAllByRole('button').length).toEqual(0)
+})
