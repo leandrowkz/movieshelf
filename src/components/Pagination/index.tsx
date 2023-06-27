@@ -4,11 +4,11 @@ import { Button } from '../Button'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   pages: number
-  current: number
+  current?: number
   onPageChange: (page: number) => void
 }
 
-export function Pagination({ pages, current, onPageChange }: Props) {
+export function Pagination({ pages, current = 1, onPageChange }: Props) {
   const content: ReactNode[] = []
   const maximumPages = 10
   const currentPageChunk = Math.ceil(current / maximumPages)

@@ -50,7 +50,7 @@ export function MovieCategory(): JSX.Element {
           type="movie"
         />
         <Pagination
-          pages={54}
+          pages={22}
           current={current}
           onPageChange={(page) => setCurrent(page)}
         />
