@@ -7,12 +7,18 @@ import { ShowList } from 'src/components/ShowList'
 import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
+import { Pagination } from 'src/components/Pagination'
+import styles from './styles.module.css'
 
 export function TVShowCategory(): JSX.Element {
   const { genreId } = useParams()
   const { tvShowsGenres: genres } = useContext(GenresContext)
-  const { genre, isLoadingByGenre, hasGenreErrors, fetchByGenre } =
-    useContext(TVShowListsContext)
+  const {
+    category,
+    isLoadingListCategory,
+    hasListCategoryErrors,
+    fetchListCategory,
+  } = useContext(TVShowListsContext)
   const [title, setTitle] = useState('TV Shows')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
@@ -20,7 +26,7 @@ export function TVShowCategory(): JSX.Element {
   useEffect(() => {
     const id = Number(genreId)
 
-    fetchByGenre(id)
+    fetchListCategory(id)
   }, [genreId])
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export function TVShowCategory(): JSX.Element {
     setTitle(`${genre.name} TV Shows`)
   }, [genreId, genres])
 
-  if (hasGenreErrors) {
+  if (hasListCategoryErrors) {
     return <NotFound data-testid="category-not-found" />
   }
 
@@ -40,11 +46,18 @@ export function TVShowCategory(): JSX.Element {
       <Container>
         <ShowList
           title={title}
-          shows={genre}
+          shows={category.data}
           size={size}
-          isLoading={isLoadingByGenre}
+          isSoftLoading={isLoadingListCategory}
           data-testid="list-tv-shows-by-category"
           type="tv"
+        />
+        <Pagination
+          className={styles.pagination}
+          pages={category.pages || 0}
+          current={category.page}
+          isLoading={isLoadingListCategory}
+          onPageChange={(page) => fetchListCategory(Number(genreId), page)}
         />
       </Container>
     </Page>

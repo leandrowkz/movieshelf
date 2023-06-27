@@ -8,7 +8,11 @@ export const initialState: TVShowListsState = {
   similar: [],
   recommended: [],
   listsByGenres: [],
-  genre: [],
+  category: {
+    data: [],
+    page: 0,
+    pages: 0,
+  },
 
   isLoadingAiringToday: false,
   isLoadingOnTheAir: false,
@@ -17,9 +21,9 @@ export const initialState: TVShowListsState = {
   isLoadingSimilar: false,
   isLoadingRecommended: false,
   isLoadingListsByGenres: false,
-  isLoadingByGenre: false,
+  isLoadingListCategory: false,
 
-  hasGenreErrors: false,
+  hasListCategoryErrors: false,
 
   fetchAiringToday: () => null,
   fetchOnTheAir: () => null,
@@ -27,6 +31,6 @@ export const initialState: TVShowListsState = {
   fetchTopRated: () => null,
   fetchSimilar: () => null,
   fetchRecommended: () => null,
-  fetchByGenre: () => null,
+  fetchListCategory: () => null,
   fetchListsByGenres: () => null,
 }

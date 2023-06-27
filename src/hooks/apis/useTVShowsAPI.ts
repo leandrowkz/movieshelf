@@ -7,6 +7,7 @@ import type {
 } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { APIClient } from './APIClient'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 const api = new APIClient('')
 
@@ -94,6 +95,19 @@ async function fetchAccountStates(
   return api.get<TVShowAccountStates>(path)
 }
 
+async function fetchListPaginatedByGenre(
+  genres: number[],
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const fetchFilters = {
+    with_genres: genres.join(','),
+    ...filters,
+  }
+  const path = api.buildPath('api/tv-shows/list-by-genre', fetchFilters)
+
+  return api.get(path)
+}
+
 export const useTVShowsAPI = () => ({
   fetchAccountStates,
   fetchCredits,
@@ -106,5 +120,6 @@ export const useTVShowsAPI = () => ({
   fetchListOnTheAir,
   fetchListAiringToday,
   fetchListTopRated,
+  fetchListPaginatedByGenre,
   fetchVideos,
 })

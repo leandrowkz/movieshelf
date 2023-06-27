@@ -17,10 +17,13 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const [topRated, setTopRated] = useState<TVShowItem[]>([])
   const [similar, setSimilar] = useState<TVShowItem[]>([])
   const [recommended, setRecommended] = useState<TVShowItem[]>([])
-  const [genre, setGenre] = useState<TVShowItem[]>([])
   const [listsByGenres, setListsByGenres] = useState<ListByGenre<TVShowItem>[]>(
     []
   )
+
+  const [category, setCategory] = useState<TVShowItem[]>([])
+  const [pageCategory, setPageCategory] = useState(0)
+  const [pagesCategory, setPagesCategory] = useState(0)
 
   const [isLoadingAiringToday, setIsLoadingAiringToday] =
     useState<boolean>(false)
@@ -32,8 +35,8 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
     useState<boolean>(false)
   const [isLoadingListsByGenres, setIsLoadingListsByGenres] =
     useState<boolean>(false)
-  const [isLoadingByGenre, setIsLoadingByGenre] = useState<boolean>(false)
-  const [hasGenreErrors, setHasGenreErrors] = useState<boolean>(false)
+  const [isLoadingListCategory, setIsLoadingListCategory] = useState(false)
+  const [hasListCategoryErrors, setHasListCategoryErrors] = useState(false)
 
   const fetchListsByGenres = async (genres: Genre[]) => {
     setListsByGenres([])
@@ -44,22 +47,6 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     setListsByGenres(data)
     setIsLoadingListsByGenres(false)
-  }
-
-  const fetchByGenre = async (genreId: number) => {
-    try {
-      setGenre([])
-      setHasGenreErrors(false)
-      setIsLoadingByGenre(true)
-
-      const data = await api.fetchListByGenre([genreId])
-
-      setGenre(data)
-    } catch {
-      setHasGenreErrors(true)
-    } finally {
-      setIsLoadingByGenre(false)
-    }
   }
 
   const fetchAiringToday = async () => {
@@ -122,6 +109,29 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
     setIsLoadingRecommended(false)
   }
 
+  const fetchListCategory = async (categoryId: number, page = 1) => {
+    try {
+      setHasListCategoryErrors(false)
+      setIsLoadingListCategory(true)
+
+      const {
+        data,
+        page: current,
+        pages,
+      } = await api.fetchListPaginatedByGenre([categoryId], { page })
+
+      setCategory(data)
+      setPageCategory(current)
+      setPagesCategory(pages)
+      window.scrollTo(0, 0)
+    } catch {
+      setCategory([])
+      setHasListCategoryErrors(true)
+    } finally {
+      setIsLoadingListCategory(false)
+    }
+  }
+
   const state = {
     airingToday,
     onTheAir,
@@ -130,7 +140,11 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
     similar,
     recommended,
     listsByGenres,
-    genre,
+    category: {
+      data: category,
+      page: pageCategory,
+      pages: pagesCategory,
+    },
 
     isLoadingAiringToday,
     isLoadingOnTheAir,
@@ -139,9 +153,9 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
     isLoadingSimilar,
     isLoadingRecommended,
     isLoadingListsByGenres,
-    isLoadingByGenre,
+    isLoadingListCategory,
 
-    hasGenreErrors,
+    hasListCategoryErrors,
 
     fetchAiringToday,
     fetchOnTheAir,
@@ -149,7 +163,7 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
     fetchTopRated,
     fetchSimilar,
     fetchRecommended,
-    fetchByGenre,
+    fetchListCategory,
     fetchListsByGenres,
   }
 
