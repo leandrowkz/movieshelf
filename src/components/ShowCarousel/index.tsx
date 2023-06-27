@@ -14,6 +14,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]
   title: string
   isLoading?: boolean
+  isSoftLoading?: boolean
   size?: 'large' | 'medium' | 'small'
   type?: ShowType
   genreId?: number
@@ -24,6 +25,7 @@ export function ShowCarousel({
   title,
   className,
   isLoading = false,
+  isSoftLoading = false,
   size = 'medium',
   type = 'movie',
   genreId,
@@ -68,8 +70,9 @@ export function ShowCarousel({
               key={show.id}
               type={type}
               show={show}
-              className={showClass}
               size={size}
+              isSoftLoading={isSoftLoading}
+              className={showClass}
             />
           ))}
         </Motion>
