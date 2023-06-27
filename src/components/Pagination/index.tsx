@@ -1,6 +1,7 @@
 import React, { HTMLAttributes, ReactNode } from 'react'
 import styles from './styles.module.css'
 import { Button } from '../Button'
+import classNames from 'classnames'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   pages: number
@@ -8,7 +9,12 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   onPageChange: (page: number) => void
 }
 
-export function Pagination({ pages, current = 1, onPageChange }: Props) {
+export function Pagination({
+  pages,
+  current = 1,
+  onPageChange,
+  className,
+}: Props) {
   const content: ReactNode[] = []
   const maximumPages = 10
   const currentPageChunk = Math.ceil(current / maximumPages)
@@ -49,5 +55,7 @@ export function Pagination({ pages, current = 1, onPageChange }: Props) {
     >{`>`}</Button>
   )
 
-  return <section className={styles.pagination}>{content}</section>
+  const classes = classNames(styles.pagination, className)
+
+  return <section className={classes}>{content}</section>
 }

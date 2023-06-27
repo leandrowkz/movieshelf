@@ -8,22 +8,25 @@ import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
 import { Pagination } from 'src/components/Pagination'
+import styles from './styles.module.css'
 
 export function MovieCategory(): JSX.Element {
   const { genreId } = useParams()
   const { moviesGenres: genres } = useContext(GenresContext)
-  const { category, isLoadingByCategory, hasCategoryErrors, fetchByCategory } =
-    useContext(MovieListsContext)
+  const {
+    category,
+    isLoadingByCategory,
+    hasCategoryErrors,
+    fetchListCategory,
+  } = useContext(MovieListsContext)
   const [title, setTitle] = useState('Movies')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
 
-  const [current, setCurrent] = useState(1)
-
   useEffect(() => {
     const id = Number(genreId)
 
-    fetchByCategory(id)
+    fetchListCategory(id, 1)
   }, [genreId])
 
   useEffect(() => {
@@ -43,16 +46,17 @@ export function MovieCategory(): JSX.Element {
       <Container>
         <ShowList
           title={title}
-          shows={category}
+          shows={category.data}
           size={size}
           isLoading={isLoadingByCategory}
           data-testid="list-movies-by-category"
           type="movie"
         />
         <Pagination
-          pages={22}
-          current={current}
-          onPageChange={(page) => setCurrent(page)}
+          className={styles.pagination}
+          pages={category.pages || 0}
+          current={category.page}
+          onPageChange={(page) => fetchListCategory(Number(genreId), page)}
         />
       </Container>
     </Page>

@@ -10,8 +10,12 @@ export const initialState: MovieListsState = {
   topRatedDocumentaries: [],
   scifiAndFantasy: [],
   family: [],
-  category: [],
   listsByGenres: [],
+  category: {
+    data: [],
+    page: 0,
+    pages: 0,
+  },
 
   isLoadingTrending: false,
   isLoadingInTheatres: false,
@@ -35,6 +39,6 @@ export const initialState: MovieListsState = {
   fetchFamily: () => null,
   fetchTopRatedDocumentaries: () => null,
   fetchInTheatres: () => null,
-  fetchByCategory: () => null,
+  fetchListCategory: () => null,
   fetchListsByGenres: () => null,
 }

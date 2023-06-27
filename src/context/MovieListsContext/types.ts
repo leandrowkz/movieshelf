@@ -1,5 +1,6 @@
 import { Genre, MovieItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 export type MovieListsState = {
   inTheatres: MovieItem[]
@@ -12,7 +13,7 @@ export type MovieListsState = {
   topRatedDocumentaries: MovieItem[]
   family: MovieItem[]
   listsByGenres: ListByGenre<MovieItem>[]
-  category: MovieItem[]
+  category: ListPaginated<MovieItem>
 
   isLoadingTrending: boolean
   isLoadingInTheatres: boolean
@@ -36,6 +37,6 @@ export type MovieListsState = {
   fetchScifiAndFantasy: () => void
   fetchFamily: () => void
   fetchTopRatedDocumentaries: () => void
-  fetchByCategory: (categoryId: number) => void
+  fetchListCategory: (categoryId: number, page?: number) => void
   fetchListsByGenres: (genres: Genre[]) => void
 }
