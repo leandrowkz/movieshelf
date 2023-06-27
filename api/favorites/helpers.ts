@@ -2,7 +2,15 @@ import { supabase } from '../api'
 
 type ShowType = 'tv' | 'movie'
 
-export async function getFavoritesList(userId: string, type: ShowType) {
+function getFromTo(page: number) {
+  return 0
+}
+
+export async function getFavoritesList(
+  userId: string,
+  type: ShowType,
+  page = 1
+) {
   const favorites = await supabase
     .from('favorites')
     .select()
