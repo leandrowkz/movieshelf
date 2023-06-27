@@ -7,6 +7,7 @@ import { ShowList } from 'src/components/ShowList'
 import { GenresContext } from 'src/context/GenresContext'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
+import { Pagination } from 'src/components/Pagination'
 
 export function MovieCategory(): JSX.Element {
   const { genreId } = useParams()
@@ -16,6 +17,8 @@ export function MovieCategory(): JSX.Element {
   const [title, setTitle] = useState('Movies')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
+
+  const [current, setCurrent] = useState(1)
 
   useEffect(() => {
     const id = Number(genreId)
@@ -45,6 +48,11 @@ export function MovieCategory(): JSX.Element {
           isLoading={isLoadingByCategory}
           data-testid="list-movies-by-category"
           type="movie"
+        />
+        <Pagination
+          pages={54}
+          current={current}
+          onPageChange={(page) => setCurrent(page)}
         />
       </Container>
     </Page>
