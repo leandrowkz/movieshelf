@@ -22,7 +22,7 @@ test('should render TVShowCategory properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  api.fetchListByGenre = jest.fn().mockRejectedValueOnce(false)
+  api.fetchListPaginatedByGenre = jest.fn().mockRejectedValueOnce(false)
   await safeRenderComponent()
 
   expect(await screen.findByTestId('category-not-found')).toBeVisible()

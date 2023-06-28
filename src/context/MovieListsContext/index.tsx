@@ -18,7 +18,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [bestComedies, setBestComedies] = useState<MovieItem[]>([])
   const [scifiAndFantasy, setScifiAndFantasy] = useState<MovieItem[]>([])
   const [family, setFamily] = useState<MovieItem[]>([])
-  const [category, setCategory] = useState<MovieItem[]>([])
   const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<
     MovieItem[]
   >([])
@@ -26,6 +25,10 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [listsByGenres, setListsByGenres] = useState<ListByGenre<MovieItem>[]>(
     []
   )
+
+  const [category, setCategory] = useState<MovieItem[]>([])
+  const [pageCategory, setPageCategory] = useState(0)
+  const [pagesCategory, setPagesCategory] = useState(0)
 
   const [isLoadingTrending, setIsLoadingTrending] = useState(false)
   const [isLoadingInTheatres, setIsLoadingInTheatres] = useState(false)
@@ -143,16 +146,23 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     setIsLoadingInTheatres(false)
   }
 
-  const fetchByCategory = async (categoryId: number) => {
+  const fetchListCategory = async (categoryId: number, page = 1) => {
     try {
-      setCategory([])
       setHasCategoryErrors(false)
       setIsLoadingByCategory(true)
 
-      const data = await api.fetchListByGenre([categoryId])
+      const {
+        data,
+        page: current,
+        pages,
+      } = await api.fetchListPaginatedByGenre([categoryId], { page })
 
       setCategory(data)
+      setPageCategory(current)
+      setPagesCategory(pages)
+      window.scrollTo(0, 0)
     } catch {
+      setCategory([])
       setHasCategoryErrors(true)
     } finally {
       setIsLoadingByCategory(false)
@@ -179,9 +189,14 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     scifiAndFantasy,
     topRatedDocumentaries,
     family,
-    category,
     inTheatres,
     listsByGenres,
+
+    category: {
+      data: category,
+      page: pageCategory,
+      pages: pagesCategory,
+    },
 
     isLoadingTrending,
     isLoadingInTheatres,
@@ -205,7 +220,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     fetchFamily,
     fetchTopRatedDocumentaries,
     fetchInTheatres,
-    fetchByCategory,
+    fetchListCategory,
     fetchListsByGenres,
   }
 

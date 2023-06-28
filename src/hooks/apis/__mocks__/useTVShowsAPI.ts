@@ -4,6 +4,7 @@ import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVShowCredits } from 'src/__mocks__/mockTVShowCredits'
 import { mockTVShowsListsByGenres } from 'src/__mocks__/mockTVShowsListsByGenres'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
+import { mockTVShowsListPaginated } from 'src/__mocks__/mockTVShowsListPaginated'
 
 function getMockTVShows(amount: number): TVShowItem[] {
   const shows: TVShowItem[] = []
@@ -63,6 +64,10 @@ async function fetchAccountStates() {
   return { ...mockMovieAccountStates }
 }
 
+async function fetchListPaginatedByGenre() {
+  return { ...mockTVShowsListPaginated }
+}
+
 const apis = {
   fetchAccountStates,
   fetchCredits,
@@ -75,6 +80,7 @@ const apis = {
   fetchListSimilar,
   fetchListTopRated,
   fetchListsByGenres,
+  fetchListPaginatedByGenre,
   fetchVideos,
 }
 

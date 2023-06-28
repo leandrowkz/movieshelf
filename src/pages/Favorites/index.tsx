@@ -8,27 +8,22 @@ import styles from './styles.module.css'
 import { AuthContext } from 'src/context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Pagination } from 'src/components/Pagination'
 
 export function Favorites(): JSX.Element {
   const navigate = useNavigate()
   const isMobile = useScreenSize('mobile')
-  const { session } = useContext(AuthContext)
-  const {
-    movies,
-    tvShows,
-    isLoadingMoviesFavorites,
-    isLoadingTVShowsFavorites,
-    fetchMoviesFavorites,
-    fetchTVShowsFavorites,
-  } = useContext(FavoritesContext)
+  const { session, isLoadingSignIn } = useContext(AuthContext)
+  const { movies, tvShows, fetchMoviesFavorites, fetchTVShowsFavorites } =
+    useContext(FavoritesContext)
 
   useEffect(() => {
-    if (!session) {
+    if (!session && !isLoadingSignIn) {
       return navigate('/sign-up')
     }
 
-    fetchMoviesFavorites()
-    fetchTVShowsFavorites()
+    fetchMoviesFavorites(1)
+    fetchTVShowsFavorites(1)
   }, [])
 
   if (!session) {
@@ -40,21 +35,34 @@ export function Favorites(): JSX.Element {
       <Container>
         <Heading level={1} title="💜 Favorites" data-testid="heading" />
         <ShowList
-          shows={movies}
+          shows={movies.data}
           size={isMobile ? 'small' : 'medium'}
           type="movie"
           title="Your favorite movies"
-          isLoading={isLoadingMoviesFavorites}
+          isSoftLoading={movies.isLoading}
           data-testid="list-movies"
-          className={styles.list}
+        />
+        <Pagination
+          className={styles.pagination}
+          pages={movies.pages || 0}
+          current={movies.page}
+          isLoading={movies.isLoading}
+          onPageChange={(page) => fetchMoviesFavorites(page)}
         />
         <ShowList
-          shows={tvShows}
+          shows={tvShows.data}
           size={isMobile ? 'small' : 'medium'}
           type="tv"
           title="Your favorite TV Shows"
-          isLoading={isLoadingTVShowsFavorites}
+          isSoftLoading={tvShows.isLoading}
           data-testid="list-tv-shows"
+        />
+        <Pagination
+          className={styles.pagination}
+          pages={tvShows.pages || 0}
+          current={tvShows.page}
+          isLoading={tvShows.isLoading}
+          onPageChange={(page) => fetchTVShowsFavorites(page)}
         />
       </Container>
     </Page>

@@ -1,5 +1,6 @@
 import { Genre, TVShowItem } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 export type TVShowListsState = {
   airingToday: TVShowItem[]
@@ -9,7 +10,7 @@ export type TVShowListsState = {
   similar: TVShowItem[]
   recommended: TVShowItem[]
   listsByGenres: ListByGenre<TVShowItem>[]
-  genre: TVShowItem[]
+  category: ListPaginated<TVShowItem>
 
   isLoadingAiringToday: boolean
   isLoadingOnTheAir: boolean
@@ -17,9 +18,9 @@ export type TVShowListsState = {
   isLoadingTopRated: boolean
   isLoadingSimilar: boolean
   isLoadingRecommended: boolean
-  isLoadingByGenre: boolean
+  isLoadingListCategory: boolean
   isLoadingListsByGenres: boolean
-  hasGenreErrors: boolean
+  hasListCategoryErrors: boolean
 
   fetchAiringToday: () => void
   fetchOnTheAir: () => void
@@ -27,6 +28,6 @@ export type TVShowListsState = {
   fetchTopRated: () => void
   fetchSimilar: (tvShowId: number) => void
   fetchRecommended: (tvShowId: number) => void
-  fetchByGenre: (genreId: number) => void
+  fetchListCategory: (categoryId: number, page?: number) => void
   fetchListsByGenres: (genres: Genre[]) => void
 }

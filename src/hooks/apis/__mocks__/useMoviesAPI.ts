@@ -12,6 +12,8 @@ import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockMovieCredits } from 'src/__mocks__/mockMovieCredits'
 import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
+import { ListPaginated } from 'src/types/ListPaginated'
+import { mockMovieListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
 
 function getMockMovies(amount: number): MovieItem[] {
   const movies: MovieItem[] = []
@@ -67,6 +69,10 @@ async function fetchAccountStates() {
   return { ...mockMovieAccountStates }
 }
 
+async function fetchListPaginatedByGenre() {
+  return { ...mockMovieListPaginated }
+}
+
 const actions = {
   fetchAccountStates,
   fetchCredits,
@@ -78,6 +84,7 @@ const actions = {
   fetchListSimilar,
   fetchListTrending,
   fetchListsByGenres,
+  fetchListPaginatedByGenre,
   fetchVideos,
 }
 

@@ -1,22 +1,12 @@
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { mockTVShow } from 'src/__mocks__/mockTVShow'
+import { mockMovieListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
+import { mockTVShowsListPaginated } from 'src/__mocks__/mockTVShowsListPaginated'
 
 async function fetchMovieFavorites() {
-  return [
-    { ...mockMovieDetails },
-    { ...mockMovieDetails },
-    { ...mockMovieDetails },
-    { ...mockMovieDetails },
-  ]
+  return { ...mockMovieListPaginated }
 }
 
 async function fetchTVShowsFavorites() {
-  return [
-    { ...mockTVShow },
-    { ...mockTVShow },
-    { ...mockTVShow },
-    { ...mockTVShow },
-  ]
+  return { ...mockTVShowsListPaginated }
 }
 
 export async function addFavoriteMovie() {

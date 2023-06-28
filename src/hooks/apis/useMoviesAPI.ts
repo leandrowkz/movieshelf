@@ -7,6 +7,7 @@ import type {
 } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { APIClient } from './APIClient'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 const api = new APIClient('')
 
@@ -32,6 +33,19 @@ async function fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
   const path = api.buildPath('/api/movies/in-theatres', filters)
 
   return api.get<MovieItem[]>(path)
+}
+
+async function fetchListPaginatedByGenre(
+  genres: number[],
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const fetchFilters = {
+    with_genres: genres.join(','),
+    ...filters,
+  }
+  const path = api.buildPath('api/movies/list-by-genre', fetchFilters)
+
+  return api.get(path)
 }
 
 async function fetchListByGenre(
@@ -101,5 +115,6 @@ export const useMoviesAPI = () => ({
   fetchListSimilar,
   fetchListTrending,
   fetchListsByGenres,
+  fetchListPaginatedByGenre,
   fetchVideos,
 })

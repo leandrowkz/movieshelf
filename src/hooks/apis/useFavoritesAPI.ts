@@ -1,19 +1,24 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
 import { APIClient } from './APIClient'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 const api = new APIClient('')
 
-async function fetchMovieFavorites(): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/favorites/movies')
+async function fetchMovieFavorites(
+  page = 1
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/favorites/movies', { page })
 
-  return api.get<MovieItem[]>(path)
+  return api.get(path)
 }
 
-async function fetchTVShowsFavorites(): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/favorites/tv-shows')
+async function fetchTVShowsFavorites(
+  page = 1
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/favorites/tv-shows', { page })
 
-  return api.get<TVShowItem[]>(path)
+  return api.get(path)
 }
 
 async function addFavorite(showId: number, showType: ShowType) {
