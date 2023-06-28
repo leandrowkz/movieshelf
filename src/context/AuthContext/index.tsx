@@ -94,14 +94,13 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
     const { data, error } = await supabase.auth.getSession()
 
-    setIsLoadingSignIn(false)
-
     if (error) {
       setSignInErrors(error)
       throw error
     }
 
     setSession(transformSession(data))
+    setIsLoadingSignIn(false)
   }
 
   const clearSignInErrors = () => setSignInErrors(false)

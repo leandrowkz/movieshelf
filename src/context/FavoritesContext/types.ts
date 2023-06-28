@@ -1,19 +1,16 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
+import { ListPaginated } from 'src/types/ListPaginated'
 import { ShowType } from 'src/types/ShowType'
 
 export type FavoritesState = {
-  movies: MovieItem[]
-  tvShows: TVShowItem[]
-  isLoadingMoviesFavorites: boolean
-  isLoadingTVShowsFavorites: boolean
+  movies: ListPaginated<MovieItem>
+  tvShows: ListPaginated<TVShowItem>
   isLoadingAddFavorite: boolean
   isLoadingRemoveFavorite: boolean
-  hasMoviesFavoritesErrors: boolean
-  hasTVShowsFavoritesErrors: boolean
   hasAddFavoriteErrors: boolean
   hasRemoveFavoriteErrors: boolean
-  fetchMoviesFavorites: () => void
-  fetchTVShowsFavorites: () => void
+  fetchMoviesFavorites: (page: number) => void
+  fetchTVShowsFavorites: (page: number) => void
   addFavorite: (showId: number, showType: ShowType) => Promise<void>
   removeFavorite: (showId: number, showType: ShowType) => Promise<void>
 }

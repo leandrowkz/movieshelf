@@ -1,9 +1,28 @@
 import { supabase } from '../api'
+import { ShowType } from '../types'
 
-type ShowType = 'tv' | 'movie'
+const ITEMS_PER_PAGES = 20
 
-function getFromTo(page: number) {
-  return 0
+async function getFavoritesMetadata(userId: string, type: ShowType) {
+  const { count } = await supabase
+    .from('favorites')
+    .select('*', { count: 'estimated' })
+    .eq('user_id', userId)
+    .eq('media_type', type)
+
+  const total = count || 0
+
+  return {
+    count: total,
+    pages: Math.ceil(total / ITEMS_PER_PAGES),
+  }
+}
+
+function getFavoritesRange(page: number) {
+  const startRow = page * ITEMS_PER_PAGES - ITEMS_PER_PAGES
+  const endRow = startRow + ITEMS_PER_PAGES - 1
+
+  return { from: startRow, to: endRow }
 }
 
 export async function getFavoritesList(
@@ -11,14 +30,26 @@ export async function getFavoritesList(
   type: ShowType,
   page = 1
 ) {
-  const favorites = await supabase
+  const { count, pages } = await getFavoritesMetadata(userId, type)
+  const { from: fromRow, to } = getFavoritesRange(page)
+
+  const toRow = to > count ? count : to
+
+  const { data } = await supabase
     .from('favorites')
     .select()
     .eq('user_id', userId)
     .eq('media_type', type)
     .order('created_at', { ascending: false })
+    .range(fromRow, toRow)
 
-  return favorites
+  const favoritesList = {
+    data,
+    pages,
+    page,
+  }
+
+  return favoritesList
 }
 
 export async function addFavorite(

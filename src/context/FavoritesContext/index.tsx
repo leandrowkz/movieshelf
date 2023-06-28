@@ -4,6 +4,7 @@ import { ShowType } from 'src/types/ShowType'
 import { initialState } from './state'
 import { FavoritesState } from './types'
 import { useFavoritesAPI } from 'src/hooks/apis/useFavoritesAPI'
+import { ListPaginated } from 'src/types/ListPaginated'
 
 export const FavoritesContext = createContext<FavoritesState>({
   ...initialState,
@@ -11,50 +12,53 @@ export const FavoritesContext = createContext<FavoritesState>({
 
 export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
   const api = useFavoritesAPI()
-  const [movies, setMovies] = useState<MovieItem[]>([])
-  const [tvShows, setTVShows] = useState<TVShowItem[]>([])
+  const [movies, setMovies] = useState<ListPaginated<MovieItem>>({
+    ...initialState.movies,
+  })
+  const [tvShows, setTVShows] = useState<ListPaginated<TVShowItem>>({
+    ...initialState.tvShows,
+  })
+
   const [isLoadingAddFavorite, setIsLoadingAddFavorite] = useState(false)
   const [isLoadingRemoveFavorite, setIsLoadingRemoveFavorite] = useState(false)
-  const [isLoadingMoviesFavorites, setIsLoadingMoviesFavorites] =
-    useState(false)
-  const [isLoadingTVShowsFavorites, setIsLoadingTVShowsFavorites] =
-    useState(false)
-  const [hasMoviesFavoritesErrors, setHasMoviesFavoritesErrors] =
-    useState(false)
-  const [hasTVShowsFavoritesErrors, setHasTVShowsFavoritesErrors] =
-    useState(false)
   const [hasAddFavoriteErrors, setHasAddFavoriteErrors] = useState(false)
   const [hasRemoveFavoriteErrors, setHasRemoveFavoriteErrors] = useState(false)
 
-  const fetchMoviesFavorites = async () => {
+  const fetchMoviesFavorites = async (page: number) => {
     try {
-      setMovies([])
-      setIsLoadingMoviesFavorites(true)
-      setHasMoviesFavoritesErrors(false)
+      setMovies((prev) => ({
+        ...prev,
+        page,
+        hasErrors: false,
+        isLoading: true,
+      }))
 
-      const data = await api.fetchMovieFavorites()
+      const { data, pages } = await api.fetchMovieFavorites(page)
 
-      setMovies(data)
+      setMovies((prev) => ({ ...prev, data, pages }))
     } catch (e) {
-      setHasMoviesFavoritesErrors(true)
+      setMovies((prev) => ({ ...prev, data: [], hasErrors: true }))
     } finally {
-      setIsLoadingMoviesFavorites(false)
+      setMovies((prev) => ({ ...prev, isLoading: false }))
     }
   }
 
-  const fetchTVShowsFavorites = async () => {
+  const fetchTVShowsFavorites = async (page: number) => {
     try {
-      setTVShows([])
-      setIsLoadingTVShowsFavorites(true)
-      setHasTVShowsFavoritesErrors(false)
+      setTVShows((prev) => ({
+        ...prev,
+        page,
+        hasErrors: false,
+        isLoading: true,
+      }))
 
-      const data = await api.fetchTVShowsFavorites()
+      const { data, pages } = await api.fetchTVShowsFavorites(page)
 
-      setTVShows(data)
+      setTVShows((prev) => ({ ...prev, data, pages }))
     } catch (e) {
-      setHasTVShowsFavoritesErrors(true)
+      setTVShows((prev) => ({ ...prev, data: [], hasErrors: true }))
     } finally {
-      setIsLoadingTVShowsFavorites(false)
+      setTVShows((prev) => ({ ...prev, isLoading: false }))
     }
   }
 
@@ -66,9 +70,9 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
       await api.addFavorite(showId, showType)
 
       if (showType === 'movie') {
-        fetchMoviesFavorites()
+        fetchMoviesFavorites(movies.page)
       } else {
-        fetchTVShowsFavorites()
+        fetchTVShowsFavorites(tvShows.page)
       }
     } catch (e) {
       setHasAddFavoriteErrors(true)
@@ -85,9 +89,9 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
       await api.removeFavorite(showId, showType)
 
       if (showType === 'movie') {
-        fetchMoviesFavorites()
+        fetchMoviesFavorites(movies.page)
       } else {
-        fetchTVShowsFavorites()
+        fetchTVShowsFavorites(tvShows.page)
       }
     } catch (e) {
       setHasRemoveFavoriteErrors(true)
@@ -99,14 +103,10 @@ export const FavoritesContextProvider = ({ children }: PropsWithChildren) => {
   const state = {
     movies,
     tvShows,
-    isLoadingMoviesFavorites,
-    isLoadingTVShowsFavorites,
     isLoadingAddFavorite,
     isLoadingRemoveFavorite,
     hasAddFavoriteErrors,
     hasRemoveFavoriteErrors,
-    hasMoviesFavoritesErrors,
-    hasTVShowsFavoritesErrors,
     fetchMoviesFavorites,
     fetchTVShowsFavorites,
     addFavorite,

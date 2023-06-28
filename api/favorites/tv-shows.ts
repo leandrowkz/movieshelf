@@ -1,14 +1,22 @@
 import type { TVShowItem } from '@leandrowkz/tmdb'
-import { authorize, json, tmdb } from '../api'
+import { json, tmdb, authorize } from '../api'
 import { User } from '@supabase/supabase-js'
 import { getFavoritesList } from './helpers'
+import { ListPaginated } from '../types'
 
 export const config = {
   runtime: 'edge',
 }
 
 export default async (req: Request) => {
-  const favorites: TVShowItem[] = []
+  const { searchParams } = new URL(req.url)
+  const page = searchParams.get('page')
+  const favorites: ListPaginated<TVShowItem> = {
+    data: [],
+    page: 0,
+    pages: 0,
+  }
+
   let user: User
 
   try {
@@ -20,16 +28,19 @@ export default async (req: Request) => {
   }
 
   try {
-    const { data } = await getFavoritesList(user.id, 'tv')
+    const { data, pages } = await getFavoritesList(user.id, 'tv', Number(page))
 
     if (data) {
+      favorites.page = Number(page)
+      favorites.pages = pages
+
       await Promise.all(
         data.map(async (row) => {
           try {
-            const tvShow = await tmdb.tvShows.details(Number(row.media_id))
+            const show = await tmdb.tvShows.details(Number(row.media_id))
 
-            if (tvShow) {
-              favorites.push(tvShow)
+            if (show) {
+              favorites.data.push(show)
             }
           } catch (e) {
             /* empty */
