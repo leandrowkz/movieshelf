@@ -13,12 +13,19 @@ import { Pagination } from 'src/components/Pagination'
 export function Favorites(): JSX.Element {
   const navigate = useNavigate()
   const isMobile = useScreenSize('mobile')
-  const { session, isLoadingSignIn } = useContext(AuthContext)
+  const { isAuthenticated, isAutoSignInDone } = useContext(AuthContext)
   const { movies, tvShows, fetchMoviesFavorites, fetchTVShowsFavorites } =
     useContext(FavoritesContext)
 
   useEffect(() => {
-    if (!session && !isLoadingSignIn) {
+    if (!isAuthenticated) {
+      return navigate('/sign-up')
+    }
+  }, [isAutoSignInDone])
+
+  useEffect(() => {
+    console.log(isAutoSignInDone, isAuthenticated)
+    if (isAutoSignInDone && !isAuthenticated) {
       return navigate('/sign-up')
     }
 
@@ -26,7 +33,7 @@ export function Favorites(): JSX.Element {
     fetchTVShowsFavorites(1)
   }, [])
 
-  if (!session) {
+  if (!isAuthenticated) {
     return <></>
   }
 

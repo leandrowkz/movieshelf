@@ -8,7 +8,7 @@ import type { User } from 'src/types/User'
 import type { Session } from 'src/types/Session'
 import { Nullable } from 'src/types/Nullable'
 import { useSupabase } from 'src/hooks/useSupabase'
-import { AuthState } from './types'
+import { AuthState, SupabaseSession } from './types'
 import { initialState } from './state'
 
 export const AuthContext = createContext<AuthState>({ ...initialState })
@@ -22,6 +22,16 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false)
   const [isLoadingSignIn, setIsLoadingSignIn] = useState(false)
   const [isLoadingSignOut, setIsLoadingSignOut] = useState(false)
+  const [isAutoSignInDone, setIsAutoSignInDone] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const setSignInData = (data: SupabaseSession) => {
+    if (data && data.session) {
+      setSession(transformSession(data))
+      setIsAuthenticated(true)
+      setIsAutoSignInDone(true)
+    }
+  }
 
   const signIn = useCallback(
     async ({ email, password = '' }: Pick<User, 'email' | 'password'>) => {
@@ -40,7 +50,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         throw error
       }
 
-      setSession(transformSession(data))
+      setSignInData(data)
     },
     [supabase]
   )
@@ -67,7 +77,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
         throw error
       }
 
-      setSession(transformSession(data))
+      setSignInData(data)
     },
     [supabase]
   )
@@ -89,8 +99,6 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const autoSignIn = async () => {
     setSession(null)
-    setSignInErrors(false)
-    setIsLoadingSignIn(true)
 
     const { data, error } = await supabase.auth.getSession()
 
@@ -99,8 +107,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       throw error
     }
 
-    setSession(transformSession(data))
-    setIsLoadingSignIn(false)
+    setSignInData(data as SupabaseSession)
   }
 
   const clearSignInErrors = () => setSignInErrors(false)
@@ -108,6 +115,9 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const state = {
     session,
+
+    isAuthenticated,
+    isAutoSignInDone,
 
     signInErrors,
     signUpErrors,
