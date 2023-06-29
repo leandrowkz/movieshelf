@@ -29,8 +29,9 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     if (data && data.session) {
       setSession(transformSession(data))
       setIsAuthenticated(true)
-      setIsAutoSignInDone(true)
     }
+
+    setIsAutoSignInDone(true)
   }
 
   const signIn = useCallback(
@@ -86,6 +87,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     setSession(null)
     setSignOutErrors(false)
     setIsLoadingSignOut(true)
+    setIsAuthenticated(false)
 
     const { error } = await supabase.auth.signOut()
 
@@ -99,6 +101,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const autoSignIn = async () => {
     setSession(null)
+    setIsAutoSignInDone(false)
 
     const { data, error } = await supabase.auth.getSession()
 

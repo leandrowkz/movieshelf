@@ -25,8 +25,8 @@ export type AuthState = {
     password,
   }: Pick<User, 'email' | 'password'>) => Promise<void>
   signUp: (user: User) => Promise<void>
-  signOut: () => void
-  autoSignIn: () => void
+  signOut: () => Promise<void>
+  autoSignIn: () => Promise<void>
   clearSignInErrors: () => void
   clearSignUpErrors: () => void
 }
