@@ -4,7 +4,6 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
-import { Root } from './pages/Root'
 import { MovieListsContextProvider } from './context/MovieListsContext'
 import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
 import { NewsletterContextProvider } from './context/NewsletterContext'
@@ -27,9 +26,7 @@ const App = () => {
                   <TVShowDetailsContextProvider>
                     <TVSeasonDetailsContextProvider>
                       <NewsletterContextProvider>
-                        <Root>
-                          <RouterProvider router={router} />
-                        </Root>
+                        <RouterProvider router={router} />
                       </NewsletterContextProvider>
                     </TVSeasonDetailsContextProvider>
                   </TVShowDetailsContextProvider>

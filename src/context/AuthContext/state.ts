@@ -3,6 +3,9 @@ import { AuthState } from './types'
 export const initialState: AuthState = {
   session: null,
 
+  isAuthenticated: false,
+  isAutoSignInDone: false,
+
   isLoadingSignUp: false,
   isLoadingSignIn: false,
   isLoadingSignOut: false,

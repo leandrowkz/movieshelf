@@ -15,8 +15,7 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
   const { session, signOut } = useContext(AuthContext)
 
   const doSignOut = () => {
-    signOut()
-    navigate('/')
+    signOut().then(() => navigate('/'))
   }
 
   if (!session) {

@@ -5,33 +5,21 @@ import { Container } from 'src/components/Container'
 import { FavoritesContext } from 'src/context/FavoritesContext'
 import { ShowList } from 'src/components/ShowList'
 import styles from './styles.module.css'
-import { AuthContext } from 'src/context/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
 
 export function Favorites(): JSX.Element {
-  const navigate = useNavigate()
   const isMobile = useScreenSize('mobile')
-  const { session, isLoadingSignIn } = useContext(AuthContext)
   const { movies, tvShows, fetchMoviesFavorites, fetchTVShowsFavorites } =
     useContext(FavoritesContext)
 
   useEffect(() => {
-    if (!session && !isLoadingSignIn) {
-      return navigate('/sign-up')
-    }
-
     fetchMoviesFavorites(1)
     fetchTVShowsFavorites(1)
   }, [])
 
-  if (!session) {
-    return <></>
-  }
-
   return (
-    <Page>
+    <Page isProtected>
       <Container>
         <Heading level={1} title="💜 Favorites" data-testid="heading" />
         <ShowList

@@ -36,11 +36,6 @@ import { FavoritesContextProvider } from 'src/context/FavoritesContext'
 
 jest.mock('src/hooks/useSupabase')
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  ScrollRestoration: () => <></>,
-}))
-
 jest.mock('src/context/AuthContext', () => ({
   ...jest.requireActual('src/context/AuthContext'),
   AuthContext: MockAuthContext,
