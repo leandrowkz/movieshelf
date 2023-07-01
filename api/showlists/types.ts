@@ -1,11 +1,9 @@
-import { ShowType } from '../types'
+import type { ListType, ShowType } from '../types'
 
-export type MediaListType = 'favorites' | 'watchlist'
-
-export type MediaListPayload = {
+export type ShowListPayload = {
   page?: number
   userId: string
   showId?: string
   showType: ShowType
-  listType: MediaListType
+  listType: ListType
 }

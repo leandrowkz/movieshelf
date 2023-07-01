@@ -1,13 +1,13 @@
 import { supabase } from '../api'
-import { MediaListPayload } from './types'
+import { ShowListPayload } from './types'
 
 const ITEMS_PER_PAGES = 20
 
-async function getMedialistMetadata({
+export async function getShowListMetadata({
   userId,
   showType,
   listType,
-}: MediaListPayload) {
+}: ShowListPayload) {
   const { count } = await supabase
     .from('medialist')
     .select('*', { count: 'estimated' })
@@ -23,25 +23,25 @@ async function getMedialistMetadata({
   }
 }
 
-function getMedialistRange(page: number) {
+function getShowListRange(page: number) {
   const startRow = page * ITEMS_PER_PAGES - ITEMS_PER_PAGES
   const endRow = startRow + ITEMS_PER_PAGES - 1
 
   return { from: startRow, to: endRow }
 }
 
-export async function getMedialist({
+export async function getShowList({
   userId,
   showType,
   listType,
   page = 1,
-}: MediaListPayload) {
-  const { count, pages } = await getMedialistMetadata({
+}: ShowListPayload) {
+  const { count, pages } = await getShowListMetadata({
     userId,
     showType,
     listType,
   })
-  const { from, to: endRow } = getMedialistRange(page)
+  const { from, to: endRow } = getShowListRange(page)
 
   const to = endRow > count ? count : endRow
 
@@ -62,7 +62,7 @@ export async function addToList({
   showId,
   showType,
   listType,
-}: MediaListPayload) {
+}: ShowListPayload) {
   const listed = await isListed({ userId, showId, showType, listType })
 
   if (!listed) {
@@ -80,9 +80,9 @@ export async function removeFromList({
   showId,
   showType,
   listType,
-}: MediaListPayload) {
+}: ShowListPayload) {
   await supabase
-    .from('favorites')
+    .from('showlists')
     .delete()
     .eq('user_id', userId)
     .eq('show_id', showId)
