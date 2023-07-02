@@ -1,15 +1,14 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { json, tmdb, authorize } from '../api'
-import { User } from '@supabase/supabase-js'
+import { tmdb, authorize, dispatch } from '../api'
 import { getShowList } from './helpers'
-import { ListPaginated } from '../types'
+import { ListPaginated, ListType, ShowType } from '../types'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request) => {
-  return dispatch(req, async (req) => {
+export default async (req: Request, res: Response) =>
+  dispatch(req, res, async (req: Request) => {
     const user = await authorize(req)
 
     const list: ListPaginated<MovieItem | TVShowItem> = {
@@ -20,8 +19,8 @@ export default async (req: Request) => {
 
     const { searchParams } = new URL(req.url)
     const page = Number(searchParams.get('page'))
-    const showType = searchParams.get('showType')
-    const listType = searchParams.get('listType')
+    const showType = searchParams.get('showType') as ShowType
+    const listType = searchParams.get('listType') as ListType
 
     const payload = {
       page,
@@ -56,32 +55,3 @@ export default async (req: Request) => {
 
     return list
   })
-}
-
-const dispatch = async (req, action: (req: Request) => Promise<any>) => {
-  const response: any = {
-    data: {},
-    status: 200,
-  }
-
-  try {
-    response.data = await action(req)
-  } catch (e) {
-    // if (e instanceof AuthorizationError) {
-    //   response.data = 'UNAUTHORIZED'
-    //   response.status = 401
-    // } else if (e instanceof ValidationError) {
-    //   response.data = 'UNPROCESSABLE_ENTITY'
-    //   response.status = 422
-    // } else if (e instanceof Error) {
-    //   response = e.message
-    // }
-
-    if (e instanceof Error) {
-      response.data = e.message
-      response.status = 500
-    }
-  }
-
-  return json(response.data, response.status)
-}
