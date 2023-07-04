@@ -1,32 +1,24 @@
-import { json, authorize } from '../api'
-import { User } from '@supabase/supabase-js'
-import { removeFavorite } from './helpers'
+import { authorize, dispatch } from '../api'
+import { removeFromList } from './helpers'
+import { ShowListPayload } from './types'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request) => {
-  let user: User
+export default async (req: Request, res: Response) =>
+  dispatch(req, res, async (req: Request) => {
+    const user = await authorize(req)
+    const body = await req.json()
 
-  try {
-    user = await authorize(req)
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(String(e))
+    const payload: ShowListPayload = {
+      userId: user.id,
+      showId: body.showId,
+      showType: body.showType,
+      listType: body.listType,
+    }
 
-    return json(error.message, 401)
-  }
+    await removeFromList(payload)
 
-  const body = await req.json()
-  const { showId, showType } = body
-
-  try {
-    await removeFavorite(user.id, showId, showType)
-
-    return json({ status: 'success' })
-  } catch (e) {
-    const error = e instanceof Error ? e : new Error(String(e))
-
-    return json(error.message, 400)
-  }
-}
+    return { status: 'success' }
+  })
