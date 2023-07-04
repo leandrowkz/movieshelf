@@ -10,7 +10,7 @@ async function fetchShowList(
   page = 1,
   listType: ListType,
   showType: ShowType
-): Promise<ListPaginated<MovieItem | TVShowItem>> {
+): Promise<ListPaginated<MovieItem> | ListPaginated<TVShowItem>> {
   const path = api.buildPath('/api/showlists/list', {
     page,
     listType,
@@ -40,7 +40,7 @@ async function removeFromList(
   return api.post(path, { showId, showType, listType })
 }
 
-export const useFavoritesAPI = () => ({
+export const useShowListsAPI = () => ({
   fetchShowList,
   addToList,
   removeFromList,
