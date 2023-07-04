@@ -53,7 +53,6 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
       updateList({ page, hasErrors: false, isLoading: true })
 
       const { data, pages } = await api.fetchShowList(page, listType, showType)
-      console.log(data, pages)
 
       updateList({ data, pages } as ListsState)
     } catch (e) {

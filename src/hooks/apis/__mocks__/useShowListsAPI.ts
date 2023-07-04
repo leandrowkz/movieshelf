@@ -18,4 +18,4 @@ const actions = {
   removeFromList,
 }
 
-export const useFavoritesAPI = () => actions
+export const useShowListsAPI = () => actions
