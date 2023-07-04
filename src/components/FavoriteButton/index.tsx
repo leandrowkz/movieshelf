@@ -8,7 +8,6 @@ import type {
 } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
 import styles from './styles.module.css'
-import { FavoritesContext } from 'src/context/FavoritesContext'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
@@ -16,6 +15,7 @@ import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
 import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
 import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
+import { ShowListsContext } from 'src/context/ShowListsContext'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -31,11 +31,10 @@ export function FavoriteButton({
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
   const {
-    addFavorite,
-    removeFavorite,
-    isLoadingAddFavorite,
-    isLoadingRemoveFavorite,
-  } = useContext(FavoritesContext)
+    addToList,
+    removeFromList,
+    isLoading: isLoadingFromContext,
+  } = useContext(ShowListsContext)
   const {
     fetchAccountStates: fetchMovieAccountStates,
     isLoadingAccountStates: isLoadingMovieAccountStates,
@@ -46,6 +45,10 @@ export function FavoriteButton({
   } = useContext(TVShowDetailsContext)
 
   const { favorite } = accountStates
+  const {
+    addToList: isLoadingAddFavorite,
+    removeFromList: isLoadingRemoveFavorite,
+  } = isLoadingFromContext
 
   const isLoading =
     (isLoadingAddFavorite ||
@@ -64,9 +67,9 @@ export function FavoriteButton({
     }
 
     if (!favorite) {
-      await addFavorite(showId, type)
+      await addToList('favorites', showId, type)
     } else {
-      await removeFavorite(showId, type)
+      await removeFromList('favorites', showId, type)
     }
 
     if (type === 'movie') {

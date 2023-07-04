@@ -13,27 +13,30 @@ import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
 import { FavoritesContextProvider } from './context/FavoritesContext'
+import { ShowListsContextProvider } from './context/ShowListsContext'
 
 const App = () => {
   return (
     <React.StrictMode>
       <AuthContextProvider>
         <GenresContextProvider>
-          <FavoritesContextProvider>
-            <MovieListsContextProvider>
-              <MovieDetailsContextProvider>
-                <TVShowListsContextProvider>
-                  <TVShowDetailsContextProvider>
-                    <TVSeasonDetailsContextProvider>
-                      <NewsletterContextProvider>
-                        <RouterProvider router={router} />
-                      </NewsletterContextProvider>
-                    </TVSeasonDetailsContextProvider>
-                  </TVShowDetailsContextProvider>
-                </TVShowListsContextProvider>
-              </MovieDetailsContextProvider>
-            </MovieListsContextProvider>
-          </FavoritesContextProvider>
+          <ShowListsContextProvider>
+            <FavoritesContextProvider>
+              <MovieListsContextProvider>
+                <MovieDetailsContextProvider>
+                  <TVShowListsContextProvider>
+                    <TVShowDetailsContextProvider>
+                      <TVSeasonDetailsContextProvider>
+                        <NewsletterContextProvider>
+                          <RouterProvider router={router} />
+                        </NewsletterContextProvider>
+                      </TVSeasonDetailsContextProvider>
+                    </TVShowDetailsContextProvider>
+                  </TVShowListsContextProvider>
+                </MovieDetailsContextProvider>
+              </MovieListsContextProvider>
+            </FavoritesContextProvider>
+          </ShowListsContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
     </React.StrictMode>

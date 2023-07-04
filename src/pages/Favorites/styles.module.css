@@ -1,3 +1,7 @@
 .pagination {
-  margin: var(--spacer-large) 0 calc(var(--spacer-extra-large) * 1.5);
+  margin: var(--spacer-large) 0 var(--spacer-extra-large);
+}
+
+.list {
+  margin-top: var(--spacer-extra-large);
 }

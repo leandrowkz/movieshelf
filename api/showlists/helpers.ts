@@ -9,7 +9,7 @@ export async function getShowListMetadata({
   listType,
 }: ShowListPayload) {
   const { count } = await supabase
-    .from('medialist')
+    .from('showlists')
     .select('*', { count: 'estimated' })
     .eq('user_id', userId)
     .eq('show_type', showType)

@@ -2,6 +2,7 @@ import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { tmdb, authorize, dispatch } from '../api'
 import { getShowList } from './helpers'
 import { ListPaginated, ListType, ShowType } from '../types'
+import { ShowListPayload } from './types'
 
 export const config = {
   runtime: 'edge',
@@ -22,7 +23,7 @@ export default async (req: Request, res: Response) =>
     const showType = searchParams.get('showType') as ShowType
     const listType = searchParams.get('listType') as ListType
 
-    const payload = {
+    const payload: ShowListPayload = {
       page,
       showType,
       listType,
@@ -35,19 +36,20 @@ export default async (req: Request, res: Response) =>
       list.page = Number(page)
       list.pages = pages
 
-      const getDetails =
-        showType === 'tv' ? tmdb.tvShows.details : tmdb.movies.details
-
       await Promise.all(
         data.map(async (row) => {
           try {
-            const show = await getDetails(Number(row.media_id))
+            const id = Number(row.show_id)
+            const show =
+              showType === 'movie'
+                ? await tmdb.movies.details(id)
+                : await tmdb.tvShows.details(id)
 
             if (show) {
               list.data.push(show)
             }
           } catch (e) {
-            /* empty */
+            console.error(e)
           }
         })
       )
