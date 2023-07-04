@@ -18,8 +18,6 @@ export function Favorites(): JSX.Element {
     fetchShowList(1, 'favorites', 'tv')
   }, [])
 
-  console.log(movies.data)
-
   return (
     <Page isProtected>
       <Container>
