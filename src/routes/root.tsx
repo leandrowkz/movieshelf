@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import { Root } from 'src/pages/Root'
 import { Home } from '../pages/Home'
 import { MovieDetails } from '../pages/MovieDetails'
 import { Movies } from '../pages/Movies'
@@ -11,7 +12,7 @@ import { TVShowCategory } from 'src/pages/TVShowCategory'
 import { SignUp } from 'src/pages/SignUp'
 import { SignIn } from 'src/pages/SignIn'
 import { Favorites } from 'src/pages/Favorites'
-import { Root } from 'src/pages/Root'
+import { Watchlist } from 'src/pages/Watchlist'
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +32,12 @@ export const router = createBrowserRouter([
         element: <SignIn />,
       },
       {
-        path: 'favorites',
+        path: '/favorites',
         element: <Favorites />,
+      },
+      {
+        path: '/watchlist',
+        element: <Watchlist />,
       },
       {
         path: '/movies',
