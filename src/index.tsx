@@ -12,7 +12,6 @@ import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
-import { FavoritesContextProvider } from './context/FavoritesContext'
 import { ShowListsContextProvider } from './context/ShowListsContext'
 
 const App = () => {
@@ -21,21 +20,19 @@ const App = () => {
       <AuthContextProvider>
         <GenresContextProvider>
           <ShowListsContextProvider>
-            <FavoritesContextProvider>
-              <MovieListsContextProvider>
-                <MovieDetailsContextProvider>
-                  <TVShowListsContextProvider>
-                    <TVShowDetailsContextProvider>
-                      <TVSeasonDetailsContextProvider>
-                        <NewsletterContextProvider>
-                          <RouterProvider router={router} />
-                        </NewsletterContextProvider>
-                      </TVSeasonDetailsContextProvider>
-                    </TVShowDetailsContextProvider>
-                  </TVShowListsContextProvider>
-                </MovieDetailsContextProvider>
-              </MovieListsContextProvider>
-            </FavoritesContextProvider>
+            <MovieListsContextProvider>
+              <MovieDetailsContextProvider>
+                <TVShowListsContextProvider>
+                  <TVShowDetailsContextProvider>
+                    <TVSeasonDetailsContextProvider>
+                      <NewsletterContextProvider>
+                        <RouterProvider router={router} />
+                      </NewsletterContextProvider>
+                    </TVSeasonDetailsContextProvider>
+                  </TVShowDetailsContextProvider>
+                </TVShowListsContextProvider>
+              </MovieDetailsContextProvider>
+            </MovieListsContextProvider>
           </ShowListsContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
