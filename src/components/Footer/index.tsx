@@ -125,6 +125,7 @@ function MenuSection() {
         <Link to="/movies">Movies</Link>
         <Link to="/tv">TV shows</Link>
         <Link to="/favorites">Favorites</Link>
+        <Link to="/watchlist">Watchlist</Link>
         <Link to="/sign-in">Sign in</Link>
         <Link to="/sign-up">Sign up</Link>
       </div>

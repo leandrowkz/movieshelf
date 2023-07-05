@@ -46,9 +46,16 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
           <Dropdown.Item onClick={() => navigate('/favorites')}>
             💜 Favorites
           </Dropdown.Item>
-          {/* <Dropdown.Item>
-          //   <Link to="/settings">⚙️ Preferences</Link>
-          // </Dropdown.Item> */}
+          <Dropdown.Item onClick={() => navigate('/watchlist')}>
+            🎬 Watchlist
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() =>
+              window.open('https://github.com/sponsors/leandrowkz', '_blank')
+            }
+          >
+            🖖 Sponsor
+          </Dropdown.Item>
           <Dropdown.Item onClick={() => doSignOut()}>🚪 Sign out</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Wrapper>

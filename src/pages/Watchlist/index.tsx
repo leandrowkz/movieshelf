@@ -10,11 +10,11 @@ import { UserListsContext } from 'src/context/UserListsContext'
 import { ShowType } from 'src/types/ShowType'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 
-export function Favorites(): JSX.Element {
+export function Watchlist(): JSX.Element {
   const isMobile = useScreenSize('mobile')
   const [filter, setFilter] = useState<ShowType>('movie')
-  const { favorites, fetchList } = useContext(UserListsContext)
-  const { movies, tvShows } = favorites
+  const { watchlist, fetchList } = useContext(UserListsContext)
+  const { movies, tvShows } = watchlist
 
   useEffect(() => {
     fetchList(1, 'favorites', 'movie')
@@ -29,7 +29,7 @@ export function Favorites(): JSX.Element {
   return (
     <Page isProtected>
       <Container>
-        <Heading level={1} title="💜 Favorites" data-testid="heading" />
+        <Heading level={1} title="Watchlist" data-testid="heading" />
         <ShowTypeFilters value={filter} onFilter={(type) => setFilter(type)} />
         {filter === 'movie' && (
           <>
