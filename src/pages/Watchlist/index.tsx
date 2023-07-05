@@ -17,12 +17,12 @@ export function Watchlist(): JSX.Element {
   const { movies, tvShows } = watchlist
 
   useEffect(() => {
-    fetchList(1, 'favorites', 'movie')
-    fetchList(1, 'favorites', 'tv')
+    fetchList(1, 'watchlist', 'movie')
+    fetchList(1, 'watchlist', 'tv')
   }, [])
 
   const paginate = (page: number, showType: ShowType) => {
-    fetchList(page, 'favorites', showType)
+    fetchList(page, 'watchlist', showType)
     window.scrollTo(0, 0)
   }
 
@@ -37,7 +37,7 @@ export function Watchlist(): JSX.Element {
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
               type="movie"
-              title="Your favorite movies"
+              title="Your movies watchlist"
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -56,7 +56,7 @@ export function Watchlist(): JSX.Element {
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
               type="tv"
-              title="Your favorite TV Shows"
+              title="Your TV Shows watchlist"
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />
