@@ -13,7 +13,7 @@ export default async (req: Request, res: Response) =>
 
     const payload: UserListPayload = {
       userId: user.id,
-      showId: body.showId,
+      showId: String(body.showId),
       showType: body.showType,
       listType: body.listType,
     }
