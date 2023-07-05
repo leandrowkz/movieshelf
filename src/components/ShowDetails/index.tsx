@@ -28,6 +28,7 @@ import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { ShowType } from 'src/types/ShowType'
 import { FavoriteButton } from '../FavoriteButton'
+import { WatchlistButton } from '../WatchlistButton'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -191,6 +192,7 @@ function Actions({
         <Button size="large">▶ Trailer</Button>
       </Link>
       <FavoriteButton show={show} accountStates={accountStates} type={type} />
+      <WatchlistButton show={show} accountStates={accountStates} type={type} />
     </Motion>
   )
 }

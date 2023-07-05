@@ -3,6 +3,7 @@
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
+  gap: calc(var(--spacer-small) * .6);
   justify-content: center;
   border: 1px solid var(--button-color);
   height: var(--button-medium-height);
@@ -91,11 +92,8 @@
 }
 
 .icon {
-  margin-top: 6px;
-  margin-right: var(--spacer-small);
-  width: 20px;
-  aspect-ratio: 1 / 1;
-  position: relative;
+  font-size: calc(var(--font-size-base) * 1.5);
+  line-height: 0;
 }
 
 .spinner {

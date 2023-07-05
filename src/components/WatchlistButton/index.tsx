@@ -16,6 +16,7 @@ import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
 import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
+import { IoCheckmarkCircle, IoAddCircleOutline } from 'react-icons/io5'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -79,20 +80,22 @@ export function WatchlistButton({
     }
   }
 
+  const icon = watchlist ? (
+    <IoCheckmarkCircle color="green" />
+  ) : (
+    <IoAddCircleOutline />
+  )
+  const title = watchlist ? 'Watchlisted' : 'Watchlist'
+
   return (
     <Button
       size="large"
       variant={watchlist ? 'secondary' : 'outlined'}
       isLoading={isLoading}
-      icon={
-        <Image
-          src={watchlist ? favoriteIconOn : favoriteIconOff}
-          className={styles.icon}
-        />
-      }
+      icon={icon}
       onClick={() => toggleWatchlist(show.id, type, watchlist)}
     >
-      <span>Watchlist</span>
+      {title}
     </Button>
   )
 }

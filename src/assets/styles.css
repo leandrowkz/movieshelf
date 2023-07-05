@@ -58,7 +58,7 @@
   --button-medium-height: 58px;
   --button-medium-padding: 0 calc(var(--spacer-base) + 6px);
   --button-large-height: 76px;
-  --button-large-padding: 0 var(--spacer-large);
+  --button-large-padding: 0 calc(var(--spacer-large) * .8);
   --button-color: var(--color-red-800);
   --button-color-hover: var(--color-red-900);
   --button-secondary-color: var(--color-red-100);

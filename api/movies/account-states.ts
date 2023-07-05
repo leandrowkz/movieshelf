@@ -19,15 +19,18 @@ export default async (req: Request, res: Response) =>
       rated: false,
     }
 
-    const favoritesPayload: UserListPayload = {
+    const payload: UserListPayload = {
       userId: user.id,
       showId: String(movieId),
       listType: 'favorites',
       showType: 'movie',
     }
 
-    const favorited = await isListed(favoritesPayload)
-    accountStates.favorite = favorited
+    accountStates.favorite = await isListed(payload)
+
+    payload.listType = 'watchlist'
+    accountStates.watchlist = await isListed(payload)
+
 
     return accountStates
   })
