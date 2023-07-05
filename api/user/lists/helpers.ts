@@ -1,5 +1,7 @@
-import { supabase } from '../api'
-import { ShowListPayload } from './types'
+import { z } from 'zod'
+import { supabase } from '../../api'
+import { UserListPayload } from './types'
+import { showTypes, userListTypes } from '../../types'
 
 const ITEMS_PER_PAGES = 20
 
@@ -7,9 +9,9 @@ export async function getShowListMetadata({
   userId,
   showType,
   listType,
-}: ShowListPayload) {
+}: UserListPayload) {
   const { count } = await supabase
-    .from('showlists')
+    .from('userlists')
     .select('*', { count: 'estimated' })
     .eq('user_id', userId)
     .eq('show_type', showType)
@@ -35,7 +37,7 @@ export async function getShowList({
   showType,
   listType,
   page = 1,
-}: ShowListPayload) {
+}: UserListPayload) {
   const { count, pages } = await getShowListMetadata({
     userId,
     showType,
@@ -46,7 +48,7 @@ export async function getShowList({
   const to = endRow > count ? count : endRow
 
   const { data } = await supabase
-    .from('showlists')
+    .from('userlists')
     .select()
     .eq('user_id', userId)
     .eq('show_type', showType)
@@ -62,11 +64,11 @@ export async function addToList({
   showId,
   showType,
   listType,
-}: ShowListPayload) {
+}: UserListPayload) {
   const listed = await isListed({ userId, showId, showType, listType })
 
   if (!listed) {
-    await supabase.from('showlists').upsert({
+    await supabase.from('userlists').upsert({
       user_id: userId,
       show_id: showId,
       show_type: showType,
@@ -80,9 +82,9 @@ export async function removeFromList({
   showId,
   showType,
   listType,
-}: ShowListPayload) {
+}: UserListPayload) {
   await supabase
-    .from('showlists')
+    .from('userlists')
     .delete()
     .eq('user_id', userId)
     .eq('show_id', showId)
@@ -95,9 +97,9 @@ export async function isListed({
   showId,
   showType,
   listType,
-}): Promise<boolean> {
+}: UserListPayload): Promise<boolean> {
   const result = await supabase
-    .from('showlists')
+    .from('userlists')
     .select()
     .eq('user_id', userId)
     .eq('show_id', showId)
@@ -105,4 +107,15 @@ export async function isListed({
     .eq('list_type', listType)
 
   return Boolean(result.data?.length)
+}
+
+export async function validate(payload: UserListPayload) {
+  const schema = z.object({
+    userId: z.string().nonempty(),
+    showId: z.string().nonempty(),
+    showType: z.enum(showTypes),
+    listType: z.enum(userListTypes),
+  })
+
+  schema.parse(payload)
 }

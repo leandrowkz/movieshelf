@@ -1,6 +1,6 @@
-import { authorize, dispatch } from '../api'
-import { addToList } from './helpers'
-import { ShowListPayload } from './types'
+import { authorize, dispatch } from '../../api'
+import { addToList, validate } from './helpers'
+import { UserListPayload } from './types'
 
 export const config = {
   runtime: 'edge',
@@ -11,12 +11,14 @@ export default async (req: Request, res: Response) =>
     const user = await authorize(req)
     const body = await req.json()
 
-    const payload: ShowListPayload = {
+    const payload: UserListPayload = {
       userId: user.id,
       showId: body.showId,
       showType: body.showType,
       listType: body.listType,
     }
+
+    await validate(payload)
 
     await addToList(payload)
 

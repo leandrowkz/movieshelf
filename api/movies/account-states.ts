@@ -1,6 +1,7 @@
 import { MovieAccountStates } from '@leandrowkz/tmdb'
 import { authorize, dispatch } from '../api'
-import { isListed } from '../showlists/helpers'
+import { isListed } from '../user/lists/helpers'
+import { UserListPayload } from '../user/lists/types'
 
 export const config = {
   runtime: 'edge',
@@ -18,7 +19,7 @@ export default async (req: Request, res: Response) =>
       rated: false,
     }
 
-    const favoritesPayload = {
+    const favoritesPayload: UserListPayload = {
       userId: user.id,
       showId: String(movieId),
       listType: 'favorites',

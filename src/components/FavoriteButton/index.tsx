@@ -15,7 +15,7 @@ import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
 import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
 import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
-import { ShowListsContext } from 'src/context/ShowListsContext'
+import { UserListsContext } from 'src/context/UserListsContext'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -34,7 +34,7 @@ export function FavoriteButton({
     addToList,
     removeFromList,
     isLoading: isLoadingFromContext,
-  } = useContext(ShowListsContext)
+  } = useContext(UserListsContext)
   const {
     fetchAccountStates: fetchMovieAccountStates,
     isLoadingAccountStates: isLoadingMovieAccountStates,

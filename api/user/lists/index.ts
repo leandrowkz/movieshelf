@@ -1,8 +1,8 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { tmdb, authorize, dispatch } from '../api'
+import { tmdb, authorize, dispatch } from '../../api'
 import { getShowList } from './helpers'
-import { ListPaginated, ListType, ShowType } from '../types'
-import { ShowListPayload } from './types'
+import { ListPaginated, UserListType, ShowType } from '../../types'
+import { UserListPayload } from './types'
 
 export const config = {
   runtime: 'edge',
@@ -21,9 +21,9 @@ export default async (req: Request, res: Response) =>
     const { searchParams } = new URL(req.url)
     const page = Number(searchParams.get('page'))
     const showType = searchParams.get('showType') as ShowType
-    const listType = searchParams.get('listType') as ListType
+    const listType = searchParams.get('listType') as UserListType
 
-    const payload: ShowListPayload = {
+    const payload: UserListPayload = {
       page,
       showType,
       listType,

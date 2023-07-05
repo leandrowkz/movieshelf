@@ -32,7 +32,7 @@ import {
   GenresContextProvider as MockGenresContextProvider,
 } from 'src/context/__mocks__/GenresContext'
 import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
-import { ShowListsContextProvider } from 'src/context/ShowListsContext'
+import { UserListsContextProvider } from 'src/context/UserListsContext'
 
 jest.mock('src/hooks/useSupabase')
 
@@ -55,7 +55,7 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <MockAuthContextProvider>
         <MockGenresContextProvider>
-          <ShowListsContextProvider>
+          <UserListsContextProvider>
             <TVShowListsContextProvider>
               <TVShowDetailsContextProvider>
                 <TVSeasonDetailsContextProvider>
@@ -67,7 +67,7 @@ function renderComponent(component: ReactElement) {
                 </TVSeasonDetailsContextProvider>
               </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
-          </ShowListsContextProvider>
+          </UserListsContextProvider>
         </MockGenresContextProvider>
       </MockAuthContextProvider>
     </BrowserRouter>

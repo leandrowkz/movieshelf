@@ -3,7 +3,7 @@ import { ListPaginated } from 'src/types/ListPaginated'
 import { ListType } from 'src/types/ListType'
 import { ShowType } from 'src/types/ShowType'
 
-export type ShowListsState = {
+export type UserListsState = {
   favorites: {
     movies: ListPaginated<MovieItem>
     tvShows: ListPaginated<TVShowItem>
@@ -14,12 +14,12 @@ export type ShowListsState = {
   }
 
   isLoading: {
-    fetchShowList: boolean
+    fetchList: boolean
     addToList: boolean
     removeFromList: boolean
   }
 
-  fetchShowList: (
+  fetchList: (
     page: number,
     listType: ListType,
     showType: ShowType
@@ -39,5 +39,5 @@ export type ShowListsState = {
 }
 
 export type ListsState = Partial<
-  ShowListsState['favorites' | 'watchlist']['movies' | 'tvShows']
+  UserListsState['favorites' | 'watchlist']['movies' | 'tvShows']
 >

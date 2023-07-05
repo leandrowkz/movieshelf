@@ -2,7 +2,7 @@ import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { Favorites } from '.'
 
-jest.mock('src/hooks/apis/useShowListsAPI')
+jest.mock('src/hooks/apis/useUserListsAPI')
 
 const { renderComponent, screen } = useTesting()
 

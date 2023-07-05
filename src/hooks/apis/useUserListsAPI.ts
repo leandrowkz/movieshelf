@@ -6,12 +6,12 @@ import { ListType } from 'src/types/ListType'
 
 const api = new APIClient('')
 
-async function fetchShowList(
+async function fetchList(
   page = 1,
   listType: ListType,
   showType: ShowType
 ): Promise<ListPaginated<MovieItem> | ListPaginated<TVShowItem>> {
-  const path = api.buildPath('/api/showlists/list', {
+  const path = api.buildPath('/api/user/lists', {
     page,
     listType,
     showType,
@@ -25,7 +25,7 @@ async function addToList(
   showId: number,
   showType: ShowType
 ) {
-  const path = api.buildPath('/api/showlists/add')
+  const path = api.buildPath('/api/user/lists/add')
 
   return api.post(path, { showId, showType, listType })
 }
@@ -35,13 +35,13 @@ async function removeFromList(
   showId: number,
   showType: ShowType
 ) {
-  const path = api.buildPath('/api/showlists/remove')
+  const path = api.buildPath('/api/user/lists/remove')
 
   return api.post(path, { showId, showType, listType })
 }
 
-export const useShowListsAPI = () => ({
-  fetchShowList,
+export const useUserListsAPI = () => ({
+  fetchList,
   addToList,
   removeFromList,
 })

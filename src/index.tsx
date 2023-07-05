@@ -12,14 +12,14 @@ import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
-import { ShowListsContextProvider } from './context/ShowListsContext'
+import { UserListsContextProvider } from './context/UserListsContext'
 
 const App = () => {
   return (
     <React.StrictMode>
       <AuthContextProvider>
         <GenresContextProvider>
-          <ShowListsContextProvider>
+          <UserListsContextProvider>
             <MovieListsContextProvider>
               <MovieDetailsContextProvider>
                 <TVShowListsContextProvider>
@@ -33,7 +33,7 @@ const App = () => {
                 </TVShowListsContextProvider>
               </MovieDetailsContextProvider>
             </MovieListsContextProvider>
-          </ShowListsContextProvider>
+          </UserListsContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>
     </React.StrictMode>

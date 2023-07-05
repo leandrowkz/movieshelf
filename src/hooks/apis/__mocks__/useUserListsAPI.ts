@@ -1,6 +1,6 @@
 import { mockMovieListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
 
-async function fetchShowList() {
+async function fetchList() {
   return { ...mockMovieListPaginated }
 }
 
@@ -13,9 +13,9 @@ async function removeFromList() {
 }
 
 const actions = {
-  fetchShowList,
+  fetchList,
   addToList,
   removeFromList,
 }
 
-export const useShowListsAPI = () => actions
+export const useUserListsAPI = () => actions

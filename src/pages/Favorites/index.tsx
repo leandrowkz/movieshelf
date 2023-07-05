@@ -6,16 +6,16 @@ import { ShowList } from 'src/components/ShowList'
 import styles from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
-import { ShowListsContext } from 'src/context/ShowListsContext'
+import { UserListsContext } from 'src/context/UserListsContext'
 
 export function Favorites(): JSX.Element {
   const isMobile = useScreenSize('mobile')
-  const { favorites, fetchShowList } = useContext(ShowListsContext)
+  const { favorites, fetchList } = useContext(UserListsContext)
   const { movies, tvShows } = favorites
 
   useEffect(() => {
-    fetchShowList(1, 'favorites', 'movie')
-    fetchShowList(1, 'favorites', 'tv')
+    fetchList(1, 'favorites', 'movie')
+    fetchList(1, 'favorites', 'tv')
   }, [])
 
   return (
@@ -35,7 +35,7 @@ export function Favorites(): JSX.Element {
           pages={movies.pages || 0}
           current={movies.page}
           isLoading={movies.isLoading}
-          onPageChange={(page) => fetchShowList(page, 'favorites', 'movie')}
+          onPageChange={(page) => fetchList(page, 'favorites', 'movie')}
         />
         <ShowList
           shows={tvShows.data}
@@ -51,7 +51,7 @@ export function Favorites(): JSX.Element {
           pages={tvShows.pages || 0}
           current={tvShows.page}
           isLoading={tvShows.isLoading}
-          onPageChange={(page) => fetchShowList(page, 'favorites', 'tv')}
+          onPageChange={(page) => fetchList(page, 'favorites', 'tv')}
         />
       </Container>
     </Page>

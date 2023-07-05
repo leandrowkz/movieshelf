@@ -1,6 +1,6 @@
-import { ShowListsState } from './types'
+import { UserListsState } from './types'
 
-export const initialState: ShowListsState = {
+export const initialState: UserListsState = {
   favorites: {
     movies: {
       data: [],
@@ -36,12 +36,12 @@ export const initialState: ShowListsState = {
   },
 
   isLoading: {
-    fetchShowList: false,
+    fetchList: false,
     addToList: false,
     removeFromList: false,
   },
 
-  fetchShowList: () => Promise.resolve(),
+  fetchList: () => Promise.resolve(),
   addToList: () => Promise.resolve(),
   removeFromList: () => Promise.resolve(),
 }

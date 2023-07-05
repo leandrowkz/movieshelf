@@ -1,16 +1,16 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { ShowType } from 'src/types/ShowType'
 import { initialState } from './state'
-import { ListsState, ShowListsState } from './types'
+import { ListsState, UserListsState } from './types'
 import { ListType } from 'src/types/ListType'
-import { useShowListsAPI } from 'src/hooks/apis/useShowListsAPI'
+import { useUserListsAPI } from 'src/hooks/apis/useUserListsAPI'
 
-export const ShowListsContext = createContext<ShowListsState>({
+export const UserListsContext = createContext<UserListsState>({
   ...initialState,
 })
 
-export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
-  const api = useShowListsAPI()
+export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
+  const api = useUserListsAPI()
   const [favorites, setFavorites] = useState({
     ...initialState.favorites,
   })
@@ -21,7 +21,7 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
     ...initialState.isLoading,
   })
 
-  const fetchShowList = async (
+  const fetchList = async (
     page: number,
     listType: ListType,
     showType: ShowType
@@ -49,16 +49,16 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
     }
 
     try {
-      setIsLoading((prev) => ({ ...prev, fetchShowList: true }))
+      setIsLoading((prev) => ({ ...prev, fetchList: true }))
       updateList({ page, hasErrors: false, isLoading: true })
 
-      const { data, pages } = await api.fetchShowList(page, listType, showType)
+      const { data, pages } = await api.fetchList(page, listType, showType)
 
       updateList({ data, pages } as ListsState)
     } catch (e) {
       updateList({ data: [], hasErrors: true })
     } finally {
-      setIsLoading((prev) => ({ ...prev, fetchShowList: false }))
+      setIsLoading((prev) => ({ ...prev, fetchList: false }))
       updateList({ isLoading: false })
     }
   }
@@ -72,7 +72,7 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     await api.addToList(listType, showId, showType)
 
-    fetchShowList(1, listType, showType)
+    fetchList(1, listType, showType)
     setIsLoading((prev) => ({ ...prev, addToList: false }))
   }
 
@@ -85,7 +85,7 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
 
     await api.removeFromList(listType, showId, showType)
 
-    fetchShowList(1, listType, showType)
+    fetchList(1, listType, showType)
     setIsLoading((prev) => ({ ...prev, removeFromList: false }))
   }
 
@@ -93,14 +93,14 @@ export const ShowListsContextProvider = ({ children }: PropsWithChildren) => {
     favorites,
     watchlist,
     isLoading,
-    fetchShowList,
+    fetchList,
     addToList,
     removeFromList,
   }
 
   return (
-    <ShowListsContext.Provider value={state}>
+    <UserListsContext.Provider value={state}>
       {children}
-    </ShowListsContext.Provider>
+    </UserListsContext.Provider>
   )
 }

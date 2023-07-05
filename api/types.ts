@@ -1,6 +1,8 @@
-export type ShowType = 'tv' | 'movie'
+export const showTypes = ['tv', 'movie'] as const
+export type ShowType = (typeof showTypes)[number]
 
-export type ListType = 'favorites' | 'watchlist'
+export const userListTypes = ['favorites', 'watchlist'] as const
+export type UserListType = (typeof userListTypes)[number]
 
 export type ListPaginated<T> = {
   data: T[]
