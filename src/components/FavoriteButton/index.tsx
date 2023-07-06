@@ -13,7 +13,7 @@ import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5'
+import { IoHeart, IoHeartOutline, IoHeartSharp } from 'react-icons/io5'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -77,12 +77,12 @@ export function FavoriteButton({
     }
   }
 
-  const icon = favorite ? <IoHeartSharp /> : <IoHeartOutline />
+  const icon = favorite ? <IoHeart color="red" /> : <IoHeartOutline />
 
   return (
     <Button
       size="large"
-      variant={favorite ? 'secondary' : 'outlined'}
+      variant="secondary"
       isLoading={isLoading}
       icon={icon}
       onClick={() => toggleFavorite(show.id, type, favorite)}

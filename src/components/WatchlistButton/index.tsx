@@ -7,16 +7,12 @@ import type {
   TVShowAccountStates,
 } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
-import styles from './styles.module.css'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
-import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
-import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { MdPlaylistAddCheck, MdPlaylistAdd } from 'react-icons/md'
+import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -80,17 +76,13 @@ export function WatchlistButton({
     }
   }
 
-  const icon = watchlist ? (
-    <MdPlaylistAddCheck color="green" />
-  ) : (
-    <MdPlaylistAdd />
-  )
+  const icon = watchlist ? <MdFactCheck color="green" /> : <MdPlaylistAdd />
   const title = watchlist ? 'My list' : 'Add to my list'
 
   return (
     <Button
       size="large"
-      variant="outlined"
+      variant="secondary"
       isLoading={isLoading}
       icon={icon}
       onClick={() => toggleWatchlist(show.id, type, watchlist)}

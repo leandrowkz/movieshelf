@@ -60,7 +60,7 @@
 .secondary {
   border-color: var(--button-secondary-color);
   background-color: var(--button-secondary-color);
-  color: var(--button-secondary-text-color);
+  color: var(--button-secondary-text-color) !important;
 }
 
 .secondary:hover {

@@ -16,7 +16,7 @@ import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
 import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { IoCheckmarkDoneSharp } from 'react-icons/io5'
+import { IoCheckmarkDoneCircle, IoCheckmarkDoneSharp } from 'react-icons/io5'
 import { ImEyePlus } from 'react-icons/im'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
@@ -82,7 +82,7 @@ export function WatchedButton({
   }
 
   const icon = watchlist ? (
-    <IoCheckmarkDoneSharp color="green" />
+    <IoCheckmarkDoneCircle color="green" />
   ) : (
     <ImEyePlus />
   )
@@ -91,7 +91,7 @@ export function WatchedButton({
   return (
     <Button
       size="large"
-      variant="outlined"
+      variant="secondary"
       isLoading={isLoading}
       icon={icon}
       onClick={() => toggleWatchlist(show.id, type, watchlist)}

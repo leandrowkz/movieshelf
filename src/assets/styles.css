@@ -75,20 +75,20 @@
   --button-active-text-color: white;
   --button-active-color: var(--color-red-900);
   --button-active-border-color: var(--color-red-900);
-  --button-secondary-color: var(--color-red-100);
-  --button-secondary-color-hover: var(--color-red-200);
-  --button-secondary-text-color: var(--color-red-800);
-  --button-secondary-text-color-hover: var(--color-red-900);
+  --button-secondary-color: var(--color-gray-100);
+  --button-secondary-color-hover: var(--color-gray-150);
+  --button-secondary-text-color: var(--font-color-base);
+  --button-secondary-text-color-hover: var(--font-color-base);
   --button-outlined-color: white;
   --button-outlined-border-color: var(--color-gray-150);
   --button-outlined-color-hover: var(--color-red-200);
   --button-outlined-border-color-hover: var(--color-red-200);
   --button-outlined-text-color: var(--font-color-base);
   --button-outlined-text-color-hover: var(--color-red-900);
-  --button-success-color: var(--color-green-100);
-  --button-success-color-hover: var(--color-green-200);
-  --button-success-text-color: var(--color-green-800);
-  --button-success-text-color-hover: var(--color-green-900);
+  --button-success-color: var(--color-green-800);
+  --button-success-color-hover: var(--color-green-900);
+  --button-success-text-color: white;
+  --button-success-text-color-hover: white;
 
   /* Inputs */
   --input-small-height: 44px;
