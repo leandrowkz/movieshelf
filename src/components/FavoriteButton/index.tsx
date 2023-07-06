@@ -11,11 +11,9 @@ import styles from './styles.module.css'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
-import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
-import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
+import { IoHeartOutline, IoHeartSharp } from 'react-icons/io5'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -79,20 +77,15 @@ export function FavoriteButton({
     }
   }
 
+  const icon = favorite ? <IoHeartSharp /> : <IoHeartOutline />
+
   return (
     <Button
       size="large"
       variant={favorite ? 'secondary' : 'outlined'}
       isLoading={isLoading}
-      icon={
-        <Image
-          src={favorite ? favoriteIconOn : favoriteIconOff}
-          className={styles.icon}
-        />
-      }
+      icon={icon}
       onClick={() => toggleFavorite(show.id, type, favorite)}
-    >
-      <span>{favorite ? 'Favorited' : 'Favorite'}</span>
-    </Button>
+    />
   )
 }

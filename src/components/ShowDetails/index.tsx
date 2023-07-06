@@ -29,6 +29,8 @@ import { useHelpers } from 'src/hooks/useHelpers'
 import { ShowType } from 'src/types/ShowType'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
+import { WatchedButton } from '../WatchedButton'
+import { IoPlay } from 'react-icons/io5'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -188,11 +190,17 @@ function Actions({
 
   return (
     <Motion className={styles.buttons}>
-      <Link to={trailer} target="_blank" data-testid="show-trailer">
-        <Button size="large">▶ Trailer</Button>
-      </Link>
       <FavoriteButton show={show} accountStates={accountStates} type={type} />
       <WatchlistButton show={show} accountStates={accountStates} type={type} />
+      <WatchedButton show={show} accountStates={accountStates} type={type} />
+      {/* <Button
+        size="large"
+        icon={<IoPlay />}
+        onClick={() => window.open(trailer, '_blank')}
+        data-testid="show-trailer"
+      >
+        Trailer
+      </Button> */}
     </Motion>
   )
 }

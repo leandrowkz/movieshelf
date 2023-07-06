@@ -16,7 +16,8 @@ import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
 import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { MdPlaylistAddCheck, MdPlaylistAdd } from 'react-icons/md'
+import { IoCheckmarkDoneSharp } from 'react-icons/io5'
+import { ImEyePlus } from 'react-icons/im'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
@@ -24,7 +25,7 @@ interface Props extends HTMLAttributes<HTMLButtonElement> {
   type: ShowType
 }
 
-export function WatchlistButton({
+export function WatchedButton({
   show,
   type,
   accountStates,
@@ -81,11 +82,11 @@ export function WatchlistButton({
   }
 
   const icon = watchlist ? (
-    <MdPlaylistAddCheck color="green" />
+    <IoCheckmarkDoneSharp color="green" />
   ) : (
-    <MdPlaylistAdd />
+    <ImEyePlus />
   )
-  const title = watchlist ? 'My list' : 'Add to my list'
+  const title = watchlist ? 'Watched' : 'Add to Watched'
 
   return (
     <Button
