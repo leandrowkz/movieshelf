@@ -7,16 +7,12 @@ import type {
   TVShowAccountStates,
 } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
-import styles from './styles.module.css'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
-import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
-import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { IoCheckmarkDoneCircle, IoCheckmarkDoneSharp } from 'react-icons/io5'
+import { IoCheckmarkDoneCircle } from 'react-icons/io5'
 import { ImEyePlus } from 'react-icons/im'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {

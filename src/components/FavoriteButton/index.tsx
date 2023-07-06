@@ -7,13 +7,12 @@ import type {
   TVShowAccountStates,
 } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
-import styles from './styles.module.css'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { IoHeart, IoHeartOutline, IoHeartSharp } from 'react-icons/io5'
+import { IoHeart, IoHeartOutline } from 'react-icons/io5'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
