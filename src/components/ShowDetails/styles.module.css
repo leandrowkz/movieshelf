@@ -79,6 +79,14 @@
   min-width: 300px;
 }
 
+.posterImage {
+  display: flex;
+  gap: var(--spacer-base);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .favoriteIcon {
   position: relative;
   display: inline-block;
@@ -175,5 +183,6 @@
 
   .buttons {
     gap: var(--spacer-base);
+    flex-wrap: wrap;
   }
 }

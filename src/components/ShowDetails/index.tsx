@@ -1,5 +1,4 @@
 import React, { HTMLAttributes } from 'react'
-import { Link } from 'react-router-dom'
 import type {
   Movie,
   MovieAccountStates,
@@ -13,7 +12,6 @@ import { Heading } from '../../components/Heading'
 import { Text } from '../../components/Text'
 import { Rating } from '../../components/Rating'
 import { ShowGenres } from '../../components/ShowGenres'
-import { Button } from '../../components/Button'
 import { PeopleList } from '../../components/PeopleList'
 import { ShowCountries } from '../../components/ShowCountries'
 import { ShowPoster } from '../../components/ShowPoster'
@@ -30,7 +28,7 @@ import { ShowType } from 'src/types/ShowType'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
-import { IoPlay } from 'react-icons/io5'
+import { ShowTrailerButton } from '../ShowTrailerButton'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -45,13 +43,13 @@ type CastProps = {
 type ActionProps = {
   show: Movie | TVShow
   type: ShowType
-  videos: Video[]
   accountStates: MovieAccountStates | TVShowAccountStates
   isLoading?: boolean
 }
 
 type PosterProps = {
   show: Movie | TVShow
+  videos: Video[]
   isLoading?: boolean
 }
 
@@ -96,13 +94,12 @@ export function ShowDetails({
         <Actions
           show={show}
           type={type}
-          videos={videos}
           accountStates={accountStates}
           isLoading={isLoadingActions}
         />
       </div>
       <div className={styles.poster}>
-        <Poster show={show} isLoading={isLoadingShow} />
+        <Poster show={show} videos={videos} isLoading={isLoadingShow} />
       </div>
     </section>
   )
@@ -177,7 +174,6 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 function Actions({
   show,
   type,
-  videos,
   accountStates,
   isLoading = false,
 }: ActionProps): JSX.Element {
@@ -185,27 +181,16 @@ function Actions({
     return <LoaderActions />
   }
 
-  const { getShowTrailerUrl } = useHelpers()
-  const trailer = getShowTrailerUrl(videos)
-
   return (
     <Motion className={styles.buttons}>
       <FavoriteButton show={show} accountStates={accountStates} type={type} />
       <WatchlistButton show={show} accountStates={accountStates} type={type} />
       <WatchedButton show={show} accountStates={accountStates} type={type} />
-      {/* <Button
-        size="large"
-        icon={<IoPlay />}
-        onClick={() => window.open(trailer, '_blank')}
-        data-testid="show-trailer"
-      >
-        Trailer
-      </Button> */}
     </Motion>
   )
 }
 
-function Poster({ show, isLoading = false }: PosterProps): JSX.Element {
+function Poster({ show, videos, isLoading = false }: PosterProps): JSX.Element {
   if (isLoading) {
     return <LoaderPoster />
   }
@@ -213,6 +198,7 @@ function Poster({ show, isLoading = false }: PosterProps): JSX.Element {
   return (
     <Motion className={styles.posterImage}>
       <ShowPoster show={show} data-testid="show-poster" />
+      <ShowTrailerButton videos={videos} pill size="medium" />
     </Motion>
   )
 }
