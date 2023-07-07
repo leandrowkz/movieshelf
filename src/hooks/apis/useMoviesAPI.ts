@@ -91,8 +91,11 @@ async function fetchVideos(movieId: number): Promise<Video[]> {
   return api.get<Video[]>(path)
 }
 
-async function fetchStates(movieId: number): Promise<UserShowStates> {
-  const path = api.buildPath('/api/movies/states', { movieId })
+async function fetchStates(showId: number): Promise<UserShowStates> {
+  const path = api.buildPath('/api/shows/states', {
+    showId,
+    showType: 'movie',
+  })
 
   return api.get(path)
 }

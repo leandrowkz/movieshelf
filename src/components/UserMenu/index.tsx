@@ -49,6 +49,9 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
           <Dropdown.Item onClick={() => navigate('/watchlist')}>
             🎬 Watchlist
           </Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate('/watched')}>
+            ✅ Watched
+          </Dropdown.Item>
           <Dropdown.Item
             onClick={() =>
               window.open('https://github.com/sponsors/leandrowkz', '_blank')

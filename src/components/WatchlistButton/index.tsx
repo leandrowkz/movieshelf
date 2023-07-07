@@ -54,7 +54,7 @@ export function WatchlistButton({ show, type, states }: Props): JSX.Element {
   }
 
   const icon = watchlist ? <MdFactCheck color="green" /> : <MdPlaylistAdd />
-  const title = watchlist ? 'My list' : 'Add to my list'
+  const title = watchlist ? 'Watchlist' : 'Add to watchlist'
 
   return (
     <Button

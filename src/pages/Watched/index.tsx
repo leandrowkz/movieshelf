@@ -10,26 +10,26 @@ import { UserListsContext } from 'src/context/UserListsContext'
 import { ShowType } from 'src/types/ShowType'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 
-export function Watchlist(): JSX.Element {
+export function Watched(): JSX.Element {
   const isMobile = useScreenSize('mobile')
   const [filter, setFilter] = useState<ShowType>('movie')
-  const { watchlist, fetchList } = useContext(UserListsContext)
-  const { movies, tvShows } = watchlist
+  const { watched, fetchList } = useContext(UserListsContext)
+  const { movies, tvShows } = watched
 
   useEffect(() => {
-    fetchList(1, 'watchlist', 'movie')
-    fetchList(1, 'watchlist', 'tv')
+    fetchList(1, 'watched', 'movie')
+    fetchList(1, 'watched', 'tv')
   }, [])
 
   const paginate = (page: number, showType: ShowType) => {
-    fetchList(page, 'watchlist', showType)
+    fetchList(page, 'watched', showType)
     window.scrollTo(0, 0)
   }
 
   return (
     <Page isProtected>
       <Container>
-        <Heading level={1} title="🎬 Watchlist" data-testid="heading" />
+        <Heading level={1} title="✅ Watched" data-testid="heading" />
         <ShowTypeFilters value={filter} onFilter={(type) => setFilter(type)} />
         {filter === 'movie' && (
           <>
@@ -37,7 +37,7 @@ export function Watchlist(): JSX.Element {
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
               type="movie"
-              title="Movies you want to watch"
+              title="Movies you already watched"
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -56,7 +56,7 @@ export function Watchlist(): JSX.Element {
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
               type="tv"
-              title="TV Shows you want to watch"
+              title="TV Shows you already watched"
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />

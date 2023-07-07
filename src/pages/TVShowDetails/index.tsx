@@ -21,7 +21,7 @@ export function TVShowDetails(): JSX.Element {
     states,
     isLoadingCredits,
     isLoadingTVShow,
-    isLoadingVideos,
+    isLoadingStates,
     hasTVShowErrors,
     fetchTVShow,
     fetchCredits,
@@ -70,7 +70,7 @@ export function TVShowDetails(): JSX.Element {
         states={states}
         isLoadingShow={isLoadingTVShow}
         isLoadingPeople={isLoadingCredits}
-        isLoadingActions={isLoadingVideos}
+        isLoadingActions={isLoadingStates}
         data-testid="show-details"
       />
       <TVSeasonsTabs

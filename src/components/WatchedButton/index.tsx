@@ -8,7 +8,7 @@ import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoCheckmarkDoneCircle } from 'react-icons/io5'
-import { ImEyePlus } from 'react-icons/im'
+import { TbEyeCheck } from 'react-icons/tb'
 import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
@@ -54,7 +54,11 @@ export function WatchedButton({ show, type, states }: Props): JSX.Element {
     }
   }
 
-  const icon = watched ? <IoCheckmarkDoneCircle color="green" /> : <ImEyePlus />
+  const icon = watched ? (
+    <IoCheckmarkDoneCircle color="green" />
+  ) : (
+    <TbEyeCheck />
+  )
   const title = watched ? 'Watched' : 'Add to Watched'
 
   return (

@@ -13,6 +13,7 @@ import { SignUp } from 'src/pages/SignUp'
 import { SignIn } from 'src/pages/SignIn'
 import { Favorites } from 'src/pages/Favorites'
 import { Watchlist } from 'src/pages/Watchlist'
+import { Watched } from 'src/pages/Watched'
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: '/watchlist',
         element: <Watchlist />,
+      },
+      {
+        path: '/watched',
+        element: <Watched />,
       },
       {
         path: '/movies',
