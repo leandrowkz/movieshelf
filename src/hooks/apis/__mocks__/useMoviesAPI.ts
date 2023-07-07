@@ -1,19 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type {
-  Movie,
-  MovieAccountStates,
-  MovieCredits,
-  MovieItem,
-  Video,
-} from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
+import type { MovieItem } from '@leandrowkz/tmdb'
 import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockMovieCredits } from 'src/__mocks__/mockMovieCredits'
 import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
-import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
-import { ListPaginated } from 'src/types/ListPaginated'
 import { mockMovieListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
+import { mockShowStates } from 'src/__mocks__/mockShowStates'
 
 function getMockMovies(amount: number): MovieItem[] {
   const movies: MovieItem[] = []
@@ -65,8 +57,8 @@ async function fetchListsByGenres() {
   return [...mockMoviesListsByGenres]
 }
 
-async function fetchAccountStates() {
-  return { ...mockMovieAccountStates }
+async function fetchStates() {
+  return { ...mockShowStates }
 }
 
 async function fetchListPaginatedByGenre() {
@@ -74,7 +66,6 @@ async function fetchListPaginatedByGenre() {
 }
 
 const actions = {
-  fetchAccountStates,
   fetchCredits,
   fetchDetails,
   fetchListByGenre,
@@ -86,6 +77,7 @@ const actions = {
   fetchListsByGenres,
   fetchListPaginatedByGenre,
   fetchVideos,
+  fetchStates,
 }
 
 export const useMoviesAPI = () => actions

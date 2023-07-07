@@ -35,6 +35,23 @@ export const initialState: UserListsState = {
     },
   },
 
+  watched: {
+    movies: {
+      data: [],
+      page: 0,
+      pages: 0,
+      isLoading: false,
+      hasErrors: false,
+    },
+    tvShows: {
+      data: [],
+      page: 0,
+      pages: 0,
+      isLoading: false,
+      hasErrors: false,
+    },
+  },
+
   isLoading: {
     fetchList: false,
     addToList: false,

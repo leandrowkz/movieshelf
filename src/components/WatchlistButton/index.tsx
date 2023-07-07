@@ -1,11 +1,6 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type {
-  Movie,
-  MovieAccountStates,
-  TVShow,
-  TVShowAccountStates,
-} from '@leandrowkz/tmdb'
+import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
@@ -13,35 +8,36 @@ import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   type: ShowType
 }
 
-export function WatchlistButton({
-  show,
-  type,
-  accountStates,
-}: Props): JSX.Element {
+export function WatchlistButton({ show, type, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
+
   const {
     addToList,
     removeFromList,
     isLoading: isLoadingFromContext,
   } = useContext(UserListsContext)
+
   const {
-    fetchAccountStates: fetchMovieAccountStates,
-    isLoadingAccountStates: isLoadingMovieAccountStates,
+    fetchStates: fetchMovieStates,
+    isLoadingStates: isLoadingMovieStates,
   } = useContext(MovieDetailsContext)
+
   const {
-    fetchAccountStates: fetchTVShowAccountStates,
-    isLoadingAccountStates: isLoadingTVShowAccountStates,
+    fetchStates: fetchTVShowStates,
+    isLoadingStates: isLoadingTVShowStates,
   } = useContext(TVShowDetailsContext)
 
-  const { watchlist } = accountStates
+  const { watchlist } = states
+
   const {
     addToList: isLoadingAddWatchlist,
     removeFromList: isLoadingRemoveWatchlist,
@@ -50,8 +46,8 @@ export function WatchlistButton({
   const isLoading =
     (isLoadingAddWatchlist ||
       isLoadingRemoveWatchlist ||
-      isLoadingMovieAccountStates ||
-      isLoadingTVShowAccountStates) &&
+      isLoadingMovieStates ||
+      isLoadingTVShowStates) &&
     Boolean(session)
 
   const toggleWatchlist = async (
@@ -70,9 +66,9 @@ export function WatchlistButton({
     }
 
     if (type === 'movie') {
-      fetchMovieAccountStates(showId)
+      fetchMovieStates(showId)
     } else {
-      fetchTVShowAccountStates(showId)
+      fetchTVShowStates(showId)
     }
   }
 

@@ -1,11 +1,6 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type {
-  Movie,
-  MovieAccountStates,
-  TVShow,
-  TVShowAccountStates,
-} from '@leandrowkz/tmdb'
+import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
@@ -14,35 +9,36 @@ import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoCheckmarkDoneCircle } from 'react-icons/io5'
 import { ImEyePlus } from 'react-icons/im'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   type: ShowType
 }
 
-export function WatchedButton({
-  show,
-  type,
-  accountStates,
-}: Props): JSX.Element {
+export function WatchedButton({ show, type, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
+
   const {
     addToList,
     removeFromList,
     isLoading: isLoadingFromContext,
   } = useContext(UserListsContext)
+
   const {
-    fetchAccountStates: fetchMovieAccountStates,
-    isLoadingAccountStates: isLoadingMovieAccountStates,
+    fetchStates: fetchMovieStates,
+    isLoadingStates: isLoadingMovieStates,
   } = useContext(MovieDetailsContext)
+
   const {
-    fetchAccountStates: fetchTVShowAccountStates,
-    isLoadingAccountStates: isLoadingTVShowAccountStates,
+    fetchStates: fetchTVShowStates,
+    isLoadingStates: isLoadingTVShowStates,
   } = useContext(TVShowDetailsContext)
 
-  const { watchlist } = accountStates
+  const { watched } = states
+
   const {
     addToList: isLoadingAddWatchlist,
     removeFromList: isLoadingRemoveWatchlist,
@@ -51,38 +47,34 @@ export function WatchedButton({
   const isLoading =
     (isLoadingAddWatchlist ||
       isLoadingRemoveWatchlist ||
-      isLoadingMovieAccountStates ||
-      isLoadingTVShowAccountStates) &&
+      isLoadingMovieStates ||
+      isLoadingTVShowStates) &&
     Boolean(session)
 
-  const toggleWatchlist = async (
+  const toggleWatched = async (
     showId: number,
     type: ShowType,
-    watchlist: boolean
+    watched: boolean
   ) => {
     if (!session) {
       return navigate('/sign-in')
     }
 
-    if (!watchlist) {
-      await addToList('watchlist', showId, type)
+    if (!watched) {
+      await addToList('watched', showId, type)
     } else {
-      await removeFromList('watchlist', showId, type)
+      await removeFromList('watched', showId, type)
     }
 
     if (type === 'movie') {
-      fetchMovieAccountStates(showId)
+      fetchMovieStates(showId)
     } else {
-      fetchTVShowAccountStates(showId)
+      fetchTVShowStates(showId)
     }
   }
 
-  const icon = watchlist ? (
-    <IoCheckmarkDoneCircle color="green" />
-  ) : (
-    <ImEyePlus />
-  )
-  const title = watchlist ? 'Watched' : 'Add to Watched'
+  const icon = watched ? <IoCheckmarkDoneCircle color="green" /> : <ImEyePlus />
+  const title = watched ? 'Watched' : 'Add to Watched'
 
   return (
     <Button
@@ -90,7 +82,7 @@ export function WatchedButton({
       variant="secondary"
       isLoading={isLoading}
       icon={icon}
-      onClick={() => toggleWatchlist(show.id, type, watchlist)}
+      onClick={() => toggleWatched(show.id, type, watched)}
     >
       {title}
     </Button>

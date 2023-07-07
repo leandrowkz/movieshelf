@@ -1,19 +1,20 @@
-import { Movie, MovieAccountStates } from '@leandrowkz/tmdb'
+import { Movie } from '@leandrowkz/tmdb'
 import { MovieDetailsState } from './types'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export const initialState: MovieDetailsState = {
   movie: {} as Movie,
-  accountStates: {} as MovieAccountStates,
+  states: {} as UserShowStates,
   cast: [],
   crew: [],
   videos: [],
   isLoadingMovie: false,
   isLoadingCredits: false,
   isLoadingVideos: false,
-  isLoadingAccountStates: false,
+  isLoadingStates: false,
   hasMovieErrors: false,
   fetchMovie: () => null,
   fetchCredits: () => null,
   fetchVideos: () => null,
-  fetchAccountStates: () => null,
+  fetchStates: () => null,
 }

@@ -1,13 +1,8 @@
-import type {
-  MovieItem,
-  Movie,
-  Video,
-  MovieCredits,
-  MovieAccountStates,
-} from '@leandrowkz/tmdb'
+import type { MovieItem, Movie, Video, MovieCredits } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { APIClient } from './APIClient'
 import { ListPaginated } from 'src/types/ListPaginated'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 const api = new APIClient('')
 
@@ -96,16 +91,13 @@ async function fetchVideos(movieId: number): Promise<Video[]> {
   return api.get<Video[]>(path)
 }
 
-async function fetchAccountStates(
-  movieId: number
-): Promise<MovieAccountStates> {
-  const path = api.buildPath('/api/movies/account-states', { movieId })
+async function fetchStates(movieId: number): Promise<UserShowStates> {
+  const path = api.buildPath('/api/movies/states', { movieId })
 
-  return api.get<MovieAccountStates>(path)
+  return api.get(path)
 }
 
 export const useMoviesAPI = () => ({
-  fetchAccountStates,
   fetchCredits,
   fetchDetails,
   fetchListByGenre,
@@ -117,4 +109,5 @@ export const useMoviesAPI = () => ({
   fetchListsByGenres,
   fetchListPaginatedByGenre,
   fetchVideos,
+  fetchStates,
 })

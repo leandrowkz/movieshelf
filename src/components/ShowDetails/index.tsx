@@ -1,11 +1,9 @@
 import React, { HTMLAttributes } from 'react'
 import type {
   Movie,
-  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
-  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
@@ -29,6 +27,7 @@ import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -43,7 +42,7 @@ type CastProps = {
 type ActionProps = {
   show: Movie | TVShow
   type: ShowType
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   isLoading?: boolean
 }
 
@@ -58,7 +57,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
   isLoadingActions: boolean
@@ -69,7 +68,7 @@ export function ShowDetails({
   type = 'movie',
   people,
   videos,
-  accountStates,
+  states,
   isLoadingShow,
   isLoadingPeople,
   isLoadingActions,
@@ -94,7 +93,7 @@ export function ShowDetails({
         <Actions
           show={show}
           type={type}
-          accountStates={accountStates}
+          states={states}
           isLoading={isLoadingActions}
         />
       </div>
@@ -174,7 +173,7 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 function Actions({
   show,
   type,
-  accountStates,
+  states,
   isLoading = false,
 }: ActionProps): JSX.Element {
   if (isLoading) {
@@ -183,9 +182,9 @@ function Actions({
 
   return (
     <Motion className={styles.buttons}>
-      <FavoriteButton show={show} accountStates={accountStates} type={type} />
-      <WatchlistButton show={show} accountStates={accountStates} type={type} />
-      <WatchedButton show={show} accountStates={accountStates} type={type} />
+      <FavoriteButton show={show} states={states} type={type} />
+      <WatchlistButton show={show} states={states} type={type} />
+      <WatchedButton show={show} states={states} type={type} />
     </Motion>
   )
 }

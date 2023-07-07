@@ -1,11 +1,6 @@
 import React, { HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type {
-  Movie,
-  MovieAccountStates,
-  TVShow,
-  TVShowAccountStates,
-} from '@leandrowkz/tmdb'
+import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
@@ -13,35 +8,36 @@ import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoHeart, IoHeartOutline } from 'react-icons/io5'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   type: ShowType
 }
 
-export function FavoriteButton({
-  show,
-  type,
-  accountStates,
-}: Props): JSX.Element {
+export function FavoriteButton({ show, type, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
+
   const {
     addToList,
     removeFromList,
     isLoading: isLoadingFromContext,
   } = useContext(UserListsContext)
+
   const {
-    fetchAccountStates: fetchMovieAccountStates,
-    isLoadingAccountStates: isLoadingMovieAccountStates,
+    fetchStates: fetchMovieStates,
+    isLoadingStates: isLoadingMovieStates,
   } = useContext(MovieDetailsContext)
+
   const {
-    fetchAccountStates: fetchTVShowAccountStates,
-    isLoadingAccountStates: isLoadingTVShowAccountStates,
+    fetchStates: fetchTVShowStates,
+    isLoadingStates: isLoadingTVShowStates,
   } = useContext(TVShowDetailsContext)
 
-  const { favorite } = accountStates
+  const { favorited } = states
+
   const {
     addToList: isLoadingAddFavorite,
     removeFromList: isLoadingRemoveFavorite,
@@ -50,8 +46,8 @@ export function FavoriteButton({
   const isLoading =
     (isLoadingAddFavorite ||
       isLoadingRemoveFavorite ||
-      isLoadingMovieAccountStates ||
-      isLoadingTVShowAccountStates) &&
+      isLoadingMovieStates ||
+      isLoadingTVShowStates) &&
     Boolean(session)
 
   const toggleFavorite = async (
@@ -70,13 +66,13 @@ export function FavoriteButton({
     }
 
     if (type === 'movie') {
-      fetchMovieAccountStates(showId)
+      fetchMovieStates(showId)
     } else {
-      fetchTVShowAccountStates(showId)
+      fetchTVShowStates(showId)
     }
   }
 
-  const icon = favorite ? <IoHeart color="red" /> : <IoHeartOutline />
+  const icon = favorited ? <IoHeart color="red" /> : <IoHeartOutline />
 
   return (
     <Button
@@ -84,7 +80,7 @@ export function FavoriteButton({
       variant="secondary"
       isLoading={isLoading}
       icon={icon}
-      onClick={() => toggleFavorite(show.id, type, favorite)}
+      onClick={() => toggleFavorite(show.id, type, favorited)}
     />
   )
 }

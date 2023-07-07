@@ -17,7 +17,7 @@ export function MovieDetails(): JSX.Element {
     cast,
     crew,
     videos,
-    accountStates,
+    states,
     isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
@@ -25,7 +25,7 @@ export function MovieDetails(): JSX.Element {
     fetchMovie,
     fetchCredits,
     fetchVideos,
-    fetchAccountStates,
+    fetchStates,
   } = useContext(MovieDetailsContext)
 
   const {
@@ -46,7 +46,7 @@ export function MovieDetails(): JSX.Element {
     fetchMovie(id)
     fetchCredits(id)
     fetchVideos(id)
-    fetchAccountStates(id)
+    fetchStates(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
@@ -65,7 +65,7 @@ export function MovieDetails(): JSX.Element {
         show={movie}
         people={people}
         videos={videos}
-        accountStates={accountStates}
+        states={states}
         isLoadingShow={isLoadingMovie}
         isLoadingPeople={isLoadingCredits}
         isLoadingActions={isLoadingVideos}

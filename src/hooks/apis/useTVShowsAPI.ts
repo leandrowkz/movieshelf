@@ -1,13 +1,8 @@
-import type {
-  TVShow,
-  TVShowAccountStates,
-  TVShowCredits,
-  TVShowItem,
-  Video,
-} from '@leandrowkz/tmdb'
+import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
 import { ListByGenre } from 'src/types/ListByGenre'
 import { APIClient } from './APIClient'
 import { ListPaginated } from 'src/types/ListPaginated'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 const api = new APIClient('')
 
@@ -87,12 +82,10 @@ async function fetchVideos(tvShowId: number): Promise<Video[]> {
   return api.get<Video[]>(path)
 }
 
-async function fetchAccountStates(
-  tvShowId: number
-): Promise<TVShowAccountStates> {
-  const path = api.buildPath('/api/tv-shows/account-states', { tvShowId })
+async function fetchStates(tvShowId: number): Promise<UserShowStates> {
+  const path = api.buildPath('/api/tv-shows/states', { tvShowId })
 
-  return api.get<TVShowAccountStates>(path)
+  return api.get(path)
 }
 
 async function fetchListPaginatedByGenre(
@@ -109,7 +102,6 @@ async function fetchListPaginatedByGenre(
 }
 
 export const useTVShowsAPI = () => ({
-  fetchAccountStates,
   fetchCredits,
   fetchDetails,
   fetchListByGenre,
@@ -122,4 +114,5 @@ export const useTVShowsAPI = () => ({
   fetchListTopRated,
   fetchListPaginatedByGenre,
   fetchVideos,
+  fetchStates,
 })

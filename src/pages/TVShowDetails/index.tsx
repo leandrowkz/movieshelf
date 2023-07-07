@@ -18,7 +18,7 @@ export function TVShowDetails(): JSX.Element {
     cast,
     crew,
     videos,
-    accountStates,
+    states,
     isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
@@ -26,7 +26,7 @@ export function TVShowDetails(): JSX.Element {
     fetchTVShow,
     fetchCredits,
     fetchVideos,
-    fetchAccountStates,
+    fetchStates,
   } = useContext(TVShowDetailsContext)
 
   const {
@@ -47,7 +47,7 @@ export function TVShowDetails(): JSX.Element {
     fetchTVShow(id)
     fetchCredits(id)
     fetchVideos(id)
-    fetchAccountStates(id)
+    fetchStates(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchPopular()
@@ -67,7 +67,7 @@ export function TVShowDetails(): JSX.Element {
         show={tvShow}
         people={people}
         videos={videos}
-        accountStates={accountStates}
+        states={states}
         isLoadingShow={isLoadingTVShow}
         isLoadingPeople={isLoadingCredits}
         isLoadingActions={isLoadingVideos}

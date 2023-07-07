@@ -2,13 +2,13 @@ import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ShowType } from 'src/types/ShowType'
 import { APIClient } from './APIClient'
 import { ListPaginated } from 'src/types/ListPaginated'
-import { ListType } from 'src/types/ListType'
+import { UserListType } from 'src/types/UserListType'
 
 const api = new APIClient('')
 
 async function fetchList(
   page = 1,
-  listType: ListType,
+  listType: UserListType,
   showType: ShowType
 ): Promise<ListPaginated<MovieItem> | ListPaginated<TVShowItem>> {
   const path = api.buildPath('/api/user/lists', {
@@ -21,7 +21,7 @@ async function fetchList(
 }
 
 async function addToList(
-  listType: ListType,
+  listType: UserListType,
   showId: number,
   showType: ShowType
 ) {
@@ -31,7 +31,7 @@ async function addToList(
 }
 
 async function removeFromList(
-  listType: ListType,
+  listType: UserListType,
   showId: number,
   showType: ShowType
 ) {

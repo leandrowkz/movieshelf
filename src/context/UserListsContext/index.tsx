@@ -2,7 +2,7 @@ import React, { PropsWithChildren, createContext, useState } from 'react'
 import { ShowType } from 'src/types/ShowType'
 import { initialState } from './state'
 import { ListsState, UserListsState } from './types'
-import { ListType } from 'src/types/ListType'
+import { UserListType } from 'src/types/UserListType'
 import { useUserListsAPI } from 'src/hooks/apis/useUserListsAPI'
 
 export const UserListsContext = createContext<UserListsState>({
@@ -17,34 +17,37 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
   const [watchlist, setWatchlist] = useState({
     ...initialState.watchlist,
   })
+  const [watched, setWatched] = useState({
+    ...initialState.watchlist,
+  })
   const [isLoading, setIsLoading] = useState({
     ...initialState.isLoading,
   })
 
   const fetchList = async (
     page: number,
-    listType: ListType,
+    listType: UserListType,
     showType: ShowType
   ) => {
     const updateList = (values: ListsState) => {
       const key = showType === 'movie' ? 'movies' : 'tvShows'
 
+      const getState = (
+        prev: UserListsState['favorites' | 'watchlist' | 'watched']
+      ) => ({
+        ...prev,
+        [key]: {
+          ...prev[key],
+          ...values,
+        },
+      })
+
       if (listType === 'favorites') {
-        setFavorites((prev) => ({
-          ...prev,
-          [key]: {
-            ...prev[key],
-            ...values,
-          },
-        }))
+        setFavorites((prev) => getState(prev))
       } else if (listType === 'watchlist') {
-        setWatchlist((prev) => ({
-          ...prev,
-          [key]: {
-            ...prev[key],
-            ...values,
-          },
-        }))
+        setWatchlist((prev) => getState(prev))
+      } else if (listType === 'watched') {
+        setWatched((prev) => getState(prev))
       }
     }
 
@@ -64,7 +67,7 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   const addToList = async (
-    listType: ListType,
+    listType: UserListType,
     showId: number,
     showType: ShowType
   ) => {
@@ -77,7 +80,7 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   const removeFromList = async (
-    listType: ListType,
+    listType: UserListType,
     showId: number,
     showType: ShowType
   ) => {
@@ -92,6 +95,7 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
   const state = {
     favorites,
     watchlist,
+    watched,
     isLoading,
     fetchList,
     addToList,

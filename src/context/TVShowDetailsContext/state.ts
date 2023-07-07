@@ -1,19 +1,20 @@
-import { TVShow, TVShowAccountStates } from '@leandrowkz/tmdb'
+import { TVShow } from '@leandrowkz/tmdb'
 import { TVShowDetailsState } from './types'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export const initialState: TVShowDetailsState = {
   tvShow: {} as TVShow,
   cast: [],
   crew: [],
   videos: [],
-  accountStates: {} as TVShowAccountStates,
+  states: {} as UserShowStates,
   isLoadingTVShow: false,
   isLoadingCredits: false,
   isLoadingVideos: false,
   hasTVShowErrors: false,
-  isLoadingAccountStates: false,
+  isLoadingStates: false,
   fetchTVShow: () => null,
   fetchCredits: () => null,
   fetchVideos: () => null,
-  fetchAccountStates: () => null,
+  fetchStates: () => null,
 }
