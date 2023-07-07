@@ -26,29 +26,12 @@ export function FavoriteButton({ show, type, states }: Props): JSX.Element {
     isLoading: isLoadingFromContext,
   } = useContext(UserListsContext)
 
-  const {
-    fetchStates: fetchMovieStates,
-    isLoadingStates: isLoadingMovieStates,
-  } = useContext(MovieDetailsContext)
-
-  const {
-    fetchStates: fetchTVShowStates,
-    isLoadingStates: isLoadingTVShowStates,
-  } = useContext(TVShowDetailsContext)
+  const { setStates: setMovieStates } = useContext(MovieDetailsContext)
+  const { setStates: setTVShowStates } = useContext(TVShowDetailsContext)
 
   const { favorited } = states
 
-  const {
-    addToList: isLoadingAddFavorite,
-    removeFromList: isLoadingRemoveFavorite,
-  } = isLoadingFromContext
-
-  const isLoading =
-    (isLoadingAddFavorite ||
-      isLoadingRemoveFavorite ||
-      isLoadingMovieStates ||
-      isLoadingTVShowStates) &&
-    Boolean(session)
+  const isLoading = isLoadingFromContext.favorites && Boolean(session)
 
   const toggleFavorite = async (
     showId: number,
@@ -59,16 +42,14 @@ export function FavoriteButton({ show, type, states }: Props): JSX.Element {
       return navigate('/sign-in')
     }
 
-    if (!favorite) {
-      await addToList('favorites', showId, type)
-    } else {
-      await removeFromList('favorites', showId, type)
-    }
+    const refreshedStates = !favorite
+      ? await addToList('favorites', showId, type)
+      : await removeFromList('favorites', showId, type)
 
     if (type === 'movie') {
-      fetchMovieStates(showId)
+      setMovieStates(refreshedStates)
     } else {
-      fetchTVShowStates(showId)
+      setTVShowStates(refreshedStates)
     }
   }
 

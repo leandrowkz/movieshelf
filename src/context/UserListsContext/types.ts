@@ -2,6 +2,7 @@ import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { ListPaginated } from 'src/types/ListPaginated'
 import { ShowType } from 'src/types/ShowType'
 import { UserListType } from 'src/types/UserListType'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export type UserListsState = {
   favorites: {
@@ -19,8 +20,9 @@ export type UserListsState = {
 
   isLoading: {
     fetchList: boolean
-    addToList: boolean
-    removeFromList: boolean
+    favorites: boolean
+    watchlist: boolean
+    watched: boolean
   }
 
   fetchList: (
@@ -33,13 +35,13 @@ export type UserListsState = {
     listType: UserListType,
     showId: number,
     showType: ShowType
-  ) => Promise<void>
+  ) => Promise<UserShowStates>
 
   removeFromList: (
     listType: UserListType,
     showId: number,
     showType: ShowType
-  ) => Promise<void>
+  ) => Promise<UserShowStates>
 }
 
 export type ListsState = Partial<

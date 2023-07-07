@@ -84,6 +84,7 @@ export const MovieDetailsContextProvider = ({
     fetchMovie,
     fetchVideos,
     fetchStates,
+    setStates,
   }
 
   return (

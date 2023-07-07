@@ -71,12 +71,13 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
     showId: number,
     showType: ShowType
   ) => {
-    setIsLoading((prev) => ({ ...prev, addToList: true }))
+    setIsLoading((prev) => ({ ...prev, [listType]: true }))
 
-    await api.addToList(listType, showId, showType)
+    const states = await api.addToList(listType, showId, showType)
 
-    fetchList(1, listType, showType)
-    setIsLoading((prev) => ({ ...prev, addToList: false }))
+    setIsLoading((prev) => ({ ...prev, [listType]: false }))
+
+    return states
   }
 
   const removeFromList = async (
@@ -84,12 +85,13 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
     showId: number,
     showType: ShowType
   ) => {
-    setIsLoading((prev) => ({ ...prev, removeFromList: true }))
+    setIsLoading((prev) => ({ ...prev, [listType]: true }))
 
-    await api.removeFromList(listType, showId, showType)
+    const states = await api.removeFromList(listType, showId, showType)
 
-    fetchList(1, listType, showType)
-    setIsLoading((prev) => ({ ...prev, removeFromList: false }))
+    setIsLoading((prev) => ({ ...prev, [listType]: false }))
+
+    return states
   }
 
   const state = {

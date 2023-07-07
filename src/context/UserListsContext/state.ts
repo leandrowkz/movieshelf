@@ -1,4 +1,5 @@
 import { UserListsState } from './types'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export const initialState: UserListsState = {
   favorites: {
@@ -54,11 +55,12 @@ export const initialState: UserListsState = {
 
   isLoading: {
     fetchList: false,
-    addToList: false,
-    removeFromList: false,
+    favorites: false,
+    watchlist: false,
+    watched: false,
   },
 
   fetchList: () => Promise.resolve(),
-  addToList: () => Promise.resolve(),
-  removeFromList: () => Promise.resolve(),
+  addToList: () => Promise.resolve({} as UserShowStates),
+  removeFromList: () => Promise.resolve({} as UserShowStates),
 }

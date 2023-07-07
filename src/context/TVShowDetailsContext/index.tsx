@@ -89,6 +89,7 @@ export const TVShowDetailsContextProvider = ({
     fetchTVShow,
     fetchVideos,
     fetchStates,
+    setStates,
   }
 
   return (

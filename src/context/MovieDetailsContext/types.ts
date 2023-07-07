@@ -17,4 +17,5 @@ export type MovieDetailsState = {
   fetchCredits: (movieId: number) => void
   fetchVideos: (movieId: number) => void
   fetchStates: (movieId: number) => void
+  setStates: (states: UserShowStates) => void
 }

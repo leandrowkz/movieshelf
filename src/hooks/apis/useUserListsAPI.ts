@@ -3,6 +3,7 @@ import { ShowType } from 'src/types/ShowType'
 import { APIClient } from './APIClient'
 import { ListPaginated } from 'src/types/ListPaginated'
 import { UserListType } from 'src/types/UserListType'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 const api = new APIClient('')
 
@@ -24,7 +25,7 @@ async function addToList(
   listType: UserListType,
   showId: number,
   showType: ShowType
-) {
+): Promise<UserShowStates> {
   const path = api.buildPath('/api/user/lists/add')
 
   return api.post(path, { showId, showType, listType })
@@ -34,7 +35,7 @@ async function removeFromList(
   listType: UserListType,
   showId: number,
   showType: ShowType
-) {
+): Promise<UserShowStates> {
   const path = api.buildPath('/api/user/lists/remove')
 
   return api.post(path, { showId, showType, listType })

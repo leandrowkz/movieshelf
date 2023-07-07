@@ -26,29 +26,12 @@ export function WatchlistButton({ show, type, states }: Props): JSX.Element {
     isLoading: isLoadingFromContext,
   } = useContext(UserListsContext)
 
-  const {
-    fetchStates: fetchMovieStates,
-    isLoadingStates: isLoadingMovieStates,
-  } = useContext(MovieDetailsContext)
-
-  const {
-    fetchStates: fetchTVShowStates,
-    isLoadingStates: isLoadingTVShowStates,
-  } = useContext(TVShowDetailsContext)
+  const { setStates: setMovieStates } = useContext(MovieDetailsContext)
+  const { setStates: setTVShowStates } = useContext(TVShowDetailsContext)
 
   const { watchlist } = states
 
-  const {
-    addToList: isLoadingAddWatchlist,
-    removeFromList: isLoadingRemoveWatchlist,
-  } = isLoadingFromContext
-
-  const isLoading =
-    (isLoadingAddWatchlist ||
-      isLoadingRemoveWatchlist ||
-      isLoadingMovieStates ||
-      isLoadingTVShowStates) &&
-    Boolean(session)
+  const isLoading = isLoadingFromContext.watchlist && Boolean(session)
 
   const toggleWatchlist = async (
     showId: number,
@@ -59,16 +42,14 @@ export function WatchlistButton({ show, type, states }: Props): JSX.Element {
       return navigate('/sign-in')
     }
 
-    if (!watchlist) {
-      await addToList('watchlist', showId, type)
-    } else {
-      await removeFromList('watchlist', showId, type)
-    }
+    const refreshedStates = !watchlist
+      ? await addToList('watchlist', showId, type)
+      : await removeFromList('watchlist', showId, type)
 
     if (type === 'movie') {
-      fetchMovieStates(showId)
+      setMovieStates(refreshedStates)
     } else {
-      fetchTVShowStates(showId)
+      setTVShowStates(refreshedStates)
     }
   }
 

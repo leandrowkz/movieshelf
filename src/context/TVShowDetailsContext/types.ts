@@ -16,4 +16,5 @@ export type TVShowDetailsState = {
   fetchCredits: (tvShowId: number) => void
   fetchVideos: (tvShowId: number) => void
   fetchStates: (movieId: number) => void
+  setStates: (states: UserShowStates) => void
 }

@@ -17,4 +17,5 @@ export const initialState: TVShowDetailsState = {
   fetchCredits: () => null,
   fetchVideos: () => null,
   fetchStates: () => null,
+  setStates: () => null,
 }

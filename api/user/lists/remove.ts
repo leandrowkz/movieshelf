@@ -1,4 +1,6 @@
 import { authorize, dispatch } from '../../api'
+import { getShowStates } from '../../shows/states'
+import { ShowStatesPayload } from '../../shows/types'
 import { removeFromList, validate } from './helpers'
 import { UserListPayload } from './types'
 
@@ -22,5 +24,5 @@ export default async (req: Request, res: Response) =>
 
     await removeFromList(payload)
 
-    return { status: 'success' }
+    return await getShowStates(payload as ShowStatesPayload)
   })

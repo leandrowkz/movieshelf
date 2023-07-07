@@ -17,4 +17,5 @@ export const initialState: MovieDetailsState = {
   fetchCredits: () => null,
   fetchVideos: () => null,
   fetchStates: () => null,
+  setStates: () => null,
 }
