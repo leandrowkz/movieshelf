@@ -9,6 +9,7 @@ import { Pagination } from 'src/components/Pagination'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { ShowType } from 'src/types/ShowType'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
+import { Link } from 'react-router-dom'
 
 export function Watched(): JSX.Element {
   const isMobile = useScreenSize('mobile')
@@ -29,7 +30,10 @@ export function Watched(): JSX.Element {
   return (
     <Page isProtected>
       <Container>
-        <Heading level={1} title="✅ Watched" data-testid="heading" />
+        <section className={styles.header}>
+          <Heading level={1} title="✅ Watched" data-testid="heading" />
+          <Link to="/watchlist">Go to your Watchlist 🎬</Link>
+        </section>
         <ShowTypeFilters value={filter} onFilter={(type) => setFilter(type)} />
         {filter === 'movie' && (
           <>
