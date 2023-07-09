@@ -54,22 +54,28 @@ export function WatchedButton({ show, type, states }: Props): JSX.Element {
     }
   }
 
-  const icon = watched ? (
-    <IoCheckmarkDoneCircle color="green" />
-  ) : (
-    <TbEyeCheck />
-  )
-  const title = watched ? 'Watched' : 'Add to Watched'
+  const buttonData = {
+    icon: <></>,
+    title: '',
+  }
+
+  if (watched) {
+    buttonData.icon = <IoCheckmarkDoneCircle color="green" />
+    buttonData.title = 'Watched'
+  } else {
+    buttonData.icon = <TbEyeCheck />
+    buttonData.title = 'Add to watched'
+  }
 
   return (
     <Button
       size="large"
       variant="secondary"
       isLoading={isLoading}
-      icon={icon}
+      icon={buttonData.icon}
       onClick={() => toggleWatched(show.id, type, watched)}
     >
-      {title}
+      {buttonData.title}
     </Button>
   )
 }

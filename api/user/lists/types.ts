@@ -1,6 +1,6 @@
 import type { UserListType, ShowType } from '../../types'
 
-export type ShowListPayload = {
+export type UserListPayload = {
   page?: number
   userId: string
   showId?: string

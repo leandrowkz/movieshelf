@@ -48,7 +48,6 @@ type ActionProps = {
 
 type PosterProps = {
   show: Movie | TVShow
-  videos: Video[]
   isLoading?: boolean
 }
 
@@ -98,7 +97,8 @@ export function ShowDetails({
         />
       </div>
       <div className={styles.poster}>
-        <Poster show={show} videos={videos} isLoading={isLoadingShow} />
+        <Poster show={show} isLoading={isLoadingShow} />
+        <ShowTrailerButton videos={videos} pill size="medium" />
       </div>
     </section>
   )
@@ -183,13 +183,13 @@ function Actions({
   return (
     <Motion className={styles.buttons}>
       <FavoriteButton show={show} states={states} type={type} />
-      <WatchlistButton show={show} states={states} type={type} />
       <WatchedButton show={show} states={states} type={type} />
+      <WatchlistButton show={show} states={states} type={type} />
     </Motion>
   )
 }
 
-function Poster({ show, videos, isLoading = false }: PosterProps): JSX.Element {
+function Poster({ show, isLoading = false }: PosterProps): JSX.Element {
   if (isLoading) {
     return <LoaderPoster />
   }
@@ -197,7 +197,6 @@ function Poster({ show, videos, isLoading = false }: PosterProps): JSX.Element {
   return (
     <Motion className={styles.posterImage}>
       <ShowPoster show={show} data-testid="show-poster" />
-      <ShowTrailerButton videos={videos} pill size="medium" />
     </Motion>
   )
 }
