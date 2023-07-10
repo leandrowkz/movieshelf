@@ -188,8 +188,8 @@ function Actions({
 
   return (
     <Motion className={styles.buttons}>
-      <WatchedButton show={show} states={states} type={type} />
-      <WatchlistButton show={show} states={states} type={type} />
+      <WatchedButton show={show} states={states} showType={type} />
+      <WatchlistButton show={show} states={states} showType={type} />
     </Motion>
   )
 }

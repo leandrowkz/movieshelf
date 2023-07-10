@@ -13,10 +13,14 @@ import { UserShowStates } from 'src/types/UserShowStates'
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
   states: UserShowStates
-  type: ShowType
+  showType: ShowType
 }
 
-export function WatchlistButton({ show, type, states }: Props): JSX.Element {
+export function WatchlistButton({
+  show,
+  showType,
+  states,
+}: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -53,18 +57,32 @@ export function WatchlistButton({ show, type, states }: Props): JSX.Element {
     }
   }
 
-  const icon = watchlist ? <MdFactCheck color="green" /> : <MdPlaylistAdd />
-  const title = watchlist ? 'Watchlist' : 'Add to watchlist'
+  const buttonProps = {
+    icon: <></>,
+    title: '',
+    dataTestId: '',
+  }
+
+  if (watchlist) {
+    buttonProps.icon = <MdFactCheck color="green" />
+    buttonProps.title = 'Watchlist'
+    buttonProps.dataTestId = 'button-on'
+  } else {
+    buttonProps.icon = <MdPlaylistAdd />
+    buttonProps.title = 'Add to watchlist'
+    buttonProps.dataTestId = 'button-off'
+  }
 
   return (
     <Button
       size="large"
       variant="secondary"
       isLoading={isLoading}
-      icon={icon}
-      onClick={() => toggleWatchlist(show.id, type, watchlist)}
+      icon={buttonProps.icon}
+      onClick={() => toggleWatchlist(show.id, showType, watchlist)}
+      data-testid={buttonProps.dataTestId}
     >
-      {title}
+      {buttonProps.title}
     </Button>
   )
 }

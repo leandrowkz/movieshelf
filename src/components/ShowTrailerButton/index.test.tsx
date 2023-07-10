@@ -1,35 +1,19 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { ShowDetails } from '.'
-// import { Movie } from '@leandrowkz/tmdb'
+import React from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { ShowTrailerButton } from '.'
 
-// const {
-//   renderComponent,
-//   getMockMovies,
-//   getMockPeople,
-//   getMockVideos,
-//   getMockMovieAccountStates,
-//   screen,
-// } = useTesting()
+const { renderComponent, getMockVideos, screen } = useTesting()
 
-// test('Should render ShowDetails properly', async () => {
-//   renderComponent(
-//     <ShowDetails
-//       show={getMockMovies(1)[0] as Movie}
-//       people={getMockPeople()}
-//       videos={getMockVideos()}
-//       accountStates={getMockMovieAccountStates(1)[0]}
-//       isLoadingShow={false}
-//       isLoadingPeople={false}
-//       isLoadingActions={false}
-//     />
-//   )
+test('Should render ShowTrailerButton properly', async () => {
+  renderComponent(<ShowTrailerButton videos={getMockVideos()} />)
 
-//   expect(screen.getByTestId('show-title')).toBeVisible()
-//   expect(screen.getByTestId('show-overview')).toBeVisible()
-//   expect(screen.getByTestId('show-year')).toBeVisible()
-//   expect(screen.getByTestId('show-genres')).toBeVisible()
-//   expect(screen.getByTestId('show-countries')).toBeVisible()
-//   expect(screen.getByTestId('show-poster')).toBeVisible()
-//   expect(screen.getByTestId('show-cast')).toBeVisible()
-// })
+  expect(screen.getByRole('button', { name: /trailer/i })).toBeVisible()
+})
+
+test('Should not render ShowTrailerButton if videos are missing', async () => {
+  renderComponent(<ShowTrailerButton videos={[]} />)
+
+  expect(
+    screen.queryByRole('button', { name: /trailer/i })
+  ).not.toBeInTheDocument()
+})

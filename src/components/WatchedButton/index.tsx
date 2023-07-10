@@ -14,10 +14,10 @@ import { UserShowStates } from 'src/types/UserShowStates'
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
   states: UserShowStates
-  type: ShowType
+  showType: ShowType
 }
 
-export function WatchedButton({ show, type, states }: Props): JSX.Element {
+export function WatchedButton({ show, showType, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -54,17 +54,20 @@ export function WatchedButton({ show, type, states }: Props): JSX.Element {
     }
   }
 
-  const buttonData = {
+  const buttonProps = {
     icon: <></>,
     title: '',
+    dataTestId: '',
   }
 
   if (watched) {
-    buttonData.icon = <IoCheckmarkDoneCircle color="green" />
-    buttonData.title = 'Watched'
+    buttonProps.icon = <IoCheckmarkDoneCircle color="green" />
+    buttonProps.title = 'Watched'
+    buttonProps.dataTestId = 'button-on'
   } else {
-    buttonData.icon = <TbEyeCheck />
-    buttonData.title = 'Add to watched'
+    buttonProps.icon = <TbEyeCheck />
+    buttonProps.title = 'Add to watched'
+    buttonProps.dataTestId = 'button-off'
   }
 
   return (
@@ -72,10 +75,11 @@ export function WatchedButton({ show, type, states }: Props): JSX.Element {
       size="large"
       variant="secondary"
       isLoading={isLoading}
-      icon={buttonData.icon}
-      onClick={() => toggleWatched(show.id, type, watched)}
+      icon={buttonProps.icon}
+      onClick={() => toggleWatched(show.id, showType, watched)}
+      data-testid={buttonProps.dataTestId}
     >
-      {buttonData.title}
+      {buttonProps.title}
     </Button>
   )
 }

@@ -58,15 +58,27 @@ export function FavoriteButton({
     }
   }
 
-  const icon = favorited ? <IoHeart color="red" /> : <IoHeartOutline />
+  const buttonProps = {
+    icon: <></>,
+    dataTestId: '',
+  }
+
+  if (favorited) {
+    buttonProps.icon = <IoHeart color="red" />
+    buttonProps.dataTestId = 'button-on'
+  } else {
+    buttonProps.icon = <IoHeartOutline />
+    buttonProps.dataTestId = 'button-off'
+  }
 
   return (
     <Button
       size="large"
       variant="secondary"
       isLoading={isLoading}
-      icon={icon}
+      icon={buttonProps.icon}
       onClick={() => toggleFavorite(show.id, showType, favorited)}
+      data-testid={buttonProps.dataTestId}
       {...props}
     />
   )

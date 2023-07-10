@@ -11,25 +11,25 @@ const api = useMoviesAPI()
 const { renderComponent, getMockMovies, getMockShowStates, screen } =
   useTesting()
 
-function getComponent(favorite = true) {
+function getComponent(watched = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
-  const states = { ...getMockShowStates(1)[0], favorite }
+  const states = { ...getMockShowStates(1)[0], watched }
 
-  return <WatchedButton type="movie" show={show} states={states} />
+  return <WatchedButton showType="movie" show={show} states={states} />
 }
 
 test('Should render WatchedButton properly', async () => {
   renderComponent(getComponent(false))
 
-  expect(screen.getByText('Add to watched')).toBeVisible()
+  expect(screen.getByTestId('button-off')).toBeVisible()
 })
 
-test('Should render watched properly', async () => {
+test('Should render checked properly', async () => {
   const movie = getMockMovies(1)[0]
   const states = { ...mockShowStates, id: movie.id }
   api.fetchStates = jest.fn().mockResolvedValueOnce({ ...states })
 
   renderComponent(getComponent())
 
-  expect(screen.getByText('Watched')).toBeVisible()
+  expect(screen.getByTestId('button-on')).toBeVisible()
 })
