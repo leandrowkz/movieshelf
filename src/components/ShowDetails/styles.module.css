@@ -8,9 +8,9 @@
     var(--container-spacer)
     var(--container-spacer);
   box-sizing: content-box;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  align-items: flex-end;
   gap: var(--spacer-large);
 }
 
@@ -40,7 +40,7 @@
   background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .5) 100%);
 }
 
-.movieInfo {
+.showInfo {
   width: 100%;
   color: white;
 }
@@ -76,7 +76,18 @@
 }
 
 .poster {
-  min-width: 300px;
+  display: flex;
+  gap: var(--spacer-large);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.posterActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer-base);
 }
 
 .favoriteIcon {
@@ -134,8 +145,10 @@
   .details {
     padding-top: calc(var(--header-height) + var(--spacer-large));
     padding-bottom: var(--spacer-extra-large);
-    flex-wrap: wrap;
-    flex-direction: column-reverse;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-end;
+    gap: var(--spacer-large);
   }
 
   .title {
@@ -148,8 +161,11 @@
   }
 
   .poster {
+    grid-column-start: 1;
+    grid-row-start: 1;
     align-self: center;
     width: 100%;
+    gap: var(--spacer-large);
   }
 
   .posterImage {
@@ -175,5 +191,6 @@
 
   .buttons {
     gap: var(--spacer-base);
+    flex-wrap: wrap;
   }
 }

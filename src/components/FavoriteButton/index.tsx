@@ -1,58 +1,42 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import type {
-  Movie,
-  MovieAccountStates,
-  TVShow,
-  TVShowAccountStates,
-} from '@leandrowkz/tmdb'
-import { Button } from '../../components/Button'
-import styles from './styles.module.css'
-import { FavoritesContext } from 'src/context/FavoritesContext'
+import type { Movie, TVShow } from '@leandrowkz/tmdb'
+import { Button, ButtonProps } from '../../components/Button'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import favoriteIconOn from 'src/assets/images/icon-favorite-on.svg'
-import favoriteIconOff from 'src/assets/images/icon-favorite-off.svg'
-import { Image } from '../Image'
 import { AuthContext } from 'src/context/AuthContext'
+import { UserListsContext } from 'src/context/UserListsContext'
+import { IoHeart, IoHeartOutline } from 'react-icons/io5'
+import { UserShowStates } from 'src/types/UserShowStates'
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonProps {
   show: Movie | TVShow
-  accountStates: MovieAccountStates | TVShowAccountStates
-  type: ShowType
+  states: UserShowStates
+  showType: ShowType
 }
 
 export function FavoriteButton({
   show,
-  type,
-  accountStates,
+  showType,
+  states,
+  ...props
 }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
-  const {
-    addFavorite,
-    removeFavorite,
-    isLoadingAddFavorite,
-    isLoadingRemoveFavorite,
-  } = useContext(FavoritesContext)
-  const {
-    fetchAccountStates: fetchMovieAccountStates,
-    isLoadingAccountStates: isLoadingMovieAccountStates,
-  } = useContext(MovieDetailsContext)
-  const {
-    fetchAccountStates: fetchTVShowAccountStates,
-    isLoadingAccountStates: isLoadingTVShowAccountStates,
-  } = useContext(TVShowDetailsContext)
 
-  const { favorite } = accountStates
+  const {
+    addToList,
+    removeFromList,
+    isLoading: isLoadingFromContext,
+  } = useContext(UserListsContext)
 
-  const isLoading =
-    (isLoadingAddFavorite ||
-      isLoadingRemoveFavorite ||
-      isLoadingMovieAccountStates ||
-      isLoadingTVShowAccountStates) &&
-    Boolean(session)
+  const { setStates: setMovieStates } = useContext(MovieDetailsContext)
+  const { setStates: setTVShowStates } = useContext(TVShowDetailsContext)
+
+  const { favorited } = states
+
+  const isLoading = isLoadingFromContext.favorites && Boolean(session)
 
   const toggleFavorite = async (
     showId: number,
@@ -63,33 +47,39 @@ export function FavoriteButton({
       return navigate('/sign-in')
     }
 
-    if (!favorite) {
-      await addFavorite(showId, type)
-    } else {
-      await removeFavorite(showId, type)
-    }
+    const refreshedStates = !favorite
+      ? await addToList('favorites', showId, type)
+      : await removeFromList('favorites', showId, type)
 
     if (type === 'movie') {
-      fetchMovieAccountStates(showId)
+      setMovieStates(refreshedStates)
     } else {
-      fetchTVShowAccountStates(showId)
+      setTVShowStates(refreshedStates)
     }
+  }
+
+  const buttonProps = {
+    icon: <></>,
+    dataTestId: '',
+  }
+
+  if (favorited) {
+    buttonProps.icon = <IoHeart color="red" />
+    buttonProps.dataTestId = 'button-on'
+  } else {
+    buttonProps.icon = <IoHeartOutline />
+    buttonProps.dataTestId = 'button-off'
   }
 
   return (
     <Button
       size="large"
-      variant={favorite ? 'secondary' : 'outlined'}
+      variant="secondary"
       isLoading={isLoading}
-      icon={
-        <Image
-          src={favorite ? favoriteIconOn : favoriteIconOff}
-          className={styles.icon}
-        />
-      }
-      onClick={() => toggleFavorite(show.id, type, favorite)}
-    >
-      <span>{favorite ? 'Favorited' : 'Favorite'}</span>
-    </Button>
+      icon={buttonProps.icon}
+      onClick={() => toggleFavorite(show.id, showType, favorited)}
+      data-testid={buttonProps.dataTestId}
+      {...props}
+    />
   )
 }

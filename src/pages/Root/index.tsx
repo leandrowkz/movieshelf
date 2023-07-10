@@ -9,11 +9,11 @@ export const Root = () => {
   const { fetchMoviesGenres, fetchTVShowsGenres } = useContext(GenresContext)
 
   useEffect(() => {
-    autoSignIn()
     window.scrollTo(0, 0)
   }, [location])
 
   useEffect(() => {
+    autoSignIn()
     fetchMoviesGenres()
     fetchTVShowsGenres()
   }, [])

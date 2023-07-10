@@ -9,7 +9,6 @@ import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
 import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
-  MovieAccountStates,
   MovieItem,
   PersonCast,
   TVEpisode,
@@ -31,8 +30,9 @@ import {
   GenresContext as MockGenresContext,
   GenresContextProvider as MockGenresContextProvider,
 } from 'src/context/__mocks__/GenresContext'
-import { mockMovieAccountStates } from 'src/__mocks__/mockMovieAccountStates'
-import { FavoritesContextProvider } from 'src/context/FavoritesContext'
+import { UserListsContextProvider } from 'src/context/UserListsContext'
+import { UserShowStates } from 'src/types/UserShowStates'
+import { mockShowStates } from 'src/__mocks__/mockShowStates'
 
 jest.mock('src/hooks/useSupabase')
 
@@ -55,7 +55,7 @@ function renderComponent(component: ReactElement) {
     <BrowserRouter>
       <MockAuthContextProvider>
         <MockGenresContextProvider>
-          <FavoritesContextProvider>
+          <UserListsContextProvider>
             <TVShowListsContextProvider>
               <TVShowDetailsContextProvider>
                 <TVSeasonDetailsContextProvider>
@@ -67,7 +67,7 @@ function renderComponent(component: ReactElement) {
                 </TVSeasonDetailsContextProvider>
               </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
-          </FavoritesContextProvider>
+          </UserListsContextProvider>
         </MockGenresContextProvider>
       </MockAuthContextProvider>
     </BrowserRouter>
@@ -136,11 +136,11 @@ function getMockVideos(amount = 10) {
   return mockVideos
 }
 
-function getMockMovieAccountStates(amount = 10) {
-  const list: MovieAccountStates[] = []
+function getMockShowStates(amount = 10) {
+  const list: UserShowStates[] = []
 
   for (let i = 0; i < amount; i++) {
-    list.push({ ...mockMovieAccountStates })
+    list.push({ ...mockShowStates })
   }
 
   return list
@@ -155,6 +155,6 @@ export const useTesting = () => ({
   getMockTVSeasons,
   getMockTVEpisodes,
   getMockVideos,
-  getMockMovieAccountStates,
+  getMockShowStates,
   renderComponent,
 })

@@ -8,7 +8,7 @@ const {
   getMockMovies,
   getMockPeople,
   getMockVideos,
-  getMockMovieAccountStates,
+  getMockShowStates,
   screen,
 } = useTesting()
 
@@ -18,7 +18,7 @@ test('Should render ShowDetails properly', async () => {
       show={getMockMovies(1)[0] as Movie}
       people={getMockPeople()}
       videos={getMockVideos()}
-      accountStates={getMockMovieAccountStates(1)[0]}
+      states={getMockShowStates(1)[0]}
       isLoadingShow={false}
       isLoadingPeople={false}
       isLoadingActions={false}

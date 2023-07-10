@@ -1,13 +1,9 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
-import type {
-  Movie,
-  MovieAccountStates,
-  PersonCast,
-  Video,
-} from '@leandrowkz/tmdb'
+import type { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
 import { MovieDetailsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
   ...initialState,
@@ -18,16 +14,14 @@ export const MovieDetailsContextProvider = ({
 }: PropsWithChildren) => {
   const api = useMoviesAPI()
   const [movie, setMovie] = useState<Movie>({} as Movie)
-  const [accountStates, setAccountStates] = useState<MovieAccountStates>(
-    {} as MovieAccountStates
-  )
+  const [states, setStates] = useState<UserShowStates>({} as UserShowStates)
   const [cast, setCast] = useState<PersonCast[]>([])
   const [crew, setCrew] = useState<PersonCast[]>([])
   const [videos, setVideos] = useState<Video[]>([])
   const [isLoadingMovie, setIsLoadingMovie] = useState(false)
   const [isLoadingCredits, setIsLoadingCredits] = useState(false)
   const [isLoadingVideos, setIsLoadingVideos] = useState(false)
-  const [isLoadingAccountStates, setIsLoadingAccountStates] = useState(false)
+  const [isLoadingStates, setIsLoadingStates] = useState(false)
   const [hasMovieErrors, setHasMovieErrors] = useState(false)
 
   const fetchMovie = async (movieId: number) => {
@@ -65,14 +59,14 @@ export const MovieDetailsContextProvider = ({
     setIsLoadingVideos(false)
   }
 
-  const fetchAccountStates = async (movieId: number) => {
-    setAccountStates({} as MovieAccountStates)
-    setIsLoadingAccountStates(true)
+  const fetchStates = async (movieId: number) => {
+    setStates({} as UserShowStates)
+    setIsLoadingStates(true)
 
-    const accountStates = await api.fetchAccountStates(movieId)
+    const states = await api.fetchStates(movieId)
 
-    setAccountStates(accountStates)
-    setIsLoadingAccountStates(false)
+    setStates(states)
+    setIsLoadingStates(false)
   }
 
   const state = {
@@ -80,16 +74,17 @@ export const MovieDetailsContextProvider = ({
     cast,
     crew,
     videos,
-    accountStates,
+    states,
     isLoadingCredits,
     isLoadingMovie,
     isLoadingVideos,
-    isLoadingAccountStates,
+    isLoadingStates,
     hasMovieErrors,
     fetchCredits,
     fetchMovie,
     fetchVideos,
-    fetchAccountStates,
+    fetchStates,
+    setStates,
   }
 
   return (

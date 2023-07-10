@@ -3,12 +3,12 @@ import type {
   PersonCast,
   PersonCrew,
   TVShow,
-  TVShowAccountStates,
   TVShowVideos,
 } from '@leandrowkz/tmdb'
 import { TVShowDetailsState } from './types'
 import { initialState } from './state'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 export const TVShowDetailsContext = createContext<TVShowDetailsState>({
   ...initialState,
@@ -22,13 +22,11 @@ export const TVShowDetailsContextProvider = ({
   const [cast, setCast] = useState<PersonCast[]>([])
   const [crew, setCrew] = useState<PersonCrew[]>([])
   const [videos, setVideos] = useState<TVShowVideos['results']>([])
-  const [accountStates, setAccountStates] = useState<TVShowAccountStates>(
-    {} as TVShowAccountStates
-  )
+  const [states, setStates] = useState<UserShowStates>({} as UserShowStates)
   const [isLoadingTVShow, setIsLoadingTVShow] = useState(false)
   const [isLoadingCredits, setIsLoadingCredits] = useState(false)
   const [isLoadingVideos, setIsLoadingVideos] = useState(false)
-  const [isLoadingAccountStates, setIsLoadingAccountStates] = useState(false)
+  const [isLoadingStates, setIsLoadingStates] = useState(false)
   const [hasTVShowErrors, setHasTVShowErrors] = useState(false)
 
   const fetchTVShow = async (tvShowId: number) => {
@@ -66,14 +64,14 @@ export const TVShowDetailsContextProvider = ({
     setIsLoadingVideos(false)
   }
 
-  const fetchAccountStates = async (movieId: number) => {
-    setAccountStates({} as TVShowAccountStates)
-    setIsLoadingAccountStates(true)
+  const fetchStates = async (movieId: number) => {
+    setStates({} as UserShowStates)
+    setIsLoadingStates(true)
 
-    const accountStates = await api.fetchAccountStates(movieId)
+    const states = await api.fetchStates(movieId)
 
-    setAccountStates(accountStates)
-    setIsLoadingAccountStates(false)
+    setStates(states)
+    setIsLoadingStates(false)
   }
 
   const state = {
@@ -81,16 +79,17 @@ export const TVShowDetailsContextProvider = ({
     cast,
     crew,
     videos,
-    accountStates,
+    states,
     isLoadingCredits,
     isLoadingTVShow,
     isLoadingVideos,
-    isLoadingAccountStates,
+    isLoadingStates,
     hasTVShowErrors,
     fetchCredits,
     fetchTVShow,
     fetchVideos,
-    fetchAccountStates,
+    fetchStates,
+    setStates,
   }
 
   return (

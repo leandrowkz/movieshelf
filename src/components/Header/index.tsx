@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react'
 import { Logo } from '../Logo'
 import styles from './styles.module.css'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
 import { UserMenu } from '../UserMenu'
@@ -72,14 +72,13 @@ function Menu(props: HTMLAttributes<HTMLDivElement>) {
         >
           Favorites
         </NavLink>
-        <Link
-          className={activeClassName({ isActive: false })}
-          to="https://github.com/sponsors/leandrowkz"
-          target="_blank"
-          data-testid="menu-sponsor"
+        <NavLink
+          className={activeClassName}
+          to="/watchlist"
+          data-testid="menu-watchlist"
         >
-          Sponsor
-        </Link>
+          Watchlist
+        </NavLink>
       </div>
     </div>
   )

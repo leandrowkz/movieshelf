@@ -7,7 +7,7 @@
   --color-gray-300: #4E6E81;
   --color-gray-400: #002233;
   --color-error: var(--color-red-600);
-  --color-success: #2dc143;
+  --color-success: var(--color-green-900);
 
   --color-red-100: #ffe6e6;
   --color-red-200: #ffcdcd;
@@ -18,6 +18,16 @@
   --color-red-700: #ff1c1c;
   --color-red-800: #ff0303;
   --color-red-900: #e60303;
+
+  --color-green-100: #eff8f1;
+  --color-green-200: #e8f7ea;
+  --color-green-300: #b9e6bf;
+  --color-green-400: #8bd594;
+  --color-green-500: #5cc469;
+  --color-green-600: #45bb53;
+  --color-green-700: #2db33e;
+  --color-green-800: #0fa521;
+  --color-green-900: #128820;
 
   /* Page */
   --container-spacer: var(--spacer-extra-large);
@@ -58,14 +68,27 @@
   --button-medium-height: 58px;
   --button-medium-padding: 0 calc(var(--spacer-base) + 6px);
   --button-large-height: 76px;
-  --button-large-padding: 0 var(--spacer-large);
+  --button-large-padding: 0 calc(var(--spacer-large) * .8);
+  --button-text-color: white;
   --button-color: var(--color-red-800);
   --button-color-hover: var(--color-red-900);
-  --button-secondary-color: var(--color-red-100);
-  --button-secondary-color-hover: var(--color-red-200);
-  --button-secondary-text-color: var(--color-red-800);
-  --button-secondary-text-color-hover: var(--color-red-900);
-  --button-text-color: white;
+  --button-active-text-color: white;
+  --button-active-color: var(--color-red-900);
+  --button-active-border-color: var(--color-red-900);
+  --button-secondary-color: var(--color-gray-100);
+  --button-secondary-color-hover: var(--color-gray-150);
+  --button-secondary-text-color: var(--font-color-base);
+  --button-secondary-text-color-hover: var(--font-color-base);
+  --button-outlined-color: white;
+  --button-outlined-border-color: var(--color-gray-150);
+  --button-outlined-color-hover: var(--color-red-200);
+  --button-outlined-border-color-hover: var(--color-red-200);
+  --button-outlined-text-color: var(--font-color-base);
+  --button-outlined-text-color-hover: var(--color-red-900);
+  --button-success-color: var(--color-green-800);
+  --button-success-color-hover: var(--color-green-900);
+  --button-success-text-color: white;
+  --button-success-text-color-hover: white;
 
   /* Inputs */
   --input-small-height: 44px;

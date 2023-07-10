@@ -3,8 +3,9 @@
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
+  gap: calc(var(--spacer-small) * .6);
   justify-content: center;
-  border: 1px solid var(--button-color);
+  border: 2px solid var(--button-color);
   height: var(--button-medium-height);
   line-height: var(--button-medium-height);
   padding: var(--button-medium-padding);
@@ -56,10 +57,15 @@
   border-radius: 100px !important;
 }
 
+.rounded {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
 .secondary {
   border-color: var(--button-secondary-color);
   background-color: var(--button-secondary-color);
-  color: var(--button-secondary-text-color);
+  color: var(--button-secondary-text-color) !important;
 }
 
 .secondary:hover {
@@ -69,15 +75,33 @@
 }
 
 .outlined {
-  background-color: white;
-  border-color: var(--font-color-muted);
-  color: var(--font-color-base);
+  color: var(--button-outlined-text-color);
+  border-color: var(--button-outlined-border-color);
+  background-color: var(--button-outlined-color);
 }
 
-.active {
-  color: white !important;
-  border-color: var(--button-color) !important;
-  background-color: var(--button-color-hover) !important;
+.outlined:hover {
+  color: var(--button-outlined-text-color-hover) !important;
+  border-color: var(--button-outlined-border-color-hover) !important;
+  background-color: var(--button-outlined-color-hover) !important;
+}
+
+.success {
+  border-color: var(--button-success-color);
+  background-color: var(--button-success-color);
+  color: var(--button-success-text-color);
+}
+
+.success:hover {
+  color: var(--button-success-text-color-hover) !important;
+  border-color: var(--button-success-color-hover);
+  background-color: var(--button-success-color-hover);
+}
+
+.active, .active:hover {
+  color: var(--button-active-text-color) !important;
+  border-color: var(--button-active-border-color) !important;
+  background-color: var(--button-active-color) !important;
 }
 
 .outlined:hover {
@@ -91,15 +115,12 @@
 }
 
 .icon {
-  margin-top: 6px;
-  margin-right: var(--spacer-small);
-  width: 20px;
-  aspect-ratio: 1 / 1;
-  position: relative;
+  font-size: calc(var(--font-size-base) * 1.5);
+  line-height: 0;
 }
 
-.spinner {
-  margin-top: 0;
+.iconLoader {
+  animation: rotating 2s linear infinite;
 }
 
 .isLoading {
@@ -138,4 +159,21 @@
   height: calc(var(--button-large-height) * .8);
   line-height: calc(var(--button-large-height) * .8);
   padding: 0 var(--spacer-base);
+}
+
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

@@ -1,19 +1,15 @@
 import React, { HTMLAttributes } from 'react'
-import { Link } from 'react-router-dom'
 import type {
   Movie,
-  MovieAccountStates,
   PersonCast,
   PersonCrew,
   TVShow,
-  TVShowAccountStates,
   Video,
 } from '@leandrowkz/tmdb'
 import { Heading } from '../../components/Heading'
 import { Text } from '../../components/Text'
 import { Rating } from '../../components/Rating'
 import { ShowGenres } from '../../components/ShowGenres'
-import { Button } from '../../components/Button'
 import { PeopleList } from '../../components/PeopleList'
 import { ShowCountries } from '../../components/ShowCountries'
 import { ShowPoster } from '../../components/ShowPoster'
@@ -28,6 +24,10 @@ import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { ShowType } from 'src/types/ShowType'
 import { FavoriteButton } from '../FavoriteButton'
+import { WatchlistButton } from '../WatchlistButton'
+import { WatchedButton } from '../WatchedButton'
+import { ShowTrailerButton } from '../ShowTrailerButton'
+import { UserShowStates } from 'src/types/UserShowStates'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -42,13 +42,15 @@ type CastProps = {
 type ActionProps = {
   show: Movie | TVShow
   type: ShowType
-  videos: Video[]
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   isLoading?: boolean
 }
 
 type PosterProps = {
   show: Movie | TVShow
+  showType: ShowType
+  states: UserShowStates
+  videos: Video[]
   isLoading?: boolean
 }
 
@@ -57,7 +59,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
-  accountStates: MovieAccountStates | TVShowAccountStates
+  states: UserShowStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
   isLoadingActions: boolean
@@ -68,7 +70,7 @@ export function ShowDetails({
   type = 'movie',
   people,
   videos,
-  accountStates,
+  states,
   isLoadingShow,
   isLoadingPeople,
   isLoadingActions,
@@ -87,20 +89,23 @@ export function ShowDetails({
         style={{ backgroundImage: `url(${backdrop})` }}
         title={getShowTitle(show)}
       />
-      <div className={styles.movieInfo}>
+      <div className={styles.showInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
         <Actions
           show={show}
           type={type}
-          videos={videos}
-          accountStates={accountStates}
+          states={states}
           isLoading={isLoadingActions}
         />
       </div>
-      <div className={styles.poster}>
-        <Poster show={show} isLoading={isLoadingShow} />
-      </div>
+      <Poster
+        show={show}
+        showType={type}
+        videos={videos}
+        states={states}
+        isLoading={isLoadingShow}
+      />
     </section>
   )
 }
@@ -174,35 +179,49 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 function Actions({
   show,
   type,
-  videos,
-  accountStates,
+  states,
   isLoading = false,
 }: ActionProps): JSX.Element {
   if (isLoading) {
     return <LoaderActions />
   }
 
-  const { getShowTrailerUrl } = useHelpers()
-  const trailer = getShowTrailerUrl(videos)
-
   return (
     <Motion className={styles.buttons}>
-      <Link to={trailer} target="_blank" data-testid="show-trailer">
-        <Button size="large">▶ Trailer</Button>
-      </Link>
-      <FavoriteButton show={show} accountStates={accountStates} type={type} />
+      <WatchlistButton show={show} states={states} showType={type} />
+      <WatchedButton show={show} states={states} showType={type} />
     </Motion>
   )
 }
 
-function Poster({ show, isLoading = false }: PosterProps): JSX.Element {
+function Poster({
+  show,
+  showType,
+  states,
+  videos,
+  isLoading = false,
+}: PosterProps): JSX.Element {
   if (isLoading) {
     return <LoaderPoster />
   }
 
   return (
-    <Motion className={styles.posterImage}>
-      <ShowPoster show={show} data-testid="show-poster" />
+    <Motion className={styles.poster}>
+      <ShowPoster
+        show={show}
+        data-testid="show-poster"
+        className={styles.posterImage}
+      />
+      <div className={styles.posterActions}>
+        <FavoriteButton
+          show={show}
+          states={states}
+          showType={showType}
+          size="medium"
+          rounded
+        />
+        <ShowTrailerButton videos={videos} pill size="medium" />
+      </div>
     </Motion>
   )
 }
