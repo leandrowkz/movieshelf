@@ -1,7 +1,7 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
-import { Button } from '../../components/Button'
+import { Button, ButtonProps } from '../../components/Button'
 import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
@@ -10,13 +10,18 @@ import { UserListsContext } from 'src/context/UserListsContext'
 import { IoHeart, IoHeartOutline } from 'react-icons/io5'
 import { UserShowStates } from 'src/types/UserShowStates'
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonProps {
   show: Movie | TVShow
   states: UserShowStates
-  type: ShowType
+  showType: ShowType
 }
 
-export function FavoriteButton({ show, type, states }: Props): JSX.Element {
+export function FavoriteButton({
+  show,
+  showType,
+  states,
+  ...props
+}: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -61,7 +66,8 @@ export function FavoriteButton({ show, type, states }: Props): JSX.Element {
       variant="secondary"
       isLoading={isLoading}
       icon={icon}
-      onClick={() => toggleFavorite(show.id, type, favorited)}
+      onClick={() => toggleFavorite(show.id, showType, favorited)}
+      {...props}
     />
   )
 }

@@ -16,6 +16,7 @@ export interface ButtonProps
   variant?: 'primary' | 'secondary' | 'outlined' | 'success'
   active?: boolean
   pill?: boolean
+  rounded?: boolean
   icon?: ReactNode
   isLoading?: boolean
 }
@@ -23,6 +24,7 @@ export interface ButtonProps
 export function Button({
   children,
   pill = false,
+  rounded = false,
   size = 'medium',
   variant = 'primary',
   className,
@@ -41,6 +43,7 @@ export function Button({
     [styles.outlined]: variant === 'outlined',
     [styles.active]: active,
     [styles.pill]: pill,
+    [styles.rounded]: rounded,
     [styles.isLoading]: isLoading,
   })
 

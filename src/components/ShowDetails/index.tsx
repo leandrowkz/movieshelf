@@ -48,6 +48,9 @@ type ActionProps = {
 
 type PosterProps = {
   show: Movie | TVShow
+  showType: ShowType
+  states: UserShowStates
+  videos: Video[]
   isLoading?: boolean
 }
 
@@ -86,7 +89,7 @@ export function ShowDetails({
         style={{ backgroundImage: `url(${backdrop})` }}
         title={getShowTitle(show)}
       />
-      <div className={styles.movieInfo}>
+      <div className={styles.showInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
         <Actions
@@ -96,10 +99,13 @@ export function ShowDetails({
           isLoading={isLoadingActions}
         />
       </div>
-      <div className={styles.poster}>
-        <Poster show={show} isLoading={isLoadingShow} />
-        <ShowTrailerButton videos={videos} pill size="medium" />
-      </div>
+      <Poster
+        show={show}
+        showType={type}
+        videos={videos}
+        states={states}
+        isLoading={isLoadingShow}
+      />
     </section>
   )
 }
@@ -182,21 +188,40 @@ function Actions({
 
   return (
     <Motion className={styles.buttons}>
-      <FavoriteButton show={show} states={states} type={type} />
       <WatchedButton show={show} states={states} type={type} />
       <WatchlistButton show={show} states={states} type={type} />
     </Motion>
   )
 }
 
-function Poster({ show, isLoading = false }: PosterProps): JSX.Element {
+function Poster({
+  show,
+  showType,
+  states,
+  videos,
+  isLoading = false,
+}: PosterProps): JSX.Element {
   if (isLoading) {
     return <LoaderPoster />
   }
 
   return (
-    <Motion className={styles.posterImage}>
-      <ShowPoster show={show} data-testid="show-poster" />
+    <Motion className={styles.poster}>
+      <ShowPoster
+        show={show}
+        data-testid="show-poster"
+        className={styles.posterImage}
+      />
+      <div className={styles.posterActions}>
+        <FavoriteButton
+          show={show}
+          states={states}
+          showType={showType}
+          size="medium"
+          rounded
+        />
+        <ShowTrailerButton videos={videos} pill size="medium" />
+      </div>
     </Motion>
   )
 }
