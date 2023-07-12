@@ -8,8 +8,8 @@ export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request, res: Response) =>
-  dispatch(req, res, async (req: Request) => {
+export default async (req: Request) =>
+  dispatch(async () => {
     const user = await authorize(req)
 
     const list: ListPaginated<MovieItem | TVShowItem> = {
