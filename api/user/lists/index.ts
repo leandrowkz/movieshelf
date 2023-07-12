@@ -1,8 +1,12 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { tmdb, authorize, dispatch } from '../../api'
 import { getShowList } from './helpers'
-import { ListPaginated, UserListType, ShowType } from '../../types'
-import { UserListPayload } from './types'
+import {
+  ListPaginated,
+  UserListPayload,
+  UserListType,
+  ShowType,
+} from '../../../types'
 
 export const config = {
   runtime: 'edge',
@@ -16,6 +20,7 @@ export default async (req: Request) =>
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
     }
 
     const { searchParams } = new URL(req.url)
@@ -30,11 +35,12 @@ export default async (req: Request) =>
       userId: user.id,
     }
 
-    const { data, pages } = await getShowList(payload)
+    const { data, pages, count } = await getShowList(payload)
 
     if (data) {
       list.page = Number(page)
       list.pages = pages
+      list.count = count
 
       await Promise.all(
         data.map(async (row) => {

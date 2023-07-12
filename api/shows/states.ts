@@ -1,8 +1,11 @@
 import { authorize, dispatch } from '../api'
 import { isListed } from '../user/lists/helpers'
-import { UserListPayload } from '../user/lists/types'
-import { ShowType, UserShowStates } from '../types'
-import { ShowStatesPayload } from './types'
+import {
+  ShowStatesPayload,
+  ShowType,
+  UserListPayload,
+  UserShowStates,
+} from '../../types'
 
 export const config = {
   runtime: 'edge',

@@ -1,4 +1,5 @@
-import type { UserListType, ShowType } from '../../types'
+import { ShowType } from './ShowType'
+import { UserListType } from './UserListType'
 
 export type UserListPayload = {
   page?: number
