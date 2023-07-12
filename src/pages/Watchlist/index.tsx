@@ -41,7 +41,7 @@ export function Watchlist(): JSX.Element {
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
               type="movie"
-              title="Movies you want to watch"
+              title={`Movies you want to watch (${movies.count})`}
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -60,7 +60,7 @@ export function Watchlist(): JSX.Element {
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
               type="tv"
-              title="TV Shows you want to watch"
+              title={`TV Shows you want to watch (${tvShows.count})`}
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />

@@ -41,7 +41,7 @@ export function Watched(): JSX.Element {
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
               type="movie"
-              title="Movies you already watched"
+              title={`Movies you already watched (${movies.count})`}
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -60,7 +60,7 @@ export function Watched(): JSX.Element {
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
               type="tv"
-              title="TV Shows you already watched"
+              title={`TV Shows you already watched (${tvShows.count})`}
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />

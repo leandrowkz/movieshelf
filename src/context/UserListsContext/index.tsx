@@ -54,9 +54,13 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
       setIsLoading((prev) => ({ ...prev, fetchList: true }))
       updateList({ page, hasErrors: false, isLoading: true })
 
-      const { data, pages } = await api.fetchList(page, listType, showType)
+      const { data, pages, count } = await api.fetchList(
+        page,
+        listType,
+        showType
+      )
 
-      updateList({ data, pages } as ListsState)
+      updateList({ data, pages, count } as ListsState)
     } catch (e) {
       updateList({ data: [], hasErrors: true })
     } finally {
