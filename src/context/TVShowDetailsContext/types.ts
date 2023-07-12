@@ -4,7 +4,7 @@ import type {
   TVShow,
   TVShowVideos,
 } from '@leandrowkz/tmdb'
-import type { UserShowStates } from 'types'
+import type { UserShowStates } from 'src/types'
 
 export type TVShowDetailsState = {
   tvShow: TVShow

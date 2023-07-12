@@ -9,7 +9,7 @@ import { Text } from 'src/components/Text'
 import { Button } from 'src/components/Button'
 import { Controller, useForm } from 'react-hook-form'
 import { Input } from 'src/components/Input'
-import { type User, UserSchema } from 'types'
+import { type User, UserSchema } from 'src/types'
 import { AuthContext } from 'src/context/AuthContext'
 
 export function SignUp(props: HTMLAttributes<HTMLDivElement>) {

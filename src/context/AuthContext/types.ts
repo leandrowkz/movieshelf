@@ -1,5 +1,5 @@
 import type { AuthResponse } from '@supabase/supabase-js'
-import type { Falsable, Nullable, Session, User } from 'types'
+import type { Falsable, Nullable, Session, User } from 'src/types'
 
 export type SupabaseSession = Pick<AuthResponse, 'data'>['data']
 

@@ -2,7 +2,7 @@ import React, { createContext } from 'react'
 import { mockSession } from 'src/__mocks__/mockSession'
 import { initialState } from '../AuthContext/state'
 import type { AuthState } from '../AuthContext/types'
-import type { PropsWithState } from 'types'
+import type { PropsWithState } from 'src/types'
 
 const mockState: AuthState = {
   ...initialState,

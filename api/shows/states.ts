@@ -5,7 +5,7 @@ import type {
   ShowType,
   UserListPayload,
   UserShowStates,
-} from '../../types'
+} from '../../src/types'
 
 export const config = {
   runtime: 'edge',

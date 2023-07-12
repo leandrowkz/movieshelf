@@ -1,5 +1,5 @@
 import type { UserListsState } from './types'
-import type { UserShowStates } from 'types'
+import type { UserShowStates } from 'src/types'
 
 export const initialState: UserListsState = {
   favorites: {

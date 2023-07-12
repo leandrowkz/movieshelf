@@ -5,7 +5,7 @@ import type {
   TVShowItem,
 } from '@leandrowkz/tmdb'
 import { json, tmdb } from '../api'
-import type { ListPaginated, ShowType } from '../../types'
+import type { ListPaginated, ShowType } from '../../src/types'
 
 export const config = {
   runtime: 'edge',

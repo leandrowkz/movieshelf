@@ -1,5 +1,5 @@
 import { tmdb, dispatch } from '../api'
-import type { ShowType } from '../../types'
+import type { ShowType } from '../../src/types'
 
 export const config = {
   runtime: 'edge',

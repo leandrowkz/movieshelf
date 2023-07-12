@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import { type Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
-import type { ListByGenre } from 'types'
+import type { ListByGenre } from 'src/types'
 import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'

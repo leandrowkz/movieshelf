@@ -22,7 +22,7 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
-import type { ShowType, UserShowStates } from 'types'
+import type { ShowType, UserShowStates } from 'src/types'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'

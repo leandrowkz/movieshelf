@@ -1,4 +1,4 @@
-import type { Session } from 'types'
+import type { Session } from 'src/types'
 
 export const mockSession: Session = {
   user: {

@@ -1,6 +1,6 @@
 import { authorize, dispatch } from '../../api'
 import { getShowStates } from '../../shows/states'
-import type { ShowStatesPayload, UserListPayload } from '../../../types'
+import type { ShowStatesPayload, UserListPayload } from '../../../src/types'
 import { removeFromList, validate } from './helpers'
 
 export const config = {

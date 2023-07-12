@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient } from '@supabase/supabase-js'
-import type { Nullable, Session } from 'types'
+import type { Nullable, Session } from 'src/types'
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_API_URL || '',

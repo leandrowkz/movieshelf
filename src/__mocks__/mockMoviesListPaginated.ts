@@ -1,5 +1,5 @@
 import type { MovieItem } from '@leandrowkz/tmdb'
-import type { ListPaginated } from 'types'
+import type { ListPaginated } from 'src/types'
 import { mockMovieDetails } from './mockMovieDetails'
 
 export const mockMovieListPaginated: ListPaginated<MovieItem> = {

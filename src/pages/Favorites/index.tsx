@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 import styles from './styles.module.css'
 import { Page } from '../../components/Page'
 import { Heading } from 'src/components/Heading'

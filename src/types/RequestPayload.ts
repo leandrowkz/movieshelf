@@ -1,4 +1,4 @@
-import { RequestBody } from './RequestBody'
+import type { RequestBody } from './RequestBody'
 
 export type RequestPayload = {
   path: string

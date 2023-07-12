@@ -6,7 +6,7 @@ import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

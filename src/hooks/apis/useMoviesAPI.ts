@@ -1,5 +1,5 @@
 import type { MovieItem, Movie, Video, MovieCredits } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated, UserShowStates } from 'types'
+import type { ListByGenre, ListPaginated, UserShowStates } from 'src/types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')

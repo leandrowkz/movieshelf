@@ -8,7 +8,7 @@ import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 import { Link } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]

@@ -1,5 +1,5 @@
 import type { TVShowItem } from '@leandrowkz/tmdb'
-import type { ListPaginated } from 'types'
+import type { ListPaginated } from 'src/types'
 import { mockTVShow } from './mockTVShow'
 
 export const mockTVShowsListPaginated: ListPaginated<TVShowItem> = {

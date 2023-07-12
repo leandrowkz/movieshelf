@@ -4,7 +4,7 @@ import type {
   ShowType,
   UserListType,
   UserShowStates,
-} from 'types'
+} from 'src/types'
 
 export type UserListsState = {
   favorites: {

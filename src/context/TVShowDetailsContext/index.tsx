@@ -6,7 +6,7 @@ import type {
   TVShowVideos,
 } from '@leandrowkz/tmdb'
 import type { TVShowDetailsState } from './types'
-import type { UserShowStates } from 'types'
+import type { UserShowStates } from 'src/types'
 import { initialState } from './state'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 

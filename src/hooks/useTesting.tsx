@@ -31,7 +31,7 @@ import {
   GenresContextProvider as MockGenresContextProvider,
 } from 'src/context/__mocks__/GenresContext'
 import { UserListsContextProvider } from 'src/context/UserListsContext'
-import type { UserShowStates } from 'types'
+import type { UserShowStates } from 'src/types'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
 
 jest.mock('src/hooks/useSupabase')

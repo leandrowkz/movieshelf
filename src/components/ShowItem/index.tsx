@@ -8,7 +8,7 @@ import { ShowPoster } from '../ShowPoster'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 import { useHelpers } from 'src/hooks/useHelpers'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem

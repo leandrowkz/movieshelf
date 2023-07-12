@@ -1,5 +1,5 @@
 import type { Genre, TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'types'
+import type { ListByGenre, ListPaginated } from 'src/types'
 
 export type TVShowListsState = {
   airingToday: TVShowItem[]

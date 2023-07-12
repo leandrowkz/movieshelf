@@ -10,7 +10,7 @@ import { Button } from '../Button'
 import { Container } from '../Container'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { GenresContext } from 'src/context/GenresContext'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   type: ShowType

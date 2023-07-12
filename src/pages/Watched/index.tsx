@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
 import { UserListsContext } from 'src/context/UserListsContext'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 import { Link } from 'react-router-dom'
 

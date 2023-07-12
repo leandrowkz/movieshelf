@@ -1,5 +1,5 @@
 import type { Genre, MovieItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'types'
+import type { ListByGenre, ListPaginated } from 'src/types'
 
 export type MovieListsState = {
   inTheatres: MovieItem[]

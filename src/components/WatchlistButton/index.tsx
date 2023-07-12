@@ -1,7 +1,7 @@
 import React, { type HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
-import type { ShowType, UserShowStates } from 'types'
+import type { ShowType, UserShowStates } from 'src/types'
 import { Button } from '../../components/Button'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'

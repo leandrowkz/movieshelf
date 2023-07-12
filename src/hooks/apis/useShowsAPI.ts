@@ -1,5 +1,5 @@
 import { APIClient } from './APIClient'
-import type { UserShowStates, ShowType } from 'types'
+import type { UserShowStates, ShowType } from 'src/types'
 
 const api = new APIClient('')
 

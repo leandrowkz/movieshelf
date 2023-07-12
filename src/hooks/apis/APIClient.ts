@@ -1,5 +1,5 @@
 import { useSupabase } from 'src/hooks/useSupabase'
-import type { Nullable, RequestBody, RequestPayload } from 'types'
+import type { Nullable, RequestBody, RequestPayload } from 'src/types'
 
 export class APIClient {
   private headers: Headers

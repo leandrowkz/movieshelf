@@ -1,6 +1,6 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { ListsState, UserListsState } from './types'
-import type { ShowType, UserListType } from 'types'
+import type { ShowType, UserListType } from 'src/types'
 import { initialState } from './state'
 import { useUserListsAPI } from 'src/hooks/apis/useUserListsAPI'
 

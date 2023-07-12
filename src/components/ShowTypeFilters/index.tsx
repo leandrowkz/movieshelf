@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Button } from '../Button'
 import { useScreenSize } from 'src/hooks/useScreenSize'
-import type { ShowType } from 'types'
+import type { ShowType } from 'src/types'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   value: ShowType

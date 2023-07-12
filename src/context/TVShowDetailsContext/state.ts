@@ -1,6 +1,6 @@
 import type { TVShow } from '@leandrowkz/tmdb'
 import type { TVShowDetailsState } from './types'
-import type { UserShowStates } from 'types'
+import type { UserShowStates } from 'src/types'
 
 export const initialState: TVShowDetailsState = {
   tvShow: {} as TVShow,

@@ -1,6 +1,10 @@
 import { z } from 'zod'
 import { supabase } from '../../api'
-import { showTypes, userListTypes, type UserListPayload } from '../../../types'
+import {
+  showTypes,
+  userListTypes,
+  type UserListPayload,
+} from '../../../src/types'
 
 const ITEMS_PER_PAGES = 20
 
