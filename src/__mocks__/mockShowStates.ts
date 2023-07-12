@@ -1,4 +1,4 @@
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { UserShowStates } from 'types'
 
 export const mockShowStates: UserShowStates = {
   showId: 4040,

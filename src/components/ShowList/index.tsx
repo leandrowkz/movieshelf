@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
@@ -6,7 +6,7 @@ import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType } from 'types'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

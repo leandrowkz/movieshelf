@@ -1,5 +1,5 @@
+import React, { type HTMLAttributes } from 'react'
 import classNames from 'classnames'
-import React, { HTMLAttributes } from 'react'
 import type { Movie, MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { Image } from '../Image'
 import css from './styles.module.css'

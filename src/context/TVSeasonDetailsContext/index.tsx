@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
-import { TVSeasonDetailsState } from './types'
+import type { TVSeasonDetailsState } from './types'
 import { initialState } from './state'
 import { useTVSeasonsAPI } from 'src/hooks/apis/useTVSeasonsAPI'
 

@@ -1,4 +1,9 @@
-import React, { HTMLAttributes, useContext, useEffect, useState } from 'react'
+import React, {
+  type HTMLAttributes,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import type { TVSeasonItem, TVShow } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'

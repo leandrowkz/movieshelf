@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { ShowDetails } from '.'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 
 const {
   renderComponent,

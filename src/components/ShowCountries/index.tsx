@@ -1,6 +1,5 @@
-import React, { HTMLAttributes } from 'react'
-import { CountryFlag } from '../../types/CountryFlag'
-import { Country } from '../../types/Country'
+import React, { type HTMLAttributes } from 'react'
+import { CountryFlag, Country } from 'types'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'

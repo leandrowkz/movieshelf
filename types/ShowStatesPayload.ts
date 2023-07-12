@@ -1,4 +1,4 @@
-import { ShowType } from './ShowType'
+import type { ShowType } from './ShowType'
 
 export type ShowStatesPayload = {
   userId: string

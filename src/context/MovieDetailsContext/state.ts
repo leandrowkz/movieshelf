@@ -1,6 +1,6 @@
-import { Movie } from '@leandrowkz/tmdb'
-import { MovieDetailsState } from './types'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { Movie } from '@leandrowkz/tmdb'
+import type { MovieDetailsState } from './types'
+import type { UserShowStates } from 'types'
 
 export const initialState: MovieDetailsState = {
   movie: {} as Movie,

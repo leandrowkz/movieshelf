@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { WatchlistButton } from '.'

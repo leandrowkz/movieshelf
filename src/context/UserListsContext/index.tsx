@@ -1,8 +1,7 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { ShowType } from 'src/types/ShowType'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { ListsState, UserListsState } from './types'
+import type { ShowType, UserListType } from 'types'
 import { initialState } from './state'
-import { ListsState, UserListsState } from './types'
-import { UserListType } from 'src/types/UserListType'
 import { useUserListsAPI } from 'src/hooks/apis/useUserListsAPI'
 
 export const UserListsContext = createContext<UserListsState>({

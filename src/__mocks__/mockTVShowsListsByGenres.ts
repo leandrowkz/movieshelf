@@ -1,5 +1,5 @@
-import { TVShowItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
+import type { TVShowItem } from '@leandrowkz/tmdb'
+import type { ListByGenre } from 'types'
 import { mockGenresTVShows } from './mockGenresTVShows'
 import { mockTVShow } from './mockTVShow'
 

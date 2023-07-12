@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import type { ShowType } from 'types'
+import styles from './styles.module.css'
 import { Page } from '../../components/Page'
 import { Heading } from 'src/components/Heading'
 import { Container } from 'src/components/Container'
 import { ShowList } from 'src/components/ShowList'
-import styles from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { ShowType } from 'src/types/ShowType'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 
 export function Favorites(): JSX.Element {

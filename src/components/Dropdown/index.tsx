@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext, useRef } from 'react'
+import React, { type HTMLAttributes, useContext, useRef } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import {

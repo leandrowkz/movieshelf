@@ -1,14 +1,13 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
+import type { ShowType, UserShowStates } from 'types'
 import { Button } from '../../components/Button'
-import { ShowType } from 'src/types/ShowType'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow

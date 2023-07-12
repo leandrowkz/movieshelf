@@ -1,7 +1,7 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { Genre, type TVShowItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
-import { TVShowListsState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { Genre, TVShowItem } from '@leandrowkz/tmdb'
+import type { ListByGenre } from 'types'
+import type { TVShowListsState } from './types'
 import { initialState } from './state'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 
@@ -24,6 +24,7 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const [category, setCategory] = useState<TVShowItem[]>([])
   const [pageCategory, setPageCategory] = useState(0)
   const [pagesCategory, setPagesCategory] = useState(0)
+  const [countCategory, setCountCategory] = useState(0)
 
   const [isLoadingAiringToday, setIsLoadingAiringToday] =
     useState<boolean>(false)
@@ -118,12 +119,13 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
         data,
         page: current,
         pages,
+        count,
       } = await api.fetchListPaginatedByGenre([categoryId], { page })
 
       setCategory(data)
       setPageCategory(current)
       setPagesCategory(pages)
-      window.scrollTo(0, 0)
+      setCountCategory(count)
     } catch {
       setCategory([])
       setHasListCategoryErrors(true)
@@ -144,6 +146,7 @@ export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
       data: category,
       page: pageCategory,
       pages: pagesCategory,
+      count: countCategory,
     },
 
     isLoadingAiringToday,

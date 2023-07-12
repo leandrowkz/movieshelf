@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import styles from './styles.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../Button'

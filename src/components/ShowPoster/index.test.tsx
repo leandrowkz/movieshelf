@@ -2,7 +2,7 @@ import React from 'react'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { useTesting } from 'src/hooks/useTesting'
 import { ShowPoster } from '.'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 
 const { renderComponent, getMockMovies, screen } = useTesting()
 const { getShowImageUrl } = useHelpers()

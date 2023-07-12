@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { Page } from '../../components/Page'
 import { Container } from 'src/components/Container'
 import { ShowListLoader } from 'src/components/ShowList/loader'

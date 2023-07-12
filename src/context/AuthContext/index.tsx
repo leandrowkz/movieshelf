@@ -1,14 +1,12 @@
 import React, {
-  PropsWithChildren,
+  type PropsWithChildren,
   createContext,
   useCallback,
   useState,
 } from 'react'
-import type { User } from 'src/types/User'
-import type { Session } from 'src/types/Session'
-import { Nullable } from 'src/types/Nullable'
+import type { User, Nullable, Session } from 'types'
+import type { AuthState, SupabaseSession } from './types'
 import { useSupabase } from 'src/hooks/useSupabase'
-import { AuthState, SupabaseSession } from './types'
 import { initialState } from './state'
 
 export const AuthContext = createContext<AuthState>({ ...initialState })

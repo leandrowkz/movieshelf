@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import { Loader, Paragraph, Rectangle } from '../Loader'
 import { Motion } from '../Motion'

@@ -1,9 +1,9 @@
+import React, { type HTMLAttributes } from 'react'
 import classNames from 'classnames'
-import React, { HTMLAttributes } from 'react'
 import { Text } from '../Text'
 import css from './styles.module.css'
 import { Motion } from '../Motion'
-import { PersonCast } from '@leandrowkz/tmdb'
+import type { PersonCast } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 

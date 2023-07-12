@@ -1,4 +1,4 @@
-import { TVShowListsState } from './types'
+import type { TVShowListsState } from './types'
 
 export const initialState: TVShowListsState = {
   airingToday: [],
@@ -12,6 +12,7 @@ export const initialState: TVShowListsState = {
     data: [],
     page: 0,
     pages: 0,
+    count: 0,
   },
 
   isLoadingAiringToday: false,

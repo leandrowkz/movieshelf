@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-imports */
-import React, { HTMLAttributes, ReactElement } from 'react'
+import React, { type HTMLAttributes, type ReactElement } from 'react'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 import { MovieListsContextProvider } from '../context/MovieListsContext'
@@ -31,7 +31,7 @@ import {
   GenresContextProvider as MockGenresContextProvider,
 } from 'src/context/__mocks__/GenresContext'
 import { UserListsContextProvider } from 'src/context/UserListsContext'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { UserShowStates } from 'types'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
 
 jest.mock('src/hooks/useSupabase')

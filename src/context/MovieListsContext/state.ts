@@ -1,4 +1,4 @@
-import { MovieListsState } from './types'
+import type { MovieListsState } from './types'
 
 export const initialState: MovieListsState = {
   trending: [],
@@ -15,6 +15,7 @@ export const initialState: MovieListsState = {
     data: [],
     page: 0,
     pages: 0,
+    count: 0,
   },
 
   isLoadingTrending: false,

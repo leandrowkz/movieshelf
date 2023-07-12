@@ -1,4 +1,7 @@
-import React, { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
+import React, {
+  type ComponentPropsWithoutRef,
+  type PropsWithChildren,
+} from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { Motion } from '../Motion'

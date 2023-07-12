@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactElement } from 'react'
+import React, { type HTMLAttributes, type ReactElement } from 'react'
 import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'

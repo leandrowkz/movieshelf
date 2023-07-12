@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { Container } from 'src/components/Container'
 import { Heading } from 'src/components/Heading'
 import styles from './styles.module.css'

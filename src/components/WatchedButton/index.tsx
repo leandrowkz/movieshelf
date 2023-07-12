@@ -1,15 +1,14 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType, UserShowStates } from 'types'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoCheckmarkDoneCircle } from 'react-icons/io5'
 import { TbEyeCheck } from 'react-icons/tb'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow

@@ -1,6 +1,6 @@
 import { authorize, dispatch } from '../api'
 import { isListed } from '../user/lists/helpers'
-import {
+import type {
   ShowStatesPayload,
   ShowType,
   UserListPayload,

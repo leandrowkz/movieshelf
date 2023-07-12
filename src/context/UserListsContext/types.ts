@@ -1,8 +1,10 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { ListPaginated } from 'src/types/ListPaginated'
-import { ShowType } from 'src/types/ShowType'
-import { UserListType } from 'src/types/UserListType'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type {
+  ListPaginated,
+  ShowType,
+  UserListType,
+  UserShowStates,
+} from 'types'
 
 export type UserListsState = {
   favorites: {

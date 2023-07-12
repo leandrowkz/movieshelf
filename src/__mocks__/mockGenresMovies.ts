@@ -1,4 +1,4 @@
-import { Genre } from '@leandrowkz/tmdb'
+import type { Genre } from '@leandrowkz/tmdb'
 
 export const mockGenresMovies: Genre[] = [
   { id: 28, name: 'Action' },

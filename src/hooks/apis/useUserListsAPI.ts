@@ -1,9 +1,11 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { ShowType } from 'src/types/ShowType'
+import type {
+  ListPaginated,
+  ShowType,
+  UserListType,
+  UserShowStates,
+} from 'types'
 import { APIClient } from './APIClient'
-import { ListPaginated } from 'src/types/ListPaginated'
-import { UserListType } from 'src/types/UserListType'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 const api = new APIClient('')
 

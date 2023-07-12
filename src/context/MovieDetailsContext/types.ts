@@ -1,6 +1,5 @@
-import { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
-import { Nullable } from 'src/types/Nullable'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
+import type { Nullable, UserShowStates } from 'types'
 
 export type MovieDetailsState = {
   movie: Nullable<Movie>

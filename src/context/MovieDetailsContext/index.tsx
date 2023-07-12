@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
-import { MovieDetailsState } from './types'
+import type { MovieDetailsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { UserShowStates } from 'types'
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
   ...initialState,

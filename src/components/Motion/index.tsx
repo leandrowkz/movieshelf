@@ -1,4 +1,4 @@
-import React, { ElementType, FC, HTMLAttributes } from 'react'
+import React, { type ElementType, type FC, type HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 

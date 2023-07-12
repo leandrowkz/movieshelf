@@ -1,7 +1,7 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
-import { MovieListsState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import { type Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
+import type { ListByGenre } from 'types'
+import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 
@@ -29,6 +29,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const [category, setCategory] = useState<MovieItem[]>([])
   const [pageCategory, setPageCategory] = useState(0)
   const [pagesCategory, setPagesCategory] = useState(0)
+  const [countCategory, setCountCategory] = useState(0)
 
   const [isLoadingTrending, setIsLoadingTrending] = useState(false)
   const [isLoadingInTheatres, setIsLoadingInTheatres] = useState(false)
@@ -155,12 +156,13 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
         data,
         page: current,
         pages,
+        count,
       } = await api.fetchListPaginatedByGenre([categoryId], { page })
 
       setCategory(data)
       setPageCategory(current)
       setPagesCategory(pages)
-      window.scrollTo(0, 0)
+      setCountCategory(count)
     } catch {
       setCategory([])
       setHasCategoryErrors(true)
@@ -196,6 +198,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
       data: category,
       page: pageCategory,
       pages: pagesCategory,
+      count: countCategory,
     },
 
     isLoadingTrending,

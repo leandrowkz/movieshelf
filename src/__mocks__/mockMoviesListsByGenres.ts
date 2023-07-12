@@ -1,5 +1,5 @@
-import { MovieItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
+import type { MovieItem } from '@leandrowkz/tmdb'
+import type { ListByGenre } from 'types'
 import { mockGenresMovies } from './mockGenresMovies'
 import { mockMovieDetails } from './mockMovieDetails'
 

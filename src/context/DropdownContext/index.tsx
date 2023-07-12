@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { DropdownState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { DropdownState } from './types'
 import { initialState } from './state'
 
 export const DropdownContext = createContext<DropdownState>({ ...initialState })

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import type {
   Movie,
   PersonCast,
@@ -22,12 +22,11 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType, UserShowStates } from 'types'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 type DetailsProps = {
   show: Movie | TVShow

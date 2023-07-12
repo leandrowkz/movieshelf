@@ -1,7 +1,7 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { Genre } from '@leandrowkz/tmdb'
+import type { GenresState } from './types'
 import { initialState } from './state'
-import { GenresState } from './types'
 import { useGenresAPI } from 'src/hooks/apis/useGenresAPI'
 
 export const GenresContext = createContext<GenresState>({ ...initialState })

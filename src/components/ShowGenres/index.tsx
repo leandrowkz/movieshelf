@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import type {
   Movie,
   MovieItem,

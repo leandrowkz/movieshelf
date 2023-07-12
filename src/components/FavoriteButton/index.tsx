@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
-import { Button, ButtonProps } from '../../components/Button'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType, UserShowStates } from 'types'
+import { type ButtonProps, Button } from '../../components/Button'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoHeart, IoHeartOutline } from 'react-icons/io5'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends ButtonProps {
   show: Movie | TVShow

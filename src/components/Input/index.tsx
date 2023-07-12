@@ -1,4 +1,8 @@
-import React, { InputHTMLAttributes, ReactNode, forwardRef } from 'react'
+import React, {
+  type InputHTMLAttributes,
+  type ReactNode,
+  forwardRef,
+} from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { useScreenSize } from '../../hooks/useScreenSize'

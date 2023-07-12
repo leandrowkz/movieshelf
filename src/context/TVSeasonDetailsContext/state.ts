@@ -1,5 +1,5 @@
-import { TVSeason } from '@leandrowkz/tmdb'
-import { TVSeasonDetailsState } from './types'
+import type { TVSeason } from '@leandrowkz/tmdb'
+import type { TVSeasonDetailsState } from './types'
 
 export const initialState: TVSeasonDetailsState = {
   season: {} as TVSeason,

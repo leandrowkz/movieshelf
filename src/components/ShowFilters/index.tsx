@@ -1,11 +1,16 @@
-import React, { HTMLAttributes, useContext, useEffect, useState } from 'react'
+import React, {
+  type HTMLAttributes,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Button } from '../Button'
 import { Container } from '../Container'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { GenresContext } from 'src/context/GenresContext'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType } from 'types'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   type: ShowType
