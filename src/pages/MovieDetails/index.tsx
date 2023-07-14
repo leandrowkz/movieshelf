@@ -3,30 +3,27 @@ import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { MovieDetailsContext } from '../../context/MovieDetailsContext'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { ShowDetailsContext } from 'src/context/ShowDetailsContext'
 
 export function MovieDetails(): JSX.Element {
   const { getCreditsDirector } = useHelpers()
   const { movieId } = useParams()
 
   const {
-    movie,
-    cast,
-    crew,
+    show,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingMovie,
-    isLoadingVideos,
-    hasMovieErrors,
-    fetchMovie,
+    isLoading,
+    hasErrors,
+    fetchShow,
     fetchCredits,
     fetchVideos,
     fetchStates,
-  } = useContext(MovieDetailsContext)
+  } = useContext(ShowDetailsContext)
 
   const {
     similar,
@@ -43,32 +40,34 @@ export function MovieDetails(): JSX.Element {
   useEffect(() => {
     const id = Number(movieId)
 
-    fetchMovie(id)
-    fetchCredits(id)
-    fetchVideos(id)
-    fetchStates(id)
+    fetchShow(id, 'movie')
+    fetchCredits(id, 'movie')
+    fetchVideos(id, 'movie')
+    fetchStates(id, 'movie')
+
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
   }, [movieId])
 
-  if (!movie || hasMovieErrors) {
+  if (!show || hasErrors.fetchShow) {
     return <NotFound data-testid="show-not-found" />
   }
 
+  const { cast = [], crew = [] } = credits
   const director = getCreditsDirector(crew)
   const people = director ? [director, ...cast] : cast
 
   return (
     <Page darkHeader>
       <ShowDetails
-        show={movie}
+        show={show}
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoadingMovie}
-        isLoadingPeople={isLoadingCredits}
-        isLoadingActions={isLoadingVideos}
+        isLoadingShow={isLoading.fetchShow}
+        isLoadingPeople={isLoading.fetchCredits}
+        isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <ShowCarousel

@@ -13,6 +13,7 @@ import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
 import { UserListsContextProvider } from './context/UserListsContext'
+import { ShowDetailsContextProvider } from './context/ShowDetailsContext'
 
 const App = () => {
   return (
@@ -25,9 +26,11 @@ const App = () => {
                 <TVShowListsContextProvider>
                   <TVShowDetailsContextProvider>
                     <TVSeasonDetailsContextProvider>
-                      <NewsletterContextProvider>
-                        <RouterProvider router={router} />
-                      </NewsletterContextProvider>
+                      <ShowDetailsContextProvider>
+                        <NewsletterContextProvider>
+                          <RouterProvider router={router} />
+                        </NewsletterContextProvider>
+                      </ShowDetailsContextProvider>
                     </TVSeasonDetailsContextProvider>
                   </TVShowDetailsContextProvider>
                 </TVShowListsContextProvider>

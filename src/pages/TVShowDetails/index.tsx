@@ -1,33 +1,31 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import type { TVShow } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { TVSeasonsTabs } from 'src/components/TVSeasonsTabs'
+import { ShowDetailsContext } from 'src/context/ShowDetailsContext'
 
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer } = useHelpers()
   const { tvShowId } = useParams()
 
   const {
-    tvShow,
-    cast,
-    crew,
+    show,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingTVShow,
-    isLoadingStates,
-    hasTVShowErrors,
-    fetchTVShow,
+    isLoading,
+    hasErrors,
+    fetchShow,
     fetchCredits,
     fetchVideos,
     fetchStates,
-  } = useContext(TVShowDetailsContext)
+  } = useContext(ShowDetailsContext)
 
   const {
     similar,
@@ -44,19 +42,20 @@ export function TVShowDetails(): JSX.Element {
   useEffect(() => {
     const id = Number(tvShowId)
 
-    fetchTVShow(id)
-    fetchCredits(id)
-    fetchVideos(id)
-    fetchStates(id)
+    fetchShow(id, 'tv')
+    fetchCredits(id, 'tv')
+    fetchVideos(id, 'tv')
+    fetchStates(id, 'tv')
     fetchSimilar(id)
     fetchRecommended(id)
     fetchPopular()
   }, [tvShowId])
 
-  if (!tvShow || hasTVShowErrors) {
+  if (!show || hasErrors.fetchShow) {
     return <NotFound data-testid="show-not-found" />
   }
 
+  const { cast = [], crew = [] } = credits
   const director = getCreditsProducer(crew)
   const people = director ? [director, ...cast] : cast
 
@@ -64,18 +63,18 @@ export function TVShowDetails(): JSX.Element {
     <Page darkHeader>
       <ShowDetails
         type="tv"
-        show={tvShow}
+        show={show}
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoadingTVShow}
-        isLoadingPeople={isLoadingCredits}
-        isLoadingActions={isLoadingStates}
+        isLoadingShow={isLoading.fetchShow}
+        isLoadingPeople={isLoading.fetchCredits}
+        isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <TVSeasonsTabs
         title="All seasons"
-        show={tvShow}
+        show={show as TVShow}
         data-testid="show-seasons"
       />
       <ShowCarousel
