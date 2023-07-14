@@ -8,13 +8,10 @@ export const config = {
 export default async (req: Request) =>
   dispatch(async () => {
     const { searchParams } = new URL(req.url)
-    const showId = Number(searchParams.get('showId'))
     const showType = searchParams.get('showType') as ShowType
 
-    const { results } =
-      showType === 'movie'
-        ? await tmdb.movies.videos(showId)
-        : await tmdb.tvShows.videos(showId)
+    const genres =
+      showType === 'movie' ? await tmdb.genres.movie() : await tmdb.genres.tv()
 
-    return results
+    return genres
   })

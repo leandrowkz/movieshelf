@@ -1,5 +1,10 @@
 import { useSupabase } from 'src/hooks/useSupabase'
-import type { Nullable, RequestBody, RequestPayload } from 'src/types'
+import type {
+  Nullable,
+  RequestBody,
+  RequestPayload,
+  RequestQuery,
+} from 'src/types'
 
 export class APIClient {
   private headers: Headers
@@ -99,14 +104,11 @@ export class APIClient {
     throw Error(error.message || error)
   }
 
-  public buildPath(
-    path: string,
-    queryString: Record<string, string | number> = {}
-  ) {
+  public buildPath(path: string, queryString: RequestQuery = {}) {
     const params = new URLSearchParams()
 
     for (const [key, value] of Object.entries(queryString)) {
-      params.append(key, value.toString())
+      params.append(key, (value || '').toString())
     }
 
     return `${path}?${params.toString()}`
