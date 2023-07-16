@@ -1,5 +1,5 @@
 import { authorize, dispatch } from '../../api'
-import { getShowStates } from '../../shows/states'
+import { getShowStates } from '../../helpers'
 import type { ShowStatesPayload, UserListPayload } from '../../../src/types'
 import { addToList, validate } from './helpers'
 

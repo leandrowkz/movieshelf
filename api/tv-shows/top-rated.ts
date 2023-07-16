@@ -1,11 +1,16 @@
-import { json, tmdb } from '../api'
+import { tmdb, dispatch } from '../api'
+import { transformListResponse } from '../helpers'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async () => {
-  const { results } = await tmdb.tvShows.topRated()
+export default async (req: Request) =>
+  dispatch(async () => {
+    const { searchParams } = new URL(req.url)
+    const page = Number(searchParams.get('page') || 1)
 
-  return json(results)
-}
+    const response = await tmdb.tvShows.topRated({ page })
+
+    return transformListResponse(response, 'tv')
+  })

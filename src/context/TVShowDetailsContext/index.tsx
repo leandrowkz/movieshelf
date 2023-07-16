@@ -1,12 +1,7 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
-import type {
-  PersonCast,
-  PersonCrew,
-  TVShow,
-  TVShowVideos,
-} from '@leandrowkz/tmdb'
-import type { TVShowDetailsState } from './types'
+import type { TVShow, TVShowCredits } from '@leandrowkz/tmdb'
 import type { UserShowStates } from 'src/types'
+import type { TVShowDetailsState } from './types'
 import { initialState } from './state'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 
@@ -18,75 +13,74 @@ export const TVShowDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
   const api = useTVShowsAPI()
-  const [tvShow, setTVShow] = useState<TVShow>({} as TVShow)
-  const [cast, setCast] = useState<PersonCast[]>([])
-  const [crew, setCrew] = useState<PersonCrew[]>([])
-  const [videos, setVideos] = useState<TVShowVideos['results']>([])
-  const [states, setStates] = useState<UserShowStates>({} as UserShowStates)
-  const [isLoadingTVShow, setIsLoadingTVShow] = useState(false)
-  const [isLoadingCredits, setIsLoadingCredits] = useState(false)
-  const [isLoadingVideos, setIsLoadingVideos] = useState(false)
-  const [isLoadingStates, setIsLoadingStates] = useState(false)
-  const [hasTVShowErrors, setHasTVShowErrors] = useState(false)
 
-  const fetchTVShow = async (tvShowId: number) => {
+  const [tvShow, setTVShow] = useState(initialState.tvShow)
+  const [states, setStates] = useState(initialState.states)
+  const [credits, setCredits] = useState(initialState.credits)
+  const [videos, setVideos] = useState(initialState.videos)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
+  const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
+
+  const fetchTVShow = async (showId: number) => {
     try {
       setTVShow({} as TVShow)
-      setIsLoadingTVShow(true)
-      setHasTVShowErrors(false)
+      setIsLoading((prev) => ({ ...prev, fetchTVShow: true }))
+      setHasErrors((prev) => ({ ...prev, fetchTVShow: false }))
 
-      const data = await api.fetchDetails(tvShowId)
+      const data = await api.fetchTVShow(showId)
 
       setTVShow(data)
     } catch (e) {
-      setHasTVShowErrors(true)
+      setHasErrors((prev) => ({ ...prev, fetchTVShow: true }))
     } finally {
-      setIsLoadingTVShow(false)
+      setIsLoading((prev) => ({ ...prev, fetchTVShow: false }))
     }
   }
 
-  const fetchCredits = async (tvShowId: number) => {
-    setIsLoadingCredits(true)
-
-    const { cast, crew } = await api.fetchCredits(tvShowId)
-
-    setCast(cast)
-    setCrew(crew)
-    setIsLoadingCredits(false)
-  }
-
-  const fetchVideos = async (tvShowId: number) => {
-    setIsLoadingVideos(true)
-
-    const videos = await api.fetchVideos(tvShowId)
-
-    setVideos(videos)
-    setIsLoadingVideos(false)
-  }
-
-  const fetchStates = async (movieId: number) => {
+  const fetchStates = async (showId: number) => {
     setStates({} as UserShowStates)
-    setIsLoadingStates(true)
+    setIsLoading((prev) => ({ ...prev, fetchStates: true }))
+    setHasErrors((prev) => ({ ...prev, fetchStates: false }))
 
-    const states = await api.fetchStates(movieId)
+    const data = await api.fetchStates(showId)
 
-    setStates(states)
-    setIsLoadingStates(false)
+    setStates(data)
+
+    setIsLoading((prev) => ({ ...prev, fetchStates: false }))
+  }
+
+  const fetchCredits = async (showId: number) => {
+    setCredits({} as TVShowCredits)
+    setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
+    setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
+
+    const data = await api.fetchCredits(showId)
+
+    setCredits(data)
+
+    setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+  }
+
+  const fetchVideos = async (showId: number) => {
+    setVideos([])
+    setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
+    setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
+
+    const data = await api.fetchVideos(showId)
+
+    setVideos(data)
+    setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
   }
 
   const state = {
     tvShow,
-    cast,
-    crew,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingTVShow,
-    isLoadingVideos,
-    isLoadingStates,
-    hasTVShowErrors,
-    fetchCredits,
+    isLoading,
+    hasErrors,
     fetchTVShow,
+    fetchCredits,
     fetchVideos,
     fetchStates,
     setStates,

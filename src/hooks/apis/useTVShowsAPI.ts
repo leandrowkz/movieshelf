@@ -4,8 +4,8 @@ import { APIClient } from './APIClient'
 
 const api = new APIClient('')
 
-async function fetchDetails(tvShowId: number): Promise<TVShow> {
-  const path = api.buildPath('/api/tv-shows/details', { tvShowId })
+async function fetchTVShow(showId: number): Promise<TVShow> {
+  const path = api.buildPath('/api/tv-shows/details', { showId })
 
   return api.get<TVShow>(path)
 }
@@ -34,14 +34,14 @@ async function fetchListTopRated(): Promise<TVShowItem[]> {
   return api.get<TVShowItem[]>(path)
 }
 
-async function fetchListSimilar(tvShowId: number): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/similar', { tvShowId })
+async function fetchListSimilar(showId: number): Promise<TVShowItem[]> {
+  const path = api.buildPath('/api/tv-shows/similar', { showId })
 
   return await api.get<TVShowItem[]>(path)
 }
 
-async function fetchListRecommended(tvShowId: number): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/recommended', { tvShowId })
+async function fetchListRecommended(showId: number): Promise<TVShowItem[]> {
+  const path = api.buildPath('/api/tv-shows/recommended', { showId })
 
   return api.get<TVShowItem[]>(path)
 }
@@ -68,14 +68,14 @@ async function fetchListsByGenres(
   return api.get<ListByGenre<TVShowItem>[]>(path)
 }
 
-async function fetchCredits(tvShowId: number): Promise<TVShowCredits> {
-  const path = api.buildPath('/api/tv-shows/credits', { tvShowId })
+async function fetchCredits(showId: number): Promise<TVShowCredits> {
+  const path = api.buildPath('/api/tv-shows/credits', { showId })
 
   return api.get<TVShowCredits>(path)
 }
 
-async function fetchVideos(tvShowId: number): Promise<Video[]> {
-  const path = api.buildPath('/api/tv-shows/videos', { tvShowId })
+async function fetchVideos(showId: number): Promise<Video[]> {
+  const path = api.buildPath('/api/tv-shows/videos', { showId })
 
   return api.get<Video[]>(path)
 }
@@ -100,8 +100,10 @@ async function fetchListPaginatedByGenre(
 }
 
 export const useTVShowsAPI = () => ({
+  fetchTVShow,
+  fetchVideos,
+  fetchStates,
   fetchCredits,
-  fetchDetails,
   fetchListByGenre,
   fetchListPopular,
   fetchListRecommended,
@@ -111,6 +113,4 @@ export const useTVShowsAPI = () => ({
   fetchListAiringToday,
   fetchListTopRated,
   fetchListPaginatedByGenre,
-  fetchVideos,
-  fetchStates,
 })

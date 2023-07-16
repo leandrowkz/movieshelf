@@ -1,33 +1,72 @@
-import type {
-  Movie,
-  MovieCredits,
-  TVShow,
-  TVShowCredits,
-} from '@leandrowkz/tmdb'
-import type { ShowDetailsState } from './types'
-import type { UserShowStates } from 'src/types'
+import type { ShowListsState } from './types'
+import { useHelpers } from 'src/hooks/useHelpers'
 
-export const initialState: ShowDetailsState = {
-  show: {} as Movie | TVShow,
-  states: {} as UserShowStates,
-  credits: {} as MovieCredits | TVShowCredits,
-  videos: [],
+const { getEmptyListPaginated } = useHelpers()
+
+export const initialState: ShowListsState = {
+  movies: {
+    listsByGenres: [],
+    similar: getEmptyListPaginated(),
+    popular: getEmptyListPaginated(),
+    recommended: getEmptyListPaginated(),
+    inTheatres: getEmptyListPaginated(),
+    bestComedies: getEmptyListPaginated(),
+    bestDocumentaries: getEmptyListPaginated(),
+    bestScifiAndFantasy: getEmptyListPaginated(),
+    bestFamily: getEmptyListPaginated(),
+  },
+  tv: {
+    listsByGenres: [],
+    similar: getEmptyListPaginated(),
+    popular: getEmptyListPaginated(),
+    recommended: getEmptyListPaginated(),
+    airingToday: getEmptyListPaginated(),
+    onTheAir: getEmptyListPaginated(),
+    topRated: getEmptyListPaginated(),
+  },
 
   isLoading: {
-    fetchShow: false,
-    fetchCredits: false,
-    fetchStates: false,
-    fetchVideos: false,
+    fetchMoviesBestComedies: false,
+    fetchMoviesBestDocumentaries: false,
+    fetchMoviesBestScifiAndFantasy: false,
+    fetchMoviesBestFamily: false,
+    fetchMoviesInTheatres: false,
+    fetchTVShowsAiringToday: false,
+    fetchTVShowsOnTheAir: false,
+    fetchTVShowsTopRated: false,
+    fetchPopular: false,
+    fetchSimilar: false,
+    fetchRecommended: false,
+    fetchListsByGenres: false,
   },
 
   hasErrors: {
-    fetchShow: false,
+    fetchMoviesBestComedies: false,
+    fetchMoviesBestDocumentaries: false,
+    fetchMoviesBestScifiAndFantasy: false,
+    fetchMoviesBestFamily: false,
+    fetchMoviesInTheatres: false,
+    fetchTVShowsAiringToday: false,
+    fetchTVShowsOnTheAir: false,
+    fetchTVShowsTopRated: false,
+    fetchPopular: false,
+    fetchSimilar: false,
+    fetchRecommended: false,
+    fetchListsByGenres: false,
   },
 
-  fetchShow: () => null,
-  fetchCredits: () => null,
-  fetchVideos: () => null,
-  fetchStates: () => null,
+  fetchMoviesBestComedies: () => null,
+  fetchMoviesBestDocumentaries: () => null,
+  fetchMoviesBestScifiAndFantasy: () => null,
+  fetchMoviesBestFamily: () => null,
+  fetchMoviesInTheatres: () => null,
 
-  setStates: () => null,
+  fetchTVShowsAiringToday: () => null,
+  fetchTVShowsOnTheAir: () => null,
+  fetchTVShowsTopRated: () => null,
+
+  fetchPopular: () => null,
+  fetchSimilar: () => null,
+  fetchRecommended: () => null,
+  fetchListsByGenres: () => null,
 }

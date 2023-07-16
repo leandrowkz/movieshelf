@@ -1,25 +1,27 @@
-import type {
-  PersonCast,
-  PersonCrew,
-  TVShow,
-  TVShowVideos,
-} from '@leandrowkz/tmdb'
+import type { TVShow, TVShowCredits, Video } from '@leandrowkz/tmdb'
 import type { UserShowStates } from 'src/types'
 
 export type TVShowDetailsState = {
   tvShow: TVShow
-  cast: PersonCast[]
-  crew: PersonCrew[]
-  videos: TVShowVideos['results']
   states: UserShowStates
-  isLoadingTVShow: boolean
-  isLoadingCredits: boolean
-  isLoadingVideos: boolean
-  isLoadingStates: boolean
-  hasTVShowErrors: boolean
-  fetchTVShow: (tvShowId: number) => void
-  fetchCredits: (tvShowId: number) => void
-  fetchVideos: (tvShowId: number) => void
-  fetchStates: (movieId: number) => void
+  credits: TVShowCredits
+  videos: Video[]
+
+  isLoading: {
+    fetchTVShow: boolean
+    fetchStates: boolean
+    fetchCredits: boolean
+    fetchVideos: boolean
+  }
+
+  hasErrors: {
+    fetchTVShow: boolean
+  }
+
+  fetchTVShow: (showId: number) => void
+  fetchCredits: (showId: number) => void
+  fetchStates: (showId: number) => void
+  fetchVideos: (showId: number) => void
+
   setStates: (states: UserShowStates) => void
 }

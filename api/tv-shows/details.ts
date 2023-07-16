@@ -1,14 +1,17 @@
-import { json, tmdb } from '../api'
+import { tmdb, dispatch } from '../api'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request) => {
-  const { searchParams } = new URL(req.url)
-  const id = Number(searchParams.get('tvShowId'))
+export default async (req: Request) =>
+  dispatch(async () => {
+    const { searchParams } = new URL(req.url)
+    const showId = Number(searchParams.get('showId'))
 
-  const tvShow = await tmdb.tvShows.details(id)
+    const details = await tmdb.tvShows.details(showId)
 
-  return json(tvShow)
-}
+    details.media_type = 'tv'
+
+    return details
+  })

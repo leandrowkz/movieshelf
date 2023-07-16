@@ -4,20 +4,20 @@ import { APIClient } from './APIClient'
 
 const api = new APIClient('')
 
-async function fetchDetails(movieId: number): Promise<Movie> {
-  const path = api.buildPath('/api/movies/details', { movieId })
+async function fetchMovie(showId: number): Promise<Movie> {
+  const path = api.buildPath('/api/movies/details', { showId })
 
   return api.get<Movie>(path)
 }
 
-async function fetchListSimilar(movieId: number): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/similar', { movieId })
+async function fetchListSimilar(showId: number): Promise<MovieItem[]> {
+  const path = api.buildPath('/api/movies/similar', { showId })
 
   return await api.get<MovieItem[]>(path)
 }
 
-async function fetchListRecommended(movieId: number): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/recommended', { movieId })
+async function fetchListRecommended(showId: number): Promise<MovieItem[]> {
+  const path = api.buildPath('/api/movies/recommended', { showId })
 
   return api.get<MovieItem[]>(path)
 }
@@ -77,14 +77,14 @@ async function fetchListTrending(): Promise<MovieItem[]> {
   return api.get<MovieItem[]>(path)
 }
 
-async function fetchCredits(movieId: number): Promise<MovieCredits> {
-  const path = api.buildPath('/api/movies/credits', { movieId })
+async function fetchCredits(showId: number): Promise<MovieCredits> {
+  const path = api.buildPath('/api/movies/credits', { showId })
 
   return api.get<MovieCredits>(path)
 }
 
-async function fetchVideos(movieId: number): Promise<Video[]> {
-  const path = api.buildPath('/api/movies/videos', { movieId })
+async function fetchVideos(showId: number): Promise<Video[]> {
+  const path = api.buildPath('/api/movies/videos', { showId })
 
   return api.get<Video[]>(path)
 }
@@ -99,8 +99,10 @@ async function fetchStates(showId: number): Promise<UserShowStates> {
 }
 
 export const useMoviesAPI = () => ({
+  fetchMovie,
   fetchCredits,
-  fetchDetails,
+  fetchVideos,
+  fetchStates,
   fetchListByGenre,
   fetchListInTheatres,
   fetchListMostPopular,
@@ -109,6 +111,4 @@ export const useMoviesAPI = () => ({
   fetchListTrending,
   fetchListsByGenres,
   fetchListPaginatedByGenre,
-  fetchVideos,
-  fetchStates,
 })
