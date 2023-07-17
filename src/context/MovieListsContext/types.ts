@@ -1,41 +1,44 @@
-import type { Genre, MovieItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'src/types'
+import type { MovieItem } from '@leandrowkz/tmdb'
+import type { ListPaginated } from 'src/types'
 
 export type MovieListsState = {
-  inTheatres: MovieItem[]
-  trending: MovieItem[]
-  similar: MovieItem[]
-  recommended: MovieItem[]
-  mostPopular: MovieItem[]
-  bestComedies: MovieItem[]
-  scifiAndFantasy: MovieItem[]
-  topRatedDocumentaries: MovieItem[]
-  family: MovieItem[]
-  listsByGenres: ListByGenre<MovieItem>[]
-  category: ListPaginated<MovieItem>
+  similar: ListPaginated<MovieItem>
+  popular: ListPaginated<MovieItem>
+  recommended: ListPaginated<MovieItem>
+  inTheatres: ListPaginated<MovieItem>
+  bestComedies: ListPaginated<MovieItem>
+  bestDocumentaries: ListPaginated<MovieItem>
+  bestFamily: ListPaginated<MovieItem>
+  bestScifiAndFantasy: ListPaginated<MovieItem>
 
-  isLoadingTrending: boolean
-  isLoadingInTheatres: boolean
-  isLoadingSimilar: boolean
-  isLoadingRecommended: boolean
-  isLoadingMostPopular: boolean
-  isLoadingBestComedies: boolean
-  isLoadingScifiAndFantasy: boolean
-  isLoadingFamily: boolean
-  isLoadingTopRatedDocumentaries: boolean
-  isLoadingByCategory: boolean
-  isLoadingListsByGenres: boolean
-  hasCategoryErrors: boolean
+  isLoading: {
+    fetchSimilar: boolean
+    fetchPopular: boolean
+    fetchRecommended: boolean
+    fetchInTheatres: boolean
+    fetchBestComedies: boolean
+    fetchBestDocumentaries: boolean
+    fetchBestFamily: boolean
+    fetchBestScifiAndFantasy: boolean
+  }
 
-  fetchTrending: () => void
+  hasErrors: {
+    fetchSimilar: boolean
+    fetchPopular: boolean
+    fetchRecommended: boolean
+    fetchInTheatres: boolean
+    fetchBestComedies: boolean
+    fetchBestDocumentaries: boolean
+    fetchBestFamily: boolean
+    fetchBestScifiAndFantasy: boolean
+  }
+
+  fetchSimilar: (showId: number) => void
+  fetchPopular: () => void
+  fetchRecommended: (showId: number) => void
   fetchInTheatres: () => void
-  fetchSimilar: (movieId: number) => void
-  fetchRecommended: (movieId: number) => void
-  fetchMostPopular: () => void
   fetchBestComedies: () => void
-  fetchScifiAndFantasy: () => void
-  fetchFamily: () => void
-  fetchTopRatedDocumentaries: () => void
-  fetchListCategory: (categoryId: number, page?: number) => void
-  fetchListsByGenres: (genres: Genre[]) => void
+  fetchBestDocumentaries: () => void
+  fetchBestFamily: () => void
+  fetchBestScifiAndFantasy: () => void
 }

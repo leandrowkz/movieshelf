@@ -5,10 +5,8 @@ import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { MovieListsContextProvider } from './context/MovieListsContext'
-import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
 import { NewsletterContextProvider } from './context/NewsletterContext'
 import { TVShowListsContextProvider } from './context/TVShowListsContext'
-import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
@@ -22,19 +20,15 @@ const App = () => {
         <GenresContextProvider>
           <UserListsContextProvider>
             <MovieListsContextProvider>
-              <MovieDetailsContextProvider>
-                <TVShowListsContextProvider>
-                  <TVShowDetailsContextProvider>
-                    <TVSeasonDetailsContextProvider>
-                      <ShowDetailsContextProvider>
-                        <NewsletterContextProvider>
-                          <RouterProvider router={router} />
-                        </NewsletterContextProvider>
-                      </ShowDetailsContextProvider>
-                    </TVSeasonDetailsContextProvider>
-                  </TVShowDetailsContextProvider>
-                </TVShowListsContextProvider>
-              </MovieDetailsContextProvider>
+              <TVShowListsContextProvider>
+                <TVSeasonDetailsContextProvider>
+                  <ShowDetailsContextProvider>
+                    <NewsletterContextProvider>
+                      <RouterProvider router={router} />
+                    </NewsletterContextProvider>
+                  </ShowDetailsContextProvider>
+                </TVSeasonDetailsContextProvider>
+              </TVShowListsContextProvider>
             </MovieListsContextProvider>
           </UserListsContextProvider>
         </GenresContextProvider>

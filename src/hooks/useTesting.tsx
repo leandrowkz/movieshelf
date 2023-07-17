@@ -1,12 +1,10 @@
 /* eslint-disable no-restricted-imports */
 import React, { type HTMLAttributes, type ReactElement } from 'react'
 import userEvent from '@testing-library/user-event'
+import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { MovieListsContextProvider } from '../context/MovieListsContext'
-import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
-import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
-import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
   MovieItem,
@@ -58,17 +56,13 @@ function renderComponent(component: ReactElement) {
         <MockGenresContextProvider>
           <UserListsContextProvider>
             <TVShowListsContextProvider>
-              <TVShowDetailsContextProvider>
-                <TVSeasonDetailsContextProvider>
-                  <MovieListsContextProvider>
-                    <MovieDetailsContextProvider>
-                      <ShowDetailsContextProvider>
-                        {children}
-                      </ShowDetailsContextProvider>
-                    </MovieDetailsContextProvider>
-                  </MovieListsContextProvider>
-                </TVSeasonDetailsContextProvider>
-              </TVShowDetailsContextProvider>
+              <TVSeasonDetailsContextProvider>
+                <MovieListsContextProvider>
+                  <ShowDetailsContextProvider>
+                    {children}
+                  </ShowDetailsContextProvider>
+                </MovieListsContextProvider>
+              </TVSeasonDetailsContextProvider>
             </TVShowListsContextProvider>
           </UserListsContextProvider>
         </MockGenresContextProvider>

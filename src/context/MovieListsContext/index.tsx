@@ -4,6 +4,7 @@ import type { ListByGenre } from 'src/types'
 import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 export const MovieListsContext = createContext<MovieListsState>({
   ...initialState,
@@ -11,46 +12,28 @@ export const MovieListsContext = createContext<MovieListsState>({
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const api = useMoviesAPI()
-  const [trending, setTrending] = useState<MovieItem[]>([])
-  const [similar, setSimilar] = useState<MovieItem[]>([])
-  const [recommended, setRecommended] = useState<MovieItem[]>([])
-  const [mostPopular, setMostPopular] = useState<MovieItem[]>([])
-  const [bestComedies, setBestComedies] = useState<MovieItem[]>([])
-  const [scifiAndFantasy, setScifiAndFantasy] = useState<MovieItem[]>([])
-  const [family, setFamily] = useState<MovieItem[]>([])
-  const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<
-    MovieItem[]
-  >([])
-  const [inTheatres, setInTheatres] = useState<MovieItem[]>([])
-  const [listsByGenres, setListsByGenres] = useState<ListByGenre<MovieItem>[]>(
-    []
+  const { getEmptyListPaginated } = useHelpers()
+
+  const [similar, setSimilar] = useState(initialState.similar)
+  const [popular, setPopular] = useState(initialState.popular)
+  const [recommended, setRecommended] = useState(initialState.recommended)
+  const [inTheatres, setInTheatres] = useState(initialState.inTheatres)
+  const [bestComedies, setBestComedies] = useState(initialState.bestComedies)
+  const [bestDocumentaries, setBestDocumentaries] = useState(
+    initialState.bestDocumentaries
   )
+  const [bestScifiAndFantasy, setBestScifiAndFantasy] = useState(
+    initialState.bestScifiAndFantasy
+  )
+  const [bestFamily, setBestFamily] = useState(initialState.bestFamily)
 
-  const [category, setCategory] = useState<MovieItem[]>([])
-  const [pageCategory, setPageCategory] = useState(0)
-  const [pagesCategory, setPagesCategory] = useState(0)
-  const [countCategory, setCountCategory] = useState(0)
-
-  const [isLoadingTrending, setIsLoadingTrending] = useState(false)
-  const [isLoadingInTheatres, setIsLoadingInTheatres] = useState(false)
-  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false)
-  const [isLoadingRecommended, setIsLoadingRecommended] = useState(false)
-  const [isLoadingMostPopular, setIsLoadingMostPopular] = useState(false)
-  const [isLoadingBestComedies, setIsLoadingBestComedies] = useState(false)
-  const [isLoadingFamily, setIsLoadingFamily] = useState(false)
-  const [isLoadingScifiAndFantasy, setIsLoadingScifiAndFantasy] =
-    useState(false)
-  const [isLoadingTopRatedDocumentaries, setIsLoadingTopRatedDocumentaries] =
-    useState(false)
-  const [isLoadingByCategory, setIsLoadingByCategory] = useState(false)
-  const [isLoadingListsByGenres, setIsLoadingListsByGenres] =
-    useState<boolean>(false)
-
-  const [hasCategoryErrors, setHasCategoryErrors] = useState(false)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
+  const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
 
   const fetchSimilar = async (movieId: number) => {
-    setSimilar([])
-    setIsLoadingSimilar(true)
+    setSimilar(getEmptyListPaginated())
+    setIsLoading((prev) => ({ ...prev, fetchSimilar: true }))
+    setHasErrors((prev) => ({ ...prev, fetchSimilar: false }))
 
     const data = await api.fetchListSimilar(movieId)
 
