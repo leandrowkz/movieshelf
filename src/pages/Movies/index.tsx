@@ -49,7 +49,6 @@ export function Movies(): JSX.Element {
             shows={list.data}
             genreId={list.genre.id}
             role="list"
-            type="movie"
           />
         ))}
     </Page>

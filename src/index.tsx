@@ -4,14 +4,16 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/root'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
-import { MovieListsContextProvider } from './context/MovieListsContext'
-import { NewsletterContextProvider } from './context/NewsletterContext'
-import { TVShowListsContextProvider } from './context/TVShowListsContext'
-import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
 import { GenresContextProvider } from './context/GenresContext'
 import { AuthContextProvider } from './context/AuthContext'
+import { NewsletterContextProvider } from './context/NewsletterContext'
+import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
+import { MovieListsContextProvider } from './context/MovieListsContext'
+import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
+import { TVShowListsContextProvider } from './context/TVShowListsContext'
+import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
+
 import { UserListsContextProvider } from './context/UserListsContext'
-import { ShowDetailsContextProvider } from './context/ShowDetailsContext'
 
 const App = () => {
   return (
@@ -19,17 +21,19 @@ const App = () => {
       <AuthContextProvider>
         <GenresContextProvider>
           <UserListsContextProvider>
-            <MovieListsContextProvider>
-              <TVShowListsContextProvider>
-                <TVSeasonDetailsContextProvider>
-                  <ShowDetailsContextProvider>
-                    <NewsletterContextProvider>
-                      <RouterProvider router={router} />
-                    </NewsletterContextProvider>
-                  </ShowDetailsContextProvider>
-                </TVSeasonDetailsContextProvider>
-              </TVShowListsContextProvider>
-            </MovieListsContextProvider>
+            <MovieDetailsContextProvider>
+              <MovieListsContextProvider>
+                <TVShowListsContextProvider>
+                  <TVSeasonDetailsContextProvider>
+                    <TVShowDetailsContextProvider>
+                      <NewsletterContextProvider>
+                        <RouterProvider router={router} />
+                      </NewsletterContextProvider>
+                    </TVShowDetailsContextProvider>
+                  </TVSeasonDetailsContextProvider>
+                </TVShowListsContextProvider>
+              </MovieListsContextProvider>
+            </MovieDetailsContextProvider>
           </UserListsContextProvider>
         </GenresContextProvider>
       </AuthContextProvider>

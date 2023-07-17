@@ -4,6 +4,7 @@ import type { ListPaginated } from 'src/types'
 export type MovieListsState = {
   similar: ListPaginated<MovieItem>
   popular: ListPaginated<MovieItem>
+  trending: ListPaginated<MovieItem>
   recommended: ListPaginated<MovieItem>
   inTheatres: ListPaginated<MovieItem>
   bestComedies: ListPaginated<MovieItem>
@@ -11,30 +12,9 @@ export type MovieListsState = {
   bestFamily: ListPaginated<MovieItem>
   bestScifiAndFantasy: ListPaginated<MovieItem>
 
-  isLoading: {
-    fetchSimilar: boolean
-    fetchPopular: boolean
-    fetchRecommended: boolean
-    fetchInTheatres: boolean
-    fetchBestComedies: boolean
-    fetchBestDocumentaries: boolean
-    fetchBestFamily: boolean
-    fetchBestScifiAndFantasy: boolean
-  }
-
-  hasErrors: {
-    fetchSimilar: boolean
-    fetchPopular: boolean
-    fetchRecommended: boolean
-    fetchInTheatres: boolean
-    fetchBestComedies: boolean
-    fetchBestDocumentaries: boolean
-    fetchBestFamily: boolean
-    fetchBestScifiAndFantasy: boolean
-  }
-
-  fetchSimilar: (showId: number) => void
   fetchPopular: () => void
+  fetchTrending: () => void
+  fetchSimilar: (showId: number) => void
   fetchRecommended: (showId: number) => void
   fetchInTheatres: () => void
   fetchBestComedies: () => void

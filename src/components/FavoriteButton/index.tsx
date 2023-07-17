@@ -12,15 +12,9 @@ import { IoHeart, IoHeartOutline } from 'react-icons/io5'
 interface Props extends ButtonProps {
   show: Movie | TVShow
   states: UserShowStates
-  showType: ShowType
 }
 
-export function FavoriteButton({
-  show,
-  showType,
-  states,
-  ...props
-}: Props): JSX.Element {
+export function FavoriteButton({ show, states, ...props }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -76,7 +70,9 @@ export function FavoriteButton({
       variant="secondary"
       isLoading={isLoading}
       icon={buttonProps.icon}
-      onClick={() => toggleFavorite(show.id, showType, favorited)}
+      onClick={() =>
+        toggleFavorite(show.id, show.media_type || 'movie', favorited)
+      }
       data-testid={buttonProps.dataTestId}
       {...props}
     />

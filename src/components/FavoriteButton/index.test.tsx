@@ -15,7 +15,7 @@ function getComponent(favorited = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], favorited }
 
-  return <FavoriteButton showType="movie" show={show} states={states} />
+  return <FavoriteButton show={show} states={states} />
 }
 
 test('Should render FavoriteButton properly', async () => {

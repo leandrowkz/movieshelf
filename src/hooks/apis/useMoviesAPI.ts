@@ -29,9 +29,10 @@ async function fetchStates(showId: number): Promise<UserShowStates> {
 }
 
 async function fetchListSimilar(
-  showId: number
+  showId: number,
+  filters = {}
 ): Promise<ListPaginated<MovieItem>> {
-  const path = api.buildPath('/api/movies/similar', { showId })
+  const path = api.buildPath('/api/movies/similar', { ...filters, showId })
 
   return await api.get(path)
 }
@@ -40,7 +41,7 @@ async function fetchListRecommended(
   showId: number,
   filters = {}
 ): Promise<ListPaginated<MovieItem>> {
-  const path = api.buildPath('/api/movies/recommended', { showId, ...filters })
+  const path = api.buildPath('/api/movies/recommended', { ...filters, showId })
 
   return api.get(path)
 }
@@ -69,6 +70,14 @@ async function fetchListTrending(
   return api.get(path)
 }
 
+async function fetchListDiscover(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/discover', filters)
+
+  return api.get(path)
+}
+
 export const useMoviesAPI = () => ({
   fetchMovie,
   fetchCredits,
@@ -79,4 +88,5 @@ export const useMoviesAPI = () => ({
   fetchListRecommended,
   fetchListSimilar,
   fetchListTrending,
+  fetchListDiscover,
 })

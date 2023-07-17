@@ -1,10 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import React, { type HTMLAttributes, type ReactElement } from 'react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { MovieListsContextProvider } from '../context/MovieListsContext'
+import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
+import { BrowserRouter } from 'react-router-dom'
 import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
+import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
 import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
 import type {
   MovieItem,
@@ -31,7 +33,6 @@ import {
 import { UserListsContextProvider } from 'src/context/UserListsContext'
 import type { UserShowStates } from 'src/types'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
-import { ShowDetailsContextProvider } from 'src/context/ShowDetailsContext'
 
 jest.mock('src/hooks/useSupabase')
 
@@ -56,13 +57,15 @@ function renderComponent(component: ReactElement) {
         <MockGenresContextProvider>
           <UserListsContextProvider>
             <TVShowListsContextProvider>
-              <TVSeasonDetailsContextProvider>
-                <MovieListsContextProvider>
-                  <ShowDetailsContextProvider>
-                    {children}
-                  </ShowDetailsContextProvider>
-                </MovieListsContextProvider>
-              </TVSeasonDetailsContextProvider>
+              <TVShowDetailsContextProvider>
+                <TVSeasonDetailsContextProvider>
+                  <MovieListsContextProvider>
+                    <MovieDetailsContextProvider>
+                      {children}
+                    </MovieDetailsContextProvider>
+                  </MovieListsContextProvider>
+                </TVSeasonDetailsContextProvider>
+              </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
           </UserListsContextProvider>
         </MockGenresContextProvider>

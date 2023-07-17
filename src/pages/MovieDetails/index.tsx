@@ -6,32 +6,29 @@ import { ShowCarousel } from '../../components/ShowCarousel'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { ShowDetailsContext } from 'src/context/ShowDetailsContext'
+import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 
 export function MovieDetails(): JSX.Element {
   const { getCreditsDirector } = useHelpers()
   const { movieId } = useParams()
 
   const {
-    show,
+    movie,
     credits,
     videos,
     states,
     isLoading,
     hasErrors,
-    fetchShow,
+    fetchMovie,
     fetchCredits,
     fetchVideos,
     fetchStates,
-  } = useContext(ShowDetailsContext)
+  } = useContext(MovieDetailsContext)
 
   const {
     similar,
     recommended,
     trending,
-    isLoadingTrending,
-    isLoadingRecommended,
-    isLoadingSimilar,
     fetchTrending,
     fetchRecommended,
     fetchSimilar,
@@ -40,17 +37,17 @@ export function MovieDetails(): JSX.Element {
   useEffect(() => {
     const id = Number(movieId)
 
-    fetchShow(id, 'movie')
-    fetchCredits(id, 'movie')
-    fetchVideos(id, 'movie')
-    fetchStates(id, 'movie')
+    fetchMovie(id)
+    fetchVideos(id)
+    fetchStates(id)
+    fetchCredits(id)
 
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
   }, [movieId])
 
-  if (!show || hasErrors.fetchShow) {
+  if (!movie || hasErrors.fetchMovie) {
     return <NotFound data-testid="show-not-found" />
   }
 
@@ -61,31 +58,31 @@ export function MovieDetails(): JSX.Element {
   return (
     <Page darkHeader>
       <ShowDetails
-        show={show}
+        show={movie}
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoading.fetchShow}
+        isLoadingShow={isLoading.fetchMovie}
         isLoadingPeople={isLoading.fetchCredits}
         isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <ShowCarousel
-        shows={similar}
+        shows={similar.data}
         title="More movies like this"
-        isLoading={isLoadingSimilar}
+        isLoading={similar.isLoading}
         data-testid="carousel-similar"
       />
       <ShowCarousel
-        shows={recommended}
+        shows={recommended.data}
         title="Recommended movies based on this title"
-        isLoading={isLoadingRecommended}
+        isLoading={recommended.isLoading}
         data-testid="carousel-recommended"
       />
       <ShowCarousel
-        shows={trending}
+        shows={trending.data}
         title="Popular movies"
-        isLoading={isLoadingTrending}
+        isLoading={trending.isLoading}
         data-testid="carousel-trending"
       />
     </Page>

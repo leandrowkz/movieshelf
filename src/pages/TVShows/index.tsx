@@ -49,7 +49,6 @@ export function TVShows(): JSX.Element {
             shows={list.data}
             genreId={list.genre.id}
             role="list"
-            type="tv"
           />
         ))}
     </Page>

@@ -6,6 +6,7 @@ const { getEmptyListPaginated } = useHelpers()
 export const initialState: MovieListsState = {
   similar: getEmptyListPaginated(),
   popular: getEmptyListPaginated(),
+  trending: getEmptyListPaginated(),
   recommended: getEmptyListPaginated(),
   inTheatres: getEmptyListPaginated(),
   bestComedies: getEmptyListPaginated(),
@@ -13,30 +14,9 @@ export const initialState: MovieListsState = {
   bestFamily: getEmptyListPaginated(),
   bestScifiAndFantasy: getEmptyListPaginated(),
 
-  isLoading: {
-    fetchSimilar: false,
-    fetchPopular: false,
-    fetchRecommended: false,
-    fetchInTheatres: false,
-    fetchBestComedies: false,
-    fetchBestDocumentaries: false,
-    fetchBestFamily: false,
-    fetchBestScifiAndFantasy: false,
-  },
-
-  hasErrors: {
-    fetchSimilar: false,
-    fetchPopular: false,
-    fetchRecommended: false,
-    fetchInTheatres: false,
-    fetchBestComedies: false,
-    fetchBestDocumentaries: false,
-    fetchBestFamily: false,
-    fetchBestScifiAndFantasy: false,
-  },
-
   fetchSimilar: () => null,
   fetchPopular: () => null,
+  fetchTrending: () => null,
   fetchRecommended: () => null,
   fetchInTheatres: () => null,
   fetchBestComedies: () => null,

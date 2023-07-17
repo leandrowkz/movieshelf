@@ -1,39 +1,35 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import type { TVShow } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
-import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { TVSeasonsTabs } from 'src/components/TVSeasonsTabs'
-import { ShowDetailsContext } from 'src/context/ShowDetailsContext'
+import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
+import { TVShowListsContext } from 'src/context/TVShowListsContext'
 
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer } = useHelpers()
   const { tvShowId } = useParams()
 
   const {
-    show,
+    tvShow,
     credits,
     videos,
     states,
-    isLoading,
+    isLoading: isLoadingDetails,
     hasErrors,
-    fetchShow,
+    fetchTVShow,
     fetchCredits,
     fetchVideos,
     fetchStates,
-  } = useContext(ShowDetailsContext)
+  } = useContext(TVShowDetailsContext)
 
   const {
     similar,
     recommended,
     popular,
-    isLoadingRecommended,
-    isLoadingSimilar,
-    isLoadingPopular,
     fetchRecommended,
     fetchSimilar,
     fetchPopular,
@@ -42,16 +38,16 @@ export function TVShowDetails(): JSX.Element {
   useEffect(() => {
     const id = Number(tvShowId)
 
-    fetchShow(id, 'tv')
-    fetchCredits(id, 'tv')
-    fetchVideos(id, 'tv')
-    fetchStates(id, 'tv')
+    fetchTVShow(id)
+    fetchCredits(id)
+    fetchVideos(id)
+    fetchStates(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchPopular()
   }, [tvShowId])
 
-  if (!show || hasErrors.fetchShow) {
+  if (!tvShow || hasErrors.fetchTVShow) {
     return <NotFound data-testid="show-not-found" />
   }
 
@@ -62,40 +58,36 @@ export function TVShowDetails(): JSX.Element {
   return (
     <Page darkHeader>
       <ShowDetails
-        type="tv"
-        show={show}
+        show={tvShow}
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoading.fetchShow}
-        isLoadingPeople={isLoading.fetchCredits}
-        isLoadingActions={isLoading.fetchStates}
+        isLoadingShow={isLoadingDetails.fetchTVShow}
+        isLoadingPeople={isLoadingDetails.fetchCredits}
+        isLoadingActions={isLoadingDetails.fetchStates}
         data-testid="show-details"
       />
       <TVSeasonsTabs
         title="All seasons"
-        show={show as TVShow}
+        show={tvShow}
         data-testid="show-seasons"
       />
       <ShowCarousel
-        shows={similar}
-        type="tv"
+        shows={similar.data}
         title="More TV shows like this"
-        isLoading={isLoadingSimilar}
+        isLoading={similar.isLoading}
         data-testid="carousel-similar"
       />
       <ShowCarousel
-        shows={recommended}
-        type="tv"
+        shows={recommended.data}
         title="Recommended TV shows based on this title"
-        isLoading={isLoadingRecommended}
+        isLoading={recommended.isLoading}
         data-testid="carousel-recommended"
       />
       <ShowCarousel
-        shows={popular}
-        type="tv"
+        shows={popular.data}
         title="Popular TV shows"
-        isLoading={isLoadingPopular}
+        isLoading={popular.isLoading}
         data-testid="carousel-popular"
       />
     </Page>

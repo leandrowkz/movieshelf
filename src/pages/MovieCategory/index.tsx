@@ -50,7 +50,6 @@ export function MovieCategory(): JSX.Element {
           size={size}
           isSoftLoading={isLoadingByCategory}
           data-testid="list-movies-by-category"
-          type="movie"
         />
         <Pagination
           className={styles.pagination}

@@ -15,7 +15,7 @@ function getComponent(watched = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], watched }
 
-  return <WatchedButton showType="movie" show={show} states={states} />
+  return <WatchedButton show={show} states={states} />
 }
 
 test('Should render WatchedButton properly', async () => {

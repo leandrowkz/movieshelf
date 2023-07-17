@@ -1,5 +1,5 @@
 import type { TVShow, TVShowCredits, TVShowItem, Video } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated, UserShowStates } from 'src/types'
+import type { ListPaginated, UserShowStates } from 'src/types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')
@@ -8,64 +8,6 @@ async function fetchTVShow(showId: number): Promise<TVShow> {
   const path = api.buildPath('/api/tv-shows/details', { showId })
 
   return api.get<TVShow>(path)
-}
-
-async function fetchListPopular(): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/popular')
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListOnTheAir(): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/on-the-air')
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListAiringToday(): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/airing-today')
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListTopRated(): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/top-rated')
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListSimilar(showId: number): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/similar', { showId })
-
-  return await api.get<TVShowItem[]>(path)
-}
-
-async function fetchListRecommended(showId: number): Promise<TVShowItem[]> {
-  const path = api.buildPath('/api/tv-shows/recommended', { showId })
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListByGenre(
-  genres: number[],
-  filters = {}
-): Promise<TVShowItem[]> {
-  const fetchFilters = {
-    with_genres: genres.join(','),
-    ...filters,
-  }
-  const path = api.buildPath('api/tv-shows/by-genre', fetchFilters)
-
-  return api.get<TVShowItem[]>(path)
-}
-
-async function fetchListsByGenres(
-  genres: number[]
-): Promise<ListByGenre<TVShowItem>[]> {
-  const fetchFilters = { with_genres: genres.join(',') }
-  const path = api.buildPath('api/tv-shows/lists-by-genres', fetchFilters)
-
-  return api.get<ListByGenre<TVShowItem>[]>(path)
 }
 
 async function fetchCredits(showId: number): Promise<TVShowCredits> {
@@ -86,15 +28,55 @@ async function fetchStates(showId: number): Promise<UserShowStates> {
   return api.get(path)
 }
 
-async function fetchListPaginatedByGenre(
-  genres: number[],
+async function fetchListPopular(
   filters = {}
 ): Promise<ListPaginated<TVShowItem>> {
-  const fetchFilters = {
-    with_genres: genres.join(','),
+  const path = api.buildPath('/api/tv-shows/popular', filters)
+
+  return api.get(path)
+}
+
+async function fetchListOnTheAir(
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/on-the-air', filters)
+
+  return api.get(path)
+}
+
+async function fetchListAiringToday(
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/airing-today', filters)
+
+  return api.get(path)
+}
+
+async function fetchListTopRated(
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/top-rated', filters)
+
+  return api.get(path)
+}
+
+async function fetchListSimilar(
+  showId: number,
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/similar', { ...filters, showId })
+
+  return await api.get(path)
+}
+
+async function fetchListRecommended(
+  showId: number,
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/recommended', {
     ...filters,
-  }
-  const path = api.buildPath('api/tv-shows/list-by-genre', fetchFilters)
+    showId,
+  })
 
   return api.get(path)
 }
@@ -104,13 +86,10 @@ export const useTVShowsAPI = () => ({
   fetchVideos,
   fetchStates,
   fetchCredits,
-  fetchListByGenre,
   fetchListPopular,
   fetchListRecommended,
   fetchListSimilar,
-  fetchListsByGenres,
   fetchListOnTheAir,
   fetchListAiringToday,
   fetchListTopRated,
-  fetchListPaginatedByGenre,
 })

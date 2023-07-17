@@ -8,130 +8,116 @@ import styles from './styles.module.css'
 
 export function Home() {
   const {
-    family,
     trending,
-    mostPopular,
-    bestComedies,
+    popular: moviesPopular,
     inTheatres,
-    scifiAndFantasy,
-    topRatedDocumentaries,
-    isLoadingBestComedies,
-    isLoadingFamily,
-    isLoadingInTheatres,
-    isLoadingMostPopular,
-    isLoadingScifiAndFantasy,
-    isLoadingTopRatedDocumentaries,
-    isLoadingTrending,
+    bestFamily,
+    bestComedies,
+    bestDocumentaries,
+    bestScifiAndFantasy,
+    fetchPopular: fetchMoviesPopular,
     fetchTrending,
-    fetchMostPopular,
-    fetchBestComedies,
-    fetchScifiAndFantasy,
-    fetchFamily,
-    fetchTopRatedDocumentaries,
     fetchInTheatres,
+    fetchBestComedies,
+    fetchBestScifiAndFantasy,
+    fetchBestFamily,
+    fetchBestDocumentaries,
   } = useContext(MovieListsContext)
 
   const {
     airingToday,
     onTheAir,
-    popular,
+    popular: tvShowsPopular,
     topRated,
-    isLoadingAiringToday,
-    isLoadingOnTheAir,
-    isLoadingPopular,
-    isLoadingTopRated,
     fetchAiringToday,
     fetchOnTheAir,
-    fetchPopular,
+    fetchPopular: fetchTVShowsPopular,
     fetchTopRated,
   } = useContext(TVShowListsContext)
 
   useEffect(() => {
-    fetchMostPopular()
+    fetchMoviesPopular()
     fetchInTheatres()
     fetchTrending()
+    fetchBestFamily()
     fetchBestComedies()
-    fetchScifiAndFantasy()
-    fetchFamily()
-    fetchTopRatedDocumentaries()
+    fetchBestDocumentaries()
+    fetchBestScifiAndFantasy()
+
     fetchAiringToday()
     fetchOnTheAir()
     fetchTopRated()
-    fetchPopular()
+    fetchTVShowsPopular()
   }, [])
 
   return (
     <Page className={styles.home}>
       <Banner
-        shows={trending}
+        shows={trending.data}
         className={styles.banner}
-        isLoading={isLoadingTrending}
+        isLoading={trending.isLoading}
         data-testid="banner"
       />
       <ShowCarousel
         title="Movies in theaters"
-        shows={inTheatres}
-        isLoading={isLoadingInTheatres}
+        shows={inTheatres.data}
+        isLoading={inTheatres.isLoading}
         size="large"
         data-testid="carousel-in-theaters"
       />
       <ShowCarousel
         title="Popular movies"
-        shows={mostPopular}
-        isLoading={isLoadingMostPopular}
+        shows={moviesPopular.data}
+        isLoading={moviesPopular.isLoading}
         data-testid="carousel-most-popular"
       />
       <ShowCarousel
         title="Best comedy movies"
-        shows={bestComedies}
-        isLoading={isLoadingBestComedies}
+        shows={bestComedies.data}
+        isLoading={bestComedies.isLoading}
         data-testid="carousel-best-comedies"
       />
       <ShowCarousel
         title="Sci-Fi & fantasy movies"
-        shows={scifiAndFantasy}
-        isLoading={isLoadingScifiAndFantasy}
+        shows={bestScifiAndFantasy.data}
+        isLoading={bestScifiAndFantasy.isLoading}
         data-testid="carousel-sci-fi-fantasy"
       />
       <ShowCarousel
         title="Family movies"
-        shows={family}
-        isLoading={isLoadingFamily}
+        shows={bestFamily.data}
+        isLoading={bestFamily.isLoading}
         data-testid="carousel-family"
       />
       <ShowCarousel
         title="Top rated documentaries"
-        shows={topRatedDocumentaries}
-        isLoading={isLoadingTopRatedDocumentaries}
+        shows={bestDocumentaries.data}
+        isLoading={bestDocumentaries.isLoading}
         data-testid="carousel-top-rated-documentaries"
       />
       <ShowCarousel
         title="TV shows airing today"
         size="large"
-        type="tv"
-        shows={airingToday}
-        isLoading={isLoadingAiringToday}
+        shows={airingToday.data}
+        isLoading={airingToday.isLoading}
         data-testid="carousel-tv-airing-today"
       />
       <ShowCarousel
         title="TV shows on the air"
-        type="tv"
-        shows={onTheAir}
-        isLoading={isLoadingOnTheAir}
+        shows={onTheAir.data}
+        isLoading={onTheAir.isLoading}
         data-testid="carousel-tv-on-the-air"
       />
       <ShowCarousel
         title="Popular TV shows"
-        type="tv"
-        shows={popular}
-        isLoading={isLoadingPopular}
+        shows={tvShowsPopular.data}
+        isLoading={tvShowsPopular.isLoading}
         data-testid="carousel-tv-popular"
       />
       <ShowCarousel
         title="Top rated TV shows"
-        type="tv"
-        shows={topRated}
-        isLoading={isLoadingTopRated}
+        shows={topRated.data}
+        isLoading={topRated.isLoading}
         data-testid="carousel-tv-top-rated"
       />
     </Page>

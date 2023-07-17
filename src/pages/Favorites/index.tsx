@@ -36,7 +36,6 @@ export function Favorites(): JSX.Element {
             <ShowList
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
-              type="movie"
               title={`Your favorite movies (${movies.count})`}
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
@@ -55,7 +54,6 @@ export function Favorites(): JSX.Element {
             <ShowList
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
-              type="tv"
               title={`Your favorite TV Shows (${tvShows.count})`}
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"

@@ -15,7 +15,7 @@ function getComponent(watchlist = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], watchlist }
 
-  return <WatchlistButton showType="movie" show={show} states={states} />
+  return <WatchlistButton show={show} states={states} />
 }
 
 test('Should render WatchlistButton properly', async () => {

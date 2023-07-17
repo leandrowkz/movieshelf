@@ -12,14 +12,9 @@ import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
   states: UserShowStates
-  showType: ShowType
 }
 
-export function WatchlistButton({
-  show,
-  showType,
-  states,
-}: Props): JSX.Element {
+export function WatchlistButton({ show, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -78,7 +73,9 @@ export function WatchlistButton({
       variant="secondary"
       isLoading={isLoading}
       icon={buttonProps.icon}
-      onClick={() => toggleWatchlist(show.id, showType, watchlist)}
+      onClick={() =>
+        toggleWatchlist(show.id, show.media_type || 'movie', watchlist)
+      }
       data-testid={buttonProps.dataTestId}
     >
       {buttonProps.title}

@@ -13,10 +13,9 @@ import { TbEyeCheck } from 'react-icons/tb'
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
   states: UserShowStates
-  showType: ShowType
 }
 
-export function WatchedButton({ show, showType, states }: Props): JSX.Element {
+export function WatchedButton({ show, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -29,7 +28,7 @@ export function WatchedButton({ show, showType, states }: Props): JSX.Element {
   const { setStates: setMovieStates } = useContext(MovieDetailsContext)
   const { setStates: setTVShowStates } = useContext(TVShowDetailsContext)
 
-  const { watched } = states
+  const { watched = false } = states
 
   const isLoading = isLoadingFromContext.watched && Boolean(session)
 
@@ -75,7 +74,9 @@ export function WatchedButton({ show, showType, states }: Props): JSX.Element {
       variant="secondary"
       isLoading={isLoading}
       icon={buttonProps.icon}
-      onClick={() => toggleWatched(show.id, showType, watched)}
+      onClick={() =>
+        toggleWatched(show.id, show.media_type || 'movie', watched)
+      }
       data-testid={buttonProps.dataTestId}
     >
       {buttonProps.title}
