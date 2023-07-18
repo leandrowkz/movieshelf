@@ -9,35 +9,45 @@ import { useScreenSize } from 'src/hooks/useScreenSize'
 import { NotFound } from '../404'
 import { Pagination } from 'src/components/Pagination'
 import styles from './styles.module.css'
+import { ShowCarousel } from 'src/components/ShowCarousel'
 
-export function MovieCategory(): JSX.Element {
+export function MovieGenre() {
   const { genreId } = useParams()
-  const { moviesGenres: genres } = useContext(GenresContext)
   const {
-    category,
-    isLoadingByCategory,
-    hasCategoryErrors,
-    fetchListCategory,
-  } = useContext(MovieListsContext)
+    moviesGenresCodes,
+    moviesGenresList,
+    fetchMoviesGenresList,
+    isLoading,
+    hasErrors,
+  } = useContext(GenresContext)
+
+  const { popular, fetchPopular } = useContext(MovieListsContext)
+
   const [title, setTitle] = useState('Movies')
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
 
   useEffect(() => {
+    fetchPopular()
+  }, [])
+
+  useEffect(() => {
     const id = Number(genreId)
 
-    fetchListCategory(id, 1)
+    fetchMoviesGenresList(id)
   }, [genreId])
 
   useEffect(() => {
-    const genre = genres.find((genre) => genre.id === Number(genreId)) || {
+    const genre = moviesGenresCodes.find(
+      (genre) => genre.id === Number(genreId)
+    ) || {
       name: 'Genre',
     }
 
     setTitle(`${genre.name} movies`)
-  }, [genreId, genres])
+  }, [genreId, moviesGenresCodes])
 
-  if (hasCategoryErrors) {
+  if (hasErrors.fetchMoviesGenresList) {
     return <NotFound data-testid="category-not-found" />
   }
 
@@ -45,20 +55,29 @@ export function MovieCategory(): JSX.Element {
     <Page>
       <Container>
         <ShowList
-          title={title}
-          shows={category.data}
           size={size}
-          isSoftLoading={isLoadingByCategory}
+          title={title}
+          shows={moviesGenresList.data}
+          isSoftLoading={isLoading.fetchMoviesGenresList}
           data-testid="list-movies-by-category"
         />
         <Pagination
           className={styles.pagination}
-          pages={category.pages || 0}
-          current={category.page}
-          isLoading={isLoadingByCategory}
-          onPageChange={(page) => fetchListCategory(Number(genreId), page)}
+          pages={moviesGenresList.pages || 0}
+          current={moviesGenresList.page}
+          isLoading={isLoading.fetchMoviesGenresList}
+          onPageChange={(page) =>
+            fetchMoviesGenresList(Number(genreId), { page })
+          }
         />
       </Container>
+      <ShowCarousel
+        size={size}
+        title="Popular movies"
+        shows={popular.data}
+        isLoading={popular.isLoading}
+        data-testid="carousel-popular"
+      />
     </Page>
   )
 }

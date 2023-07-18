@@ -2,41 +2,44 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Page } from '../../components/Page'
 import { ShowCarousel } from '../../components/ShowCarousel'
 import { ShowFilters } from '../../components/ShowFilters'
-import { MovieListsContext } from 'src/context/MovieListsContext'
 import { Heading } from 'src/components/Heading'
 import { Container } from 'src/components/Container'
-import styles from './styles.module.css'
 import { GenresContext } from 'src/context/GenresContext'
 import { MoviesLoader } from './loader'
+import styles from './styles.module.css'
 
 export function Movies(): JSX.Element {
   const [genreCodes, setGenreCodes] = useState<(number | null)[]>([null])
-  const { moviesGenres: genres, isLoadingMoviesGenres } =
-    useContext(GenresContext)
-  const { listsByGenres, isLoadingListsByGenres, fetchListsByGenres } =
-    useContext(MovieListsContext)
+  const {
+    moviesGenresCodes,
+    moviesGenresLists,
+    isLoading,
+    fetchMoviesGenresLists,
+  } = useContext(GenresContext)
 
   useEffect(() => {
-    fetchListsByGenres(genres)
-  }, [genres])
+    const codes = moviesGenresCodes.map((genre) => genre.id)
 
-  if (isLoadingListsByGenres || isLoadingMoviesGenres) {
-    return <MoviesLoader data-testid="movies-loader" />
+    fetchMoviesGenresLists(codes)
+  }, [moviesGenresCodes])
+
+  if (isLoading.fetchMoviesGenresLists || isLoading.fetchMoviesGenresCodes) {
+    return <MoviesLoader data-testid="tv-shows-loader" />
   }
 
   return (
     <Page>
       <Container>
         <Heading level={1} title="Discover" />
-        <Heading level={2} title="Movies by genre" />
+        <Heading level={2} title="TV Shows by genre" />
       </Container>
       <ShowFilters
-        onFilter={(genreCodes) => setGenreCodes(genreCodes)}
+        onFilter={(genresCodes) => setGenreCodes(genresCodes)}
         type="movie"
         data-testid="filters"
         className={styles.filters}
       />
-      {listsByGenres
+      {moviesGenresLists
         .filter((list) =>
           genreCodes.length > 0 && !genreCodes.includes(null)
             ? genreCodes.includes(list.genre.id)
@@ -46,7 +49,7 @@ export function Movies(): JSX.Element {
           <ShowCarousel
             key={`list-genre-${list.genre.id}`}
             title={list.genre.name}
-            shows={list.data}
+            shows={list.data.data}
             genreId={list.genre.id}
             role="list"
           />

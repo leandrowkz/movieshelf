@@ -26,8 +26,8 @@ export function ShowFilters({
   const [selected, setSelected] = useState<number[]>([])
   const isMobile = useScreenSize('mobile')
 
-  const { moviesGenres, tvShowsGenres } = useContext(GenresContext)
-  const genres = type === 'tv' ? tvShowsGenres : moviesGenres
+  const { moviesGenresCodes, tvShowsGenresCodes } = useContext(GenresContext)
+  const genres = type === 'tv' ? tvShowsGenresCodes : moviesGenresCodes
   const storageKey = type === 'tv' ? 'TV_SHOWS_FILTERS' : 'MOVIES_FILTERS'
 
   useEffect(() => {

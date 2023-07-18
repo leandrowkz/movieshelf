@@ -81,6 +81,14 @@ async function fetchListRecommended(
   return api.get(path)
 }
 
+async function fetchListDiscover(
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/discover', filters)
+
+  return api.get(path)
+}
+
 export const useTVShowsAPI = () => ({
   fetchTVShow,
   fetchVideos,
@@ -92,4 +100,5 @@ export const useTVShowsAPI = () => ({
   fetchListOnTheAir,
   fetchListAiringToday,
   fetchListTopRated,
+  fetchListDiscover,
 })

@@ -2,25 +2,28 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Page } from '../../components/Page'
 import { ShowCarousel } from '../../components/ShowCarousel'
 import { ShowFilters } from '../../components/ShowFilters'
-import { TVShowListsContext } from 'src/context/TVShowListsContext'
 import { Heading } from 'src/components/Heading'
 import { Container } from 'src/components/Container'
-import styles from './styles.module.css'
 import { GenresContext } from 'src/context/GenresContext'
 import { TVShowsLoader } from './loader'
+import styles from './styles.module.css'
 
 export function TVShows(): JSX.Element {
   const [genreCodes, setGenreCodes] = useState<(number | null)[]>([null])
-  const { tvShowsGenres: genres, isLoadingTVShowsGenres } =
-    useContext(GenresContext)
-  const { listsByGenres, isLoadingListsByGenres, fetchListsByGenres } =
-    useContext(TVShowListsContext)
+  const {
+    tvShowsGenresCodes,
+    tvShowsGenresLists,
+    isLoading,
+    fetchTVShowsGenresLists,
+  } = useContext(GenresContext)
 
   useEffect(() => {
-    fetchListsByGenres(genres)
-  }, [genres])
+    const codes = tvShowsGenresCodes.map((genre) => genre.id)
 
-  if (isLoadingListsByGenres || isLoadingTVShowsGenres) {
+    fetchTVShowsGenresLists(codes)
+  }, [tvShowsGenresCodes])
+
+  if (isLoading.fetchTVShowsGenresLists || isLoading.fetchTVShowsGenresCodes) {
     return <TVShowsLoader data-testid="tv-shows-loader" />
   }
 
@@ -31,12 +34,12 @@ export function TVShows(): JSX.Element {
         <Heading level={2} title="TV Shows by genre" />
       </Container>
       <ShowFilters
-        onFilter={(genreCodes) => setGenreCodes(genreCodes)}
+        onFilter={(genresCodes) => setGenreCodes(genresCodes)}
         type="tv"
         data-testid="filters"
         className={styles.filters}
       />
-      {listsByGenres
+      {tvShowsGenresLists
         .filter((list) =>
           genreCodes.length > 0 && !genreCodes.includes(null)
             ? genreCodes.includes(list.genre.id)
@@ -46,7 +49,7 @@ export function TVShows(): JSX.Element {
           <ShowCarousel
             key={`list-genre-${list.genre.id}`}
             title={list.genre.name}
-            shows={list.data}
+            shows={list.data.data}
             genreId={list.genre.id}
             role="list"
           />
