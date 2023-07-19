@@ -68,12 +68,6 @@ jest.mock('src/context/GenresContext/state', () => {
   return { initialState: mockState }
 })
 
-// jest.mock('src/context/GenresContext', () => ({
-//   ...jest.requireActual('src/context/GenresContext'),
-//   GenresContext: MockGenresContext,
-//   GenresContextProvider: MockGenresContextProvider,
-// }))
-
 const user = userEvent.setup()
 
 function renderComponent(component: ReactElement) {
