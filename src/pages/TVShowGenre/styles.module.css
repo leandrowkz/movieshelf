@@ -1,3 +1,4 @@
 .pagination {
-  margin-top: var(--spacer-extra-large)
+  margin-top: var(--spacer-extra-large);
+  margin-bottom: var(--spacer-extra-large);
 }

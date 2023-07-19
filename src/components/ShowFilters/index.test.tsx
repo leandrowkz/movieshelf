@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
 import { ShowFilters } from '.'
-import { mockGenresTVShows } from 'src/__mocks__/mockGenresTVShows'
-import { mockGenresMovies } from 'src/__mocks__/mockGenresMovies'
+import { mockGenresTVShowsCodes } from 'src/__mocks__/mockGenresTVShowsCodes'
+import { mockGenresMoviesCodes } from 'src/__mocks__/mockGenresMoviesCodes'
 
 const { renderComponent, screen, user } = useTesting()
 
 jest.mock('src/context/GenresContext')
 
 function getButton(): HTMLButtonElement {
-  const { name } = mockGenresMovies[0]
+  const { name } = mockGenresMoviesCodes[0]
   return screen.getByText(`${name}`)
 }
 
@@ -24,7 +24,9 @@ test('Should render filters properly when no filter is selected', () => {
 test('Should render all filters properly', () => {
   renderComponent(<ShowFilters onFilter={jest.fn()} type="movie" />)
 
-  expect(screen.getAllByRole('button').length).toEqual(mockGenresTVShows.length)
+  expect(screen.getAllByRole('button').length).toEqual(
+    mockGenresTVShowsCodes.length
+  )
 })
 
 test('Should render a single filter properly', () => {

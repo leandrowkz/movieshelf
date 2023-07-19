@@ -1,6 +1,6 @@
 import type { Genre } from '@leandrowkz/tmdb'
 
-export const mockGenresMovies: Genre[] = [
+export const mockGenresTVShowsCodes: Genre[] = [
   { id: 28, name: 'Action' },
   { id: 12, name: 'Adventure' },
   { id: 16, name: 'Animation' },

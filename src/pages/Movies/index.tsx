@@ -12,10 +12,12 @@ export function Movies(): JSX.Element {
   const [genreCodes, setGenreCodes] = useState<(number | null)[]>([null])
   const {
     moviesGenresCodes,
-    moviesGenresLists,
+    moviesGenresLists = [],
     isLoading,
     fetchMoviesGenresLists,
   } = useContext(GenresContext)
+
+  console.log(moviesGenresLists)
 
   useEffect(() => {
     const codes = moviesGenresCodes.map((genre) => genre.id)
@@ -24,14 +26,14 @@ export function Movies(): JSX.Element {
   }, [moviesGenresCodes])
 
   if (isLoading.fetchMoviesGenresLists || isLoading.fetchMoviesGenresCodes) {
-    return <MoviesLoader data-testid="tv-shows-loader" />
+    return <MoviesLoader data-testid="movies-loader" />
   }
 
   return (
     <Page>
       <Container>
         <Heading level={1} title="Discover" />
-        <Heading level={2} title="TV Shows by genre" />
+        <Heading level={2} title="Movies by genre" />
       </Container>
       <ShowFilters
         onFilter={(genresCodes) => setGenreCodes(genresCodes)}

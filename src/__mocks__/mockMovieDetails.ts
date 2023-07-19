@@ -3,6 +3,7 @@ import { GenreCode, type Movie } from '@leandrowkz/tmdb'
 export const mockMovieDetails: Movie = {
   id: 1010,
   imdb_id: 'IMDB_1010',
+  media_type: 'movie',
   adult: false,
   backdrop_path: '/poster_88797319yhflmbx.jpg',
   belongs_to_collection: null,

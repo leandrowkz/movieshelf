@@ -6,6 +6,8 @@ export const mockTVShowsListPaginated: ListPaginated<TVShowItem> = {
   page: 1,
   pages: 10,
   count: 10,
+  isLoading: false,
+  hasErrors: false,
   data: [
     { ...mockTVShow },
     { ...mockTVShow },
@@ -17,6 +19,4 @@ export const mockTVShowsListPaginated: ListPaginated<TVShowItem> = {
     { ...mockTVShow },
     { ...mockTVShow },
   ],
-  isLoading: false,
-  hasErrors: false,
 }

@@ -9,7 +9,7 @@ export default async (req: Request) =>
     const { searchParams } = new URL(req.url)
     const showId = Number(searchParams.get('showId'))
 
-    const videos = await tmdb.tvShows.videos(showId)
+    const { results } = await tmdb.tvShows.videos(showId)
 
-    return videos
+    return results
   })

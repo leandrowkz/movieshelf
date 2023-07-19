@@ -1,17 +1,29 @@
-import { mockGenresMovies } from 'src/__mocks__/mockGenresMovies'
-import { mockGenresTVShows } from 'src/__mocks__/mockGenresTVShows'
+import { mockGenresMoviesCodes } from 'src/__mocks__/mockGenresMoviesCodes'
+import { mockGenresMoviesLists } from 'src/__mocks__/mockGenresMoviesLists'
+import { mockGenresTVShowsCodes } from 'src/__mocks__/mockGenresTVShowsCodes'
+import { mockGenresTVShowsLists } from 'src/__mocks__/mockGenresTVShowsLists'
 
-async function fetchMoviesGenres() {
-  return [...mockGenresMovies]
+async function fetchMoviesGenresCodes() {
+  return [...mockGenresMoviesCodes]
 }
 
-async function fetchTVShowsGenres() {
-  return [...mockGenresTVShows]
+async function fetchMoviesGenresLists() {
+  return { ...mockGenresMoviesLists }
+}
+
+async function fetchTVShowsGenresCodes() {
+  return [...mockGenresTVShowsCodes]
+}
+
+async function fetchTVShowsGenresLists() {
+  return { ...mockGenresTVShowsLists }
 }
 
 const actions = {
-  fetchMoviesGenres,
-  fetchTVShowsGenres,
+  fetchMoviesGenresLists,
+  fetchMoviesGenresCodes,
+  fetchTVShowsGenresLists,
+  fetchTVShowsGenresCodes,
 }
 
 export const useGenresAPI = () => actions

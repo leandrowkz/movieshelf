@@ -27,6 +27,11 @@ export function MovieGenre() {
   const isMobile = useScreenSize('mobile')
   const size = isMobile ? 'small' : 'medium'
 
+  const paginate = (page: number) => {
+    fetchMoviesGenresList(Number(genreId), { page })
+    window.scrollTo(0, 0)
+  }
+
   useEffect(() => {
     fetchPopular()
   }, [])
@@ -48,7 +53,7 @@ export function MovieGenre() {
   }, [genreId, moviesGenresCodes])
 
   if (hasErrors.fetchMoviesGenresList) {
-    return <NotFound data-testid="category-not-found" />
+    return <NotFound data-testid="genre-not-found" />
   }
 
   return (
@@ -59,20 +64,18 @@ export function MovieGenre() {
           title={title}
           shows={moviesGenresList.data}
           isSoftLoading={isLoading.fetchMoviesGenresList}
-          data-testid="list-movies-by-category"
+          data-testid="list-movies-by-genre"
         />
         <Pagination
           className={styles.pagination}
           pages={moviesGenresList.pages || 0}
           current={moviesGenresList.page}
           isLoading={isLoading.fetchMoviesGenresList}
-          onPageChange={(page) =>
-            fetchMoviesGenresList(Number(genreId), { page })
-          }
+          onPageChange={paginate}
         />
       </Container>
       <ShowCarousel
-        size={size}
+        size="large"
         title="Popular movies"
         shows={popular.data}
         isLoading={popular.isLoading}

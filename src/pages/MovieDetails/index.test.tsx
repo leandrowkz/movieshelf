@@ -18,7 +18,7 @@ test('should render MovieDetails properly', async () => {
 })
 
 test('should render NotFound component when fetch errors occur', async () => {
-  api.fetchDetails = jest.fn().mockRejectedValueOnce(false)
+  api.fetchMovie = jest.fn().mockRejectedValueOnce(false)
   renderComponent(<MovieDetails />)
 
   expect(await screen.findByTestId('show-not-found')).toBeVisible()
