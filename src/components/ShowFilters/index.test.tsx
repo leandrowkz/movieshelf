@@ -6,8 +6,6 @@ import { mockGenresMoviesCodes } from 'src/__mocks__/mockGenresMoviesCodes'
 
 const { renderComponent, screen, user } = useTesting()
 
-jest.mock('src/context/GenresContext')
-
 function getButton(): HTMLButtonElement {
   const { name } = mockGenresMoviesCodes[0]
   return screen.getByText(`${name}`)

@@ -17,8 +17,6 @@ export function Movies(): JSX.Element {
     fetchMoviesGenresLists,
   } = useContext(GenresContext)
 
-  console.log(moviesGenresLists)
-
   useEffect(() => {
     const codes = moviesGenresCodes.map((genre) => genre.id)
 

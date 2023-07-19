@@ -8,7 +8,7 @@ async function fetchMoviesGenresCodes() {
 }
 
 async function fetchMoviesGenresLists() {
-  return { ...mockGenresMoviesLists }
+  return [...mockGenresMoviesLists]
 }
 
 async function fetchTVShowsGenresCodes() {
@@ -16,7 +16,7 @@ async function fetchTVShowsGenresCodes() {
 }
 
 async function fetchTVShowsGenresLists() {
-  return { ...mockGenresTVShowsLists }
+  return [...mockGenresTVShowsLists]
 }
 
 const actions = {

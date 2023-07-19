@@ -8,7 +8,7 @@ jest.mock('src/hooks/apis/useMoviesAPI')
 
 const { renderComponent, screen, user } = useTesting()
 
-test.only('Should render movies page properly', async () => {
+test('Should render movies page properly', async () => {
   renderComponent(<Movies />)
 
   expect((await screen.findAllByRole('list')).length).toEqual(

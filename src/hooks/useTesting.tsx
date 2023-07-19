@@ -57,14 +57,12 @@ jest.mock('src/context/GenresContext/state', () => {
     'src/context/GenresContext/state'
   )
 
-  console.log(mockGenresTVShowsLists)
-
   const mockState: GenresState = {
     ...actualInitialState,
     moviesGenresCodes: [...mockGenresMoviesCodes],
-    moviesGenresLists: { ...mockGenresMoviesLists },
+    moviesGenresLists: [...mockGenresMoviesLists],
     tvShowsGenresCodes: [...mockGenresTVShowsCodes],
-    tvShowsGenresLists: { ...mockGenresTVShowsLists },
+    tvShowsGenresLists: [...mockGenresTVShowsLists],
   }
 
   return { initialState: mockState }
