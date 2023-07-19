@@ -52,6 +52,7 @@ export default async (req: Request) =>
                 : await tmdb.tvShows.details(id)
 
             if (show) {
+              show.media_type = showType
               list.data.push(show)
             }
           } catch (e) {
