@@ -1,14 +1,17 @@
-import { json, tmdb } from '../api'
+import { tmdb, dispatch } from '../api'
+import { transformListResponse } from '../helpers'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request) => {
-  const { searchParams } = new URL(req.url)
-  const id = Number(searchParams.get('movieId'))
+export default async (req: Request) =>
+  dispatch(async () => {
+    const { searchParams } = new URL(req.url)
+    const showId = Number(searchParams.get('showId'))
+    const page = Number(searchParams.get('page') || 1)
 
-  const { results } = await tmdb.movies.similar(id)
+    const response = await tmdb.movies.similar(showId, { page })
 
-  return json(results)
-}
+    return transformListResponse(response, 'movie')
+  })

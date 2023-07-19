@@ -1,35 +1,11 @@
-import type { TVShowItem } from '@leandrowkz/tmdb'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVShowCredits } from 'src/__mocks__/mockTVShowCredits'
-import { mockTVShowsListsByGenres } from 'src/__mocks__/mockTVShowsListsByGenres'
-import { mockTVShowsListPaginated } from 'src/__mocks__/mockTVShowsListPaginated'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
+import { mockTVShowsListPaginated } from 'src/__mocks__/mockTVShowsListPaginated'
 
-function getMockTVShows(amount: number): TVShowItem[] {
-  const shows: TVShowItem[] = []
-
-  for (let i = 0; i < amount; i++) {
-    shows.push({ ...mockTVShow })
-  }
-
-  return shows
-}
-
-async function fetchDetails() {
+async function fetchTVShow() {
   return { ...mockTVShow }
-}
-
-async function fetchListSimilar() {
-  return getMockTVShows(10)
-}
-
-async function fetchListRecommended() {
-  return getMockTVShows(10)
-}
-
-async function fetchListByGenre() {
-  return getMockTVShows(10)
 }
 
 async function fetchCredits() {
@@ -40,48 +16,50 @@ async function fetchVideos() {
   return [{ ...mockVideo }]
 }
 
-async function fetchListPopular() {
-  return getMockTVShows(10)
-}
-
-async function fetchListOnTheAir() {
-  return getMockTVShows(10)
-}
-
-async function fetchListAiringToday() {
-  return getMockTVShows(10)
-}
-
-async function fetchListTopRated() {
-  return getMockTVShows(10)
-}
-
-async function fetchListsByGenres() {
-  return mockTVShowsListsByGenres
-}
-
 async function fetchStates() {
   return { ...mockShowStates }
 }
 
-async function fetchListPaginatedByGenre() {
+async function fetchListSimilar() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListRecommended() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListPopular() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListOnTheAir() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListAiringToday() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListTopRated() {
+  return { ...mockTVShowsListPaginated }
+}
+
+async function fetchListDiscover() {
   return { ...mockTVShowsListPaginated }
 }
 
 const apis = {
+  fetchTVShow,
   fetchCredits,
-  fetchDetails,
+  fetchVideos,
+  fetchStates,
   fetchListAiringToday,
-  fetchListByGenre,
+  fetchListDiscover,
   fetchListOnTheAir,
   fetchListPopular,
   fetchListRecommended,
   fetchListSimilar,
   fetchListTopRated,
-  fetchListsByGenres,
-  fetchListPaginatedByGenre,
-  fetchVideos,
-  fetchStates,
 }
 
 export const useTVShowsAPI = () => apis

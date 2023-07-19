@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { WatchlistButton } from '.'
@@ -15,7 +15,7 @@ function getComponent(watchlist = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], watchlist }
 
-  return <WatchlistButton showType="movie" show={show} states={states} />
+  return <WatchlistButton show={show} states={states} />
 }
 
 test('Should render WatchlistButton properly', async () => {

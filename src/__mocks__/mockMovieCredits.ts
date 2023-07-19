@@ -1,4 +1,4 @@
-import { MovieCredits } from '@leandrowkz/tmdb'
+import type { MovieCredits } from '@leandrowkz/tmdb'
 import { mockPerson } from './mockPerson'
 
 export const mockMovieCredits: MovieCredits = {

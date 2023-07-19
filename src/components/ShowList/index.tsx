@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
@@ -6,13 +6,11 @@ import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
-import { ShowType } from 'src/types/ShowType'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]
   title: string
-  type?: ShowType
   size?: 'large' | 'medium' | 'small'
   isLoading?: boolean
   isSoftLoading?: boolean
@@ -25,7 +23,6 @@ export function ShowList({
   isLoading = false,
   isSoftLoading = false,
   size = 'medium',
-  type = 'movie',
   ...props
 }: Props) {
   const isMobile = useScreenSize('mobile')
@@ -51,12 +48,7 @@ export function ShowList({
   return (
     <div className={classes} {...props}>
       <Header title={title} />
-      <List
-        size={size}
-        shows={shows}
-        type={type}
-        isSoftLoading={isSoftLoading}
-      />
+      <List size={size} shows={shows} isSoftLoading={isSoftLoading} />
     </div>
   )
 }
@@ -72,9 +64,8 @@ function Header({ title }: Pick<Props, 'title'>) {
 function List({
   size,
   shows,
-  type,
   isSoftLoading,
-}: Pick<Props, 'size' | 'shows' | 'type' | 'isSoftLoading'>) {
+}: Pick<Props, 'size' | 'shows' | 'isSoftLoading'>) {
   const classes = classNames(styles.list, {
     [styles.listSmall]: size === 'small',
     [styles.listLarge]: size === 'large',
@@ -87,7 +78,6 @@ function List({
           <ShowItem
             show={show}
             size={size}
-            type={type}
             isSoftLoading={isSoftLoading}
             className={styles.show}
             data-testid="show-item"

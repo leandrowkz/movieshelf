@@ -1,5 +1,5 @@
-import { UserListsState } from './types'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { UserListsState } from './types'
+import type { UserShowStates } from 'src/types'
 
 export const initialState: UserListsState = {
   favorites: {
@@ -7,6 +7,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },
@@ -14,6 +15,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },
@@ -24,6 +26,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },
@@ -31,6 +34,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },
@@ -41,6 +45,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },
@@ -48,6 +53,7 @@ export const initialState: UserListsState = {
       data: [],
       page: 0,
       pages: 0,
+      count: 0,
       isLoading: false,
       hasErrors: false,
     },

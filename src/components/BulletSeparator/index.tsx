@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { type ComponentPropsWithoutRef } from 'react'
 import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Text } from '../Text'

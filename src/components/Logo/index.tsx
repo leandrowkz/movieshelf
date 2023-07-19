@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { type ComponentPropsWithoutRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import classNames from 'classnames'

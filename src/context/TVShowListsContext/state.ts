@@ -1,36 +1,20 @@
-import { TVShowListsState } from './types'
+import type { TVShowListsState } from './types'
+import { useHelpers } from 'src/hooks/useHelpers'
+
+const { getEmptyListPaginated } = useHelpers()
 
 export const initialState: TVShowListsState = {
-  airingToday: [],
-  onTheAir: [],
-  popular: [],
-  topRated: [],
-  similar: [],
-  recommended: [],
-  listsByGenres: [],
-  category: {
-    data: [],
-    page: 0,
-    pages: 0,
-  },
+  similar: getEmptyListPaginated(),
+  popular: getEmptyListPaginated(),
+  recommended: getEmptyListPaginated(),
+  airingToday: getEmptyListPaginated(),
+  onTheAir: getEmptyListPaginated(),
+  topRated: getEmptyListPaginated(),
 
-  isLoadingAiringToday: false,
-  isLoadingOnTheAir: false,
-  isLoadingPopular: false,
-  isLoadingTopRated: false,
-  isLoadingSimilar: false,
-  isLoadingRecommended: false,
-  isLoadingListsByGenres: false,
-  isLoadingListCategory: false,
-
-  hasListCategoryErrors: false,
-
-  fetchAiringToday: () => null,
-  fetchOnTheAir: () => null,
   fetchPopular: () => null,
-  fetchTopRated: () => null,
   fetchSimilar: () => null,
   fetchRecommended: () => null,
-  fetchListCategory: () => null,
-  fetchListsByGenres: () => null,
+  fetchAiringToday: () => null,
+  fetchOnTheAir: () => null,
+  fetchTopRated: () => null,
 }

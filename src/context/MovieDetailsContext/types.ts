@@ -1,21 +1,27 @@
-import { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
-import { Nullable } from 'src/types/Nullable'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { Movie, MovieCredits, Video } from '@leandrowkz/tmdb'
+import type { UserShowStates } from 'src/types'
 
 export type MovieDetailsState = {
-  movie: Nullable<Movie>
+  movie: Movie
   states: UserShowStates
-  cast: PersonCast[]
-  crew: PersonCast[]
+  credits: MovieCredits
   videos: Video[]
-  isLoadingMovie: boolean
-  isLoadingCredits: boolean
-  isLoadingVideos: boolean
-  isLoadingStates: boolean
-  hasMovieErrors: boolean
-  fetchMovie: (movieId: number) => void
-  fetchCredits: (movieId: number) => void
-  fetchVideos: (movieId: number) => void
-  fetchStates: (movieId: number) => void
+
+  isLoading: {
+    fetchMovie: boolean
+    fetchStates: boolean
+    fetchCredits: boolean
+    fetchVideos: boolean
+  }
+
+  hasErrors: {
+    fetchMovie: boolean
+  }
+
+  fetchMovie: (showId: number) => void
+  fetchCredits: (showId: number) => void
+  fetchStates: (showId: number) => void
+  fetchVideos: (showId: number) => void
+
   setStates: (states: UserShowStates) => void
 }

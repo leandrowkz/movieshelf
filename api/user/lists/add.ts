@@ -1,15 +1,14 @@
 import { authorize, dispatch } from '../../api'
-import { getShowStates } from '../../shows/states'
-import { ShowStatesPayload } from '../../shows/types'
+import { getShowStates } from '../../helpers'
+import type { ShowStatesPayload, UserListPayload } from '../../../src/types'
 import { addToList, validate } from './helpers'
-import { UserListPayload } from './types'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request, res: Response) =>
-  dispatch(req, res, async (req: Request) => {
+export default async (req: Request) =>
+  dispatch(async () => {
     const user = await authorize(req)
     const body = await req.json()
 

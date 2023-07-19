@@ -4,11 +4,11 @@ import { Root } from 'src/pages/Root'
 import { Home } from '../pages/Home'
 import { MovieDetails } from '../pages/MovieDetails'
 import { Movies } from '../pages/Movies'
-import { MovieCategory } from 'src/pages/MovieCategory'
+import { MovieGenre } from 'src/pages/MovieGenre'
 import { TVShowDetails } from '../pages/TVShowDetails'
 import { NotFound } from 'src/pages/404'
 import { TVShows } from 'src/pages/TVShows'
-import { TVShowCategory } from 'src/pages/TVShowCategory'
+import { TVShowGenre } from 'src/pages/TVShowGenre'
 import { SignUp } from 'src/pages/SignUp'
 import { SignIn } from 'src/pages/SignIn'
 import { Favorites } from 'src/pages/Favorites'
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/movies/category/:genreId',
-        element: <MovieCategory />,
+        element: <MovieGenre />,
       },
       {
         path: '/movies/:movieId',
@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/tv/category/:genreId',
-        element: <TVShowCategory />,
+        element: <TVShowGenre />,
       },
       {
         path: '/tv/:tvShowId',

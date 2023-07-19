@@ -1,4 +1,4 @@
-import { NewsletterState } from './types'
+import type { NewsletterState } from './types'
 
 export const initialState: NewsletterState = {
   isLoadingSubscribe: false,

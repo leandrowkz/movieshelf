@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import type {
   Movie,
   PersonCast,
@@ -22,12 +22,11 @@ import {
 } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { ShowType } from 'src/types/ShowType'
+import type { UserShowStates } from 'src/types'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 type DetailsProps = {
   show: Movie | TVShow
@@ -41,14 +40,12 @@ type CastProps = {
 
 type ActionProps = {
   show: Movie | TVShow
-  type: ShowType
   states: UserShowStates
   isLoading?: boolean
 }
 
 type PosterProps = {
   show: Movie | TVShow
-  showType: ShowType
   states: UserShowStates
   videos: Video[]
   isLoading?: boolean
@@ -56,7 +53,6 @@ type PosterProps = {
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
-  type?: ShowType
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
   states: UserShowStates
@@ -67,7 +63,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export function ShowDetails({
   show,
-  type = 'movie',
   people,
   videos,
   states,
@@ -92,16 +87,10 @@ export function ShowDetails({
       <div className={styles.showInfo}>
         <Details show={show} isLoading={isLoadingShow} />
         <Cast people={people} isLoading={isLoadingPeople} />
-        <Actions
-          show={show}
-          type={type}
-          states={states}
-          isLoading={isLoadingActions}
-        />
+        <Actions show={show} states={states} isLoading={isLoadingActions} />
       </div>
       <Poster
         show={show}
-        showType={type}
         videos={videos}
         states={states}
         isLoading={isLoadingShow}
@@ -178,7 +167,6 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
 
 function Actions({
   show,
-  type,
   states,
   isLoading = false,
 }: ActionProps): JSX.Element {
@@ -188,15 +176,14 @@ function Actions({
 
   return (
     <Motion className={styles.buttons}>
-      <WatchlistButton show={show} states={states} showType={type} />
-      <WatchedButton show={show} states={states} showType={type} />
+      <WatchlistButton show={show} states={states} />
+      <WatchedButton show={show} states={states} />
     </Motion>
   )
 }
 
 function Poster({
   show,
-  showType,
   states,
   videos,
   isLoading = false,
@@ -213,13 +200,7 @@ function Poster({
         className={styles.posterImage}
       />
       <div className={styles.posterActions}>
-        <FavoriteButton
-          show={show}
-          states={states}
-          showType={showType}
-          size="medium"
-          rounded
-        />
+        <FavoriteButton show={show} states={states} size="medium" rounded />
         <ShowTrailerButton videos={videos} pill size="medium" />
       </div>
     </Motion>

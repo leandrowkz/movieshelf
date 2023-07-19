@@ -1,8 +1,8 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { Genre, type TVShowItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
-import { TVShowListsState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import { GenreCode } from '@leandrowkz/tmdb'
+import type { TVShowListsState } from './types'
 import { initialState } from './state'
+import { useHelpers } from 'src/hooks/useHelpers'
 import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
 
 export const TVShowListsContext = createContext<TVShowListsState>({
@@ -11,160 +11,159 @@ export const TVShowListsContext = createContext<TVShowListsState>({
 
 export const TVShowListsContextProvider = ({ children }: PropsWithChildren) => {
   const api = useTVShowsAPI()
-  const [airingToday, setAiringToday] = useState<TVShowItem[]>([])
-  const [onTheAir, setOnTheAir] = useState<TVShowItem[]>([])
-  const [popular, setPopular] = useState<TVShowItem[]>([])
-  const [topRated, setTopRated] = useState<TVShowItem[]>([])
-  const [similar, setSimilar] = useState<TVShowItem[]>([])
-  const [recommended, setRecommended] = useState<TVShowItem[]>([])
-  const [listsByGenres, setListsByGenres] = useState<ListByGenre<TVShowItem>[]>(
-    []
-  )
+  const { getEmptyListPaginated } = useHelpers()
 
-  const [category, setCategory] = useState<TVShowItem[]>([])
-  const [pageCategory, setPageCategory] = useState(0)
-  const [pagesCategory, setPagesCategory] = useState(0)
+  const [similar, setSimilar] = useState(initialState.similar)
+  const [popular, setPopular] = useState(initialState.popular)
+  const [recommended, setRecommended] = useState(initialState.recommended)
+  const [onTheAir, setOnTheAir] = useState(initialState.onTheAir)
+  const [airingToday, setAiringToday] = useState(initialState.airingToday)
+  const [topRated, setTopRated] = useState(initialState.topRated)
 
-  const [isLoadingAiringToday, setIsLoadingAiringToday] =
-    useState<boolean>(false)
-  const [isLoadingOnTheAir, setIsLoadingOnTheAir] = useState<boolean>(false)
-  const [isLoadingPopular, setIsLoadingPopular] = useState<boolean>(false)
-  const [isLoadingTopRated, setIsLoadingTopRated] = useState<boolean>(false)
-  const [isLoadingSimilar, setIsLoadingSimilar] = useState<boolean>(false)
-  const [isLoadingRecommended, setIsLoadingRecommended] =
-    useState<boolean>(false)
-  const [isLoadingListsByGenres, setIsLoadingListsByGenres] =
-    useState<boolean>(false)
-  const [isLoadingListCategory, setIsLoadingListCategory] = useState(false)
-  const [hasListCategoryErrors, setHasListCategoryErrors] = useState(false)
-
-  const fetchListsByGenres = async (genres: Genre[]) => {
-    setListsByGenres([])
-    setIsLoadingListsByGenres(true)
-
-    const genreIds = genres.map((genre) => genre.id)
-    const data = await api.fetchListsByGenres(genreIds)
-
-    setListsByGenres(data)
-    setIsLoadingListsByGenres(false)
-  }
-
-  const fetchAiringToday = async () => {
-    setAiringToday([])
-    setIsLoadingAiringToday(true)
-
-    const data = await api.fetchListAiringToday()
-
-    setAiringToday(data)
-    setIsLoadingAiringToday(false)
-  }
-
-  const fetchOnTheAir = async () => {
-    setOnTheAir([])
-    setIsLoadingOnTheAir(true)
-
-    const data = await api.fetchListOnTheAir()
-
-    setOnTheAir(data)
-    setIsLoadingOnTheAir(false)
-  }
-
-  const fetchPopular = async () => {
-    setPopular([])
-    setIsLoadingPopular(true)
-
-    const data = await api.fetchListPopular()
-
-    setPopular(data)
-    setIsLoadingPopular(false)
-  }
-
-  const fetchTopRated = async () => {
-    setTopRated([])
-    setIsLoadingTopRated(true)
-
-    const data = await api.fetchListTopRated()
-
-    setTopRated(data)
-    setIsLoadingTopRated(false)
-  }
-
-  const fetchSimilar = async (TVShowId: number) => {
-    setSimilar([])
-    setIsLoadingSimilar(true)
-
-    const data = await api.fetchListSimilar(TVShowId)
-
-    setSimilar(data)
-    setIsLoadingSimilar(false)
-  }
-
-  const fetchRecommended = async (TVShowId: number) => {
-    setRecommended([])
-    setIsLoadingRecommended(true)
-
-    const data = await api.fetchListRecommended(TVShowId)
-
-    setRecommended(data)
-    setIsLoadingRecommended(false)
-  }
-
-  const fetchListCategory = async (categoryId: number, page = 1) => {
+  const fetchSimilar = async (showId: number, filters = {}) => {
     try {
-      setHasListCategoryErrors(false)
-      setIsLoadingListCategory(true)
+      setSimilar({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
 
-      const {
-        data,
-        page: current,
-        pages,
-      } = await api.fetchListPaginatedByGenre([categoryId], { page })
+      const data = await api.fetchListSimilar(showId, filters)
 
-      setCategory(data)
-      setPageCategory(current)
-      setPagesCategory(pages)
-      window.scrollTo(0, 0)
+      setSimilar({ ...data, isLoading: false })
     } catch {
-      setCategory([])
-      setHasListCategoryErrors(true)
-    } finally {
-      setIsLoadingListCategory(false)
+      setSimilar((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchRecommended = async (movieId: number, filters = {}) => {
+    try {
+      setRecommended({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListRecommended(movieId, filters)
+
+      setRecommended({ ...data, isLoading: false })
+    } catch {
+      setRecommended((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchPopular = async (filters = {}) => {
+    try {
+      setPopular({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListPopular(filters)
+
+      setPopular({ ...data, isLoading: false })
+    } catch {
+      setPopular((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchAiringToday = async (filters = {}) => {
+    try {
+      setAiringToday({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListAiringToday(filters)
+
+      setAiringToday({ ...data, isLoading: false })
+    } catch {
+      setAiringToday((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchOnTheAir = async (filters = {}) => {
+    try {
+      setOnTheAir({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListOnTheAir(filters)
+
+      setOnTheAir({ ...data, isLoading: false })
+    } catch {
+      setOnTheAir((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchTopRated = async (filters = {}) => {
+    try {
+      setTopRated({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListTopRated({
+        ...filters,
+        with_genres: [GenreCode.COMEDY],
+        'vote_average.gte': 7.5,
+      })
+
+      setTopRated({ ...data, isLoading: false })
+    } catch {
+      setTopRated((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
     }
   }
 
   const state = {
-    airingToday,
-    onTheAir,
     popular,
-    topRated,
     similar,
     recommended,
-    listsByGenres,
-    category: {
-      data: category,
-      page: pageCategory,
-      pages: pagesCategory,
-    },
+    onTheAir,
+    airingToday,
+    topRated,
 
-    isLoadingAiringToday,
-    isLoadingOnTheAir,
-    isLoadingPopular,
-    isLoadingTopRated,
-    isLoadingSimilar,
-    isLoadingRecommended,
-    isLoadingListsByGenres,
-    isLoadingListCategory,
-
-    hasListCategoryErrors,
-
-    fetchAiringToday,
-    fetchOnTheAir,
     fetchPopular,
-    fetchTopRated,
     fetchSimilar,
     fetchRecommended,
-    fetchListCategory,
-    fetchListsByGenres,
+    fetchAiringToday,
+    fetchOnTheAir,
+    fetchTopRated,
   }
 
   return (

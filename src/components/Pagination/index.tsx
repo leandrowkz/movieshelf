@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode } from 'react'
+import React, { type HTMLAttributes, type ReactNode } from 'react'
 import styles from './styles.module.css'
 import { Button } from '../Button'
 import classNames from 'classnames'

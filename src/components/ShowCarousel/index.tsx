@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'
@@ -8,7 +8,6 @@ import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 import { Link } from 'react-router-dom'
 import { useScreenSize } from 'src/hooks/useScreenSize'
-import { ShowType } from 'src/types/ShowType'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]
@@ -16,7 +15,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean
   isSoftLoading?: boolean
   size?: 'large' | 'medium' | 'small'
-  type?: ShowType
   genreId?: number
 }
 
@@ -27,7 +25,6 @@ export function ShowCarousel({
   isLoading = false,
   isSoftLoading = false,
   size = 'medium',
-  type = 'movie',
   genreId,
   ...props
 }: Props) {
@@ -46,7 +43,7 @@ export function ShowCarousel({
   if (isLoading) {
     return (
       <div className={classes}>
-        <Header title={title} genreId={genreId} type={type} />
+        <Header title={title} genreId={genreId} shows={shows} />
         <Motion data-testid="loader">
           <ShowCarouselLoader />
         </Motion>
@@ -68,7 +65,6 @@ export function ShowCarousel({
           {page.map((show) => (
             <ShowItem
               key={show.id}
-              type={type}
               show={show}
               size={size}
               isSoftLoading={isSoftLoading}
@@ -82,7 +78,7 @@ export function ShowCarousel({
 
   return (
     <div className={classes} {...props}>
-      <Header title={title} genreId={genreId} type={type} />
+      <Header title={title} genreId={genreId} shows={shows} />
       {pages}
     </div>
   )
@@ -90,11 +86,12 @@ export function ShowCarousel({
 
 type HeaderProps = {
   title: string
+  shows: MovieItem[] | TVShowItem[]
   genreId?: number
-  type: ShowType
 }
 
-function Header({ title, genreId, type }: HeaderProps) {
+function Header({ title, shows, genreId }: HeaderProps) {
+  const type = shows[0]?.media_type
   const path = type === 'movie' ? '/movies/category' : '/tv/category'
 
   return (

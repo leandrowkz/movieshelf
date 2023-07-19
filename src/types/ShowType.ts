@@ -1,1 +1,2 @@
-export type ShowType = 'tv' | 'movie'
+export const showTypes = ['tv', 'movie'] as const
+export type ShowType = (typeof showTypes)[number]

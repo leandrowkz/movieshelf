@@ -1,4 +1,4 @@
-import { ShowType } from '../types'
+import type { ShowType } from './ShowType'
 
 export type ShowStatesPayload = {
   userId: string

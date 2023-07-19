@@ -1729,10 +1729,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@leandrowkz/tmdb@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@leandrowkz/tmdb/-/tmdb-2.1.1.tgz#ad5b42fb6dcc773f600734ab101753658b5280c5"
-  integrity sha512-tWYWe7fNUkamk41vvCVyHNAc00ys/BjGZzwcQELxEzcSuGV1z8cwh/MXKDHbTvx8REI88ZT0mZ1IjBJVZYBPIw==
+"@leandrowkz/tmdb@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@leandrowkz/tmdb/-/tmdb-2.1.2.tgz#9766ac0ec393509231ee27b2d91cf98733c42928"
+  integrity sha512-hRzZ9Vt1Uq+z+gs2ifQrjN9P9Ywu94Q0gr5pB2jearTN+uHR2O3AY5bjaPiPLQlB8y4syq8DcNI77PQREG8dgg==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"

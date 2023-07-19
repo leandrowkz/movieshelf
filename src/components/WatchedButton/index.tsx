@@ -1,23 +1,21 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button } from '../../components/Button'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType, UserShowStates } from 'src/types'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { IoCheckmarkDoneCircle } from 'react-icons/io5'
 import { TbEyeCheck } from 'react-icons/tb'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 interface Props extends HTMLAttributes<HTMLButtonElement> {
   show: Movie | TVShow
   states: UserShowStates
-  showType: ShowType
 }
 
-export function WatchedButton({ show, showType, states }: Props): JSX.Element {
+export function WatchedButton({ show, states }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -30,7 +28,7 @@ export function WatchedButton({ show, showType, states }: Props): JSX.Element {
   const { setStates: setMovieStates } = useContext(MovieDetailsContext)
   const { setStates: setTVShowStates } = useContext(TVShowDetailsContext)
 
-  const { watched } = states
+  const { watched = false } = states
 
   const isLoading = isLoadingFromContext.watched && Boolean(session)
 
@@ -76,7 +74,9 @@ export function WatchedButton({ show, showType, states }: Props): JSX.Element {
       variant="secondary"
       isLoading={isLoading}
       icon={buttonProps.icon}
-      onClick={() => toggleWatched(show.id, showType, watched)}
+      onClick={() =>
+        toggleWatched(show.id, show.media_type || 'movie', watched)
+      }
       data-testid={buttonProps.dataTestId}
     >
       {buttonProps.title}

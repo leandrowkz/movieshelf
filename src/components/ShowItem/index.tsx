@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { type ComponentPropsWithoutRef } from 'react'
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Rating } from '../Rating'
@@ -8,19 +8,16 @@ import { ShowPoster } from '../ShowPoster'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { ShowType } from 'src/types/ShowType'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem
   size?: 'small' | 'medium' | 'large'
-  type?: ShowType
   isSoftLoading?: boolean
 }
 
 export function ShowItem({
   show,
   size = 'medium',
-  type = 'movie',
   isSoftLoading = false,
   className,
   ...props
@@ -33,7 +30,7 @@ export function ShowItem({
     [styles.softLoading]: isSoftLoading,
   })
 
-  const path = type === 'movie' ? '/movies' : '/tv'
+  const path = show.media_type === 'movie' ? '/movies' : '/tv'
 
   return (
     <div className={classes} {...props}>

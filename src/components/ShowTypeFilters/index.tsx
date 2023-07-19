@@ -1,9 +1,9 @@
-import React, { HTMLAttributes } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Button } from '../Button'
 import { useScreenSize } from 'src/hooks/useScreenSize'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType } from 'src/types'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   value: ShowType

@@ -29,6 +29,12 @@ module.exports = {
     'spaced-comment': 'error',
     'no-duplicate-imports': 'error',
     '@typescript-eslint/no-empty-interface': 'error',
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        fixStyle: 'inline-type-imports',
+      },
+    ],
     '@typescript-eslint/naming-convention': [
       'error',
       {

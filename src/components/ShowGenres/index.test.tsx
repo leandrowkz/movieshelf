@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 import { useTesting } from 'src/hooks/useTesting'
 import { ShowGenres } from '.'
 

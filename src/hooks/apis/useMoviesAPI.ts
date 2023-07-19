@@ -1,116 +1,92 @@
 import type { MovieItem, Movie, Video, MovieCredits } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
+import type { ListPaginated, UserShowStates } from 'src/types'
 import { APIClient } from './APIClient'
-import { ListPaginated } from 'src/types/ListPaginated'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 const api = new APIClient('')
 
-async function fetchDetails(movieId: number): Promise<Movie> {
-  const path = api.buildPath('/api/movies/details', { movieId })
+async function fetchMovie(showId: number): Promise<Movie> {
+  const path = api.buildPath('/api/movies/details', { showId })
 
   return api.get<Movie>(path)
 }
 
-async function fetchListSimilar(movieId: number): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/similar', { movieId })
-
-  return await api.get<MovieItem[]>(path)
-}
-
-async function fetchListRecommended(movieId: number): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/recommended', { movieId })
-
-  return api.get<MovieItem[]>(path)
-}
-
-async function fetchListInTheatres(filters = {}): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/in-theatres', filters)
-
-  return api.get<MovieItem[]>(path)
-}
-
-async function fetchListPaginatedByGenre(
-  genres: number[],
-  filters = {}
-): Promise<ListPaginated<MovieItem>> {
-  const fetchFilters = {
-    with_genres: genres.join(','),
-    ...filters,
-  }
-  const path = api.buildPath('api/movies/list-by-genre', fetchFilters)
-
-  return api.get(path)
-}
-
-async function fetchListByGenre(
-  genres: number[],
-  filters = {}
-): Promise<MovieItem[]> {
-  const fetchFilters = {
-    with_genres: genres.join(','),
-    ...filters,
-  }
-  const path = api.buildPath('api/movies/by-genre', fetchFilters)
-
-  return api.get<MovieItem[]>(path)
-}
-
-async function fetchListsByGenres(
-  genres: number[]
-): Promise<ListByGenre<MovieItem>[]> {
-  const fetchFilters = { with_genres: genres.join(',') }
-  const path = api.buildPath('api/movies/lists-by-genres', fetchFilters)
-
-  return api.get<ListByGenre<MovieItem>[]>(path)
-}
-
-async function fetchListMostPopular(page = 1): Promise<MovieItem[]> {
-  const filters = { page }
-
-  const path = api.buildPath('/api/movies/popular', filters)
-
-  return api.get<MovieItem[]>(path)
-}
-
-async function fetchListTrending(): Promise<MovieItem[]> {
-  const path = api.buildPath('/api/movies/trending')
-
-  return api.get<MovieItem[]>(path)
-}
-
-async function fetchCredits(movieId: number): Promise<MovieCredits> {
-  const path = api.buildPath('/api/movies/credits', { movieId })
+async function fetchCredits(showId: number): Promise<MovieCredits> {
+  const path = api.buildPath('/api/movies/credits', { showId })
 
   return api.get<MovieCredits>(path)
 }
 
-async function fetchVideos(movieId: number): Promise<Video[]> {
-  const path = api.buildPath('/api/movies/videos', { movieId })
+async function fetchVideos(showId: number): Promise<Video[]> {
+  const path = api.buildPath('/api/movies/videos', { showId })
 
   return api.get<Video[]>(path)
 }
 
 async function fetchStates(showId: number): Promise<UserShowStates> {
-  const path = api.buildPath('/api/shows/states', {
-    showId,
-    showType: 'movie',
-  })
+  const path = api.buildPath('/api/movies/states', { showId })
+
+  return api.get(path)
+}
+
+async function fetchListSimilar(
+  showId: number,
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/similar', { ...filters, showId })
+
+  return await api.get(path)
+}
+
+async function fetchListRecommended(
+  showId: number,
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/recommended', { ...filters, showId })
+
+  return api.get(path)
+}
+
+async function fetchListInTheatres(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/in-theatres', filters)
+
+  return api.get(path)
+}
+
+async function fetchListPopular(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/popular', filters)
+
+  return api.get(path)
+}
+
+async function fetchListTrending(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/trending', filters)
+
+  return api.get(path)
+}
+
+async function fetchListDiscover(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/discover', filters)
 
   return api.get(path)
 }
 
 export const useMoviesAPI = () => ({
+  fetchMovie,
   fetchCredits,
-  fetchDetails,
-  fetchListByGenre,
+  fetchVideos,
+  fetchStates,
   fetchListInTheatres,
-  fetchListMostPopular,
+  fetchListPopular,
   fetchListRecommended,
   fetchListSimilar,
   fetchListTrending,
-  fetchListsByGenres,
-  fetchListPaginatedByGenre,
-  fetchVideos,
-  fetchStates,
+  fetchListDiscover,
 })

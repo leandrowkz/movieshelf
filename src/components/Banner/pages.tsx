@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useEffect, useState } from 'react'
+import React, { type HTMLAttributes, useEffect, useState } from 'react'
 import type { MovieItem } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import { Heading } from '../Heading'

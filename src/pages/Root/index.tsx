@@ -6,7 +6,8 @@ import { GenresContext } from 'src/context/GenresContext'
 export const Root = () => {
   const location = useLocation()
   const { autoSignIn } = useContext(AuthContext)
-  const { fetchMoviesGenres, fetchTVShowsGenres } = useContext(GenresContext)
+  const { fetchMoviesGenresCodes, fetchTVShowsGenresCodes } =
+    useContext(GenresContext)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -14,8 +15,8 @@ export const Root = () => {
 
   useEffect(() => {
     autoSignIn()
-    fetchMoviesGenres()
-    fetchTVShowsGenres()
+    fetchMoviesGenresCodes()
+    fetchTVShowsGenresCodes()
   }, [])
 
   return <Outlet />

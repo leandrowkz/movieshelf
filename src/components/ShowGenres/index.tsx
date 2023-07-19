@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import type {
   Movie,
   MovieItem,
@@ -31,9 +31,9 @@ export function ShowGenres({
     return <></>
   }
 
-  const { moviesGenres, tvShowsGenres } = useContext(GenresContext)
+  const { moviesGenresCodes, tvShowsGenresCodes } = useContext(GenresContext)
   const genresFromContext =
-    show.media_type === 'tv' ? tvShowsGenres : moviesGenres
+    show.media_type === 'tv' ? tvShowsGenresCodes : moviesGenresCodes
 
   let showGenres: Genre[] = []
 

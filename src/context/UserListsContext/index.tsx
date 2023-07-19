@@ -1,8 +1,7 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { ShowType } from 'src/types/ShowType'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { ListsState, UserListsState } from './types'
+import type { ShowType, UserListType } from 'src/types'
 import { initialState } from './state'
-import { ListsState, UserListsState } from './types'
-import { UserListType } from 'src/types/UserListType'
 import { useUserListsAPI } from 'src/hooks/apis/useUserListsAPI'
 
 export const UserListsContext = createContext<UserListsState>({
@@ -55,9 +54,13 @@ export const UserListsContextProvider = ({ children }: PropsWithChildren) => {
       setIsLoading((prev) => ({ ...prev, fetchList: true }))
       updateList({ page, hasErrors: false, isLoading: true })
 
-      const { data, pages } = await api.fetchList(page, listType, showType)
+      const { data, pages, count } = await api.fetchList(
+        page,
+        listType,
+        showType
+      )
 
-      updateList({ data, pages } as ListsState)
+      updateList({ data, pages, count } as ListsState)
     } catch (e) {
       updateList({ data: [], hasErrors: true })
     } finally {

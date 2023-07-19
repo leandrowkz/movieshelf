@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { WatchedButton } from '.'
@@ -15,7 +15,7 @@ function getComponent(watched = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], watched }
 
-  return <WatchedButton showType="movie" show={show} states={states} />
+  return <WatchedButton show={show} states={states} />
 }
 
 test('Should render WatchedButton properly', async () => {

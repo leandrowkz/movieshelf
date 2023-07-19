@@ -1,17 +1,18 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
-import { mockMoviesListsByGenres } from 'src/__mocks__/mockMoviesListsByGenres'
+import { mockGenresMoviesLists } from 'src/__mocks__/mockGenresMoviesLists'
 import { TVShows } from '.'
 
 const { renderComponent, screen, user } = useTesting()
 
+jest.mock('src/hooks/apis/useGenresAPI')
 jest.mock('src/hooks/apis/useTVShowsAPI')
 
 test('Should render TVShows page properly', async () => {
   renderComponent(<TVShows />)
 
   expect((await screen.findAllByRole('list')).length).toEqual(
-    mockMoviesListsByGenres.length
+    mockGenresMoviesLists.length
   )
 })
 
@@ -47,6 +48,6 @@ test('Should properly hide/show carousels when filtering and clearing multiple',
   await Promise.all([user.click(buttonAnimation), user.click(buttonAction)])
 
   expect(screen.getAllByRole('list').length).toEqual(
-    mockMoviesListsByGenres.length
+    mockGenresMoviesLists.length
   )
 })

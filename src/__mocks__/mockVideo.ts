@@ -1,4 +1,4 @@
-import { Video } from '@leandrowkz/tmdb'
+import type { Video } from '@leandrowkz/tmdb'
 
 export const mockVideo: Video = {
   id: 'MOVIE_442',

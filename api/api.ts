@@ -39,18 +39,14 @@ export async function authorize(req: Request) {
   return data.user
 }
 
-export async function dispatch(
-  req: Request,
-  res: Response,
-  action: (...args: any) => Promise<any>
-) {
+export async function dispatch(action: (...args: any) => Promise<any>) {
   const response: any = {
     data: {},
     status: 200,
   }
 
   try {
-    response.data = await action(req, res)
+    response.data = await action()
   } catch (e) {
     if (e instanceof AuthorizationError) {
       response.data = e.message

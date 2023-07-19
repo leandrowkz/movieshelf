@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext, useEffect } from 'react'
+import React, { type HTMLAttributes, useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container } from 'src/components/Container'
@@ -9,7 +9,7 @@ import { Text } from 'src/components/Text'
 import { Button } from 'src/components/Button'
 import { Controller, useForm } from 'react-hook-form'
 import { Input } from 'src/components/Input'
-import { User, UserSchema } from 'src/types/User'
+import { type User, UserSchema } from 'src/types'
 import { AuthContext } from 'src/context/AuthContext'
 
 export function SignIn(props: HTMLAttributes<HTMLDivElement>) {

@@ -1,4 +1,4 @@
-import { DropdownState } from './types'
+import type { DropdownState } from './types'
 
 export const initialState: DropdownState = {
   isOpen: false,

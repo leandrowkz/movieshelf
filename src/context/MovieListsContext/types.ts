@@ -1,42 +1,24 @@
-import { Genre, MovieItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
-import { ListPaginated } from 'src/types/ListPaginated'
+import type { MovieItem } from '@leandrowkz/tmdb'
+import type { ListPaginated } from 'src/types'
 
 export type MovieListsState = {
-  inTheatres: MovieItem[]
-  trending: MovieItem[]
-  similar: MovieItem[]
-  recommended: MovieItem[]
-  mostPopular: MovieItem[]
-  bestComedies: MovieItem[]
-  scifiAndFantasy: MovieItem[]
-  topRatedDocumentaries: MovieItem[]
-  family: MovieItem[]
-  listsByGenres: ListByGenre<MovieItem>[]
-  category: ListPaginated<MovieItem>
+  similar: ListPaginated<MovieItem>
+  popular: ListPaginated<MovieItem>
+  trending: ListPaginated<MovieItem>
+  recommended: ListPaginated<MovieItem>
+  inTheatres: ListPaginated<MovieItem>
+  bestComedies: ListPaginated<MovieItem>
+  bestDocumentaries: ListPaginated<MovieItem>
+  bestFamily: ListPaginated<MovieItem>
+  bestScifiAndFantasy: ListPaginated<MovieItem>
 
-  isLoadingTrending: boolean
-  isLoadingInTheatres: boolean
-  isLoadingSimilar: boolean
-  isLoadingRecommended: boolean
-  isLoadingMostPopular: boolean
-  isLoadingBestComedies: boolean
-  isLoadingScifiAndFantasy: boolean
-  isLoadingFamily: boolean
-  isLoadingTopRatedDocumentaries: boolean
-  isLoadingByCategory: boolean
-  isLoadingListsByGenres: boolean
-  hasCategoryErrors: boolean
-
+  fetchPopular: () => void
   fetchTrending: () => void
+  fetchSimilar: (showId: number) => void
+  fetchRecommended: (showId: number) => void
   fetchInTheatres: () => void
-  fetchSimilar: (movieId: number) => void
-  fetchRecommended: (movieId: number) => void
-  fetchMostPopular: () => void
   fetchBestComedies: () => void
-  fetchScifiAndFantasy: () => void
-  fetchFamily: () => void
-  fetchTopRatedDocumentaries: () => void
-  fetchListCategory: (categoryId: number, page?: number) => void
-  fetchListsByGenres: (genres: Genre[]) => void
+  fetchBestDocumentaries: () => void
+  fetchBestFamily: () => void
+  fetchBestScifiAndFantasy: () => void
 }

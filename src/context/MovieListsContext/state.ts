@@ -1,44 +1,26 @@
-import { MovieListsState } from './types'
+import type { MovieListsState } from './types'
+import { useHelpers } from 'src/hooks/useHelpers'
+
+const { getEmptyListPaginated } = useHelpers()
 
 export const initialState: MovieListsState = {
-  trending: [],
-  inTheatres: [],
-  similar: [],
-  recommended: [],
-  mostPopular: [],
-  bestComedies: [],
-  topRatedDocumentaries: [],
-  scifiAndFantasy: [],
-  family: [],
-  listsByGenres: [],
-  category: {
-    data: [],
-    page: 0,
-    pages: 0,
-  },
+  similar: getEmptyListPaginated(),
+  popular: getEmptyListPaginated(),
+  trending: getEmptyListPaginated(),
+  recommended: getEmptyListPaginated(),
+  inTheatres: getEmptyListPaginated(),
+  bestComedies: getEmptyListPaginated(),
+  bestDocumentaries: getEmptyListPaginated(),
+  bestFamily: getEmptyListPaginated(),
+  bestScifiAndFantasy: getEmptyListPaginated(),
 
-  isLoadingTrending: false,
-  isLoadingInTheatres: false,
-  isLoadingSimilar: false,
-  isLoadingRecommended: false,
-  isLoadingMostPopular: false,
-  isLoadingBestComedies: false,
-  isLoadingScifiAndFantasy: false,
-  isLoadingFamily: false,
-  isLoadingTopRatedDocumentaries: false,
-  isLoadingListsByGenres: false,
-  isLoadingByCategory: false,
-  hasCategoryErrors: false,
-
-  fetchTrending: () => null,
   fetchSimilar: () => null,
+  fetchPopular: () => null,
+  fetchTrending: () => null,
   fetchRecommended: () => null,
-  fetchMostPopular: () => null,
-  fetchBestComedies: () => null,
-  fetchScifiAndFantasy: () => null,
-  fetchFamily: () => null,
-  fetchTopRatedDocumentaries: () => null,
   fetchInTheatres: () => null,
-  fetchListCategory: () => null,
-  fetchListsByGenres: () => null,
+  fetchBestComedies: () => null,
+  fetchBestDocumentaries: () => null,
+  fetchBestScifiAndFantasy: () => null,
+  fetchBestFamily: () => null,
 }

@@ -1,4 +1,4 @@
-import { GenreCode, TVSeasonItem, type TVShow } from '@leandrowkz/tmdb'
+import { GenreCode, type TVShow, type TVSeasonItem } from '@leandrowkz/tmdb'
 import { mockTVSeason } from './mockTVSeason'
 
 export const mockTVShow: TVShow = {
@@ -53,6 +53,7 @@ export const mockTVShow: TVShow = {
     vote_count: 0,
     crew: [],
     guest_stars: [],
+    runtime: 0,
   },
   next_episode_to_air: null,
   networks: [],

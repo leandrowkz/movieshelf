@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { MovieDetailsContext } from '../../context/MovieDetailsContext'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
 import { useHelpers } from 'src/hooks/useHelpers'
+import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 
 export function MovieDetails(): JSX.Element {
   const { getCreditsDirector } = useHelpers()
@@ -14,14 +14,11 @@ export function MovieDetails(): JSX.Element {
 
   const {
     movie,
-    cast,
-    crew,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingMovie,
-    isLoadingVideos,
-    hasMovieErrors,
+    isLoading,
+    hasErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
@@ -32,9 +29,6 @@ export function MovieDetails(): JSX.Element {
     similar,
     recommended,
     trending,
-    isLoadingTrending,
-    isLoadingRecommended,
-    isLoadingSimilar,
     fetchTrending,
     fetchRecommended,
     fetchSimilar,
@@ -44,18 +38,20 @@ export function MovieDetails(): JSX.Element {
     const id = Number(movieId)
 
     fetchMovie(id)
-    fetchCredits(id)
     fetchVideos(id)
     fetchStates(id)
+    fetchCredits(id)
+
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
   }, [movieId])
 
-  if (!movie || hasMovieErrors) {
+  if (!movie || hasErrors.fetchMovie) {
     return <NotFound data-testid="show-not-found" />
   }
 
+  const { cast = [], crew = [] } = credits
   const director = getCreditsDirector(crew)
   const people = director ? [director, ...cast] : cast
 
@@ -66,27 +62,27 @@ export function MovieDetails(): JSX.Element {
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoadingMovie}
-        isLoadingPeople={isLoadingCredits}
-        isLoadingActions={isLoadingVideos}
+        isLoadingShow={isLoading.fetchMovie}
+        isLoadingPeople={isLoading.fetchCredits}
+        isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <ShowCarousel
-        shows={similar}
+        shows={similar.data}
         title="More movies like this"
-        isLoading={isLoadingSimilar}
+        isLoading={similar.isLoading}
         data-testid="carousel-similar"
       />
       <ShowCarousel
-        shows={recommended}
+        shows={recommended.data}
         title="Recommended movies based on this title"
-        isLoading={isLoadingRecommended}
+        isLoading={recommended.isLoading}
         data-testid="carousel-recommended"
       />
       <ShowCarousel
-        shows={trending}
+        shows={trending.data}
         title="Popular movies"
-        isLoading={isLoadingTrending}
+        isLoading={trending.isLoading}
         data-testid="carousel-trending"
       />
     </Page>

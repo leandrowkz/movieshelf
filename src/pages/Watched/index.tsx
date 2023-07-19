@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { ShowType } from 'src/types/ShowType'
+import type { ShowType } from 'src/types'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 import { Link } from 'react-router-dom'
 
@@ -40,8 +40,7 @@ export function Watched(): JSX.Element {
             <ShowList
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
-              type="movie"
-              title="Movies you already watched"
+              title={`Movies you already watched (${movies.count})`}
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -59,8 +58,7 @@ export function Watched(): JSX.Element {
             <ShowList
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
-              type="tv"
-              title="TV Shows you already watched"
+              title={`TV Shows you already watched (${tvShows.count})`}
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />

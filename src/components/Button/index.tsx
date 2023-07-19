@@ -1,8 +1,8 @@
 import React, {
-  ComponentPropsWithoutRef,
-  HTMLAttributes,
-  PropsWithChildren,
-  ReactNode,
+  type ComponentPropsWithoutRef,
+  type HTMLAttributes,
+  type PropsWithChildren,
+  type ReactNode,
 } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'

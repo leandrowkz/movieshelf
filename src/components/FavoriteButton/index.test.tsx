@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '@leandrowkz/tmdb'
+import type { Movie } from '@leandrowkz/tmdb'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
 import { useTesting } from 'src/hooks/useTesting'
 import { FavoriteButton } from '.'
@@ -15,7 +15,7 @@ function getComponent(favorited = true) {
   const show = { ...(getMockMovies(1)[0] as Movie) }
   const states = { ...getMockShowStates(1)[0], favorited }
 
-  return <FavoriteButton showType="movie" show={show} states={states} />
+  return <FavoriteButton show={show} states={states} />
 }
 
 test('Should render FavoriteButton properly', async () => {

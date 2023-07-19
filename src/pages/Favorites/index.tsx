@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
+import type { ShowType } from 'src/types'
+import styles from './styles.module.css'
 import { Page } from '../../components/Page'
 import { Heading } from 'src/components/Heading'
 import { Container } from 'src/components/Container'
 import { ShowList } from 'src/components/ShowList'
-import styles from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Pagination } from 'src/components/Pagination'
 import { UserListsContext } from 'src/context/UserListsContext'
-import { ShowType } from 'src/types/ShowType'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
 
 export function Favorites(): JSX.Element {
@@ -36,8 +36,7 @@ export function Favorites(): JSX.Element {
             <ShowList
               shows={movies.data}
               size={isMobile ? 'small' : 'medium'}
-              type="movie"
-              title="Your favorite movies"
+              title={`Your favorite movies (${movies.count})`}
               isSoftLoading={movies.isLoading}
               data-testid="list-movies"
             />
@@ -55,8 +54,7 @@ export function Favorites(): JSX.Element {
             <ShowList
               shows={tvShows.data}
               size={isMobile ? 'small' : 'medium'}
-              type="tv"
-              title="Your favorite TV Shows"
+              title={`Your favorite TV Shows (${tvShows.count})`}
               isSoftLoading={tvShows.isLoading}
               data-testid="list-tv-shows"
             />

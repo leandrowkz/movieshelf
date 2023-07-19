@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-imports */
-import React, { HTMLAttributes, ReactElement } from 'react'
+import React, { type HTMLAttributes, type ReactElement } from 'react'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 import { MovieListsContextProvider } from '../context/MovieListsContext'
@@ -26,13 +26,11 @@ import {
   AuthContext as MockAuthContext,
   AuthContextProvider as MockAuthContextProvider,
 } from 'src/context/__mocks__/AuthContext'
-import {
-  GenresContext as MockGenresContext,
-  GenresContextProvider as MockGenresContextProvider,
-} from 'src/context/__mocks__/GenresContext'
 import { UserListsContextProvider } from 'src/context/UserListsContext'
-import { UserShowStates } from 'src/types/UserShowStates'
+import type { UserShowStates } from 'src/types'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
+import { GenresContextProvider } from 'src/context/GenresContext'
+import type { GenresState } from 'src/context/GenresContext/types'
 
 jest.mock('src/hooks/useSupabase')
 
@@ -42,11 +40,33 @@ jest.mock('src/context/AuthContext', () => ({
   AuthContextProvider: MockAuthContextProvider,
 }))
 
-jest.mock('src/context/GenresContext', () => ({
-  ...jest.requireActual('src/context/GenresContext'),
-  GenresContext: MockGenresContext,
-  GenresContextProvider: MockGenresContextProvider,
-}))
+jest.mock('src/context/GenresContext/state', () => {
+  const { mockGenresMoviesCodes } = jest.requireActual(
+    'src/__mocks__/mockGenresMoviesCodes'
+  )
+  const { mockGenresMoviesLists } = jest.requireActual(
+    'src/__mocks__/mockGenresMoviesLists'
+  )
+  const { mockGenresTVShowsCodes } = jest.requireActual(
+    'src/__mocks__/mockGenresTVShowsCodes'
+  )
+  const { mockGenresTVShowsLists } = jest.requireActual(
+    'src/__mocks__/mockGenresTVShowsLists'
+  )
+  const { initialState: actualInitialState } = jest.requireActual(
+    'src/context/GenresContext/state'
+  )
+
+  const mockState: GenresState = {
+    ...actualInitialState,
+    moviesGenresCodes: [...mockGenresMoviesCodes],
+    moviesGenresLists: [...mockGenresMoviesLists],
+    tvShowsGenresCodes: [...mockGenresTVShowsCodes],
+    tvShowsGenresLists: [...mockGenresTVShowsLists],
+  }
+
+  return { initialState: mockState }
+})
 
 const user = userEvent.setup()
 
@@ -54,7 +74,7 @@ function renderComponent(component: ReactElement) {
   const wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => (
     <BrowserRouter>
       <MockAuthContextProvider>
-        <MockGenresContextProvider>
+        <GenresContextProvider>
           <UserListsContextProvider>
             <TVShowListsContextProvider>
               <TVShowDetailsContextProvider>
@@ -68,7 +88,7 @@ function renderComponent(component: ReactElement) {
               </TVShowDetailsContextProvider>
             </TVShowListsContextProvider>
           </UserListsContextProvider>
-        </MockGenresContextProvider>
+        </GenresContextProvider>
       </MockAuthContextProvider>
     </BrowserRouter>
   )

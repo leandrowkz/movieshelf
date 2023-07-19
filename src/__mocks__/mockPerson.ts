@@ -1,4 +1,4 @@
-import { PersonCast } from '@leandrowkz/tmdb'
+import type { PersonCast } from '@leandrowkz/tmdb'
 
 export const mockPerson: PersonCast = {
   id: 100,

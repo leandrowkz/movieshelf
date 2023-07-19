@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
 import { NotFound } from '../404'
 import { ShowDetails } from 'src/components/ShowDetails'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { TVSeasonsTabs } from 'src/components/TVSeasonsTabs'
+import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
+import { TVShowListsContext } from 'src/context/TVShowListsContext'
 
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer } = useHelpers()
@@ -15,14 +15,11 @@ export function TVShowDetails(): JSX.Element {
 
   const {
     tvShow,
-    cast,
-    crew,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingTVShow,
-    isLoadingStates,
-    hasTVShowErrors,
+    isLoading: isLoadingDetails,
+    hasErrors,
     fetchTVShow,
     fetchCredits,
     fetchVideos,
@@ -33,9 +30,6 @@ export function TVShowDetails(): JSX.Element {
     similar,
     recommended,
     popular,
-    isLoadingRecommended,
-    isLoadingSimilar,
-    isLoadingPopular,
     fetchRecommended,
     fetchSimilar,
     fetchPopular,
@@ -53,24 +47,24 @@ export function TVShowDetails(): JSX.Element {
     fetchPopular()
   }, [tvShowId])
 
-  if (!tvShow || hasTVShowErrors) {
+  if (!tvShow || hasErrors.fetchTVShow) {
     return <NotFound data-testid="show-not-found" />
   }
 
+  const { cast = [], crew = [] } = credits
   const director = getCreditsProducer(crew)
   const people = director ? [director, ...cast] : cast
 
   return (
     <Page darkHeader>
       <ShowDetails
-        type="tv"
         show={tvShow}
         people={people}
         videos={videos}
         states={states}
-        isLoadingShow={isLoadingTVShow}
-        isLoadingPeople={isLoadingCredits}
-        isLoadingActions={isLoadingStates}
+        isLoadingShow={isLoadingDetails.fetchTVShow}
+        isLoadingPeople={isLoadingDetails.fetchCredits}
+        isLoadingActions={isLoadingDetails.fetchStates}
         data-testid="show-details"
       />
       <TVSeasonsTabs
@@ -79,24 +73,21 @@ export function TVShowDetails(): JSX.Element {
         data-testid="show-seasons"
       />
       <ShowCarousel
-        shows={similar}
-        type="tv"
+        shows={similar.data}
         title="More TV shows like this"
-        isLoading={isLoadingSimilar}
+        isLoading={similar.isLoading}
         data-testid="carousel-similar"
       />
       <ShowCarousel
-        shows={recommended}
-        type="tv"
+        shows={recommended.data}
         title="Recommended TV shows based on this title"
-        isLoading={isLoadingRecommended}
+        isLoading={recommended.isLoading}
         data-testid="carousel-recommended"
       />
       <ShowCarousel
-        shows={popular}
-        type="tv"
+        shows={popular.data}
         title="Popular TV shows"
-        isLoading={isLoadingPopular}
+        isLoading={popular.isLoading}
         data-testid="carousel-popular"
       />
     </Page>

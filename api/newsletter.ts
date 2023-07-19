@@ -1,12 +1,12 @@
 import { z } from 'zod'
-import { dispatch, json, supabase } from './api'
+import { dispatch, supabase } from './api'
 
 export const config = {
   runtime: 'edge',
 }
 
-export default async (req: Request, res: Response) =>
-  dispatch(req, res, async (req: Request) => {
+export default async (req: Request) =>
+  dispatch(async () => {
     const body = await req.json()
     const { email } = body
     const schema = z.string().email()
@@ -15,7 +15,7 @@ export default async (req: Request, res: Response) =>
 
     const response = await insert(email)
 
-    return json(response)
+    return response
   })
 
 async function insert(email: string) {

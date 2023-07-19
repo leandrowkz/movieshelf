@@ -1,4 +1,4 @@
-import { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
+import type { TVEpisodeItem, TVSeason } from '@leandrowkz/tmdb'
 
 export type TVSeasonDetailsState = {
   season: TVSeason

@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import type { Movie, PersonCast, Video } from '@leandrowkz/tmdb'
-import { MovieDetailsState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { Movie, MovieCredits } from '@leandrowkz/tmdb'
+import type { UserShowStates } from 'src/types'
+import type { MovieDetailsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { UserShowStates } from 'src/types/UserShowStates'
 
 export const MovieDetailsContext = createContext<MovieDetailsState>({
   ...initialState,
@@ -13,75 +13,74 @@ export const MovieDetailsContextProvider = ({
   children,
 }: PropsWithChildren) => {
   const api = useMoviesAPI()
-  const [movie, setMovie] = useState<Movie>({} as Movie)
-  const [states, setStates] = useState<UserShowStates>({} as UserShowStates)
-  const [cast, setCast] = useState<PersonCast[]>([])
-  const [crew, setCrew] = useState<PersonCast[]>([])
-  const [videos, setVideos] = useState<Video[]>([])
-  const [isLoadingMovie, setIsLoadingMovie] = useState(false)
-  const [isLoadingCredits, setIsLoadingCredits] = useState(false)
-  const [isLoadingVideos, setIsLoadingVideos] = useState(false)
-  const [isLoadingStates, setIsLoadingStates] = useState(false)
-  const [hasMovieErrors, setHasMovieErrors] = useState(false)
 
-  const fetchMovie = async (movieId: number) => {
+  const [movie, setMovie] = useState(initialState.movie)
+  const [states, setStates] = useState(initialState.states)
+  const [credits, setCredits] = useState(initialState.credits)
+  const [videos, setVideos] = useState(initialState.videos)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
+  const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
+
+  const fetchMovie = async (showId: number) => {
     try {
       setMovie({} as Movie)
-      setIsLoadingMovie(true)
-      setHasMovieErrors(false)
+      setIsLoading((prev) => ({ ...prev, fetchMovie: true }))
+      setHasErrors((prev) => ({ ...prev, fetchMovie: false }))
 
-      const data = await api.fetchDetails(movieId)
+      const data = await api.fetchMovie(showId)
 
       setMovie(data)
     } catch (e) {
-      setHasMovieErrors(true)
+      setHasErrors((prev) => ({ ...prev, fetchMovie: true }))
     } finally {
-      setIsLoadingMovie(false)
+      setIsLoading((prev) => ({ ...prev, fetchMovie: false }))
     }
   }
 
-  const fetchCredits = async (movieId: number) => {
-    setIsLoadingCredits(true)
+  const fetchStates = async (showId: number) => {
+    setStates({} as UserShowStates)
+    setIsLoading((prev) => ({ ...prev, fetchStates: true }))
+    setHasErrors((prev) => ({ ...prev, fetchStates: false }))
 
-    const { cast, crew } = await api.fetchCredits(movieId)
+    const data = await api.fetchStates(showId)
 
-    setCast(cast)
-    setCrew(crew)
-    setIsLoadingCredits(false)
+    setStates(data)
+
+    setIsLoading((prev) => ({ ...prev, fetchStates: false }))
   }
 
-  const fetchVideos = async (movieId: number) => {
-    setIsLoadingVideos(true)
+  const fetchCredits = async (showId: number) => {
+    setCredits({} as MovieCredits)
+    setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
+    setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
 
-    const data = await api.fetchVideos(movieId)
+    const data = await api.fetchCredits(showId)
+
+    setCredits(data)
+
+    setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+  }
+
+  const fetchVideos = async (showId: number) => {
+    setVideos([])
+    setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
+    setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
+
+    const data = await api.fetchVideos(showId)
 
     setVideos(data)
-    setIsLoadingVideos(false)
-  }
-
-  const fetchStates = async (movieId: number) => {
-    setStates({} as UserShowStates)
-    setIsLoadingStates(true)
-
-    const states = await api.fetchStates(movieId)
-
-    setStates(states)
-    setIsLoadingStates(false)
+    setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
   }
 
   const state = {
     movie,
-    cast,
-    crew,
+    credits,
     videos,
     states,
-    isLoadingCredits,
-    isLoadingMovie,
-    isLoadingVideos,
-    isLoadingStates,
-    hasMovieErrors,
-    fetchCredits,
+    isLoading,
+    hasErrors,
     fetchMovie,
+    fetchCredits,
     fetchVideos,
     fetchStates,
     setStates,

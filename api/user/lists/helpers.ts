@@ -1,7 +1,10 @@
 import { z } from 'zod'
 import { supabase } from '../../api'
-import { UserListPayload } from './types'
-import { showTypes, userListTypes } from '../../types'
+import {
+  showTypes,
+  userListTypes,
+  type UserListPayload,
+} from '../../../src/types'
 
 const ITEMS_PER_PAGES = 20
 
@@ -56,7 +59,7 @@ export async function getShowList({
     .order('created_at', { ascending: false })
     .range(from, to)
 
-  return { data, pages, page }
+  return { data, pages, page, count }
 }
 
 export async function addToList({

@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import styles from './styles.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../Button'
@@ -57,7 +57,7 @@ export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
               window.open('https://github.com/sponsors/leandrowkz', '_blank')
             }
           >
-            🖖 Sponsor
+            🥳 Be a sponsor
           </Dropdown.Item>
           <Dropdown.Item onClick={() => doSignOut()}>🚪 Sign out</Dropdown.Item>
         </Dropdown.Menu>

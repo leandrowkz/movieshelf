@@ -6,6 +6,7 @@ import type {
   TVShowItem,
   Video,
 } from '@leandrowkz/tmdb'
+import type { ListPaginated } from 'src/types'
 
 type Show = Movie | TVShow | MovieItem | TVShowItem
 
@@ -76,6 +77,17 @@ function getShowRuntimeOrSeasons(show: Show) {
   return ''
 }
 
+function getEmptyListPaginated<T>(): ListPaginated<T> {
+  return {
+    data: [],
+    page: 0,
+    pages: 0,
+    count: 0,
+    isLoading: false,
+    hasErrors: false,
+  }
+}
+
 export const useHelpers = () => ({
   getShowTitle,
   getShowRuntimeOrSeasons,
@@ -85,4 +97,5 @@ export const useHelpers = () => ({
   getCreditsDirector,
   getCreditsProducer,
   getYearFromDateString,
+  getEmptyListPaginated,
 })

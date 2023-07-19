@@ -1,4 +1,8 @@
-import React, { ComponentPropsWithoutRef, useContext, useState } from 'react'
+import React, {
+  type ComponentPropsWithoutRef,
+  useContext,
+  useState,
+} from 'react'
 import classNames from 'classnames'
 import { Logo } from '../Logo'
 import styles from './styles.module.css'

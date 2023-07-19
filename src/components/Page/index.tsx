@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useContext, useEffect } from 'react'
+import React, { type HTMLAttributes, useContext, useEffect } from 'react'
 import { Footer } from '../Footer'
 import styles from './styles.module.css'
 import { Header } from '../Header'

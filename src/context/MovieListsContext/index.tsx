@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, createContext, useState } from 'react'
-import { Genre, GenreCode, type MovieItem } from '@leandrowkz/tmdb'
-import { ListByGenre } from 'src/types/ListByGenre'
-import { MovieListsState } from './types'
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import { GenreCode } from '@leandrowkz/tmdb'
+import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { useHelpers } from 'src/hooks/useHelpers'
 
 export const MovieListsContext = createContext<MovieListsState>({
   ...initialState,
@@ -11,217 +11,247 @@ export const MovieListsContext = createContext<MovieListsState>({
 
 export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const api = useMoviesAPI()
-  const [trending, setTrending] = useState<MovieItem[]>([])
-  const [similar, setSimilar] = useState<MovieItem[]>([])
-  const [recommended, setRecommended] = useState<MovieItem[]>([])
-  const [mostPopular, setMostPopular] = useState<MovieItem[]>([])
-  const [bestComedies, setBestComedies] = useState<MovieItem[]>([])
-  const [scifiAndFantasy, setScifiAndFantasy] = useState<MovieItem[]>([])
-  const [family, setFamily] = useState<MovieItem[]>([])
-  const [topRatedDocumentaries, setTopRatedDocumentaries] = useState<
-    MovieItem[]
-  >([])
-  const [inTheatres, setInTheatres] = useState<MovieItem[]>([])
-  const [listsByGenres, setListsByGenres] = useState<ListByGenre<MovieItem>[]>(
-    []
+  const { getEmptyListPaginated } = useHelpers()
+
+  const [similar, setSimilar] = useState(initialState.similar)
+  const [popular, setPopular] = useState(initialState.popular)
+  const [trending, setTrending] = useState(initialState.trending)
+  const [recommended, setRecommended] = useState(initialState.recommended)
+  const [inTheatres, setInTheatres] = useState(initialState.inTheatres)
+  const [bestComedies, setBestComedies] = useState(initialState.bestComedies)
+  const [bestDocumentaries, setBestDocumentaries] = useState(
+    initialState.bestDocumentaries
   )
+  const [bestScifiAndFantasy, setBestScifiAndFantasy] = useState(
+    initialState.bestScifiAndFantasy
+  )
+  const [bestFamily, setBestFamily] = useState(initialState.bestFamily)
 
-  const [category, setCategory] = useState<MovieItem[]>([])
-  const [pageCategory, setPageCategory] = useState(0)
-  const [pagesCategory, setPagesCategory] = useState(0)
-
-  const [isLoadingTrending, setIsLoadingTrending] = useState(false)
-  const [isLoadingInTheatres, setIsLoadingInTheatres] = useState(false)
-  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false)
-  const [isLoadingRecommended, setIsLoadingRecommended] = useState(false)
-  const [isLoadingMostPopular, setIsLoadingMostPopular] = useState(false)
-  const [isLoadingBestComedies, setIsLoadingBestComedies] = useState(false)
-  const [isLoadingFamily, setIsLoadingFamily] = useState(false)
-  const [isLoadingScifiAndFantasy, setIsLoadingScifiAndFantasy] =
-    useState(false)
-  const [isLoadingTopRatedDocumentaries, setIsLoadingTopRatedDocumentaries] =
-    useState(false)
-  const [isLoadingByCategory, setIsLoadingByCategory] = useState(false)
-  const [isLoadingListsByGenres, setIsLoadingListsByGenres] =
-    useState<boolean>(false)
-
-  const [hasCategoryErrors, setHasCategoryErrors] = useState(false)
-
-  const fetchSimilar = async (movieId: number) => {
-    setSimilar([])
-    setIsLoadingSimilar(true)
-
-    const data = await api.fetchListSimilar(movieId)
-
-    setSimilar(data)
-    setIsLoadingSimilar(false)
-  }
-
-  const fetchRecommended = async (movieId: number) => {
-    setRecommended([])
-    setIsLoadingRecommended(true)
-
-    const data = await api.fetchListRecommended(movieId)
-
-    setRecommended(data)
-    setIsLoadingRecommended(false)
-  }
-
-  const fetchTrending = async () => {
-    setTrending([])
-    setIsLoadingTrending(true)
-
-    const data = await api.fetchListTrending()
-
-    setTrending(data)
-    setIsLoadingTrending(false)
-  }
-
-  const fetchMostPopular = async () => {
-    setMostPopular([])
-    setIsLoadingMostPopular(true)
-
-    const data = await api.fetchListMostPopular()
-
-    setMostPopular(data)
-    setIsLoadingMostPopular(false)
-  }
-
-  const fetchBestComedies = async () => {
-    setBestComedies([])
-    setIsLoadingBestComedies(true)
-
-    const data = await api.fetchListByGenre([GenreCode.COMEDY], {
-      'vote_average.gte': 7.5,
-    })
-
-    setBestComedies(data)
-    setIsLoadingBestComedies(false)
-  }
-
-  const fetchScifiAndFantasy = async () => {
-    setScifiAndFantasy([])
-    setIsLoadingScifiAndFantasy(true)
-
-    const data = await api.fetchListByGenre([
-      GenreCode.SCIENCE_FICTION,
-      GenreCode.FANTASY,
-    ])
-
-    setScifiAndFantasy(data)
-    setIsLoadingScifiAndFantasy(false)
-  }
-
-  const fetchFamily = async () => {
-    setFamily([])
-    setIsLoadingFamily(true)
-
-    const data = await api.fetchListByGenre([GenreCode.FAMILY])
-
-    setFamily(data)
-    setIsLoadingFamily(false)
-  }
-
-  const fetchTopRatedDocumentaries = async () => {
-    setTopRatedDocumentaries([])
-    setIsLoadingTopRatedDocumentaries(true)
-
-    const filters = {
-      sort_by: 'popularity.desc',
-      'vote_average.gte': 9,
-    }
-    const data = await api.fetchListByGenre([GenreCode.DOCUMENTARY], filters)
-
-    setTopRatedDocumentaries(data)
-    setIsLoadingTopRatedDocumentaries(false)
-  }
-
-  const fetchInTheatres = async () => {
-    setInTheatres([])
-    setIsLoadingInTheatres(true)
-
-    const data = await api.fetchListInTheatres()
-
-    setInTheatres(data)
-    setIsLoadingInTheatres(false)
-  }
-
-  const fetchListCategory = async (categoryId: number, page = 1) => {
+  const fetchSimilar = async (movieId: number, filters = {}) => {
     try {
-      setHasCategoryErrors(false)
-      setIsLoadingByCategory(true)
+      setSimilar({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
 
-      const {
-        data,
-        page: current,
-        pages,
-      } = await api.fetchListPaginatedByGenre([categoryId], { page })
+      const data = await api.fetchListSimilar(movieId, filters)
 
-      setCategory(data)
-      setPageCategory(current)
-      setPagesCategory(pages)
-      window.scrollTo(0, 0)
+      setSimilar({ ...data, isLoading: false })
     } catch {
-      setCategory([])
-      setHasCategoryErrors(true)
-    } finally {
-      setIsLoadingByCategory(false)
+      setSimilar((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
     }
   }
 
-  const fetchListsByGenres = async (genres: Genre[]) => {
-    setListsByGenres([])
-    setIsLoadingListsByGenres(true)
+  const fetchRecommended = async (movieId: number, filters = {}) => {
+    try {
+      setRecommended({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
 
-    const genreIds = genres.map((genre) => genre.id)
-    const data = await api.fetchListsByGenres(genreIds)
+      const data = await api.fetchListRecommended(movieId, filters)
 
-    setListsByGenres(data)
-    setIsLoadingListsByGenres(false)
+      setRecommended({ ...data, isLoading: false })
+    } catch {
+      setRecommended((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchPopular = async (filters = {}) => {
+    try {
+      setPopular({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListPopular(filters)
+
+      setPopular({ ...data, isLoading: false })
+    } catch {
+      setPopular((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchTrending = async (filters = {}) => {
+    try {
+      setTrending({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListTrending(filters)
+
+      setTrending({ ...data, isLoading: false })
+    } catch {
+      setTrending((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchInTheatres = async (filters = {}) => {
+    try {
+      setInTheatres({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListInTheatres(filters)
+
+      setInTheatres({ ...data, isLoading: false })
+    } catch {
+      setInTheatres((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchBestComedies = async (filters = {}) => {
+    try {
+      setBestComedies({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListDiscover({
+        ...filters,
+        with_genres: [GenreCode.COMEDY],
+        'vote_average.gte': 7.5,
+      })
+
+      setBestComedies({ ...data, isLoading: false })
+    } catch {
+      setBestComedies((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchBestScifiAndFantasy = async (filters = {}) => {
+    try {
+      setBestScifiAndFantasy({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListDiscover({
+        ...filters,
+        with_genres: [GenreCode.SCIENCE_FICTION, GenreCode.FANTASY],
+        'vote_average.gte': 7.5,
+      })
+
+      setBestScifiAndFantasy({ ...data, isLoading: false })
+    } catch {
+      setBestScifiAndFantasy((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchBestFamily = async (filters = {}) => {
+    try {
+      setBestFamily({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListDiscover({
+        ...filters,
+        with_genres: [GenreCode.FAMILY],
+        'vote_average.gte': 7.5,
+      })
+
+      setBestFamily({ ...data, isLoading: false })
+    } catch {
+      setBestFamily((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
+  }
+
+  const fetchBestDocumentaries = async (filters = {}) => {
+    try {
+      setBestDocumentaries({
+        ...getEmptyListPaginated(),
+        isLoading: true,
+        hasErrors: false,
+      })
+
+      const data = await api.fetchListDiscover({
+        ...filters,
+        with_genres: [GenreCode.DOCUMENTARY],
+        'vote_average.gte': 7.5,
+      })
+
+      setBestDocumentaries({ ...data, isLoading: false })
+    } catch {
+      setBestDocumentaries((prev) => ({
+        ...prev,
+        data: [],
+        hasErrors: true,
+        isLoading: false,
+      }))
+    }
   }
 
   const state = {
     trending,
+    popular,
     similar,
     recommended,
-    mostPopular,
-    bestComedies,
-    scifiAndFantasy,
-    topRatedDocumentaries,
-    family,
     inTheatres,
-    listsByGenres,
+    bestComedies,
+    bestScifiAndFantasy,
+    bestDocumentaries,
+    bestFamily,
 
-    category: {
-      data: category,
-      page: pageCategory,
-      pages: pagesCategory,
-    },
-
-    isLoadingTrending,
-    isLoadingInTheatres,
-    isLoadingSimilar,
-    isLoadingRecommended,
-    isLoadingMostPopular,
-    isLoadingBestComedies,
-    isLoadingScifiAndFantasy,
-    isLoadingFamily,
-    isLoadingTopRatedDocumentaries,
-    isLoadingByCategory,
-    isLoadingListsByGenres,
-    hasCategoryErrors,
-
-    fetchTrending,
+    fetchPopular,
     fetchSimilar,
-    fetchRecommended,
-    fetchMostPopular,
-    fetchBestComedies,
-    fetchScifiAndFantasy,
-    fetchFamily,
-    fetchTopRatedDocumentaries,
     fetchInTheatres,
-    fetchListCategory,
-    fetchListsByGenres,
+    fetchTrending,
+    fetchRecommended,
+    fetchBestComedies,
+    fetchBestScifiAndFantasy,
+    fetchBestFamily,
+    fetchBestDocumentaries,
   }
 
   return (
