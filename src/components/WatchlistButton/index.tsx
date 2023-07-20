@@ -1,20 +1,20 @@
-import React, { type HTMLAttributes, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import type { ShowType, UserShowStates } from 'src/types'
-import { Button } from '../../components/Button'
+import { Button, type ButtonProps } from '../../components/Button'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonProps {
   show: Movie | TVShow
   states: UserShowStates
 }
 
-export function WatchlistButton({ show, states }: Props): JSX.Element {
+export function WatchlistButton({ show, states, ...rest }: Props): JSX.Element {
   const navigate = useNavigate()
   const { session } = useContext(AuthContext)
 
@@ -69,7 +69,7 @@ export function WatchlistButton({ show, states }: Props): JSX.Element {
 
   return (
     <Button
-      size="large"
+      {...rest}
       variant="secondary"
       isLoading={isLoading}
       icon={buttonProps.icon}

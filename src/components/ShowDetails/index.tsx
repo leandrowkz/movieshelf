@@ -27,6 +27,7 @@ import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
@@ -87,8 +88,8 @@ export function ShowDetails({
         />
         <Details />
         <Cast />
-        <Actions />
         <Poster />
+        <Actions />
       </section>
     </ShowDetailsContext.Provider>
   )
@@ -135,12 +136,7 @@ function Details(): JSX.Element {
           data-testid="show-genres"
         />
       </div>
-      <Text
-        isParagraph
-        isMuted
-        className={styles.overview}
-        data-testid="show-overview"
-      >
+      <Text isMuted className={styles.overview} data-testid="show-overview">
         {overview}
       </Text>
     </Motion>
@@ -165,6 +161,9 @@ function Cast(): JSX.Element {
 }
 
 function Actions(): JSX.Element {
+  const isMobile = useScreenSize('mobile')
+  const isTablet = useScreenSize('tablet')
+  const isSmallDevice = isMobile || isTablet
   const { show, states, videos, isLoadingActions } =
     useContext(ShowDetailsContext)
 
@@ -174,10 +173,25 @@ function Actions(): JSX.Element {
 
   return (
     <Motion className={styles.actions}>
-      <WatchlistButton show={show} states={states} />
-      <WatchedButton show={show} states={states} />
-      <FavoriteButton show={show} states={states} size="medium" rounded />
-      <ShowTrailerButton videos={videos} pill size="medium" />
+      <div className={styles.leftActions}>
+        <WatchlistButton show={show} states={states} size="large" />
+        {!isSmallDevice && (
+          <WatchedButton show={show} states={states} size="large" />
+        )}
+      </div>
+      <div className={styles.rightActions}>
+        <FavoriteButton show={show} states={states} size="medium" rounded />
+        {isSmallDevice && (
+          <WatchedButton
+            show={show}
+            states={states}
+            size="medium"
+            rounded
+            isSmallDevice
+          />
+        )}
+        <ShowTrailerButton videos={videos} pill size="medium" />
+      </div>
     </Motion>
   )
 }
