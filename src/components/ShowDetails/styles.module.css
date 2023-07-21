@@ -45,17 +45,18 @@
 }
 
 .cast {
-  border: 1px solid green;
   grid-area: cast;
+  display: flex;
+  gap: var(--spacer-base);
+  padding: var(--spacer-base) 0;
 }
 
 .poster {
-  border: 1px solid orange;
   grid-area: poster;
+  justify-content: stretch;
 }
 
 .details {
-  border: 1px solid red;
   grid-area: details;
   align-self: self-end;
 }
@@ -80,7 +81,6 @@
 }
 
 .actions {
-  border: 1px solid blue;
   grid-area: actions;
   display: grid;
   grid-template-columns: 70% 1fr;
@@ -103,6 +103,49 @@
   gap: var(--spacer-base);
 }
 
+.loaderTitle {
+  display: flex;
+  gap: var(--spacer-base);
+  height: var(--font-size-large);
+}
+
+.loaderMetadata {
+  margin-top: var(--spacer-large);
+  display: flex;
+  gap: var(--spacer-base);
+}
+
+.loaderOverview {
+  margin-top: var(--spacer-large);
+  width: 90%;
+}
+
+.loaderCastItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacer-base);
+}
+
+.loaderCastName {
+  height: var(--font-size-small);
+  width: calc(var(--avatar-size) * .7);
+}
+
+.loaderPoster {
+  width: 300px;
+  height: 400px;
+}
+
+.loaderAction {
+  width: 200px;
+  height: 64px;
+}
+
+.loaderActionPill {
+  border-radius: 100px;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     padding-top: calc(var(--header-height) + var(--spacer-large));
@@ -114,6 +157,10 @@
       "actions"
       "details"
       "cast";
+  }
+
+  .cast {
+    justify-content: center;
   }
 
   .details .title {
@@ -142,150 +189,26 @@
     justify-content: center;
     gap: var(--spacer-base);
   }
-}
 
-/*
-.showInfo {
-  width: 100%;
-  color: white;
-}
-
-.metadata {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacer-large);
-}
-
-
-
-
-
-.cast {
-  flex: 1;
-  justify-content: flex-start !important;
-  display: flex;
-  justify-content: flex-start;
-  margin-top: var(--spacer-large);
-  gap: calc(var(--spacer-base) * 1.5);
-}
-
-.poster {
-  display: flex;
-  gap: var(--spacer-large);
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.posterActions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacer-base);
-}
-
-.favoriteIcon {
-  position: relative;
-  display: inline-block;
-  max-width: 20px;
-  margin-right: var(--spacer-small);
-}
-
-.buttonAction {
-  display: inline-flex;
-  align-items: center;
-}
-
-.loaderTitle {
-  display: flex;
-  gap: var(--spacer-base);
-  height: var(--font-size-large);
-}
-
-.loaderMetadata {
-  margin-top: var(--spacer-large);
-  display: flex;
-  gap: var(--spacer-base);
-}
-
-.loaderOverview {
-  margin-top: var(--spacer-large);
-  width: 90%;
-}
-
-.loaderCastPerson {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacer-base);
-}
-
-.loaderCastName {
-  height: var(--font-size-small);
-  width: calc(var(--avatar-size) * .7);
-}
-
-.loaderAction {
-  width: 200px;
-  height: var(--button-large-height);
-}
-
-.loaderPoster {
-  width: 300px;
-  height: 400px;
-}
-
-@media screen and (max-width: 768px) {
-  .details {
-    padding-top: calc(var(--header-height) + var(--spacer-large));
-    padding-bottom: var(--spacer-extra-large);
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: flex-end;
-    gap: var(--spacer-large);
+  .loaderTitle {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .title {
-    font-size: var(--font-size-large) !important;
-  }
-
-  .cast {
-    flex: 1;
-    gap: var(--spacer-base) !important;
-  }
-
-  .poster {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    align-self: center;
-    width: 100%;
-    gap: var(--spacer-large);
-  }
-
-  .posterImage {
-    min-width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .overview {
-    margin-right: 0;
-  }
-
-  .rating {
-    margin-right: var(--spacer-base);
-  }
-
-  .loaderPoster {
-    width: 100%
+  .loaderMetadata {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .loaderOverview {
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100% !important;
   }
 
-  .buttons {
-    gap: var(--spacer-base);
-    flex-wrap: wrap;
+  .loaderPoster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
   }
-} */
+}

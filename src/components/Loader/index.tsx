@@ -21,6 +21,7 @@ interface RectangleProps extends ComponentPropsWithoutRef<'div'> {
 
 interface ParagraphProps extends ComponentPropsWithoutRef<'div'> {
   lines: number
+  isJustified?: boolean
 }
 
 export function Loader({ className, children, ...props }: LoaderProps) {
@@ -50,14 +51,21 @@ export function Rectangle({
   return <Motion className={classes} style={{ width, height }} {...props} />
 }
 
-export function Paragraph({ lines, className, ...props }: ParagraphProps) {
+export function Paragraph({
+  lines,
+  className,
+  isJustified = false,
+  ...props
+}: ParagraphProps) {
   const classes = classNames(styles.paragraph, className)
   const content = []
 
   for (let i = 0; i < lines; i++) {
     const min = Math.ceil(90)
     const max = Math.floor(100)
-    const width = Math.floor(Math.random() * (max - min + 1)) + min
+    const width = isJustified
+      ? 100
+      : Math.floor(Math.random() * (max - min + 1)) + min
 
     content.push(
       <Rectangle
