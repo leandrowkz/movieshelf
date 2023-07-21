@@ -1,4 +1,4 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { createContext, useContext, type HTMLAttributes } from 'react'
 import type {
   Movie,
   PersonCast,
@@ -27,29 +27,7 @@ import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
-
-type DetailsProps = {
-  show: Movie | TVShow
-  isLoading?: boolean
-}
-
-type CastProps = {
-  people: (PersonCast | PersonCrew)[]
-  isLoading?: boolean
-}
-
-type ActionProps = {
-  show: Movie | TVShow
-  states: UserShowStates
-  isLoading?: boolean
-}
-
-type PosterProps = {
-  show: Movie | TVShow
-  states: UserShowStates
-  videos: Video[]
-  isLoading?: boolean
-}
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
@@ -60,6 +38,18 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   isLoadingPeople: boolean
   isLoadingActions: boolean
 }
+
+const state: Props = {
+  show: {} as Movie | TVShow,
+  videos: [],
+  people: [],
+  states: {} as UserShowStates,
+  isLoadingShow: false,
+  isLoadingActions: false,
+  isLoadingPeople: false,
+}
+
+const ShowDetailsContext = createContext(state)
 
 export function ShowDetails({
   show,
@@ -74,33 +64,41 @@ export function ShowDetails({
   if (!show) {
     return <></>
   }
+
+  const state = {
+    show,
+    people,
+    videos,
+    states,
+    isLoadingActions,
+    isLoadingPeople,
+    isLoadingShow,
+  }
+
   const { getShowTitle, getShowImageUrl } = useHelpers()
   const backdrop = getShowImageUrl(show.backdrop_path || '', 500)
 
   return (
-    <section className={styles.details} {...props}>
-      <div
-        className={styles.backdrop}
-        style={{ backgroundImage: `url(${backdrop})` }}
-        title={getShowTitle(show)}
-      />
-      <div className={styles.showInfo}>
-        <Details show={show} isLoading={isLoadingShow} />
-        <Cast people={people} isLoading={isLoadingPeople} />
-        <Actions show={show} states={states} isLoading={isLoadingActions} />
-      </div>
-      <Poster
-        show={show}
-        videos={videos}
-        states={states}
-        isLoading={isLoadingShow}
-      />
-    </section>
+    <ShowDetailsContext.Provider value={state}>
+      <section className={styles.container} {...props}>
+        <div
+          className={styles.backdrop}
+          style={{ backgroundImage: `url(${backdrop})` }}
+          title={getShowTitle(show)}
+        />
+        <Details />
+        <Cast />
+        <Poster />
+        <Actions />
+      </section>
+    </ShowDetailsContext.Provider>
   )
 }
 
-function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
-  if (isLoading) {
+function Details(): JSX.Element {
+  const { show, isLoadingShow } = useContext(ShowDetailsContext)
+
+  if (isLoadingShow) {
     return <LoaderDetails />
   }
 
@@ -109,7 +107,7 @@ function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
   const { overview, vote_average: rating } = show
 
   return (
-    <Motion tag="section" className={styles.content}>
+    <Motion tag="section" className={styles.details}>
       <Heading
         level={1}
         title={getShowTitle(show)}
@@ -138,20 +136,17 @@ function Details({ show, isLoading = false }: DetailsProps): JSX.Element {
           data-testid="show-genres"
         />
       </div>
-      <Text
-        isParagraph
-        isMuted
-        className={styles.overview}
-        data-testid="show-overview"
-      >
+      <Text isMuted className={styles.overview} data-testid="show-overview">
         {overview}
       </Text>
     </Motion>
   )
 }
 
-function Cast({ people, isLoading = false }: CastProps): JSX.Element {
-  if (isLoading) {
+function Cast(): JSX.Element {
+  const { people, isLoadingPeople } = useContext(ShowDetailsContext)
+
+  if (isLoadingPeople) {
     return <LoaderCast />
   }
 
@@ -165,30 +160,45 @@ function Cast({ people, isLoading = false }: CastProps): JSX.Element {
   )
 }
 
-function Actions({
-  show,
-  states,
-  isLoading = false,
-}: ActionProps): JSX.Element {
-  if (isLoading) {
+function Actions(): JSX.Element {
+  const isMobile = useScreenSize('mobile')
+  const isTablet = useScreenSize('tablet')
+  const isSmallDevice = isMobile || isTablet
+  const { show, states, videos, isLoadingActions } =
+    useContext(ShowDetailsContext)
+
+  if (isLoadingActions) {
     return <LoaderActions />
   }
 
   return (
-    <Motion className={styles.buttons}>
-      <WatchlistButton show={show} states={states} />
-      <WatchedButton show={show} states={states} />
+    <Motion className={styles.actions}>
+      <div className={styles.leftActions}>
+        <WatchlistButton show={show} states={states} size="large" />
+        {!isSmallDevice && (
+          <WatchedButton show={show} states={states} size="large" />
+        )}
+      </div>
+      <div className={styles.rightActions}>
+        <FavoriteButton show={show} states={states} size="medium" rounded />
+        {isSmallDevice && (
+          <WatchedButton
+            show={show}
+            states={states}
+            size="medium"
+            rounded
+            isSmallDevice
+          />
+        )}
+        <ShowTrailerButton videos={videos} pill size="medium" />
+      </div>
     </Motion>
   )
 }
 
-function Poster({
-  show,
-  states,
-  videos,
-  isLoading = false,
-}: PosterProps): JSX.Element {
-  if (isLoading) {
+function Poster(): JSX.Element {
+  const { show, isLoadingShow } = useContext(ShowDetailsContext)
+  if (isLoadingShow) {
     return <LoaderPoster />
   }
 
@@ -199,10 +209,6 @@ function Poster({
         data-testid="show-poster"
         className={styles.posterImage}
       />
-      <div className={styles.posterActions}>
-        <FavoriteButton show={show} states={states} size="medium" rounded />
-        <ShowTrailerButton videos={videos} pill size="medium" />
-      </div>
     </Motion>
   )
 }

@@ -38,38 +38,51 @@ export const TVShowDetailsContextProvider = ({
   }
 
   const fetchStates = async (showId: number) => {
-    setStates({} as UserShowStates)
-    setIsLoading((prev) => ({ ...prev, fetchStates: true }))
-    setHasErrors((prev) => ({ ...prev, fetchStates: false }))
+    try {
+      setStates({} as UserShowStates)
+      setIsLoading((prev) => ({ ...prev, fetchStates: true }))
+      setHasErrors((prev) => ({ ...prev, fetchStates: false }))
 
-    const data = await api.fetchStates(showId)
+      const data = await api.fetchStates(showId)
 
-    setStates(data)
-
-    setIsLoading((prev) => ({ ...prev, fetchStates: false }))
+      setStates(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchStates: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchStates: false }))
+    }
   }
 
   const fetchCredits = async (showId: number) => {
-    setCredits({} as TVShowCredits)
-    setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
-    setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
+    try {
+      setCredits({} as TVShowCredits)
+      setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
+      setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
 
-    const data = await api.fetchCredits(showId)
+      const data = await api.fetchCredits(showId)
 
-    setCredits(data)
-
-    setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+      setCredits(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchCredits: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+    }
   }
 
   const fetchVideos = async (showId: number) => {
-    setVideos([])
-    setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
-    setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
+    try {
+      setVideos([])
+      setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
+      setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
 
-    const data = await api.fetchVideos(showId)
+      const data = await api.fetchVideos(showId)
 
-    setVideos(data)
-    setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
+      setVideos(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchVideos: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
+    }
   }
 
   const state = {
