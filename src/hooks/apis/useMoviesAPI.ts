@@ -46,6 +46,14 @@ async function fetchListRecommended(
   return api.get(path)
 }
 
+async function fetchListSearch(
+  filters = {}
+): Promise<ListPaginated<MovieItem>> {
+  const path = api.buildPath('/api/movies/search', filters)
+
+  return api.get(path)
+}
+
 async function fetchListInTheatres(
   filters = {}
 ): Promise<ListPaginated<MovieItem>> {
@@ -83,6 +91,7 @@ export const useMoviesAPI = () => ({
   fetchCredits,
   fetchVideos,
   fetchStates,
+  fetchListSearch,
   fetchListInTheatres,
   fetchListPopular,
   fetchListRecommended,

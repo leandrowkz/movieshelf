@@ -2,6 +2,7 @@ import type { MovieItem } from '@leandrowkz/tmdb'
 import type { ListPaginated } from 'src/types'
 
 export type MovieListsState = {
+  search: ListPaginated<MovieItem>
   similar: ListPaginated<MovieItem>
   popular: ListPaginated<MovieItem>
   trending: ListPaginated<MovieItem>
@@ -12,6 +13,7 @@ export type MovieListsState = {
   bestFamily: ListPaginated<MovieItem>
   bestScifiAndFantasy: ListPaginated<MovieItem>
 
+  fetchSearch: () => void
   fetchPopular: () => void
   fetchTrending: () => void
   fetchSimilar: (showId: number) => void

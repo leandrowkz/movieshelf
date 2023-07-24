@@ -1,4 +1,4 @@
-import { tmdb, dispatch } from '../api'
+import { dispatch, tmdb } from '../api'
 import { transformListResponse } from '../helpers'
 
 export const config = {
@@ -10,7 +10,7 @@ export default async (req: Request) =>
     const { searchParams } = new URL(req.url)
     const query = String(searchParams.get('query'))
 
-    const response = await tmdb.search.multiSearch({ query })
+    const response = await tmdb.search.movies({ query })
 
-    return transformListResponse(response)
+    return transformListResponse(response, 'movie')
   })

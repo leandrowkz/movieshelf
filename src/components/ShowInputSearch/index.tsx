@@ -13,6 +13,16 @@ import { Input } from '../Input'
 export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate()
 
+  function debounce(func: any, timeout = 300) {
+    let timer: any
+    return (...args: any) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        func.call(args)
+      }, timeout)
+    }
+  }
+
   return (
     <div {...props} className={styles.input} data-testid="user-menu">
       <Dropdown.Wrapper>
