@@ -1,11 +1,5 @@
-.avatar {
-  height: var(--input-small-height);
-  width: var(--input-small-height);
-  border-radius: 200px;
-  overflow: hidden;
-  border: 1px solid var(--color-gray-200);
-}
-
-.avatar img {
+.input {
   width: 100%;
+  position: absolute;
+  z-index: 12;
 }

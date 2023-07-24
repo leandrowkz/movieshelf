@@ -83,7 +83,8 @@
 .mobile .logo {
   display: block;
   text-align: center;
-  transform: scale(80%);
+  transform: scale(70%);
+  grid-area: logo;
 }
 
 .mobile .menuSandwichButton {

@@ -6,6 +6,7 @@ import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
 import { UserMenu } from '../UserMenu'
 import { Heading } from '../Heading'
+import { ShowInputSearch } from '../ShowInputSearch'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   darkBackground?: boolean
@@ -24,6 +25,7 @@ export function Header({ darkBackground = false, className, ...props }: Props) {
     <header {...props} className={classes}>
       <Logo className={styles.logo} data-testid="logo" />
       <Menu data-testid="menu" />
+      <ShowInputSearch data-testid="search" />
       <UserMenu className={styles.user} data-testid="user-menu" />
     </header>
   )

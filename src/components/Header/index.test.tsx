@@ -11,6 +11,7 @@ test('Should render header properly', async () => {
 
   expect(screen.getByTestId('logo')).toBeVisible()
   expect(screen.getByTestId('menu')).toBeVisible()
+  expect(screen.getByTestId('search')).toBeVisible()
 })
 
 test('Should render menu links properly', async () => {

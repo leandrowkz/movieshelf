@@ -8,41 +8,18 @@ import md5 from 'md5'
 import { Heading } from '../Heading'
 import { Text } from '../Text'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Input } from '../Input'
 
 export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
-  const isMobile = useScreenSize('mobile')
   const navigate = useNavigate()
-  const { session, signOut } = useContext(AuthContext)
-
-  const doSignOut = () => {
-    signOut().then(() => navigate('/'))
-  }
-
-  if (!session) {
-    return (
-      <div {...props}>
-        <Link to="/sign-up" data-testid="sign-up">
-          <Button size={isMobile ? 'small' : 'medium'}>Sign up</Button>
-        </Link>
-      </div>
-    )
-  }
-
-  const { user } = session
 
   return (
-    <div {...props} data-testid="user-menu">
+    <div {...props} className={styles.input} data-testid="user-menu">
       <Dropdown.Wrapper>
         <Dropdown.Trigger>
-          <Avatar />
+          <Input placeholder="Search for movies, tv shows..." />
         </Dropdown.Trigger>
         <Dropdown.Menu>
-          <Dropdown.Header>
-            <Heading level={3} title={user.name} />
-            <Text isMuted size="small">
-              {user.email}
-            </Text>
-          </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate('/favorites')}>
             💜 Favorites
           </Dropdown.Item>
@@ -59,7 +36,6 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
           >
             🥳 Be a sponsor
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => doSignOut()}>🚪 Sign out</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Wrapper>
     </div>

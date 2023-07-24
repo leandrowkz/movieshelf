@@ -1,4 +1,9 @@
-import type { MovieItem, TMDBResponseList, TVShowItem } from '@leandrowkz/tmdb'
+import type {
+  MovieItem,
+  SearchMultiSearchResponse,
+  TMDBResponseList,
+  TVShowItem,
+} from '@leandrowkz/tmdb'
 import type {
   ListPaginated,
   ShowStatesPayload,
@@ -9,7 +14,9 @@ import type {
 import { isListed } from './user/lists/helpers'
 
 export function transformListResponse(
-  response: TMDBResponseList<MovieItem[] | TVShowItem[]>,
+  response:
+    | TMDBResponseList<MovieItem[] | TVShowItem[]>
+    | SearchMultiSearchResponse,
   showType?: ShowType
 ) {
   const list: ListPaginated<MovieItem | TVShowItem> = {
@@ -21,7 +28,7 @@ export function transformListResponse(
 
   const { results, page, total_pages, total_results } = response
 
-  list.data = results
+  list.data = results as (MovieItem | TVShowItem)[]
   list.page = page
   list.pages = total_pages
   list.count = total_results
