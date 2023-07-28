@@ -2,7 +2,7 @@ import type { MovieItem } from '@leandrowkz/tmdb'
 import type { ListFilters, ListPaginated } from 'src/types'
 
 export type MovieListsState = {
-  search: ListPaginated<MovieItem>
+  searchList: ListPaginated<MovieItem>
   similar: ListPaginated<MovieItem>
   popular: ListPaginated<MovieItem>
   trending: ListPaginated<MovieItem>
@@ -13,7 +13,7 @@ export type MovieListsState = {
   bestFamily: ListPaginated<MovieItem>
   bestScifiAndFantasy: ListPaginated<MovieItem>
 
-  fetchSearch: (filters?: ListFilters) => void
+  searchMovies: (filters?: ListFilters) => void
   fetchPopular: () => void
   fetchTrending: () => void
   fetchSimilar: (showId: number) => void

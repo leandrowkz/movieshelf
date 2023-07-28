@@ -25,7 +25,7 @@ export function Header({ darkBackground = false, className, ...props }: Props) {
     <header {...props} className={classes}>
       <Logo className={styles.logo} data-testid="logo" />
       <Menu data-testid="menu" />
-      <ShowInputSearch data-testid="search" />
+      <ShowInputSearch className={styles.search} data-testid="search" />
       <UserMenu className={styles.user} data-testid="user-menu" />
     </header>
   )

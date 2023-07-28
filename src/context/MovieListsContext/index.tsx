@@ -14,7 +14,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const api = useMoviesAPI()
   const { getEmptyListPaginated } = useHelpers()
 
-  const [search, setSearch] = useState(initialState.search)
+  const [searchList, setSearchList] = useState(initialState.searchList)
   const [similar, setSimilar] = useState(initialState.similar)
   const [popular, setPopular] = useState(initialState.popular)
   const [trending, setTrending] = useState(initialState.trending)
@@ -29,9 +29,9 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   )
   const [bestFamily, setBestFamily] = useState(initialState.bestFamily)
 
-  const fetchSearch = async (filters?: ListFilters) => {
+  const searchMovies = async (filters?: ListFilters) => {
     try {
-      setSearch({
+      setSearchList({
         ...getEmptyListPaginated(),
         isLoading: true,
         hasErrors: false,
@@ -39,9 +39,9 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
 
       const data = await api.fetchListSearch(filters)
 
-      setSearch({ ...data, isLoading: false })
+      setSearchList({ ...data, isLoading: false })
     } catch {
-      setSearch((prev) => ({
+      setSearchList((prev) => ({
         ...prev,
         data: [],
         hasErrors: true,
@@ -256,7 +256,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   const state = {
-    search,
+    searchList,
     trending,
     popular,
     similar,
@@ -267,7 +267,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     bestDocumentaries,
     bestFamily,
 
-    fetchSearch,
+    searchMovies,
     fetchPopular,
     fetchSimilar,
     fetchInTheatres,

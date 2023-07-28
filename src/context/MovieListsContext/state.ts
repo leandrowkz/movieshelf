@@ -4,7 +4,7 @@ import { useHelpers } from 'src/hooks/useHelpers'
 const { getEmptyListPaginated } = useHelpers()
 
 export const initialState: MovieListsState = {
-  search: getEmptyListPaginated(),
+  searchList: getEmptyListPaginated(),
   similar: getEmptyListPaginated(),
   popular: getEmptyListPaginated(),
   trending: getEmptyListPaginated(),
@@ -15,7 +15,7 @@ export const initialState: MovieListsState = {
   bestFamily: getEmptyListPaginated(),
   bestScifiAndFantasy: getEmptyListPaginated(),
 
-  fetchSearch: () => null,
+  searchMovies: () => null,
   fetchSimilar: () => null,
   fetchPopular: () => null,
   fetchTrending: () => null,

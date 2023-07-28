@@ -1,11 +1,21 @@
+.searchButton {
+  /* color: white; */
+  font-size: xx-large;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
 .input {
   width: 100%;
   position: absolute;
   z-index: 12;
+  box-sizing: border-box;
+  padding: 0 var(--container-spacer);
 }
 
 .dropdown {
   max-height: 400px;
+  margin-top: 5px;
   overflow-y: auto;
   width: 100%;
 }

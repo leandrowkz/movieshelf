@@ -51,6 +51,10 @@
   font-size: var(--input-large-font-size);
 }
 
+.rounded {
+  border-radius: 100px;
+}
+
 .mobile {
   border-radius: var(--radius-base);
   font-size: calc(var(--font-size-base) * .8);
