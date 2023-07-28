@@ -1,71 +1,86 @@
-import React, { type HTMLAttributes, useContext } from 'react'
+/* eslint-disable no-var */
+import React, {
+  type HTMLAttributes,
+  useContext,
+  useState,
+  useEffect,
+} from 'react'
 import styles from './styles.module.css'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button } from '../Button'
-import { AuthContext } from 'src/context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 import { Dropdown } from '../Dropdown'
-import md5 from 'md5'
 import { Heading } from '../Heading'
 import { Text } from '../Text'
-import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Input } from '../Input'
+import { MovieListsContext } from 'src/context/MovieListsContext'
+import { ShowPoster } from '../ShowPoster'
+import { Rating } from '../Rating'
+import { useHelpers } from 'src/hooks/useHelpers'
+import { ShowGenres } from '../ShowGenres'
+
+const { getShowReleaseYear } = useHelpers()
 
 export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate()
+  const [value, setValue] = useState('')
+  const { search, fetchSearch } = useContext(MovieListsContext)
 
-  function debounce(func: any, timeout = 300) {
-    let timer: any
-    return (...args: any) => {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        func.call(args)
-      }, timeout)
-    }
-  }
+  useEffect(() => {
+    const searchData = setTimeout(() => {
+      fetchSearch({ query: value })
+    }, 200)
+
+    return () => clearTimeout(searchData)
+  }, [value])
 
   return (
     <div {...props} className={styles.input} data-testid="user-menu">
       <Dropdown.Wrapper>
         <Dropdown.Trigger>
-          <Input placeholder="Search for movies, tv shows..." />
+          <Input
+            placeholder="Search for movies, tv shows..."
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
         </Dropdown.Trigger>
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => navigate('/favorites')}>
-            💜 Favorites
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => navigate('/watchlist')}>
-            🎬 Watchlist
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => navigate('/watched')}>
-            ✅ Watched
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() =>
-              window.open('https://github.com/sponsors/leandrowkz', '_blank')
-            }
-          >
-            🥳 Be a sponsor
-          </Dropdown.Item>
+        <Dropdown.Menu className={styles.dropdown}>
+          {search.data.map((item) => (
+            <Dropdown.Item
+              key={`search-movie-${item.id}`}
+              onClick={() => navigate(`/movies/${item.id}`)}
+            >
+              <div className={styles.item}>
+                <ShowPoster show={item} className={styles.poster} />
+                <Heading
+                  level={3}
+                  title={item.title}
+                  className={styles.title}
+                />
+                <Text className={styles.overview} size="small">
+                  {item.overview}
+                </Text>
+                <div className={styles.metadata}>
+                  <Rating
+                    score={item.vote_average}
+                    size="small"
+                    className={styles.rating}
+                    data-testid="show-rating"
+                  />
+                  <Text isMuted size="small" data-testid="show-year">
+                    {getShowReleaseYear(item)}
+                  </Text>
+                  <ShowGenres
+                    show={item}
+                    separator=", "
+                    size="small"
+                    limit={5}
+                    data-testid="show-genres"
+                  />
+                </div>
+              </div>
+            </Dropdown.Item>
+          ))}
         </Dropdown.Menu>
       </Dropdown.Wrapper>
-    </div>
-  )
-}
-
-const Avatar = () => {
-  const { session } = useContext(AuthContext)
-
-  if (!session) {
-    return <></>
-  }
-
-  const { user } = session
-  const hash = md5(user.email)
-  const img = `https://www.gravatar.com/avatar/${hash}?d=mp`
-
-  return (
-    <div className={styles.avatar} data-testid="user-avatar">
-      <img src={img} />
     </div>
   )
 }

@@ -3,3 +3,41 @@
   position: absolute;
   z-index: 12;
 }
+
+.dropdown {
+  max-height: 400px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.item {
+  display: grid;
+  column-gap: var(--spacer-small);
+  grid-template-columns: 48px 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "poster title"
+    "poster metadata"
+    "poster overview";
+}
+
+.title {
+  grid-area: title;
+}
+
+.poster {
+  grid-area: poster;
+}
+
+.metadata {
+  grid-area: metadata;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacer-small);
+}
+
+.overview {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import { GenreCode } from '@leandrowkz/tmdb'
+import type { ListFilters } from 'src/types'
 import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
@@ -28,7 +29,7 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   )
   const [bestFamily, setBestFamily] = useState(initialState.bestFamily)
 
-  const fetchSearch = async (filters = {}) => {
+  const fetchSearch = async (filters?: ListFilters) => {
     try {
       setSearch({
         ...getEmptyListPaginated(),
