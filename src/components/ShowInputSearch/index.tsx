@@ -19,11 +19,15 @@ import { useHelpers } from 'src/hooks/useHelpers'
 import { ShowGenres } from '../ShowGenres'
 import { MdOutlineSearch } from 'react-icons/md'
 import { useClickOutside } from 'src/hooks/useClickOutside'
+import { useScreenSize } from 'src/hooks/useScreenSize'
 
 const { getShowReleaseYear } = useHelpers()
 
 export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   const wrapperRef = useRef(null)
+  const isMobile = useScreenSize('mobile')
+  const isTablet = useScreenSize('tablet')
+
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
   const { searchList, searchMovies } = useContext(MovieListsContext)
@@ -50,18 +54,24 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
     )
   }
 
+  const containerClasses = classNames(styles.inputContainer, {
+    [styles.mobile]: isMobile || isTablet,
+  })
+
   return (
     <div
       {...props}
-      className={styles.input}
+      className={containerClasses}
       data-testid="input-search"
       ref={wrapperRef}
     >
       <Dropdown.Wrapper>
-        <Dropdown.Trigger>
+        <Dropdown.Trigger className={styles.trigger}>
+          <MdOutlineSearch className={styles.inputIcon} />
           <Input
             placeholder="Search for movies, tv shows..."
             value={value}
+            className={styles.input}
             onChange={(e) => setValue(e.target.value)}
           />
         </Dropdown.Trigger>
@@ -100,6 +110,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
                     show={item}
                     separator=", "
                     size="small"
+                    className={styles.genres}
                     limit={5}
                     data-testid="show-genres"
                   />

@@ -1,11 +1,10 @@
 .searchButton {
-  /* color: white; */
   font-size: xx-large;
   cursor: pointer;
   margin-top: 4px;
 }
 
-.input {
+.inputContainer {
   width: 100%;
   position: absolute;
   z-index: 12;
@@ -13,9 +12,24 @@
   padding: 0 var(--container-spacer);
 }
 
+.input {
+  padding-left: var(--spacer-extra-large);
+}
+
+.inputIcon {
+  z-index: 10;
+  font-size: xx-large;
+  position: absolute;
+  margin: 15px 20px;
+}
+
+.trigger {
+  position: relative;
+}
+
 .dropdown {
   max-height: 400px;
-  margin-top: 5px;
+  margin-bottom: -2px;
   overflow-y: auto;
   width: 100%;
 }
@@ -33,6 +47,9 @@
 
 .title {
   grid-area: title;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .poster {
@@ -44,10 +61,33 @@
   display: flex;
   align-items: baseline;
   gap: var(--spacer-small);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.genres {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.rating {
+  white-space: nowrap;
 }
 
 .overview {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.mobile .input {
+  padding-left: calc(var(--spacer-base) * 3);
+}
+
+.mobile .inputIcon {
+  font-size: larger;
+  margin-top: 14px;
+  margin-left: var(--spacer-base);
 }

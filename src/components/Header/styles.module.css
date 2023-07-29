@@ -5,7 +5,7 @@
   left: 0;
   display: grid;
   padding: 0 var(--container-spacer);
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto 1fr auto auto;
   grid-template-areas: "logo menu search user";
   align-items: center;
   height: var(--header-height);
