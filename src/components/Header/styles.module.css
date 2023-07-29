@@ -89,8 +89,9 @@
   display: block;
   text-align: center;
   transform: scale(70%);
-  width: 100px;
+  margin-left: -36px;
   grid-area: logo;
+  align-self: center;
 }
 
 .mobile .search {
