@@ -18,7 +18,6 @@ import { Rating } from '../Rating'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { ShowGenres } from '../ShowGenres'
 import { MdOutlineSearch } from 'react-icons/md'
-import { Motion } from '../Motion'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 
 const { getShowReleaseYear } = useHelpers()
@@ -45,9 +44,9 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
     const classes = classNames(styles.searchButton, props.className)
 
     return (
-      <Motion className={classes} onClick={() => setOpen(true)}>
+      <div className={classes} onClick={() => setOpen(true)}>
         <MdOutlineSearch />
-      </Motion>
+      </div>
     )
   }
 
