@@ -1,7 +1,14 @@
 .searchButton {
-  font-size: xx-large;
+  font-size: var(--font-size-base);
   cursor: pointer;
-  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-small);
+}
+
+.searchIcon {
+  font-size: 120%;
+  margin-top: 1px;
 }
 
 .inputContainer {
@@ -90,4 +97,13 @@
   font-size: larger;
   margin-top: 14px;
   margin-left: var(--spacer-base);
+}
+
+.mobile.searchButton {
+  font-size: 150%;
+  margin-top: 4px;
+}
+
+.mobile.searchButton .searchText {
+  display: none;
 }

@@ -45,11 +45,14 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   useClickOutside(wrapperRef, () => setOpen(false))
 
   if (!open) {
-    const classes = classNames(styles.searchButton, props.className)
+    const buttonClasses = classNames(styles.searchButton, props.className, {
+      [styles.mobile]: isMobile,
+    })
 
     return (
-      <div className={classes} onClick={() => setOpen(true)}>
-        <MdOutlineSearch />
+      <div className={buttonClasses} onClick={() => setOpen(true)}>
+        <MdOutlineSearch className={styles.searchIcon} />
+        <Text className={styles.searchText}>Search</Text>
       </div>
     )
   }
