@@ -50,9 +50,10 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
 
     return (
       <div
+        data-testid="search-button"
+        {...props}
         className={buttonClasses}
         onClick={() => setOpen(true)}
-        data-testid="search-button"
       >
         <MdOutlineSearch className={styles.searchIcon} />
         <Text className={styles.searchText}>Search</Text>
@@ -66,9 +67,9 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
 
   return (
     <div
+      data-testid="search-input-container"
       {...props}
       className={containerClasses}
-      data-testid="search-input-container"
       ref={wrapperRef}
     >
       <Dropdown.Wrapper>
