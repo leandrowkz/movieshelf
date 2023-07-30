@@ -49,7 +49,11 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
     })
 
     return (
-      <div className={buttonClasses} onClick={() => setOpen(true)}>
+      <div
+        className={buttonClasses}
+        onClick={() => setOpen(true)}
+        data-testid="search-button"
+      >
         <MdOutlineSearch className={styles.searchIcon} />
         <Text className={styles.searchText}>Search</Text>
       </div>
@@ -64,7 +68,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
     <div
       {...props}
       className={containerClasses}
-      data-testid="input-search"
+      data-testid="search-input-container"
       ref={wrapperRef}
     >
       <Dropdown.Wrapper>
@@ -76,6 +80,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
             className={styles.input}
             autoFocus
             onChange={(e) => setValue(e.target.value)}
+            data-testid="search-input"
           />
         </Dropdown.Trigger>
         <Dropdown.Menu className={styles.dropdown}>
@@ -86,7 +91,8 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
           )}
           {results.data.map((item) => (
             <Dropdown.Item
-              key={`search-show-${item.id}`}
+              data-testid="search-item"
+              key={`search-show-${item.media_type}-${Math.random() * item.id}`}
               onClick={() =>
                 (window.location.href = `/${
                   item.media_type === 'movie' ? 'movies' : 'tv'

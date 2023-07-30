@@ -44,11 +44,16 @@ async function fetchListDiscover() {
   return { ...mockMoviesListPaginated }
 }
 
+async function fetchListSearch() {
+  return { ...mockMoviesListPaginated }
+}
+
 const actions = {
   fetchMovie,
   fetchCredits,
   fetchVideos,
   fetchStates,
+  fetchListSearch,
   fetchListPopular,
   fetchListDiscover,
   fetchListInTheatres,
