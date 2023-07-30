@@ -1,6 +1,5 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import { GenreCode } from '@leandrowkz/tmdb'
-import type { ListFilters } from 'src/types'
 import type { MovieListsState } from './types'
 import { initialState } from './state'
 import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
@@ -14,7 +13,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   const api = useMoviesAPI()
   const { getEmptyListPaginated } = useHelpers()
 
-  const [searchList, setSearchList] = useState(initialState.searchList)
   const [similar, setSimilar] = useState(initialState.similar)
   const [popular, setPopular] = useState(initialState.popular)
   const [trending, setTrending] = useState(initialState.trending)
@@ -28,27 +26,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     initialState.bestScifiAndFantasy
   )
   const [bestFamily, setBestFamily] = useState(initialState.bestFamily)
-
-  const searchMovies = async (filters?: ListFilters) => {
-    try {
-      setSearchList({
-        ...getEmptyListPaginated(),
-        isLoading: true,
-        hasErrors: false,
-      })
-
-      const data = await api.fetchListSearch(filters)
-
-      setSearchList({ ...data, isLoading: false })
-    } catch {
-      setSearchList((prev) => ({
-        ...prev,
-        data: [],
-        hasErrors: true,
-        isLoading: false,
-      }))
-    }
-  }
 
   const fetchSimilar = async (movieId: number, filters = {}) => {
     try {
@@ -256,7 +233,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   const state = {
-    searchList,
     trending,
     popular,
     similar,
@@ -267,7 +243,6 @@ export const MovieListsContextProvider = ({ children }: PropsWithChildren) => {
     bestDocumentaries,
     bestFamily,
 
-    searchMovies,
     fetchPopular,
     fetchSimilar,
     fetchInTheatres,

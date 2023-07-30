@@ -1,4 +1,3 @@
-/* eslint-disable no-var */
 import React, {
   type HTMLAttributes,
   useContext,
@@ -12,7 +11,6 @@ import { Dropdown } from '../Dropdown'
 import { Heading } from '../Heading'
 import { Text } from '../Text'
 import { Input } from '../Input'
-import { MovieListsContext } from 'src/context/MovieListsContext'
 import { ShowPoster } from '../ShowPoster'
 import { Rating } from '../Rating'
 import { useHelpers } from 'src/hooks/useHelpers'
@@ -20,6 +18,7 @@ import { ShowGenres } from '../ShowGenres'
 import { MdOutlineSearch } from 'react-icons/md'
 import { useClickOutside } from 'src/hooks/useClickOutside'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { SearchContext } from 'src/context/SearchContext'
 
 const { getShowReleaseYear } = useHelpers()
 
@@ -30,12 +29,12 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-  const { searchList, searchMovies } = useContext(MovieListsContext)
+  const { results, search } = useContext(SearchContext)
 
   useEffect(() => {
     const searchData = setTimeout(() => {
       if (value) {
-        searchMovies({ query: value })
+        search({ query: value })
       }
     }, 200)
 
@@ -75,25 +74,30 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
             placeholder="Search for movies, tv shows..."
             value={value}
             className={styles.input}
+            autoFocus
             onChange={(e) => setValue(e.target.value)}
           />
         </Dropdown.Trigger>
         <Dropdown.Menu className={styles.dropdown}>
-          {searchList.isLoading && (
+          {results.isLoading && (
             <Dropdown.Header>
               <Text>Searching...</Text>
             </Dropdown.Header>
           )}
-          {searchList.data.map((item) => (
+          {results.data.map((item) => (
             <Dropdown.Item
-              key={`search-movie-${item.id}`}
-              onClick={() => (window.location.href = `/movies/${item.id}`)}
+              key={`search-show-${item.id}`}
+              onClick={() =>
+                (window.location.href = `/${
+                  item.media_type === 'movie' ? 'movies' : 'tv'
+                }/${item.id}`)
+              }
             >
               <div className={styles.item}>
                 <ShowPoster show={item} className={styles.poster} />
                 <Heading
                   level={3}
-                  title={item.title}
+                  title={item.media_type === 'tv' ? item.name : item.title}
                   className={styles.title}
                 />
                 <Text className={styles.overview} size="small">
