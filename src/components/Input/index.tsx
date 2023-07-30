@@ -10,16 +10,27 @@ import { useScreenSize } from '../../hooks/useScreenSize'
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   inputSize?: 'small' | 'medium' | 'large'
   errorMessage?: ReactNode
+  isRounded?: boolean
 }
 
 // eslint-disable-next-line react/display-name
 export const Input = forwardRef<HTMLInputElement, Props>(
-  ({ inputSize = 'medium', className, errorMessage, ...props }: Props, ref) => {
+  (
+    {
+      inputSize = 'medium',
+      className,
+      errorMessage,
+      isRounded = false,
+      ...props
+    }: Props,
+    ref
+  ) => {
     const isMobile = useScreenSize('mobile')
     const classes = classNames(styles.input, className, {
       [styles.mobile]: isMobile,
       [styles.small]: inputSize === 'small',
       [styles.large]: inputSize === 'large',
+      [styles.rounded]: isRounded,
     })
 
     return (

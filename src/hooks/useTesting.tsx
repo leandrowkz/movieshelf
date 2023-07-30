@@ -31,6 +31,7 @@ import type { UserShowStates } from 'src/types'
 import { mockShowStates } from 'src/__mocks__/mockShowStates'
 import { GenresContextProvider } from 'src/context/GenresContext'
 import type { GenresState } from 'src/context/GenresContext/types'
+import { SearchContextProvider } from 'src/context/SearchContext'
 
 jest.mock('src/hooks/useSupabase')
 
@@ -81,7 +82,7 @@ function renderComponent(component: ReactElement) {
                 <TVSeasonDetailsContextProvider>
                   <MovieListsContextProvider>
                     <MovieDetailsContextProvider>
-                      {children}
+                      <SearchContextProvider>{children}</SearchContextProvider>
                     </MovieDetailsContextProvider>
                   </MovieListsContextProvider>
                 </TVSeasonDetailsContextProvider>

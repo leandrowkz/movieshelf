@@ -5,8 +5,8 @@
   left: 0;
   display: grid;
   padding: 0 var(--container-spacer);
-  grid-template-columns: auto 1fr auto;
-  grid-template-areas: "logo menu user";
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-areas: "logo menu search user";
   align-items: center;
   height: var(--header-height);
   width: 100%;
@@ -70,20 +70,32 @@
   color: white;
 }
 
+.darkBackground .search {
+  color: white;
+}
+
 .menuActive {
   font-weight: bold;
   color: var(--color-primary) !important;
 }
 
 .mobile.header {
-  gap: var(--spacer-base);
-  grid-template-areas: "menu logo user";
+  gap: var(--spacer-small);
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-areas: "menu search logo user";
 }
 
 .mobile .logo {
   display: block;
   text-align: center;
-  transform: scale(80%);
+  transform: scale(70%);
+  margin-left: -36px;
+  grid-area: logo;
+  align-self: center;
+}
+
+.mobile .search {
+  margin-top: 9px;
 }
 
 .mobile .menuSandwichButton {

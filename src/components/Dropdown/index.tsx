@@ -25,17 +25,21 @@ const Trigger = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   )
 }
 
-const Menu = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
+const Menu = ({
+  children,
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
   const wrapperRef = useRef(null)
   const { isOpen, close } = useContext(DropdownContext)
-  const classes = classNames(styles.menu, {
+  const classes = classNames(styles.menu, className, {
     [styles.open]: isOpen,
   })
 
   useClickOutside(wrapperRef, close)
 
   return (
-    <div className={classes} ref={wrapperRef} {...props}>
+    <div {...props} className={classes} ref={wrapperRef}>
       {children}
     </div>
   )

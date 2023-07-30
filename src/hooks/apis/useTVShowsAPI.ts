@@ -36,6 +36,14 @@ async function fetchListPopular(
   return api.get(path)
 }
 
+async function fetchListSearch(
+  filters = {}
+): Promise<ListPaginated<TVShowItem>> {
+  const path = api.buildPath('/api/tv-shows/search', filters)
+
+  return api.get(path)
+}
+
 async function fetchListOnTheAir(
   filters = {}
 ): Promise<ListPaginated<TVShowItem>> {
@@ -94,6 +102,7 @@ export const useTVShowsAPI = () => ({
   fetchVideos,
   fetchStates,
   fetchCredits,
+  fetchListSearch,
   fetchListPopular,
   fetchListRecommended,
   fetchListSimilar,

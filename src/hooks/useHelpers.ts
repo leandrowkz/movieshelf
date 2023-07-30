@@ -50,6 +50,10 @@ function getShowReleaseYear(show: Show) {
 }
 
 function getYearFromDateString(date: string) {
+  if (!date) {
+    return
+  }
+
   return new Date(date).getFullYear().toString()
 }
 

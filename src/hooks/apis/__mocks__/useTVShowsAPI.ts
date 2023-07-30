@@ -48,11 +48,16 @@ async function fetchListDiscover() {
   return { ...mockTVShowsListPaginated }
 }
 
+async function fetchListSearch() {
+  return { ...mockTVShowsListPaginated }
+}
+
 const apis = {
   fetchTVShow,
   fetchCredits,
   fetchVideos,
   fetchStates,
+  fetchListSearch,
   fetchListAiringToday,
   fetchListDiscover,
   fetchListOnTheAir,
