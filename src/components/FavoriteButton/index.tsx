@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
+import { toast } from 'react-toastify'
 import type { ShowType, UserShowStates } from 'src/types'
 import { type ButtonProps, Button } from '../../components/Button'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
@@ -40,9 +41,19 @@ export function FavoriteButton({ show, states, ...props }: Props): JSX.Element {
       return navigate('/sign-in')
     }
 
-    const refreshedStates = !favorite
-      ? await addToList('favorites', showId, type)
-      : await removeFromList('favorites', showId, type)
+    let refreshedStates, toastTitle, toastIcon
+
+    if (!favorite) {
+      refreshedStates = await addToList('favorites', showId, type)
+      toastTitle = 'Added to your favorites list'
+      toastIcon = <IoHeart color="red" />
+    } else {
+      refreshedStates = await removeFromList('favorites', showId, type)
+      toastTitle = 'Removed from your favorites list'
+      toastIcon = <IoHeartOutline />
+    }
+
+    toast(toastTitle, { icon: toastIcon })
 
     if (type === 'movie') {
       setMovieStates(refreshedStates)
