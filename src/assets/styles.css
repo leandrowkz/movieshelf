@@ -155,3 +155,10 @@ a {
 a:hover {
   color: var(--color-red-600);
 }
+
+.Toastify__toast {
+  margin: var(--spacer-base);
+  box-sizing: border-box;
+  border-radius: var(--radius-base);
+  line-height: 1.5;
+}

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import type { Movie, TVShow } from '@leandrowkz/tmdb'
 import { Button, type ButtonProps } from '../../components/Button'
 import type { ShowType, UserShowStates } from 'src/types'
@@ -47,9 +48,19 @@ export function WatchedButton({
       return navigate('/sign-in')
     }
 
-    const refreshedStates = !watched
-      ? await addToList('watched', showId, type)
-      : await removeFromList('watched', showId, type)
+    let refreshedStates, toastTitle, toastIcon
+
+    if (!watched) {
+      refreshedStates = await addToList('watched', showId, type)
+      toastTitle = 'Added to your watched list'
+      toastIcon = <IoCheckmarkDoneCircle color="green" />
+    } else {
+      refreshedStates = await removeFromList('watched', showId, type)
+      toastTitle = 'Removed from your watched list'
+      toastIcon = ImEyePlus
+    }
+
+    toast(toastTitle, { icon: toastIcon })
 
     if (type === 'movie') {
       setMovieStates(refreshedStates)

@@ -8,6 +8,7 @@ import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
 import { AuthContext } from 'src/context/AuthContext'
 import { UserListsContext } from 'src/context/UserListsContext'
 import { MdPlaylistAdd, MdFactCheck } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 interface Props extends ButtonProps {
   show: Movie | TVShow
@@ -40,9 +41,19 @@ export function WatchlistButton({ show, states, ...rest }: Props): JSX.Element {
       return navigate('/sign-in')
     }
 
-    const refreshedStates = !watchlist
-      ? await addToList('watchlist', showId, type)
-      : await removeFromList('watchlist', showId, type)
+    let refreshedStates, toastTitle, toastIcon
+
+    if (!watchlist) {
+      refreshedStates = await addToList('watchlist', showId, type)
+      toastTitle = 'Added to your watchlist'
+      toastIcon = <MdFactCheck color="green" />
+    } else {
+      refreshedStates = await removeFromList('watchlist', showId, type)
+      toastTitle = 'Removed from your watchlist'
+      toastIcon = MdPlaylistAdd
+    }
+
+    toast(toastTitle, { icon: toastIcon })
 
     if (type === 'movie') {
       setMovieStates(refreshedStates)
