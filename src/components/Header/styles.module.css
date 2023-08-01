@@ -88,8 +88,8 @@
 .mobile .logo {
   position: fixed;
   left: 50%;
-  transform: translateX(-31%);
-  margin-left: -30px;
+  top: 35px;
+  transform: translateX(-55%);
   grid-area: logo;
 }
 
