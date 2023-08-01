@@ -10,3 +10,8 @@
   line-height: 1;
   white-space: nowrap;
 }
+
+.logo.small .logoName {
+  font-weight: bold;
+  font-size: 110%;
+}

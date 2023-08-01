@@ -26,6 +26,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   const wrapperRef = useRef(null)
   const isMobile = useScreenSize('mobile')
   const isTablet = useScreenSize('tablet')
+  const isSmallScreen = isMobile || isTablet
 
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
@@ -45,7 +46,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
 
   if (!open) {
     const buttonClasses = classNames(styles.searchButton, props.className, {
-      [styles.mobile]: isMobile,
+      [styles.mobile]: isSmallScreen,
     })
 
     return (
@@ -62,7 +63,7 @@ export function ShowInputSearch(props: HTMLAttributes<HTMLDivElement>) {
   }
 
   const containerClasses = classNames(styles.inputContainer, {
-    [styles.mobile]: isMobile || isTablet,
+    [styles.mobile]: isSmallScreen,
   })
 
   return (

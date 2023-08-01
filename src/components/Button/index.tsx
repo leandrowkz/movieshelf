@@ -6,7 +6,6 @@ import React, {
 } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
-import { useScreenSize } from '../../hooks/useScreenSize'
 import { RiLoader4Line } from 'react-icons/ri'
 
 export interface ButtonProps
@@ -33,9 +32,7 @@ export function Button({
   icon,
   ...props
 }: ButtonProps) {
-  const isMobile = useScreenSize('mobile')
   const classes = classNames(styles.button, className, {
-    [styles.mobile]: isMobile,
     [styles.small]: size === 'small',
     [styles.large]: size === 'large',
     [styles.secondary]: variant === 'secondary',

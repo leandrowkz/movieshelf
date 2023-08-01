@@ -15,15 +15,20 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 export function Header({ darkBackground = false, className, ...props }: Props) {
   const isMobile = useScreenSize('mobile')
   const isTablet = useScreenSize('tablet')
+  const isSmallDevice = isMobile || isTablet
 
   const classes = classNames(styles.header, className, {
-    [styles.mobile]: isMobile || isTablet,
+    [styles.mobile]: isSmallDevice,
     [styles.darkBackground]: darkBackground,
   })
 
   return (
     <header {...props} className={classes}>
-      <Logo className={styles.logo} data-testid="logo" />
+      <Logo
+        data-testid="logo"
+        className={styles.logo}
+        size={isSmallDevice ? 'small' : undefined}
+      />
       <Menu data-testid="menu" />
       <ShowInputSearch className={styles.search} data-testid="search" />
       <UserMenu className={styles.user} data-testid="user-menu" />

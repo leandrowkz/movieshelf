@@ -89,16 +89,6 @@
   overflow: hidden;
 }
 
-.mobile .input {
-  padding-left: calc(var(--spacer-base) * 3);
-}
-
-.mobile .inputIcon {
-  font-size: larger;
-  margin-top: 14px;
-  margin-left: var(--spacer-base);
-}
-
 .mobile.searchButton {
   font-size: 150%;
   margin-top: 4px;

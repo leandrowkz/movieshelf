@@ -86,12 +86,11 @@
 }
 
 .mobile .logo {
-  display: block;
-  text-align: center;
-  transform: scale(70%);
-  margin-left: -36px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-31%);
+  margin-left: -30px;
   grid-area: logo;
-  align-self: center;
 }
 
 .mobile .search {
