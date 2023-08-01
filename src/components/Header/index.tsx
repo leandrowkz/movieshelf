@@ -24,9 +24,11 @@ export function Header({ darkBackground = false, className, ...props }: Props) {
 
   return (
     <header {...props} className={classes}>
-      <div className={styles.logo}>
-        <Logo data-testid="logo" size={isSmallDevice ? 'small' : undefined} />
-      </div>
+      <Logo
+        data-testid="logo"
+        className={styles.logo}
+        size={isSmallDevice ? 'small' : undefined}
+      />
       <Menu data-testid="menu" />
       <ShowInputSearch className={styles.search} data-testid="search" />
       <UserMenu className={styles.user} data-testid="user-menu" />
