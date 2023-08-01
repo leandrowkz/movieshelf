@@ -16,10 +16,10 @@ const Wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => {
 }
 
 const Trigger = ({ children }: HTMLAttributes<HTMLDivElement>) => {
-  const { toggle } = useContext(DropdownContext)
+  const { open } = useContext(DropdownContext)
 
   return (
-    <div className={styles.trigger} onClick={toggle}>
+    <div className={styles.trigger} onClick={open} onFocus={open}>
       {children}
     </div>
   )

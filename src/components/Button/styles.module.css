@@ -138,29 +138,6 @@
   background-color: rgba(255, 255, 255, .4);
 }
 
-.mobile {
-  border-radius: var(--radius-base);
-  font-size: calc(var(--font-size-base) * .8);
-  height: calc(var(--button-medium-height) * .8);
-  line-height: calc(var(--button-medium-height) * .8);
-  padding: 0 calc(var(--spacer-base) * .8);
-}
-
-.mobile.small {
-  border-radius: var(--radius-small);
-  font-size: calc(var(--font-size-base) * .7);
-  height: calc(var(--button-small-height) * .8);
-  line-height: calc(var(--button-small-height) * .8);
-  padding: 0 calc(var(--spacer-small) * .8);
-}
-
-.mobile.large {
-  font-size: calc(var(--font-size-base) * .9);
-  height: calc(var(--button-large-height) * .8);
-  line-height: calc(var(--button-large-height) * .8);
-  padding: 0 var(--spacer-base);
-}
-
 @keyframes rotating {
   from {
     -ms-transform: rotate(0deg);

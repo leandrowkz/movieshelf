@@ -24,6 +24,7 @@
 .newsletter .input {
   display: flex;
   gap: var(--spacer-small);
+  flex-wrap: wrap;
 }
 
 .logoSection {

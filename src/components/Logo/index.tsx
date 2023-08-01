@@ -15,7 +15,9 @@ export function Logo({
   onlyIcon = false,
   ...props
 }: Props) {
-  const classes = classNames(styles.logo, className)
+  const classes = classNames(styles.logo, className, {
+    [styles.small]: size === 'small',
+  })
   const title = onlyIcon ? '🍿' : '🍿 movieshelf'
   let level: 1 | 2 | 3 = 2
 
