@@ -48,7 +48,7 @@ export function IntegrationNewRelic({
     sa,
   }
 
-  const script = `
+  const content = `
     ;window.NREUM||(NREUM={});NREUM.init=${JSON.stringify(initOptions)};
 
     ;NREUM.loader_config=${JSON.stringify(loaderConfigOptions)};
@@ -60,7 +60,7 @@ export function IntegrationNewRelic({
   return (
     <script
       type="text/javascript"
-      dangerouslySetInnerHTML={{ __html: script }}
+      dangerouslySetInnerHTML={{ __html: content }}
     />
   )
 }

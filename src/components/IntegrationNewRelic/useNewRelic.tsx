@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
-// import React from 'react'
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 
 export type NewRelicProps = {
   // agent?: string
@@ -58,11 +59,26 @@ export function useNewRelic({
   `
 
   const initialize = () => {
-    const tag = document.createElement('script')
-    tag.setAttribute('type', 'text/javascript')
-    tag.innerText = content
-    document.head.appendChild(tag)
+    const ScriptTag = (
+      <script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    )
+    const root = createRoot(document.head)
+
+    root.render(ScriptTag)
   }
+
+  // const initialize = () => {
+  //   const tag = document.createElement('script')
+  //   tag.setAttribute('type', 'text/javascript')
+  //   tag.setAttribute(
+  //     'src',
+  //     `data:text/javascript;base64,${window.btoa(content)}`
+  //   )
+  //   document.head.appendChild(tag)
+  // }
 
   return { initialize }
 }
