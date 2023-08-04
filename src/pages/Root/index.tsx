@@ -1,25 +1,23 @@
 import React, { useContext, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
 import { ToastContainer } from 'react-toastify'
-// import { useNewRelic } from 'src/components/IntegrationNewRelic/useNewRelic'
 import { AuthContext } from 'src/context/AuthContext'
 import { GenresContext } from 'src/context/GenresContext'
+import { useNewRelic } from 'src/hooks/useNewRelic'
 import { useScreenSize } from 'src/hooks/useScreenSize'
-import { IntegrationNewRelic } from 'src/components/IntegrationNewRelic'
 
 export const Root = () => {
   const location = useLocation()
   const isMobile = useScreenSize('mobile')
   const isTablet = useScreenSize('tablet')
   const isSmallDevice = isMobile || isTablet
-  // const newRelic = useNewRelic({
-  //   agentID: String(process.env.REACT_APP_NEWRELIC_AGENT_ID),
-  //   accountID: String(process.env.REACT_APP_NEWRELIC_ACCOUNT_ID),
-  //   applicationID: String(process.env.REACT_APP_NEWRELIC_APPLICATION_ID),
-  //   licenseKey: String(process.env.REACT_APP_NEWRELIC_LICENSE_KEY),
-  //   trustKey: String(process.env.REACT_APP_NEWRELIC_TRUST_KEY),
-  // })
+  const newRelic = useNewRelic({
+    agentID: String(process.env.REACT_APP_NEWRELIC_AGENT_ID),
+    accountID: String(process.env.REACT_APP_NEWRELIC_ACCOUNT_ID),
+    applicationID: String(process.env.REACT_APP_NEWRELIC_APPLICATION_ID),
+    licenseKey: String(process.env.REACT_APP_NEWRELIC_LICENSE_KEY),
+    trustKey: String(process.env.REACT_APP_NEWRELIC_TRUST_KEY),
+  })
   const { autoSignIn } = useContext(AuthContext)
   const { fetchMoviesGenresCodes, fetchTVShowsGenresCodes } =
     useContext(GenresContext)
@@ -31,7 +29,7 @@ export const Root = () => {
   }, [location])
 
   useEffect(() => {
-    // newRelic.initialize()
+    newRelic.initialize()
     autoSignIn()
     fetchMoviesGenresCodes()
     fetchTVShowsGenresCodes()
