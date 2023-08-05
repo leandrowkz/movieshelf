@@ -2,7 +2,7 @@
 An opensource movie, tv and cast catalog that uses The Movie Database API to fetch movies/tv data.
 Take a look at this project running on https://movieshelf.app.
 
-![Movieshelf showcase](./docs/movieshelf-showcase.gif)
+![Movieshelf showcase](./docs/movieshelf.jpeg)
 
 ## 📦 Dependencies
 This project uses Create React APP, React Router, CSS modules and Context API. It also uses the
@@ -19,7 +19,7 @@ to this repository (the copy you made it). You can use it the [Vercel CLI](https
 to do so. After creating and linking a Vercel project to the copy of this repository you need to
 create an TMDB apikey and set it on your vercel project.
 
-So, the steps you need to run this locally:
+The steps you need to run this locally:
 1. Install the [Vercel CLI](https://vercel.com/docs/cli)
 2. Create a [new Vercel project](https://vercel.com/new)
 3. Run `$ vercel link` to link your copied repository to your vercel created project
@@ -29,6 +29,9 @@ So, the steps you need to run this locally:
 7. Run `$ yarn start:dev` to start the project
 
 If everything went right then you will have the project running on the http://localhost:3000.
+
+## 🐞 Monitoring
+This project uses [New Relic](https://docs.newrelic.com/) as monitoring tool, to log errors and metrics. If you want to use it, just add the necessary env variables to enable it. Follow New Relic's quick start guide to create a Browser monitoring app on it, then copy the values inside generated script to your `.env` file. If you don't want to enable New Relic in your application, no worries, just leave the related env vars empty.
 
 ## ☕ Contribute to this project
 Help this project to be bigger by submitting a feature request, working on a new feature or
