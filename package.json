@@ -5,8 +5,8 @@
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "@leandrowkz/tmdb": "^2.1.2",
+    "@newrelic/browser-agent": "^1.237.1",
     "@supabase/supabase-js": "^2.22.0",
-    "@types/md5": "^2.3.2",
     "classnames": "^2.3.2",
     "md5": "^2.3.0",
     "react": "^18.2.0",
@@ -26,6 +26,7 @@
     "@testing-library/user-event": "^14.0.0",
     "@types/jest": "^29.4.0",
     "@types/jsonp": "^0.2.1",
+    "@types/md5": "^2.3.2",
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
