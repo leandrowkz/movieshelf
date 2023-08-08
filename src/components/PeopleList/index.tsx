@@ -35,6 +35,7 @@ export function PeopleList({ people, className, size = 4, ...props }: Props) {
           className={css.person}
           title={person.name}
           to={`/person/${person.id}`}
+          data-testid="person-item"
         >
           <div
             className={css.avatar}
