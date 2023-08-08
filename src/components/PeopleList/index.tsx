@@ -6,6 +6,7 @@ import { Motion } from '../Motion'
 import type { PersonCast } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Link } from 'react-router-dom'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   people: PersonCast[]
@@ -28,11 +29,16 @@ export function PeopleList({ people, className, size = 4, ...props }: Props) {
 
   return (
     <Motion tag="div" className={classes} {...props}>
-      {cast.map((actor, index) => (
-        <div key={index} className={css.person} title={actor.name}>
+      {cast.map((person, index) => (
+        <Link
+          key={index}
+          className={css.person}
+          title={person.name}
+          to={`/person/${person.id}`}
+        >
           <div
             className={css.avatar}
-            style={getStyle(actor)}
+            style={getStyle(person)}
             data-testid="person-avatar"
           />
           <Text
@@ -42,9 +48,9 @@ export function PeopleList({ people, className, size = 4, ...props }: Props) {
             isMuted
             data-testid="person-name"
           >
-            {actor.name}
+            {person.name}
           </Text>
-        </div>
+        </Link>
       ))}
     </Motion>
   )

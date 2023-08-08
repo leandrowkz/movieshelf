@@ -14,6 +14,7 @@ import { SignIn } from 'src/pages/SignIn'
 import { Favorites } from 'src/pages/Favorites'
 import { Watchlist } from 'src/pages/Watchlist'
 import { Watched } from 'src/pages/Watched'
+import { PersonDetails } from 'src/pages/PersonDetails'
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: '/tv/:tvShowId',
         element: <TVShowDetails />,
+      },
+      {
+        path: '/person/:personId',
+        element: <PersonDetails />,
       },
       {
         path: '*',
