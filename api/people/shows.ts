@@ -17,13 +17,20 @@ export default async (req: Request) =>
 
     const lists: MovieLists = []
 
-    crew.map((movie) => {
-      const found = lists.find((item) => item.job === movie.job)
+    crew.map((show) => {
+      const found = lists.find((item) => item.job === show.job)
 
-      if (!found && movie.job) {
+      if (!found && show.job) {
+        const data = crew
+          .filter((item) => item.job === show.job)
+          .map((show) => {
+            show.media_type = 'tv'
+            return show
+          }) as TVShowItem[]
+
         lists.push({
-          job: movie.job,
-          data: crew.filter((item) => item.job === movie.job) as TVShowItem[],
+          data,
+          job: show.job,
         })
       }
     })

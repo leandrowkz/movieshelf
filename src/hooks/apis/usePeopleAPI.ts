@@ -5,7 +5,7 @@ import { APIClient } from './APIClient'
 const api = new APIClient('')
 
 async function fetchPerson(personId: number): Promise<Person> {
-  const path = api.buildPath('/api/people', { personId })
+  const path = api.buildPath('/api/people/details', { personId })
 
   return api.get(path)
 }
@@ -21,7 +21,7 @@ async function fetchMovies(
 async function fetchTVShows(
   personId: number
 ): Promise<ListByJob<TVShowItem[]>[]> {
-  const path = api.buildPath('/api/people/movies', { personId })
+  const path = api.buildPath('/api/people/tv-shows', { personId })
 
   return api.get(path)
 }

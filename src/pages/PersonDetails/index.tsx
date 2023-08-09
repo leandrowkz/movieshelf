@@ -1,90 +1,60 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { MovieListsContext } from '../../context/MovieListsContext'
-import { ShowCarousel } from '../../components/ShowCarousel'
-import { ShowDetails } from 'src/components/ShowDetails'
+import { Text } from 'src/components/Text'
 import { NotFound } from '../404'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
+import { PeopleContext } from 'src/context/PeopleContext'
+import { ShowList } from 'src/components/ShowList'
+import { Container } from 'src/components/Container'
+import styles from './styles.module.css'
 
 export function PersonDetails(): JSX.Element {
-  const { getCreditsDirector } = useHelpers()
   const { personId } = useParams()
 
   const {
-    movie,
-    credits,
-    videos,
-    states,
-    isLoading,
+    person,
+    movies,
+    tvShows,
+    fetchPerson,
+    fetchMovies,
+    fetchTVShows,
+    // isLoading,
     hasErrors,
-    fetchMovie,
-    fetchCredits,
-    fetchVideos,
-    fetchStates,
-  } = useContext(MovieDetailsContext)
-
-  const {
-    similar,
-    recommended,
-    trending,
-    fetchTrending,
-    fetchRecommended,
-    fetchSimilar,
-  } = useContext(MovieListsContext)
+  } = useContext(PeopleContext)
 
   useEffect(() => {
     const id = Number(personId)
 
-    fetchMovie(id)
-    fetchVideos(id)
-    fetchStates(id)
-    fetchCredits(id)
-
-    fetchSimilar(id)
-    fetchRecommended(id)
-    fetchTrending()
+    fetchPerson(id)
+    fetchMovies(id)
+    fetchTVShows(id)
   }, [personId])
 
-  if (!movie || hasErrors.fetchMovie) {
-    return <NotFound data-testid="show-not-found" />
+  if (!person || hasErrors.fetchPerson) {
+    return <NotFound data-testid="person-not-found" />
   }
 
-  const { cast = [], crew = [] } = credits
-  const director = getCreditsDirector(crew)
-  const people = director ? [director, ...cast] : cast
-
   return (
-    <Page darkHeader>
-      <ShowDetails
-        show={movie}
-        people={people}
-        videos={videos}
-        states={states}
-        isLoadingShow={isLoading.fetchMovie}
-        isLoadingPeople={isLoading.fetchCredits}
-        isLoadingActions={isLoading.fetchStates}
-        data-testid="show-details"
-      />
-      <ShowCarousel
-        shows={similar.data}
-        title="More movies like this"
-        isLoading={similar.isLoading}
-        data-testid="carousel-similar"
-      />
-      <ShowCarousel
-        shows={recommended.data}
-        title="Recommended movies based on this title"
-        isLoading={recommended.isLoading}
-        data-testid="carousel-recommended"
-      />
-      <ShowCarousel
-        shows={trending.data}
-        title="Popular movies"
-        isLoading={trending.isLoading}
-        data-testid="carousel-trending"
-      />
+    <Page>
+      <Container>
+        <Text>{JSON.stringify(person)}</Text>
+        {movies.map((list, index) => (
+          <ShowList
+            key={`list-movies-${index}-${list.job}`}
+            title={list.job}
+            shows={list.data}
+            className={styles.list}
+          />
+        ))}
+        {tvShows.map((list, index) => (
+          <ShowList
+            key={`list-tvShows-${index}-${list.job}`}
+            title={list.job}
+            shows={list.data}
+            className={styles.list}
+          />
+        ))}
+      </Container>
     </Page>
   )
 }

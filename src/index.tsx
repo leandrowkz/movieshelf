@@ -13,9 +13,9 @@ import { MovieListsContextProvider } from './context/MovieListsContext'
 import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVShowListsContextProvider } from './context/TVShowListsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
-
 import { UserListsContextProvider } from './context/UserListsContext'
 import { SearchContextProvider } from './context/SearchContext'
+import { PeopleContextProvider } from './context/PeopleContext'
 
 const App = () => {
   return (
@@ -30,7 +30,9 @@ const App = () => {
                     <TVShowDetailsContextProvider>
                       <NewsletterContextProvider>
                         <SearchContextProvider>
-                          <RouterProvider router={router} />
+                          <PeopleContextProvider>
+                            <RouterProvider router={router} />
+                          </PeopleContextProvider>
                         </SearchContextProvider>
                       </NewsletterContextProvider>
                     </TVShowDetailsContextProvider>

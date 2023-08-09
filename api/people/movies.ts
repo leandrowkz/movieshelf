@@ -21,9 +21,16 @@ export default async (req: Request) =>
       const found = lists.find((item) => item.job === movie.job)
 
       if (!found && movie.job) {
+        const data = crew
+          .filter((item) => item.job === movie.job)
+          .map((movie) => {
+            movie.media_type = 'movie'
+            return movie
+          }) as MovieItem[]
+
         lists.push({
+          data,
           job: movie.job,
-          data: crew.filter((item) => item.job === movie.job) as MovieItem[],
         })
       }
     })
