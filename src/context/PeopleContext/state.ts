@@ -1,7 +1,7 @@
 import type { Person } from '@leandrowkz/tmdb'
-import type { PersonState } from './types'
+import type { PeopleState } from './types'
 
-export const initialState: PersonState = {
+export const initialState: PeopleState = {
   person: {} as Person,
   movies: [],
   tvShows: [],

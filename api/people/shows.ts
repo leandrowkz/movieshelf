@@ -1,39 +1,39 @@
 import type { TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from '../../src/types'
+import type { ListByJob } from '../../src/types'
 import { dispatch, tmdb } from '../api'
-import { transformListResponse } from '../helpers'
 
 export const config = {
   runtime: 'edge',
 }
 
+type MovieLists = ListByJob<TVShowItem[]>[]
+
 export default async (req: Request) =>
   dispatch(async () => {
     const { searchParams } = new URL(req.url)
-    const { genres } = await tmdb.genres.tv()
+    const personId = Number(searchParams.get('personId'))
 
-    const lists: ListByGenre<ListPaginated<TVShowItem>>[] = []
-    const genreIds = searchParams.get('with_genres')?.split(',') || []
+    const { cast, crew } = await tmdb.people.tvCredits(personId)
 
-    await Promise.all(
-      genreIds.map(async (genreId) => {
-        const response = await tmdb.discover.tv({
-          with_genres: [genreId],
+    const lists: MovieLists = []
+
+    crew.map((movie) => {
+      const found = lists.find((item) => item.job === movie.job)
+
+      if (!found && movie.job) {
+        lists.push({
+          job: movie.job,
+          data: crew.filter((item) => item.job === movie.job) as TVShowItem[],
         })
+      }
+    })
 
-        const genre = genres.find((genre) => genre.id === Number(genreId))
-
-        if (genre) {
-          lists.push({
-            genre,
-            data: transformListResponse(
-              response,
-              'tv'
-            ) as ListPaginated<TVShowItem>,
-          })
-        }
+    if (cast.length) {
+      lists.push({
+        job: 'Actor',
+        data: cast,
       })
-    )
+    }
 
     return lists
   })

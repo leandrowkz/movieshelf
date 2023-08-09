@@ -1,7 +1,7 @@
 import type { MovieItem, Person, TVShowItem } from '@leandrowkz/tmdb'
 import type { ListByJob } from 'src/types'
 
-export type PersonState = {
+export type PeopleState = {
   person: Person
   movies: ListByJob<MovieItem[]>[]
   tvShows: ListByJob<TVShowItem[]>[]

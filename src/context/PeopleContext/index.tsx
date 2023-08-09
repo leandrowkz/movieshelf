@@ -1,14 +1,14 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { Person } from '@leandrowkz/tmdb'
-import type { PersonState } from './types'
+import type { PeopleState } from './types'
 import { initialState } from './state'
 import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
 
-export const PersonContext = createContext<PersonState>({
+export const PeopleContext = createContext<PeopleState>({
   ...initialState,
 })
 
-export const PersonContextProvider = ({ children }: PropsWithChildren) => {
+export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
   const api = usePeopleAPI()
 
   const [person, setPerson] = useState(initialState.person)
@@ -77,6 +77,6 @@ export const PersonContextProvider = ({ children }: PropsWithChildren) => {
   }
 
   return (
-    <PersonContext.Provider value={state}>{children}</PersonContext.Provider>
+    <PeopleContext.Provider value={state}>{children}</PeopleContext.Provider>
   )
 }
