@@ -1,4 +1,5 @@
 import type {
+  Department,
   Movie,
   MovieItem,
   PersonCrew,
@@ -6,7 +7,7 @@ import type {
   TVShowItem,
   Video,
 } from '@leandrowkz/tmdb'
-import type { ListPaginated } from 'src/types'
+import type { ListPaginated, Nullable } from 'src/types'
 
 type Show = Movie | TVShow | MovieItem | TVShowItem
 
@@ -92,6 +93,38 @@ function getEmptyListPaginated<T>(): ListPaginated<T> {
   }
 }
 
+function getJobByDepartment(
+  department: Department,
+  gender: Nullable<number> = 2
+) {
+  switch (department) {
+    case 'Acting':
+      return gender && gender > 1 ? 'Actor' : 'Actress'
+    case 'Directing':
+      return 'Director'
+    case 'Production':
+      return 'Producer'
+    case 'Writing':
+      return 'Writer'
+    default:
+      return department
+  }
+}
+
+function getAgeFromDate(birthday: string) {
+  const bday = new Date(birthday)
+  const ageDifMs = Date.now() - bday.getTime()
+  const ageDate = new Date(ageDifMs)
+
+  return Math.abs(ageDate.getUTCFullYear() - 1970)
+}
+
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(
+    Date.parse(date)
+  )
+}
+
 export const useHelpers = () => ({
   getShowTitle,
   getShowRuntimeOrSeasons,
@@ -102,4 +135,7 @@ export const useHelpers = () => ({
   getCreditsProducer,
   getYearFromDateString,
   getEmptyListPaginated,
+  getJobByDepartment,
+  getAgeFromDate,
+  formatDate,
 })

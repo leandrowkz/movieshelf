@@ -35,10 +35,15 @@ export default async (req: Request) =>
       }
     })
 
+    lists.sort((a, b) => b.data.length - a.data.length)
+
     if (cast.length) {
       lists.push({
         job: 'Actor',
-        data: cast,
+        data: cast.map((item) => {
+          item.media_type = 'movie'
+          return item
+        }),
       })
     }
 

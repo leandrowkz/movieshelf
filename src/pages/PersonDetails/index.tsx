@@ -6,6 +6,7 @@ import { NotFound } from '../404'
 import { PeopleContext } from 'src/context/PeopleContext'
 import { ShowList } from 'src/components/ShowList'
 import { Container } from 'src/components/Container'
+import { PersonDetails as PersonDetailsBlock } from 'src/components/PersonDetails'
 import styles from './styles.module.css'
 
 export function PersonDetails(): JSX.Element {
@@ -18,7 +19,7 @@ export function PersonDetails(): JSX.Element {
     fetchPerson,
     fetchMovies,
     fetchTVShows,
-    // isLoading,
+    isLoading,
     hasErrors,
   } = useContext(PeopleContext)
 
@@ -37,7 +38,7 @@ export function PersonDetails(): JSX.Element {
   return (
     <Page>
       <Container>
-        <Text>{JSON.stringify(person)}</Text>
+        <PersonDetailsBlock person={person} isLoading={isLoading.fetchPerson} />
         {movies.map((list, index) => (
           <ShowList
             key={`list-movies-${index}-${list.job}`}
