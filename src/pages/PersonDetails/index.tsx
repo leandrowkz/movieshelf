@@ -16,9 +16,11 @@ export function PersonDetails(): JSX.Element {
 
   const {
     person,
+    images,
     movies,
     tvShows,
     fetchPerson,
+    fetchImages,
     fetchMovies,
     fetchTVShows,
     isLoading,
@@ -29,6 +31,7 @@ export function PersonDetails(): JSX.Element {
     const id = Number(personId)
 
     fetchPerson(id)
+    fetchImages(id)
     fetchMovies(id)
     fetchTVShows(id)
   }, [personId])
@@ -40,7 +43,11 @@ export function PersonDetails(): JSX.Element {
   return (
     <Page>
       <Container>
-        <PersonDetailsBlock person={person} isLoading={isLoading.fetchPerson} />
+        <PersonDetailsBlock
+          person={person}
+          images={images}
+          isLoading={isLoading.fetchPerson}
+        />
         {!isLoading.fetchPerson && (
           <ShowTypeFilters
             value={filter}

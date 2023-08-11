@@ -9,7 +9,8 @@ export default async (req: Request) =>
     const { searchParams } = new URL(req.url)
     const personId = Number(searchParams.get('personId'))
 
-    const { results } = await tmdb.people.images(personId)
+    // @ts-expect-error return type with error
+    const { profiles } = await tmdb.people.images(personId)
 
-    return results
+    return profiles
   })
