@@ -43,12 +43,13 @@ export function PersonDetails(): JSX.Element {
   return (
     <Page>
       <Container>
-        <PersonDetailsSection />
+        <PersonDetailsSection data-testid="person-details" />
         {!isLoading.fetchPerson && (
           <ShowTypeFilters
             value={filter}
             onFilter={(type) => setFilter(type)}
             className={styles.filters}
+            data-testid="filters"
           />
         )}
         {filter === 'movie' &&
@@ -58,6 +59,7 @@ export function PersonDetails(): JSX.Element {
               title={list.job}
               shows={list.data}
               className={styles.list}
+              data-testid="movies-list"
             />
           ))}
         {filter === 'tv' &&
@@ -67,10 +69,11 @@ export function PersonDetails(): JSX.Element {
               title={list.job}
               shows={list.data}
               className={styles.list}
+              data-testid="tv-shows-list"
             />
           ))}
       </Container>
-      <PersonImagesModal />
+      <PersonImagesModal data-testid="person-images-modal" />
     </Page>
   )
 }

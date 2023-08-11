@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import classNames from 'classnames'
 import css from './styles.module.css'
 import { useHelpers } from 'src/hooks/useHelpers'
@@ -6,7 +6,7 @@ import { Image } from '../Image'
 import { PeopleContext } from 'src/context/PeopleContext'
 import { Avatar } from '../Avatar'
 
-export function PersonImagesModal() {
+export function PersonImagesModal(props: HTMLAttributes<HTMLDivElement>) {
   const { getShowImageUrl } = useHelpers()
 
   const { images, closeModalImage, setActiveImage } = useContext(PeopleContext)
@@ -16,6 +16,7 @@ export function PersonImagesModal() {
 
   return (
     <div
+      {...props}
       className={classNames(css.activeImageBackdrop, {
         [css.open]: open,
       })}
