@@ -1,0 +1,82 @@
+.person {
+  display: grid;
+  column-gap: var(--spacer-large);
+  grid-template-rows: repeat(5, auto);
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "avatar name images"
+    "avatar knownFor images"
+    "avatar birthplace images"
+    "avatar age images"
+    "bio bio bio";
+}
+
+.avatar {
+  grid-area: avatar;
+}
+
+.name {
+  grid-area: name;
+  margin: 0;
+}
+
+.knownFor {
+  grid-area: knownFor;
+  color: var(--font-color-muted);
+}
+
+.birthplace {
+  grid-area: birthplace;
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-small);
+}
+
+.age {
+  grid-area: age;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacer-small);
+}
+
+.images {
+  grid-area: images;
+}
+
+.bio {
+  grid-area: bio;
+  margin-top: var(--spacer-large);
+}
+
+.person.mobile {
+  grid-template-rows: repeat(7, auto);
+  grid-template-columns: 1fr;
+  row-gap: var(--spacer-small);
+  place-items: center;
+  grid-template-areas:
+    "avatar"
+    "name"
+    "knownFor"
+    "birthplace"
+    "age"
+    "images"
+    "bio"
+}
+
+.person.mobile .name {
+  text-align: center;
+}
+
+.person.mobile .age {
+  justify-content: center;
+}
+
+.person.mobile .images {
+  margin-top: var(--spacer-large);
+}
+
+.person.mobile .bio {
+  text-align: justify;
+  width: 100%;
+}

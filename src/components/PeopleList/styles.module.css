@@ -12,32 +12,6 @@
   flex-direction: column;
 }
 
-.avatar {
-  position: relative;
-  border-radius: 100%;
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  overflow: hidden;
-  background-position: center;
-  background-size: var(--avatar-size);
-}
-
-.avatar:before {
-  z-index: -1;
-  position: absolute;
-  background-size: var(--avatar-size);
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  content: '🙅';
-  padding-top: 2px;
-  font-size: var(--avatar-size);
-  text-align: center;
-  background-color: white;
-  background-position: center;
-}
-
 .name {
   margin-top: var(--spacer-small);
   font-size: var(--font-size-small);

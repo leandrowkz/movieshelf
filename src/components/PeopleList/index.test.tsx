@@ -5,21 +5,17 @@ import { PeopleList } from '.'
 const { renderComponent, getMockPeople, screen } = useTesting()
 
 test('Should render PeopleList properly', async () => {
-  const { container } = renderComponent(
-    <PeopleList people={getMockPeople(10)} />
-  )
+  renderComponent(<PeopleList people={getMockPeople(10)} />)
 
-  const peopleList = container.querySelectorAll('div.person')
+  const peopleList = screen.queryAllByTestId('person-item')
 
   expect(peopleList.length).toEqual(4)
 })
 
 test('Should render length properly', async () => {
-  const { container } = renderComponent(
-    <PeopleList people={getMockPeople(8)} size={8} />
-  )
+  renderComponent(<PeopleList people={getMockPeople(8)} size={8} />)
 
-  const peopleList = container.querySelectorAll('div.person')
+  const peopleList = screen.queryAllByTestId('person-item')
 
   expect(peopleList.length).toEqual(8)
 })
