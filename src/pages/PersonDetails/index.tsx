@@ -5,10 +5,11 @@ import { NotFound } from '../404'
 import { PeopleContext } from 'src/context/PeopleContext'
 import { ShowList } from 'src/components/ShowList'
 import { Container } from 'src/components/Container'
-import { PersonDetails as PersonDetailsBlock } from 'src/components/PersonDetails'
+import { PersonDetails as PersonDetailsSection } from 'src/components/PersonDetails'
 import type { ShowType } from 'src/types'
 import styles from './styles.module.css'
 import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
+import { PersonImagesModal } from 'src/components/PersonImagesModal'
 
 export function PersonDetails(): JSX.Element {
   const { personId } = useParams()
@@ -16,7 +17,6 @@ export function PersonDetails(): JSX.Element {
 
   const {
     person,
-    images,
     movies,
     tvShows,
     fetchPerson,
@@ -43,11 +43,7 @@ export function PersonDetails(): JSX.Element {
   return (
     <Page>
       <Container>
-        <PersonDetailsBlock
-          person={person}
-          images={images}
-          isLoading={isLoading.fetchPerson}
-        />
+        <PersonDetailsSection />
         {!isLoading.fetchPerson && (
           <ShowTypeFilters
             value={filter}
@@ -74,6 +70,7 @@ export function PersonDetails(): JSX.Element {
             />
           ))}
       </Container>
+      <PersonImagesModal />
     </Page>
   )
 }

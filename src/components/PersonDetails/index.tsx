@@ -1,9 +1,8 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { useContext, type HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import css from './styles.module.css'
 import { Text } from '../Text'
 import { Motion } from '../Motion'
-import type { Image, Person } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Avatar } from '../Avatar'
@@ -11,19 +10,10 @@ import { Heading } from '../Heading'
 import { MdCake, MdPlace } from 'react-icons/md'
 import { PersonLoader } from './loader'
 import { PersonImages } from '../PersonImages'
+import { PeopleContext } from 'src/context/PeopleContext'
 
-interface PersonDetailsProps extends HTMLAttributes<HTMLDivElement> {
-  person: Person
-  images?: Image[]
-  isLoading?: boolean
-}
-
-export function PersonDetails({
-  person,
-  images = [],
-  isLoading = false,
-  ...props
-}: PersonDetailsProps) {
+export function PersonDetails(props: HTMLAttributes<HTMLDivElement>) {
+  const { person, images, isLoading } = useContext(PeopleContext)
   const { getShowImageUrl, getJobByDepartment, getAgeFromDate, formatDate } =
     useHelpers()
   const isMobile = useScreenSize('mobile')
@@ -31,7 +21,7 @@ export function PersonDetails({
     [css.mobile]: isMobile,
   })
 
-  if (isLoading) {
+  if (isLoading.fetchPerson) {
     return <PersonLoader data-testid="person-loader" />
   }
 
@@ -49,7 +39,11 @@ export function PersonDetails({
   return (
     <Motion tag="div" className={classes} {...props}>
       <Avatar image={avatar} width="200px" className={css.avatar} />
-      <PersonImages images={images} className={css.images} />
+      <PersonImages
+        images={images.data}
+        className={css.images}
+        isLoading={isLoading.fetchImages}
+      />
       <Heading title={name} level={1} className={css.name} />
       <Heading title={knownFor} level={2} className={css.knownFor} />
       <Text className={css.birthplace}>

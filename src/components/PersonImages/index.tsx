@@ -1,15 +1,13 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { type HTMLAttributes, useContext } from 'react'
 import classNames from 'classnames'
 import css from './styles.module.css'
 import { Text } from '../Text'
 import { Motion } from '../Motion'
-import type { Image as PersonImage, Person } from '@leandrowkz/tmdb'
+import type { Image as PersonImage } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { PersonImagesLoader } from './loader'
+import { PeopleContext } from 'src/context/PeopleContext'
 import { Avatar } from '../Avatar'
-import { Heading } from '../Heading'
-import { MdCake, MdPlace } from 'react-icons/md'
-import { PersonLoader } from './loader'
 
 interface PersonImagesProps extends HTMLAttributes<HTMLDivElement> {
   images: PersonImage[]
@@ -21,10 +19,11 @@ export function PersonImages({
   isLoading = false,
   ...props
 }: PersonImagesProps) {
+  const { openModalImage } = useContext(PeopleContext)
   const { getShowImageUrl } = useHelpers()
 
   if (isLoading) {
-    return <PersonLoader data-testid="person-loader" />
+    return <PersonImagesLoader {...props} data-testid="person-loader" />
   }
 
   const countImages = images.length
@@ -51,14 +50,15 @@ export function PersonImages({
         })
 
         return (
-          <div
+          <Avatar
             {...props}
             key={`person-image-${index}`}
             className={classes}
-            style={{ backgroundImage: `url(${imageUrl})` }}
+            image={imageUrl}
+            onClick={() => openModalImage(image)}
           >
             {title}
-          </div>
+          </Avatar>
         )
       })}
     </Motion>

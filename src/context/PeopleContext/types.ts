@@ -3,9 +3,13 @@ import type { ListByJob } from 'src/types'
 
 export type PeopleState = {
   person: Person
-  images: Image[]
   movies: ListByJob<MovieItem[]>[]
   tvShows: ListByJob<TVShowItem[]>[]
+  images: {
+    data: Image[]
+    open: boolean
+    active: Image
+  }
 
   isLoading: {
     fetchPerson: boolean
@@ -25,4 +29,8 @@ export type PeopleState = {
   fetchImages: (personId: number) => void
   fetchMovies: (personId: number) => void
   fetchTVShows: (personId: number) => void
+
+  setActiveImage: (image: Image) => void
+  openModalImage: (image: Image) => void
+  closeModalImage: () => void
 }

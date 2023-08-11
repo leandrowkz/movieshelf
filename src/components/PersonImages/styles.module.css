@@ -7,18 +7,9 @@
 }
 
 .image {
-  position: relative;
-  overflow: hidden;
   cursor: pointer;
   width: 100px;
-  aspect-ratio: 1 / 1;
-  background-size: cover;
   border-radius: var(--radius-base);
-}
-
-.image:hover {
-  transition: var(--transition-base);
-  transform: scale(1.05);
 }
 
 .moreTitle {
@@ -28,9 +19,11 @@
 }
 
 .moreBackdrop {
+  box-sizing: border-box;
   text-align: center;
   display: grid;
   place-items: center;
+  padding: var(--spacer-small);
 }
 
 .moreBackdrop:after {

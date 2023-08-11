@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
-import type { Person } from '@leandrowkz/tmdb'
+import type { Image, Person } from '@leandrowkz/tmdb'
 import type { PeopleState } from './types'
 import { initialState } from './state'
 import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
@@ -36,13 +36,17 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
 
   const fetchImages = async (personId: number) => {
     try {
-      setImages([])
+      setImages({
+        data: [],
+        open: false,
+        active: {} as Image,
+      })
       setIsLoading((prev) => ({ ...prev, fetchImages: true }))
       setHasErrors((prev) => ({ ...prev, fetchImages: false }))
 
       const data = await api.fetchImages(personId)
 
-      setImages(data)
+      setImages((prev) => ({ ...prev, data }))
     } catch (e) {
       setHasErrors((prev) => ({ ...prev, fetchImages: true }))
     } finally {
@@ -82,6 +86,18 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
     }
   }
 
+  const openModalImage = (image: Image) => {
+    setImages((prev) => ({ ...prev, open: true, active: image }))
+  }
+
+  const closeModalImage = () => {
+    setImages((prev) => ({ ...prev, open: false }))
+  }
+
+  const setActiveImage = (image: Image) => {
+    setImages((prev) => ({ ...prev, active: image }))
+  }
+
   const state = {
     person,
     images,
@@ -93,6 +109,9 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
     fetchImages,
     fetchMovies,
     fetchTVShows,
+    openModalImage,
+    closeModalImage,
+    setActiveImage,
   }
 
   return (

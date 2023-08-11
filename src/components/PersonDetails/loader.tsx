@@ -3,6 +3,7 @@ import { Circle, Loader, Paragraph, Rectangle } from '../Loader'
 import css from './styles.module.css'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import classNames from 'classnames'
+import { PersonImagesLoader } from '../PersonImages/loader'
 
 export function PersonLoader(props: HTMLAttributes<HTMLDivElement>) {
   const isMobile = useScreenSize('mobile')
@@ -13,6 +14,7 @@ export function PersonLoader(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <Loader {...props} className={classes}>
       <Circle className={css.avatar} width={200} />
+      <PersonImagesLoader className={css.images} />
       <Rectangle className={css.name} height={30} width={300} />
       <Rectangle className={css.knownFor} height={20} width={150} />
       <Rectangle className={css.birthplace} height={10} width={250} />

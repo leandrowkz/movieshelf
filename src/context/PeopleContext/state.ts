@@ -1,11 +1,15 @@
-import type { Person } from '@leandrowkz/tmdb'
+import type { Image, Person } from '@leandrowkz/tmdb'
 import type { PeopleState } from './types'
 
 export const initialState: PeopleState = {
   person: {} as Person,
-  images: [],
   movies: [],
   tvShows: [],
+  images: {
+    data: [],
+    open: false,
+    active: {} as Image,
+  },
 
   isLoading: {
     fetchPerson: false,
@@ -25,4 +29,8 @@ export const initialState: PeopleState = {
   fetchImages: () => null,
   fetchMovies: () => null,
   fetchTVShows: () => null,
+
+  setActiveImage: () => null,
+  openModalImage: () => null,
+  closeModalImage: () => null,
 }
