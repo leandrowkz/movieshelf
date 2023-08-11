@@ -1,7 +1,7 @@
 .person {
   display: grid;
   column-gap: var(--spacer-large);
-  grid-template-rows: repeat(auto, 5);
+  grid-template-rows: repeat(5, auto);
   grid-template-columns: auto 1fr;
   grid-template-areas:
     "avatar name"
@@ -46,7 +46,7 @@
 }
 
 .person.mobile {
-  grid-template-rows: repeat(auto, 5);
+  grid-template-rows: repeat(6, auto);
   grid-template-columns: 1fr;
   row-gap: var(--spacer-small);
   place-items: center;
@@ -69,4 +69,5 @@
 
 .person.mobile .bio {
   text-align: justify;
+  width: 100%;
 }

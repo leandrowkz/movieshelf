@@ -17,7 +17,7 @@ export function PersonLoader(props: HTMLAttributes<HTMLDivElement>) {
       <Rectangle className={css.knownFor} height={20} width={150} />
       <Rectangle className={css.birthplace} height={10} width={250} />
       <Rectangle className={css.birthday} height={10} width={270} />
-      <Paragraph className={css.bio} lines={7} />
+      <Paragraph className={css.bio} lines={7} isJustified={isMobile} />
     </Loader>
   )
 }

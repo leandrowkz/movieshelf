@@ -7,6 +7,7 @@ import type { PersonCast } from '@leandrowkz/tmdb'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { useScreenSize } from 'src/hooks/useScreenSize'
 import { Link } from 'react-router-dom'
+import { Avatar } from '../Avatar'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   people: PersonCast[]
@@ -21,12 +22,6 @@ export function PeopleList({ people, className, size = 4, ...props }: Props) {
     [css.mobile]: isMobile,
   })
 
-  const getStyle = (person: PersonCast) => {
-    const avatar = getShowImageUrl(person.profile_path || '', 200)
-
-    return { backgroundImage: `url(${avatar})` }
-  }
-
   return (
     <Motion tag="div" className={classes} {...props}>
       {cast.map((person, index) => (
@@ -37,9 +32,8 @@ export function PeopleList({ people, className, size = 4, ...props }: Props) {
           to={`/person/${person.id}`}
           data-testid="person-item"
         >
-          <div
-            className={css.avatar}
-            style={getStyle(person)}
+          <Avatar
+            image={getShowImageUrl(person.profile_path || '', 200)}
             data-testid="person-avatar"
           />
           <Text
