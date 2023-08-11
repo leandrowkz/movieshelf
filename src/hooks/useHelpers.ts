@@ -120,7 +120,7 @@ function getAgeFromDate(birthday: string) {
 }
 
 function formatDate(date: string) {
-  return new Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(
+  return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(
     Date.parse(date)
   )
 }
