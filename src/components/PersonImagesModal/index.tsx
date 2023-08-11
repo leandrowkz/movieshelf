@@ -37,6 +37,7 @@ export function PersonImagesModal(props: HTMLAttributes<HTMLDivElement>) {
               e.stopPropagation()
               setActiveImage(image)
             }}
+            data-testid="person-image-modal-item"
           />
         ))}
       </div>

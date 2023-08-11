@@ -23,7 +23,7 @@ export function PersonImages({
   const { getShowImageUrl } = useHelpers()
 
   if (isLoading) {
-    return <PersonImagesLoader {...props} data-testid="person-loader" />
+    return <PersonImagesLoader {...props} data-testid="person-images-loader" />
   }
 
   const countImages = images.length
@@ -56,6 +56,7 @@ export function PersonImages({
             className={classes}
             image={imageUrl}
             onClick={() => openModalImage(image)}
+            data-testid="person-image"
           >
             {title}
           </Avatar>

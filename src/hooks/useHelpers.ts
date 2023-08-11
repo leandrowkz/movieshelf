@@ -120,6 +120,12 @@ function getAgeFromDate(birthday: string) {
 }
 
 function formatDate(date: string) {
+  const timestamp = Date.parse(date)
+
+  if (isNaN(timestamp)) {
+    return ''
+  }
+
   return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(
     Date.parse(date)
   )

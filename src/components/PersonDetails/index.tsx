@@ -35,14 +35,22 @@ export function PersonDetails(props: HTMLAttributes<HTMLDivElement>) {
   } = person
   const knownFor = getJobByDepartment(known_for_department, gender)
   const avatar = getShowImageUrl(profile_path || '', 200)
+  const birthdate = formatDate(birthday)
+  const age = `(${getAgeFromDate(birthday)} years)`
 
   return (
     <Motion tag="div" className={classes} {...props}>
-      <Avatar image={avatar} width="200px" className={css.avatar} />
+      <Avatar
+        image={avatar}
+        width="200px"
+        className={css.avatar}
+        data-testid="avatar"
+      />
       <PersonImages
         images={images.data}
         className={css.images}
         isLoading={isLoading.fetchImages}
+        data-testid="images"
       />
       <Heading title={name} level={1} className={css.name} />
       <Heading title={knownFor} level={2} className={css.knownFor} />
@@ -52,10 +60,10 @@ export function PersonDetails(props: HTMLAttributes<HTMLDivElement>) {
       </Text>
       <Text className={css.age}>
         <MdCake color="hotpink" />
-        {birthday ? (
+        {birthdate ? (
           <>
-            <span>{formatDate(birthday)}</span>
-            <Text isMuted>{`(${getAgeFromDate(birthday)} years)`}</Text>
+            <span>{birthdate}</span>
+            <Text isMuted>{age}</Text>
           </>
         ) : (
           '-'

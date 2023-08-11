@@ -1,30 +1,75 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { PersonDetails } from '.'
+import React, { useContext, useEffect } from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { PersonDetails } from '.'
+import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
+import { mockPerson } from 'src/__mocks__/mockPerson'
+import type { Person } from '@leandrowkz/tmdb'
+import { useHelpers } from 'src/hooks/useHelpers'
+import { PeopleContext } from 'src/context/PeopleContext'
+import { waitForElementToBeRemoved } from '@testing-library/react'
 
-// const { renderComponent, getMockPeople, screen } = useTesting()
+jest.mock('src/hooks/apis/usePeopleAPI')
 
-// test('Should render PersonDetails properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(10)} />)
+const { renderComponent, screen } = useTesting()
+const { formatDate, getAgeFromDate, getJobByDepartment } = useHelpers()
+const api = usePeopleAPI()
 
-//   const PersonDetails = screen.queryAllByTestId('person-item')
+function getPersonData(person: Person) {
+  const birthday = formatDate(person.birthday)
+  const age = getAgeFromDate(person.birthday)
+  const knownFor = getJobByDepartment(
+    person.known_for_department,
+    person.gender
+  )
 
-//   expect(PersonDetails.length).toEqual(4)
-// })
+  return {
+    age,
+    birthday,
+    knownFor,
+    name: person.name,
+    birthplace: person.place_of_birth || '',
+    bio: person.biography,
+  }
+}
 
-// test('Should render length properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(8)} size={8} />)
+function WrapperComponent() {
+  const { fetchPerson } = useContext(PeopleContext)
+  useEffect(() => {
+    fetchPerson(400)
+  }, [])
 
-//   const PersonDetails = screen.queryAllByTestId('person-item')
+  return <PersonDetails />
+}
 
-//   expect(PersonDetails.length).toEqual(8)
-// })
+test('Should render properly', async () => {
+  renderComponent(<WrapperComponent />)
 
-// test('Should render person info properly', async () => {
-//   const people = getMockPeople()
-//   renderComponent(<PersonDetails person={people} size={1} />)
+  const { name, knownFor, birthday, birthplace, bio, age } =
+    getPersonData(mockPerson)
 
-//   const mockPerson = people[0]
-//   expect(screen.getByText(mockPerson.name)).toBeVisible()
-//   expect(screen.getByTestId('person-avatar')).toBeVisible()
-// })
+  expect(await screen.findByTestId('avatar')).toBeVisible()
+  expect(screen.getByTestId('images')).toBeVisible()
+  expect(screen.getByText(name, { exact: true })).toBeVisible()
+  expect(screen.getByText(knownFor, { exact: true })).toBeVisible()
+  expect(screen.getByText(birthday, { exact: true })).toBeVisible()
+  expect(screen.getByText(birthplace, { exact: true })).toBeVisible()
+  expect(screen.getByText(`(${age} years)`, { exact: true })).toBeVisible()
+  expect(screen.getByText(bio)).toBeVisible()
+})
+
+test('Should render loader at first, when fetching data', async () => {
+  renderComponent(<WrapperComponent />)
+
+  await waitForElementToBeRemoved(() => screen.getByTestId('person-loader'))
+})
+
+test('Should render just a "-" when birthday or place of birth are missing', async () => {
+  api.fetchPerson = jest.fn().mockResolvedValueOnce({
+    ...mockPerson,
+    birthday: 'INVALID DATE',
+    place_of_birth: null,
+  })
+  renderComponent(<WrapperComponent />)
+
+  expect((await screen.findAllByText('-', { exact: true })).length).toEqual(2)
+})

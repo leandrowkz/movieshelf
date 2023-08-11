@@ -1,30 +1,64 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { PersonDetails } from '.'
+import React, { useContext, useEffect } from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { PersonImagesModal } from '.'
+import { mockPersonImages } from 'src/__mocks__/mockPersonImages'
+import { Button } from '../Button'
+import { PeopleContext } from 'src/context/PeopleContext'
+import { mockImage } from 'src/__mocks__/mockImage'
+import { act } from '@testing-library/react'
 
-// const { renderComponent, getMockPeople, screen } = useTesting()
+jest.mock('src/hooks/apis/usePeopleAPI')
 
-// test('Should render PersonDetails properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(10)} />)
+const { renderComponent, screen, user } = useTesting()
 
-//   const PersonDetails = screen.queryAllByTestId('person-item')
+const mocks = {
+  image: mockImage,
+}
 
-//   expect(PersonDetails.length).toEqual(4)
-// })
+function WrapperComponent() {
+  const { fetchImages, openModalImage, closeModalImage, setActiveImage } =
+    useContext(PeopleContext)
 
-// test('Should render length properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(8)} size={8} />)
+  useEffect(() => {
+    fetchImages(400)
+  }, [])
 
-//   const PersonDetails = screen.queryAllByTestId('person-item')
+  return (
+    <>
+      <Button
+        data-testid="button-open-modal"
+        onClick={() => openModalImage(mocks.image)}
+      />
+      <Button
+        data-testid="button-close-modal"
+        onClick={() => closeModalImage()}
+      />
+      <Button
+        data-testid="button-set-active"
+        onClick={() => setActiveImage(mocks.image)}
+      />
+      <PersonImagesModal data-testid="modal" />
+    </>
+  )
+}
 
-//   expect(PersonDetails.length).toEqual(8)
-// })
+async function safeRenderComponent() {
+  return act(async () => renderComponent(<WrapperComponent />))
+}
 
-// test('Should render person info properly', async () => {
-//   const people = getMockPeople()
-//   renderComponent(<PersonDetails person={people} size={1} />)
+test('Should render properly, not visible by default', async () => {
+  await safeRenderComponent()
 
-//   const mockPerson = people[0]
-//   expect(screen.getByText(mockPerson.name)).toBeVisible()
-//   expect(screen.getByTestId('person-avatar')).toBeVisible()
-// })
+  expect(screen.getByTestId('modal').classList.contains('open')).toBeFalsy()
+})
+
+test('Should open and render properly', async () => {
+  await safeRenderComponent()
+
+  await user.click(screen.getByTestId('button-open-modal'))
+
+  expect(screen.getByTestId('modal').classList.contains('open')).toBeTruthy()
+  expect(
+    (await screen.findAllByTestId('person-image-modal-item')).length
+  ).toEqual(mockPersonImages.length)
+})

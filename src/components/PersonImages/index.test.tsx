@@ -1,30 +1,15 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { PersonDetails } from '.'
+import React from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { PersonImages } from '.'
+import { mockPersonImages } from 'src/__mocks__/mockPersonImages'
 
-// const { renderComponent, getMockPeople, screen } = useTesting()
+const { renderComponent, screen } = useTesting()
 
-// test('Should render PersonDetails properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(10)} />)
+test('Should render properly', async () => {
+  renderComponent(<PersonImages images={mockPersonImages} />)
 
-//   const PersonDetails = screen.queryAllByTestId('person-item')
-
-//   expect(PersonDetails.length).toEqual(4)
-// })
-
-// test('Should render length properly', async () => {
-//   renderComponent(<PersonDetails person={getMockPeople(8)} size={8} />)
-
-//   const PersonDetails = screen.queryAllByTestId('person-item')
-
-//   expect(PersonDetails.length).toEqual(8)
-// })
-
-// test('Should render person info properly', async () => {
-//   const people = getMockPeople()
-//   renderComponent(<PersonDetails person={people} size={1} />)
-
-//   const mockPerson = people[0]
-//   expect(screen.getByText(mockPerson.name)).toBeVisible()
-//   expect(screen.getByTestId('person-avatar')).toBeVisible()
-// })
+  expect(screen.getAllByTestId('person-image').length).toEqual(3)
+  expect(
+    screen.getByText(`+${mockPersonImages.length - 2} Photos`)
+  ).toBeVisible()
+})
