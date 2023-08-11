@@ -1,4 +1,4 @@
-import type { MovieItem, Person, TVShowItem } from '@leandrowkz/tmdb'
+import type { Image, MovieItem, Person, TVShowItem } from '@leandrowkz/tmdb'
 import type { ListByJob } from 'src/types'
 import { APIClient } from './APIClient'
 
@@ -6,6 +6,12 @@ const api = new APIClient('')
 
 async function fetchPerson(personId: number): Promise<Person> {
   const path = api.buildPath('/api/people/details', { personId })
+
+  return api.get(path)
+}
+
+async function fetchImages(personId: number): Promise<Image[]> {
+  const path = api.buildPath('/api/people/images', { personId })
 
   return api.get(path)
 }
@@ -28,6 +34,7 @@ async function fetchTVShows(
 
 export const usePeopleAPI = () => ({
   fetchPerson,
+  fetchImages,
   fetchMovies,
   fetchTVShows,
 })

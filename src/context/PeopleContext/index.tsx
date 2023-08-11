@@ -12,6 +12,7 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
   const api = usePeopleAPI()
 
   const [person, setPerson] = useState(initialState.person)
+  const [images, setImages] = useState(initialState.images)
   const [movies, setMovies] = useState(initialState.movies)
   const [tvShows, setTVShows] = useState(initialState.tvShows)
   const [isLoading, setIsLoading] = useState(initialState.isLoading)
@@ -30,6 +31,22 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
       setHasErrors((prev) => ({ ...prev, fetchPerson: true }))
     } finally {
       setIsLoading((prev) => ({ ...prev, fetchPerson: false }))
+    }
+  }
+
+  const fetchImages = async (personId: number) => {
+    try {
+      setImages([])
+      setIsLoading((prev) => ({ ...prev, fetchImages: true }))
+      setHasErrors((prev) => ({ ...prev, fetchImages: false }))
+
+      const data = await api.fetchImages(personId)
+
+      setImages(data)
+    } catch (e) {
+      setHasErrors((prev) => ({ ...prev, fetchImages: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchImages: false }))
     }
   }
 
@@ -67,11 +84,13 @@ export const PeopleContextProvider = ({ children }: PropsWithChildren) => {
 
   const state = {
     person,
+    images,
     movies,
     tvShows,
     isLoading,
     hasErrors,
     fetchPerson,
+    fetchImages,
     fetchMovies,
     fetchTVShows,
   }
