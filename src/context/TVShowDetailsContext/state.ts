@@ -7,12 +7,14 @@ export const initialState: TVShowDetailsState = {
   states: {} as UserShowStates,
   credits: {} as TVShowCredits,
   videos: [],
+  providers: [],
 
   isLoading: {
     fetchTVShow: false,
     fetchCredits: false,
     fetchStates: false,
     fetchVideos: false,
+    fetchProviders: false,
   },
 
   hasErrors: {
@@ -23,6 +25,7 @@ export const initialState: TVShowDetailsState = {
   fetchCredits: () => null,
   fetchVideos: () => null,
   fetchStates: () => null,
+  fetchProviders: () => null,
 
   setStates: () => null,
 }
