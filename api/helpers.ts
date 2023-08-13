@@ -1,4 +1,13 @@
-import type { MovieItem, TMDBResponseList, TVShowItem } from '@leandrowkz/tmdb'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type {
+  CountryCode,
+  MovieItem,
+  MovieWatchProviders,
+  TMDBResponseList,
+  TVShowItem,
+  TVShowWatchProviders,
+  WatchProvider,
+} from '@leandrowkz/tmdb'
 import type {
   ListPaginated,
   ShowStatesPayload,
@@ -65,4 +74,36 @@ export async function getShowStates({
   states.watched = await isListed(payload)
 
   return states
+}
+
+export function getWatchProvidersList(
+  response: MovieWatchProviders | TVShowWatchProviders,
+  country: CountryCode
+) {
+  if (!country || !response.results[country]) {
+    return []
+  }
+
+  const providersResult = response.results[country]
+  const providersResponse: WatchProvider[] = []
+
+  if (providersResult) {
+    const existingProviders: number[] = []
+    for (const [_key, providersList] of Object.entries(providersResult)) {
+      if (Array.isArray(providersList)) {
+        providersList.forEach((provider: WatchProvider) => {
+          const { provider_id: providerId } = provider
+
+          if (!existingProviders.includes(providerId)) {
+            existingProviders.push(providerId)
+            providersResponse.push(provider)
+          }
+        })
+      }
+    }
+  }
+
+  return providersResponse.sort(
+    (a, b) => a.display_priority - b.display_priority
+  )
 }

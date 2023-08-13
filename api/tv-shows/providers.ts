@@ -14,7 +14,7 @@ export default async (req: Request) =>
       searchParams.get('country')
     ).toUpperCase() as CountryCode
 
-    const response = await tmdb.movies.watchProviders(showId)
+    const response = await tmdb.tvShows.watchProviders(showId)
 
     return getWatchProvidersList(response, country)
   })
