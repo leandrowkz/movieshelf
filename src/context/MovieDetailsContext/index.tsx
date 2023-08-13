@@ -95,6 +95,7 @@ export const MovieDetailsContextProvider = ({
       const data = await api.fetchWatchProviders(showId, country)
 
       setProviders(data)
+      localStorage.setItem('WATCH_PROVIDER_COUNTRY', country)
     } catch {
       setHasErrors((prev) => ({ ...prev, fetchProviders: true }))
     } finally {

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { type CountryCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
@@ -7,22 +8,27 @@ import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
+import { ShowProviders } from 'src/components/ShowProviders'
 
 export function MovieDetails(): JSX.Element {
   const { getCreditsDirector } = useHelpers()
   const { movieId } = useParams()
+  const country = (localStorage.getItem('WATCH_PROVIDER_COUNTRY') ||
+    'US') as CountryCode
 
   const {
     movie,
     credits,
     videos,
     states,
+    providers,
     isLoading,
     hasErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
     fetchStates,
+    fetchProviders,
   } = useContext(MovieDetailsContext)
 
   const {
@@ -41,6 +47,7 @@ export function MovieDetails(): JSX.Element {
     fetchVideos(id)
     fetchStates(id)
     fetchCredits(id)
+    fetchProviders(id, country)
 
     fetchSimilar(id)
     fetchRecommended(id)
@@ -66,6 +73,13 @@ export function MovieDetails(): JSX.Element {
         isLoadingPeople={isLoading.fetchCredits}
         isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
+      />
+      <ShowProviders
+        country={country}
+        providers={providers}
+        isLoading={isLoading.fetchProviders}
+        onCountryChange={(code) => fetchProviders(Number(movieId), code)}
+        data-testid="show-providers"
       />
       <ShowCarousel
         shows={similar.data}
