@@ -2,6 +2,18 @@
   margin-bottom: var(--spacer-extra-large);
 }
 
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--spacer-small);
+}
+
+.heading {
+  margin-bottom: 0;
+}
+
 .items {
   display: flex;
   gap: var(--spacer-large);
@@ -23,4 +35,12 @@
 .logo {
   width: 80px;
   border-radius: var(--radius-base);
+}
+
+.providerName {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

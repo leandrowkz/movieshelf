@@ -1,0 +1,42 @@
+.dropdown {
+  z-index: 1000;
+}
+
+.heading {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transition: var(--transition-base);
+}
+
+.menu {
+  z-index: 30;
+  width: 100%;
+  min-width: 300px;
+  max-height: 310px;
+  overflow-y: auto;
+  left: 0;
+}
+
+.search {
+  padding: 0;
+  border: 0;
+}
+
+.input {
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: var(--spacer-small);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-small);
+}
+
+.trigger {
+  border-bottom: 1px dashed var(--color-primary);
+}
