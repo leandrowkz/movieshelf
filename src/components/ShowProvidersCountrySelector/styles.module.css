@@ -20,14 +20,11 @@
 
 .search {
   padding: 0;
-  border: 0;
 }
 
 .input {
   border-radius: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: none;
   padding-left: var(--spacer-small);
 }
 

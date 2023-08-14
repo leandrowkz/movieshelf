@@ -1,4 +1,4 @@
-import React, { useState, type HTMLAttributes } from 'react'
+import React, { useState, type HTMLAttributes, useRef } from 'react'
 import type { CountryCode } from '@leandrowkz/tmdb'
 import { CountryFlag, Country } from 'src/types'
 import styles from './styles.module.css'
@@ -20,11 +20,20 @@ export function ShowProvidersCountrySelector({
   onCountryChange,
   ...props
 }: ShowProvidersCountrySelectorProps) {
-  const classes = classNames(styles.dropdown, className)
   const [isOpen, setIsOpen] = useState(false)
+  const [search, setSearch] = useState('')
+  const input = useRef<HTMLInputElement>(null)
+
+  const classes = classNames(styles.dropdown, className)
   const countryCodes = Object.keys(Country) as CountryCode[]
   const countryName = Country[country]
   const countryFlag = CountryFlag[country]
+
+  const handleOpen = () => {
+    setSearch('')
+    setIsOpen(true)
+    setTimeout(() => input?.current?.focus(), 150)
+  }
 
   return (
     <Dropdown.Wrapper {...props} className={classes}>
@@ -36,26 +45,34 @@ export function ShowProvidersCountrySelector({
       </Dropdown.Trigger>
       <Dropdown.Menu
         className={styles.menu}
-        onOpen={() => setIsOpen(true)}
+        onOpen={handleOpen}
         onClose={() => setIsOpen(false)}
       >
         <Dropdown.Header className={styles.search}>
           <Input
             className={styles.input}
+            ref={input}
+            value={search}
             placeholder=" 🔍  Search for a country..."
-            autoFocus
+            onChange={(e) => setSearch(e.target.value)}
           />
         </Dropdown.Header>
-        {countryCodes.map((code) => (
-          <Dropdown.Item
-            key={`dropdown-country-item-${code}`}
-            onClick={() => onCountryChange(code)}
-            className={styles.item}
-          >
-            <span>{CountryFlag[code]}</span>
-            <span>{Country[code]}</span>
-          </Dropdown.Item>
-        ))}
+        {countryCodes
+          .filter((item) =>
+            search
+              ? Country[item].toLowerCase().indexOf(search.toLowerCase()) !== -1
+              : true
+          )
+          .map((code) => (
+            <Dropdown.Item
+              key={`dropdown-country-item-${code}`}
+              onClick={() => onCountryChange(code)}
+              className={styles.item}
+            >
+              <span>{CountryFlag[code]}</span>
+              <span>{Country[code]}</span>
+            </Dropdown.Item>
+          ))}
       </Dropdown.Menu>
     </Dropdown.Wrapper>
   )

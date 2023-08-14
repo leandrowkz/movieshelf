@@ -9,6 +9,9 @@ import { ShowProvidersCountrySelector } from '../ShowProvidersCountrySelector'
 import { Heading } from '../Heading'
 import { Country } from 'src/types'
 import { Text } from '../Text'
+import { ShowProvidersLoader } from './loader'
+import { useScreenSize } from 'src/hooks/useScreenSize'
+import { Link } from 'react-router-dom'
 
 interface ShowProviderProps extends HTMLAttributes<HTMLDivElement> {
   country: CountryCode
@@ -25,9 +28,19 @@ export function ShowProviders({
   onCountryChange,
   ...props
 }: ShowProviderProps) {
-  const classes = classNames(styles.providers, className)
+  const isMobile = useScreenSize('mobile')
+  const isTablet = useScreenSize('tablet')
+  const isSmallDevice = isMobile || isTablet
+  const classes = classNames(styles.providers, className, {
+    [styles.mobile]: isSmallDevice,
+  })
   const countryName = Country[country]
   const { getShowImageUrl } = useHelpers()
+
+  const getProviderName = (name: string) => {
+    const parts = name.split(' ')
+    return `${parts[0] || name}${parts[1] ? ` ${parts[1]}` : ''}`
+  }
 
   return (
     <Container {...props} className={classes}>
@@ -42,11 +55,20 @@ export function ShowProviders({
           onCountryChange={(code) => onCountryChange(code)}
         />
       </div>
+      <Text isMuted size="small" isParagraph className={styles.disclaimer}>
+        This data is provided by <b>JustWatch</b> partner. If you spot something
+        unusual you must{' '}
+        <Link to="https://support.justwatch.com/hc/en-us" target="_blank">
+          report
+        </Link>{' '}
+        them directly.
+      </Text>
+      {isLoading && <ShowProvidersLoader />}
       {!providers.length && !isLoading && (
-        <Heading
-          title={`No streaming services were found for this show in ${countryName}.`}
-          level={3}
-        />
+        <Text className={styles.notFound}>
+          Oh, no! No streaming services were found for this show in{' '}
+          {countryName}. 😢
+        </Text>
       )}
       <div className={styles.items}>
         {providers.map((provider) => (
@@ -61,7 +83,7 @@ export function ShowProviders({
               className={styles.logo}
             />
             <Text size="small" className={styles.providerName}>
-              {provider.provider_name}
+              {getProviderName(provider.provider_name)}
             </Text>
           </div>
         ))}
