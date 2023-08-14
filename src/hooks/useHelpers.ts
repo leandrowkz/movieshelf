@@ -131,6 +131,17 @@ function formatDate(date: string) {
   )
 }
 
+function getGeolocationCountry() {
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition((country) => {
+      console.log('SUCCESS GEOLOCATION', country)
+    })
+    /* geolocation is available */
+  } else {
+    /* geolocation IS NOT available */
+  }
+}
+
 export const useHelpers = () => ({
   getShowTitle,
   getShowRuntimeOrSeasons,
@@ -144,4 +155,5 @@ export const useHelpers = () => ({
   getJobByDepartment,
   getAgeFromDate,
   formatDate,
+  getGeolocationCountry,
 })

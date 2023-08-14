@@ -11,7 +11,7 @@ import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { ShowProviders } from 'src/components/ShowProviders'
 
 export function MovieDetails(): JSX.Element {
-  const { getCreditsDirector } = useHelpers()
+  const { getCreditsDirector, getGeolocationCountry } = useHelpers()
   const { movieId } = useParams()
   const country = (localStorage.getItem('WATCH_PROVIDER_COUNTRY') ||
     'US') as CountryCode
@@ -42,6 +42,8 @@ export function MovieDetails(): JSX.Element {
 
   useEffect(() => {
     const id = Number(movieId)
+
+    getGeolocationCountry()
 
     fetchMovie(id)
     fetchVideos(id)
