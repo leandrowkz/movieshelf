@@ -13,6 +13,7 @@ test('should render TVShowDetails properly', async () => {
   renderComponent(<TVShowDetails />)
 
   expect(await screen.findByTestId('show-details')).toBeVisible()
+  expect(await screen.findByTestId('show-providers')).toBeVisible()
   expect(await screen.findByTestId('carousel-similar')).toBeVisible()
   expect(await screen.findByTestId('carousel-recommended')).toBeVisible()
   expect(await screen.findByTestId('carousel-popular')).toBeVisible()
