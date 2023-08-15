@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { type CountryCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
@@ -11,10 +11,13 @@ import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
 import { ShowProviders } from 'src/components/ShowProviders'
 
 export function MovieDetails(): JSX.Element {
-  const { getCreditsDirector, getGeolocationCountry } = useHelpers()
+  const { getCreditsDirector, getUserGeolocationCountry } = useHelpers()
   const { movieId } = useParams()
-  const country = (localStorage.getItem('WATCH_PROVIDER_COUNTRY') ||
-    'US') as CountryCode
+
+  const storageCountry = localStorage.getItem(
+    'WATCH_PROVIDER_COUNTRY'
+  ) as CountryCode
+  const [country, setCountry] = useState<CountryCode>('US')
 
   const {
     movie,
@@ -43,17 +46,27 @@ export function MovieDetails(): JSX.Element {
   useEffect(() => {
     const id = Number(movieId)
 
-    getGeolocationCountry()
-
     fetchMovie(id)
     fetchVideos(id)
     fetchStates(id)
     fetchCredits(id)
-    fetchProviders(id, country)
 
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
+
+    if (storageCountry) {
+      handleCountryChange(storageCountry)
+    } else {
+      getUserGeolocationCountry(
+        (country) => {
+          handleCountryChange(country)
+        },
+        () => {
+          handleCountryChange(country)
+        }
+      )
+    }
   }, [movieId])
 
   if (!movie || hasErrors.fetchMovie) {
@@ -63,6 +76,11 @@ export function MovieDetails(): JSX.Element {
   const { cast = [], crew = [] } = credits
   const director = getCreditsDirector(crew)
   const people = director ? [director, ...cast] : cast
+
+  const handleCountryChange = (country: CountryCode) => {
+    setCountry(country)
+    fetchProviders(Number(movieId), country)
+  }
 
   return (
     <Page darkHeader>
@@ -80,7 +98,7 @@ export function MovieDetails(): JSX.Element {
         country={country}
         providers={providers}
         isLoading={isLoading.fetchProviders}
-        onCountryChange={(code) => fetchProviders(Number(movieId), code)}
+        onCountryChange={(code) => handleCountryChange(code)}
         data-testid="show-providers"
       />
       <ShowCarousel

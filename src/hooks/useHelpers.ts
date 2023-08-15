@@ -1,4 +1,6 @@
+import { iso1A2Code } from '@rapideditor/country-coder'
 import type {
+  CountryCode,
   Department,
   Movie,
   MovieItem,
@@ -131,14 +133,27 @@ function formatDate(date: string) {
   )
 }
 
-function getGeolocationCountry() {
+function getUserGeolocationCountry(
+  successCallback: (country: CountryCode) => void,
+  errorCallback?: (error: Error | GeolocationPositionError) => void
+) {
   if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((country) => {
-      console.log('SUCCESS GEOLOCATION', country)
-    })
-    /* geolocation is available */
-  } else {
-    /* geolocation IS NOT available */
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        const country = iso1A2Code([coords.longitude, coords.latitude])
+
+        if (country) {
+          successCallback(country as CountryCode)
+        }
+      },
+      (error) => {
+        if (errorCallback) {
+          errorCallback(error)
+        }
+      }
+    )
+  } else if (errorCallback) {
+    errorCallback(new Error('Geolocation API is not available'))
   }
 }
 
@@ -155,5 +170,5 @@ export const useHelpers = () => ({
   getJobByDepartment,
   getAgeFromDate,
   formatDate,
-  getGeolocationCountry,
+  getUserGeolocationCountry,
 })
