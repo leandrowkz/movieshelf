@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { type CountryCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
@@ -7,22 +8,30 @@ import { ShowDetails } from 'src/components/ShowDetails'
 import { NotFound } from '../404'
 import { useHelpers } from 'src/hooks/useHelpers'
 import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
+import { ShowProviders } from 'src/components/ShowProviders'
 
 export function MovieDetails(): JSX.Element {
-  const { getCreditsDirector } = useHelpers()
+  const { getCreditsDirector, getUserGeolocationCountry } = useHelpers()
   const { movieId } = useParams()
+
+  const storageCountry = localStorage.getItem(
+    'WATCH_PROVIDER_COUNTRY'
+  ) as CountryCode
+  const [country, setCountry] = useState<CountryCode>('US')
 
   const {
     movie,
     credits,
     videos,
     states,
+    providers,
     isLoading,
     hasErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
     fetchStates,
+    fetchProviders,
   } = useContext(MovieDetailsContext)
 
   const {
@@ -45,6 +54,19 @@ export function MovieDetails(): JSX.Element {
     fetchSimilar(id)
     fetchRecommended(id)
     fetchTrending()
+
+    if (storageCountry) {
+      handleCountryChange(storageCountry)
+    } else {
+      getUserGeolocationCountry(
+        (country) => {
+          handleCountryChange(country)
+        },
+        () => {
+          handleCountryChange(country)
+        }
+      )
+    }
   }, [movieId])
 
   if (!movie || hasErrors.fetchMovie) {
@@ -54,6 +76,11 @@ export function MovieDetails(): JSX.Element {
   const { cast = [], crew = [] } = credits
   const director = getCreditsDirector(crew)
   const people = director ? [director, ...cast] : cast
+
+  const handleCountryChange = (country: CountryCode) => {
+    setCountry(country)
+    fetchProviders(Number(movieId), country)
+  }
 
   return (
     <Page darkHeader>
@@ -66,6 +93,13 @@ export function MovieDetails(): JSX.Element {
         isLoadingPeople={isLoading.fetchCredits}
         isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
+      />
+      <ShowProviders
+        country={country}
+        providers={providers}
+        isLoading={isLoading.fetchProviders}
+        onCountryChange={(code) => handleCountryChange(code)}
+        data-testid="show-providers"
       />
       <ShowCarousel
         shows={similar.data}

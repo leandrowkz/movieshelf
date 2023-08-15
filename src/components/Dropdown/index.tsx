@@ -1,4 +1,9 @@
-import React, { type HTMLAttributes, useContext, useRef } from 'react'
+import React, {
+  type HTMLAttributes,
+  useContext,
+  useRef,
+  useEffect,
+} from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import {
@@ -6,6 +11,11 @@ import {
   DropdownContextProvider,
 } from 'src/context/DropdownContext'
 import { useClickOutside } from 'src/hooks/useClickOutside'
+
+interface DropdownMenuProps extends HTMLAttributes<HTMLDivElement> {
+  onOpen?: () => void
+  onClose?: () => void
+}
 
 const Wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   return (
@@ -15,11 +25,12 @@ const Wrapper = ({ children }: HTMLAttributes<HTMLDivElement>) => {
   )
 }
 
-const Trigger = ({ children }: HTMLAttributes<HTMLDivElement>) => {
+const Trigger = ({ children, className }: HTMLAttributes<HTMLDivElement>) => {
   const { open } = useContext(DropdownContext)
+  const classes = classNames(styles.trigger, className)
 
   return (
-    <div className={styles.trigger} onClick={open} onFocus={open}>
+    <div className={classes} onClick={open} onFocus={open}>
       {children}
     </div>
   )
@@ -28,13 +39,25 @@ const Trigger = ({ children }: HTMLAttributes<HTMLDivElement>) => {
 const Menu = ({
   children,
   className,
+  onOpen,
+  onClose,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => {
+}: DropdownMenuProps) => {
   const wrapperRef = useRef(null)
   const { isOpen, close } = useContext(DropdownContext)
   const classes = classNames(styles.menu, className, {
     [styles.open]: isOpen,
   })
+
+  useEffect(() => {
+    if (isOpen && onOpen) {
+      onOpen()
+    }
+
+    if (!isOpen && onClose) {
+      onClose()
+    }
+  }, [isOpen])
 
   useClickOutside(wrapperRef, close)
 
@@ -45,17 +68,39 @@ const Menu = ({
   )
 }
 
-const Item = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
+const Item = ({
+  children,
+  className,
+  onClick,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
+  const { close } = useContext(DropdownContext)
+  const classes = classNames(styles.item, className)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleClick = (e: any) => {
+    close()
+    if (onClick) {
+      onClick(e)
+    }
+  }
+
   return (
-    <div className={styles.item} {...props}>
+    <div {...props} className={classes} onClick={handleClick}>
       {children}
     </div>
   )
 }
 
-const Header = ({ children, ...props }: HTMLAttributes<HTMLDivElement>) => {
+const Header = ({
+  children,
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
+  const classes = classNames(styles.header, className)
+
   return (
-    <div className={styles.header} {...props}>
+    <div className={classes} {...props}>
       {children}
     </div>
   )

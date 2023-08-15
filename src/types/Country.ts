@@ -249,3 +249,5 @@ export enum Country {
   ZM = 'Zambia',
   ZW = 'Zimbabwe',
 }
+
+export const countryCodes = Object.keys(Country)

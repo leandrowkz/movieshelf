@@ -1,4 +1,10 @@
-import type { TVShow, TVShowCredits, Video } from '@leandrowkz/tmdb'
+import type {
+  CountryCode,
+  TVShow,
+  TVShowCredits,
+  Video,
+  WatchProvider,
+} from '@leandrowkz/tmdb'
 import type { UserShowStates } from 'src/types'
 
 export type TVShowDetailsState = {
@@ -6,12 +12,14 @@ export type TVShowDetailsState = {
   states: UserShowStates
   credits: TVShowCredits
   videos: Video[]
+  providers: WatchProvider[]
 
   isLoading: {
     fetchTVShow: boolean
     fetchStates: boolean
     fetchCredits: boolean
     fetchVideos: boolean
+    fetchProviders: boolean
   }
 
   hasErrors: {
@@ -22,6 +30,7 @@ export type TVShowDetailsState = {
   fetchCredits: (showId: number) => void
   fetchStates: (showId: number) => void
   fetchVideos: (showId: number) => void
+  fetchProviders: (showId: number, country: CountryCode) => void
 
   setStates: (states: UserShowStates) => void
 }

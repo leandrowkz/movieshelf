@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
-import type { Movie, MovieCredits } from '@leandrowkz/tmdb'
+import type { CountryCode, Movie, MovieCredits } from '@leandrowkz/tmdb'
 import type { UserShowStates } from 'src/types'
 import type { MovieDetailsState } from './types'
 import { initialState } from './state'
@@ -18,6 +18,7 @@ export const MovieDetailsContextProvider = ({
   const [states, setStates] = useState(initialState.states)
   const [credits, setCredits] = useState(initialState.credits)
   const [videos, setVideos] = useState(initialState.videos)
+  const [providers, setProviders] = useState(initialState.providers)
   const [isLoading, setIsLoading] = useState(initialState.isLoading)
   const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
 
@@ -85,17 +86,36 @@ export const MovieDetailsContextProvider = ({
     }
   }
 
+  const fetchProviders = async (showId: number, country: CountryCode) => {
+    try {
+      localStorage.setItem('WATCH_PROVIDER_COUNTRY', country)
+      setProviders([])
+      setIsLoading((prev) => ({ ...prev, fetchProviders: true }))
+      setHasErrors((prev) => ({ ...prev, fetchProviders: false }))
+
+      const data = await api.fetchWatchProviders(showId, country)
+
+      setProviders(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchProviders: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchProviders: false }))
+    }
+  }
+
   const state = {
     movie,
     credits,
     videos,
     states,
+    providers,
     isLoading,
     hasErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
     fetchStates,
+    fetchProviders,
     setStates,
   }
 

@@ -1,10 +1,10 @@
-import React, { type ComponentPropsWithoutRef } from 'react'
+import React, { type HTMLAttributes } from 'react'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { useScreenSize } from '../../hooks/useScreenSize'
 
-interface Props extends ComponentPropsWithoutRef<'div'> {
-  title: string
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  title?: string
   level: 1 | 2 | 3
   isThin?: boolean
 }
@@ -13,6 +13,7 @@ export function Heading({
   title,
   level = 1,
   isThin = false,
+  children,
   className,
   ...props
 }: Props) {
@@ -25,7 +26,7 @@ export function Heading({
 
   return (
     <div className={classes} {...props}>
-      {title}
+      {children || title}
     </div>
   )
 }
