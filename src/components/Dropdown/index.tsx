@@ -59,14 +59,6 @@ const Menu = ({
     }
   }, [isOpen])
 
-  // const handleClose = () => {
-  //   if (onClose) {
-  //     onClose()
-  //   }
-
-  //   close()
-  // }
-
   useClickOutside(wrapperRef, close)
 
   return (
