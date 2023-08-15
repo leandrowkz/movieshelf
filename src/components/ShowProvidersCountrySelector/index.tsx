@@ -55,6 +55,7 @@ export function ShowProvidersCountrySelector({
             value={search}
             placeholder=" 🔍  Search for a country..."
             onChange={(e) => setSearch(e.target.value)}
+            data-testid="search-input"
           />
         </Dropdown.Header>
         {countryCodes
@@ -68,6 +69,7 @@ export function ShowProvidersCountrySelector({
               key={`dropdown-country-item-${code}`}
               onClick={() => onCountryChange(code)}
               className={styles.item}
+              data-testid="country-item"
             >
               <span>{CountryFlag[code]}</span>
               <span>{Country[code]}</span>

@@ -63,7 +63,7 @@ export function ShowProviders({
         </Link>{' '}
         them directly.
       </Text>
-      {isLoading && <ShowProvidersLoader />}
+      {isLoading && <ShowProvidersLoader data-testid="providers-loader" />}
       {!providers.length && !isLoading && (
         <Text className={styles.notFound}>
           Oh, no! No streaming services were found for this show in{' '}
@@ -71,22 +71,24 @@ export function ShowProviders({
         </Text>
       )}
       <div className={styles.items}>
-        {providers.map((provider) => (
-          <div
-            key={`provider-item-${provider.provider_id}`}
-            className={styles.item}
-            title={provider.provider_name}
-          >
-            <Avatar
-              image={getShowImageUrl(provider.logo_path)}
+        {!isLoading &&
+          providers.map((provider, index) => (
+            <div
+              key={`provider-item-${provider.provider_id}-${index}`}
+              className={styles.item}
               title={provider.provider_name}
-              className={styles.logo}
-            />
-            <Text size="small" className={styles.providerName}>
-              {getProviderName(provider.provider_name)}
-            </Text>
-          </div>
-        ))}
+              data-testid="provider-item"
+            >
+              <Avatar
+                image={getShowImageUrl(provider.logo_path)}
+                title={provider.provider_name}
+                className={styles.logo}
+              />
+              <Text size="small" className={styles.providerName}>
+                {getProviderName(provider.provider_name)}
+              </Text>
+            </div>
+          ))}
       </div>
     </Container>
   )

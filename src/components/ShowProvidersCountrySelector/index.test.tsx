@@ -1,21 +1,59 @@
-// import React from 'react'
-// import { useTesting } from 'src/hooks/useTesting'
-// import { ShowProviders } from '.'
-// import type { Movie } from '@leandrowkz/tmdb'
+import React from 'react'
+import { useTesting } from 'src/hooks/useTesting'
+import { ShowProvidersCountrySelector } from '.'
 
-// const { renderComponent, getMockMovies, screen } = useTesting()
+const { renderComponent, user, screen } = useTesting()
 
-// test('Should render ShowCountries properly', async () => {
-//   renderComponent(<ShowCountries show={getMockMovies(1)[0] as Movie} />)
+function getTrigger() {
+  return screen.getByText('United States of America 🇺🇸')
+}
 
-//   expect(screen.getByText('🇧🇷')).toBeVisible()
-//   expect(screen.getByText('🇯🇵')).toBeVisible()
-// })
+async function getInputSearch() {
+  return await screen.findByTestId('search-input')
+}
 
-// test('Should render separator properly', async () => {
-//   renderComponent(
-//     <ShowCountries show={getMockMovies(1)[0] as Movie} separator="#€&" />
-//   )
+test('Should render ShowProvidersCountrySelector properly', async () => {
+  renderComponent(
+    <ShowProvidersCountrySelector country="US" onCountryChange={jest.fn()} />
+  )
 
-//   expect(screen.getByText('#€&')).toBeVisible()
-// })
+  const trigger = getTrigger()
+
+  await user.click(trigger)
+
+  expect(trigger).toBeVisible()
+  expect(await getInputSearch()).toBeVisible()
+})
+
+test('Should work properly when selecting a country', async () => {
+  const mock = jest.fn()
+  renderComponent(
+    <ShowProvidersCountrySelector country="US" onCountryChange={mock} />
+  )
+
+  await user.click(getTrigger())
+
+  const newCountry = await screen.findByText('Brazil')
+
+  await user.click(newCountry)
+
+  expect(mock).toHaveBeenCalledWith('BR')
+})
+
+test('Should filter countries properly when typing', async () => {
+  const mock = jest.fn()
+  renderComponent(
+    <ShowProvidersCountrySelector country="US" onCountryChange={mock} />
+  )
+
+  await user.click(getTrigger())
+  await user.type(await getInputSearch(), 'ARGEN')
+
+  const foundItem = await screen.findByText('🇦🇷')
+  const notFoundItem = screen.queryByText('🇺🇸')
+  const countries = screen.getAllByTestId('country-item')
+
+  expect(foundItem).toBeVisible()
+  expect(countries.length).toBe(1)
+  expect(notFoundItem).not.toBeInTheDocument()
+})

@@ -15,6 +15,7 @@ import type {
   TVSeason,
   TVShowItem,
   Video,
+  WatchProvider,
 } from '@leandrowkz/tmdb'
 import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
 import { mockTVShow } from 'src/__mocks__/mockTVShow'
@@ -22,6 +23,7 @@ import { mockPerson } from 'src/__mocks__/mockPerson'
 import { mockVideo } from 'src/__mocks__/mockVideo'
 import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
 import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
+import { mockWatchProvider } from 'src/__mocks__/mockWatchProvider'
 import {
   AuthContext as MockAuthContext,
   AuthContextProvider as MockAuthContextProvider,
@@ -172,6 +174,16 @@ function getMockShowStates(amount = 10) {
   return list
 }
 
+function getMockProviders(amount = 10) {
+  const list: WatchProvider[] = []
+
+  for (let i = 0; i < amount; i++) {
+    list.push({ ...mockWatchProvider })
+  }
+
+  return list
+}
+
 export const useTesting = () => ({
   user,
   screen,
@@ -182,5 +194,6 @@ export const useTesting = () => ({
   getMockTVEpisodes,
   getMockVideos,
   getMockShowStates,
+  getMockProviders,
   renderComponent,
 })
