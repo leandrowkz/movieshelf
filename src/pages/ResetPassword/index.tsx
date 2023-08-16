@@ -1,5 +1,5 @@
 import React, { type HTMLAttributes, useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container } from 'src/components/Container'
 import { Heading } from 'src/components/Heading'
@@ -11,47 +11,49 @@ import { Controller, useForm } from 'react-hook-form'
 import { Input } from 'src/components/Input'
 import { type User, UserSchema } from 'src/types'
 import { AuthContext } from 'src/context/AuthContext'
-import { GoogleAuthButton } from 'src/components/GoogleAuthButton'
+import { MdArrowBack } from 'react-icons/md'
 
-export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
+export function ResetPassword(props: HTMLAttributes<HTMLDivElement>) {
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<User>({
-    resolver: zodResolver(
-      UserSchema.partial().required({ email: true, password: true })
-    ),
+    resolver: zodResolver(UserSchema.partial().required({ email: true })),
   })
-  const { signIn, isLoadingSignIn, signInErrors, clearSignInErrors } =
-    useContext(AuthContext)
+  const {
+    resetPassword,
+    resetPasswordErrors,
+    clearResetPasswordErrors,
+    isLoadingResetPassword,
+  } = useContext(AuthContext)
   const navigate = useNavigate()
 
   const onSubmit = async (data: User) => {
     try {
-      await signIn(data)
-      navigate('/')
+      await resetPassword(data.email)
+      // navigate('/')
     } catch {
       /* empty */
     }
   }
 
   useEffect(() => {
-    clearSignInErrors()
+    clearResetPasswordErrors()
   }, [])
 
   return (
     <Page {...props}>
       <Container className={styles.container}>
-        <Text className={styles.icon}>🍿</Text>
-        <Heading title="Login to movieshelf" level={2} />
+        <Text className={styles.icon}>🔐</Text>
+        <Heading title="Reset your password" level={2} />
         <Text isParagraph isMuted className={styles.description}>
-          Sign in to movieshelf to continue saving your favorite movies and TV
-          shows.
+          We will send you a magic link which you will be able to login and
+          reset your account password.
         </Text>
-        {signInErrors && (
+        {resetPasswordErrors && (
           <Text variant="error" isParagraph>
-            {signInErrors.message}
+            {resetPasswordErrors.message}
           </Text>
         )}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -70,41 +72,18 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
             )}
           />
 
-          <Controller
-            name="password"
-            control={control}
-            defaultValue={''}
-            render={({ field }) => (
-              <Input
-                {...field}
-                type="password"
-                placeholder="🔐 Your password"
-                data-testid="input-password"
-                errorMessage={errors.password?.message}
-              />
-            )}
-          />
-          <Link to="/reset-password" className={styles.resetPassword}>
-            <Text size="small">Forgot your password?</Text>
-          </Link>
-
           <Button
             type="submit"
-            disabled={isLoadingSignIn}
+            disabled={isLoadingResetPassword}
             data-testid="btn-submit"
           >
-            Sign in
+            Send me a magic link
           </Button>
-          <GoogleAuthButton
-            label="Sign in with Google"
-            data-testid="btn-google"
-          />
+          <Button onClick={() => navigate('/sign-in')} variant="outlined">
+            <MdArrowBack />
+            Back
+          </Button>
         </form>
-        <div className={styles.noAccount}>
-          <Text isMuted>
-            Do not have an account yet? <Link to="/sign-up">Sign up now</Link>.
-          </Text>
-        </div>
       </Container>
     </Page>
   )

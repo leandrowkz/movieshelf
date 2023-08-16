@@ -11,5 +11,6 @@ test('should render content properly', () => {
   expect(screen.getByTestId('input-email')).toBeVisible()
   expect(screen.getByTestId('input-password')).toBeVisible()
   expect(screen.getByTestId('btn-submit')).toBeVisible()
+  expect(screen.getByTestId('btn-google')).toBeVisible()
   expect(screen.getByText(/Do not have an account yet?/i)).toBeVisible()
 })

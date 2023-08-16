@@ -15,6 +15,8 @@ import { Favorites } from 'src/pages/Favorites'
 import { Watchlist } from 'src/pages/Watchlist'
 import { Watched } from 'src/pages/Watched'
 import { PersonDetails } from 'src/pages/PersonDetails'
+import { ResetPassword } from 'src/pages/ResetPassword'
+import { NewPassword } from 'src/pages/NewPassword'
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ export const router = createBrowserRouter([
       {
         path: '/sign-in',
         element: <SignIn />,
+      },
+      {
+        path: '/reset-password',
+        element: <ResetPassword />,
+      },
+      {
+        path: '/new-password',
+        element: <NewPassword />,
       },
       {
         path: '/favorites',
