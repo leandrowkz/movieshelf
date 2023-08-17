@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTesting } from 'src/hooks/useTesting'
-import { NewPassword } from '.'
+import { PasswordReset } from '.'
 
 const { renderComponent, screen } = useTesting()
 
 test('should render content properly', () => {
-  renderComponent(<NewPassword />)
+  renderComponent(<PasswordReset />)
 
   expect(screen.getByText('Reset your password')).toBeVisible()
   expect(screen.getByTestId('input-email')).toBeVisible()

@@ -1,5 +1,6 @@
 import React, { type HTMLAttributes, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Container } from 'src/components/Container'
 import { Heading } from 'src/components/Heading'
@@ -11,6 +12,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Input } from 'src/components/Input'
 import { type ResetPassword, ResetPasswordSchema } from 'src/types'
 import { AuthContext } from 'src/context/AuthContext'
+import { MdCheckCircle } from 'react-icons/md'
 
 const formSchema = ResetPasswordSchema.refine(
   ({ confirmPassword, password }) => confirmPassword === password,
@@ -20,7 +22,7 @@ const formSchema = ResetPasswordSchema.refine(
   }
 )
 
-export function NewPassword(props: HTMLAttributes<HTMLDivElement>) {
+export function PasswordUpdate(props: HTMLAttributes<HTMLDivElement>) {
   const {
     handleSubmit,
     control,
@@ -40,8 +42,11 @@ export function NewPassword(props: HTMLAttributes<HTMLDivElement>) {
     try {
       if (data.password) {
         await updatePassword(data.password)
+        toast('Password has been successfully updated.', {
+          icon: <MdCheckCircle color="green" />,
+        })
+        navigate('/')
       }
-      // navigate('/')
     } catch (e) {
       console.log(e)
       /* empty */

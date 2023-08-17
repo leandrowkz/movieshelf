@@ -84,7 +84,7 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
               />
             )}
           />
-          <Link to="/reset-password" className={styles.resetPassword}>
+          <Link to="/password/reset" className={styles.resetPassword}>
             <Text size="small">Forgot your password?</Text>
           </Link>
 
