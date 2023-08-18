@@ -17,9 +17,17 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
   const [signUpErrors, setSignUpErrors] = useState<Error | false>(false)
   const [signInErrors, setSignInErrors] = useState<Error | false>(false)
   const [signOutErrors, setSignOutErrors] = useState<Error | false>(false)
+  const [resetPasswordErrors, setResetPasswordErrors] = useState<Error | false>(
+    false
+  )
+  const [updatePasswordErrors, setUpdatePasswordErrors] = useState<
+    Error | false
+  >(false)
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false)
   const [isLoadingSignIn, setIsLoadingSignIn] = useState(false)
   const [isLoadingSignOut, setIsLoadingSignOut] = useState(false)
+  const [isLoadingResetPassword, setIsLoadingResetPassword] = useState(false)
+  const [isLoadingUpdatePassword, setIsLoadingUpdatePassword] = useState(false)
   const [isAutoSignInDone, setIsAutoSignInDone] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
@@ -54,6 +62,23 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     [supabase]
   )
 
+  const signInSocial = useCallback(
+    async (provider: 'google') => {
+      clearSignInErrors()
+      setIsLoadingSignIn(true)
+
+      const { error } = await supabase.auth.signInWithOAuth({ provider })
+
+      setIsLoadingSignIn(false)
+
+      if (error) {
+        setSignInErrors(error)
+        throw error
+      }
+    },
+    [supabase]
+  )
+
   const signUp = useCallback(
     async (user: User) => {
       clearSignUpErrors()
@@ -71,12 +96,63 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
       setIsLoadingSignUp(false)
 
+      console.log(data, error)
+
       if (error) {
         setSignUpErrors(error)
         throw error
       }
 
+      /**
+       * User already exists.
+       *
+       * @see https://github.com/supabase/supabase-js/issues/296#issuecomment-1372552875
+       */
+      if (data.user?.identities?.length === 0) {
+        const error = new Error('An account already exists with this email.')
+        setSignUpErrors(error)
+        throw error
+      }
+
       setSignInData(data)
+    },
+    [supabase]
+  )
+
+  const resetPassword = useCallback(
+    async (email: string) => {
+      clearResetPasswordErrors()
+      setIsLoadingResetPassword(true)
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://movieshelf.app/password/update',
+      })
+
+      setIsLoadingResetPassword(false)
+
+      if (error) {
+        setResetPasswordErrors(error)
+        throw error
+      }
+    },
+    [supabase]
+  )
+
+  const updatePassword = useCallback(
+    async (newPassword: string) => {
+      clearUpdatePasswordErrors()
+      setIsLoadingUpdatePassword(true)
+
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      })
+
+      setIsLoadingUpdatePassword(false)
+
+      if (error) {
+        setUpdatePasswordErrors(error)
+        throw error
+      }
     },
     [supabase]
   )
@@ -113,6 +189,8 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
 
   const clearSignInErrors = () => setSignInErrors(false)
   const clearSignUpErrors = () => setSignUpErrors(false)
+  const clearResetPasswordErrors = () => setResetPasswordErrors(false)
+  const clearUpdatePasswordErrors = () => setUpdatePasswordErrors(false)
 
   const state = {
     session,
@@ -123,17 +201,26 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
     signInErrors,
     signUpErrors,
     signOutErrors,
+    resetPasswordErrors,
+    updatePasswordErrors,
 
     isLoadingSignIn,
     isLoadingSignUp,
     isLoadingSignOut,
+    isLoadingResetPassword,
+    isLoadingUpdatePassword,
 
     signIn,
+    signInSocial,
     signUp,
     signOut,
     autoSignIn,
+    resetPassword,
+    updatePassword,
     clearSignInErrors,
     clearSignUpErrors,
+    clearResetPasswordErrors,
+    clearUpdatePasswordErrors,
   }
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>

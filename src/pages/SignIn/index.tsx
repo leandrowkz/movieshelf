@@ -11,6 +11,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Input } from 'src/components/Input'
 import { type User, UserSchema } from 'src/types'
 import { AuthContext } from 'src/context/AuthContext'
+import { GoogleAuthButton } from 'src/components/GoogleAuthButton'
 
 export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
   const {
@@ -42,8 +43,9 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <Page {...props}>
       <Container className={styles.container}>
-        <Heading title="➡️ Login to movieshelf" level={2} />
-        <Text isParagraph isMuted>
+        <Text className={styles.icon}>🍿</Text>
+        <Heading title="Login to movieshelf" level={2} />
+        <Text isParagraph isMuted className={styles.description}>
           Sign in to movieshelf to continue saving your favorite movies and TV
           shows.
         </Text>
@@ -82,6 +84,9 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
               />
             )}
           />
+          <Text size="small" className={styles.resetPassword}>
+            <Link to="/password/reset">Forgot your password?</Link>
+          </Text>
 
           <Button
             type="submit"
@@ -90,10 +95,14 @@ export function SignIn(props: HTMLAttributes<HTMLDivElement>) {
           >
             Sign in
           </Button>
+          <GoogleAuthButton
+            label="Sign in with Google"
+            data-testid="btn-google"
+          />
         </form>
-        <div className={styles.alreadyHaveAccount}>
-          <Text>
-            Do not have an account yet? <Link to="/sign-up">Sign up</Link> now.
+        <div className={styles.noAccount}>
+          <Text isMuted>
+            Do not have an account yet? <Link to="/sign-up">Sign up now</Link>.
           </Text>
         </div>
       </Container>
