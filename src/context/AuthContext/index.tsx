@@ -125,8 +125,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       setIsLoadingResetPassword(true)
 
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        // redirectTo: 'https://movieshelf.app/reset-password/success',
-        redirectTo: 'http://localhost:3000/password/update',
+        redirectTo: 'https://movieshelf.app/password/update',
       })
 
       setIsLoadingResetPassword(false)
