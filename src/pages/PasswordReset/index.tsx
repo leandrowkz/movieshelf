@@ -57,7 +57,7 @@ export function PasswordReset(props: HTMLAttributes<HTMLDivElement>) {
         <Result
           icon="✉️"
           title="We are almost there."
-          description="We sent you an email with a magic login link. With this you will be able to login again and reset your password."
+          description="You must receive an email with a magic login link if an account exists for this email address. With this you will be able to login again and reset your password."
           actions={
             <Button size="medium" onClick={() => navigate('/')}>
               Go home
@@ -106,7 +106,11 @@ export function PasswordReset(props: HTMLAttributes<HTMLDivElement>) {
           >
             Send me a magic link
           </Button>
-          <Button onClick={() => navigate('/sign-in')} variant="outlined">
+          <Button
+            onClick={() => navigate('/sign-in')}
+            variant="outlined"
+            data-testid="btn-back"
+          >
             <MdArrowBack />
             Back
           </Button>

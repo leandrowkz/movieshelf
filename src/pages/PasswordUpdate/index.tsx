@@ -42,7 +42,7 @@ export function PasswordUpdate(props: HTMLAttributes<HTMLDivElement>) {
     try {
       if (data.password) {
         await updatePassword(data.password)
-        toast('Password has been successfully updated.', {
+        toast('Your password has been updated.', {
           icon: <MdCheckCircle color="green" />,
         })
         navigate('/')
@@ -96,7 +96,7 @@ export function PasswordUpdate(props: HTMLAttributes<HTMLDivElement>) {
                 {...field}
                 type="password"
                 placeholder="🔐 Confirm your new password"
-                data-testid="input-new-password"
+                data-testid="input-confirm-password"
                 errorMessage={errors.confirmPassword?.message}
               />
             )}
@@ -109,7 +109,11 @@ export function PasswordUpdate(props: HTMLAttributes<HTMLDivElement>) {
           >
             Set new password
           </Button>
-          <Button onClick={() => navigate('/')} variant="outlined">
+          <Button
+            onClick={() => navigate('/')}
+            variant="outlined"
+            data-testid="btn-go-home"
+          >
             Go home
           </Button>
         </form>

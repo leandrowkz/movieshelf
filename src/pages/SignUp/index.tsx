@@ -125,7 +125,7 @@ export function SignUp(props: HTMLAttributes<HTMLDivElement>) {
               <Input
                 {...field}
                 type="password"
-                placeholder="🔐 Define a password"
+                placeholder="🔐 Set your password"
                 data-testid="input-password"
                 errorMessage={errors.password?.message}
               />
