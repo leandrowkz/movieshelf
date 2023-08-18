@@ -58,7 +58,7 @@ export function PasswordUpdate(props: HTMLAttributes<HTMLDivElement>) {
   }, [])
 
   return (
-    <Page {...props}>
+    <Page {...props} isProtected>
       <Container className={styles.container}>
         <Text className={styles.icon}>🔏</Text>
         <Heading title="New password" level={2} />
