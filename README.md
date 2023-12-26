@@ -1,6 +1,6 @@
 # 🍿 Movieshelf
 An opensource movie, tv and cast catalog that uses The Movie Database API to fetch movies/tv data.
-Take a look at this project running on https://movieshelf.app.
+Take a look at it running on https://movieshelf.app.
 
 ![Movieshelf showcase](./docs/movieshelf.jpeg)
 
