@@ -46,7 +46,8 @@
     "prettier": "^2.8.4",
     "react-scripts": "5.0.1",
     "source-map-explorer": "^2.5.3",
-    "typescript": "*"
+    "typescript": "*",
+    "vercel": "^33.2.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
