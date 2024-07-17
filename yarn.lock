@@ -1764,10 +1764,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@leandrowkz/tmdb@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/@leandrowkz/tmdb/-/tmdb-2.1.2.tgz"
-  integrity sha512-hRzZ9Vt1Uq+z+gs2ifQrjN9P9Ywu94Q0gr5pB2jearTN+uHR2O3AY5bjaPiPLQlB8y4syq8DcNI77PQREG8dgg==
+"@leandrowkz/tmdb@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@leandrowkz/tmdb/-/tmdb-2.1.3.tgz#e46dcd728def7db8eae57839ac4b744eb1c49458"
+  integrity sha512-vk6PcceP3qSlzrNT2J1GoS5r+HQsDO8jwYyyrWxTcr6WXLCbisg3nqYDBbh84MOac5MJBTWlFjAU9WXNBzl2mQ==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
