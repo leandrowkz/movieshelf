@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
-import { TVShowListsContext } from 'src/context/TVShowListsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
 import { Container } from '../../components/Container'
-import { ShowList } from 'src/components/ShowList'
-import { GenresContext } from 'src/context/GenresContext'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { ShowList } from '../../components/ShowList'
+import { GenresContext } from '../../context/GenresContext'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import { NotFound } from '../404'
-import { Pagination } from 'src/components/Pagination'
+import { Pagination } from '../../components/Pagination'
 import styles from './styles.module.css'
-import { ShowCarousel } from 'src/components/ShowCarousel'
+import { ShowCarousel } from '../../components/ShowCarousel'
 
 export function TVShowGenre() {
   const { genreId } = useParams()

@@ -1,5 +1,5 @@
 import type { Genre, MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'src/types'
+import type { ListByGenre, ListPaginated } from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')

@@ -1,11 +1,11 @@
 import React, { type HTMLAttributes } from 'react'
-import { Container } from 'src/components/Container'
-import { Heading } from 'src/components/Heading'
+import { Container } from '../../components/Container'
+import { Heading } from '../../components/Heading'
 import styles from './styles.module.css'
-import { Page } from 'src/components/Page'
-import { Text } from 'src/components/Text'
+import { Page } from '../../components/Page'
+import { Text } from '../../components/Text'
 import { Link } from 'react-router-dom'
-import { Button } from 'src/components/Button'
+import { Button } from '../../components/Button'
 
 export function NotFound(props: HTMLAttributes<HTMLDivElement>) {
   return (

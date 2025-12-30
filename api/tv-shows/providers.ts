@@ -1,6 +1,6 @@
 import type { CountryCode } from '@leandrowkz/tmdb'
-import { tmdb, dispatch } from '../api'
-import { getWatchProvidersList } from '../helpers'
+import { tmdb, dispatch } from '../../src/lib/api'
+import { getWatchProvidersList } from '../../src/lib/helpers'
 
 export const config = {
   runtime: 'edge',

@@ -1,4 +1,4 @@
-import { json, tmdb } from '../api'
+import { json, tmdb } from '../../src/lib/api'
 
 export const config = {
   runtime: 'edge',

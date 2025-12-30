@@ -1,5 +1,5 @@
 import type { Genre, GenreCode, MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'src/types'
+import type { ListByGenre, ListPaginated } from '../../types'
 
 export type GenresState = {
   moviesGenresList: ListPaginated<MovieItem>

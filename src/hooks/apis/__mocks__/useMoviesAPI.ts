@@ -1,9 +1,9 @@
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { mockVideo } from 'src/__mocks__/mockVideo'
-import { mockMovieCredits } from 'src/__mocks__/mockMovieCredits'
-import { mockShowStates } from 'src/__mocks__/mockShowStates'
-import { mockWatchProvider } from 'src/__mocks__/mockWatchProvider'
-import { mockMoviesListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
+import { mockMovieDetails } from '../../../__mocks__/mockMovieDetails'
+import { mockVideo } from '../../../__mocks__/mockVideo'
+import { mockMovieCredits } from '../../../__mocks__/mockMovieCredits'
+import { mockShowStates } from '../../../__mocks__/mockShowStates'
+import { mockWatchProvider } from '../../../__mocks__/mockWatchProvider'
+import { mockMoviesListPaginated } from '../../../__mocks__/mockMoviesListPaginated'
 
 async function fetchCredits() {
   return { ...mockMovieCredits }

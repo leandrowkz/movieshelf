@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { dispatch, supabase } from './api'
+import { dispatch, supabase } from '../src/lib/api'
 
 export const config = {
   runtime: 'edge',

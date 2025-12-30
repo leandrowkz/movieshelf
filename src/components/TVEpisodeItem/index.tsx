@@ -4,9 +4,9 @@ import styles from './styles.module.css'
 import { Heading } from '../Heading'
 import { Text } from '../Text'
 import { Image } from '../Image'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import { Rating } from '../Rating'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

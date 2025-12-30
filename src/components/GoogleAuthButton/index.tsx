@@ -1,7 +1,7 @@
 import React, { useContext, type HTMLAttributes } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from '../Button'
-import { AuthContext } from 'src/context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
 interface GoogleAuthButtonProps extends HTMLAttributes<HTMLButtonElement> {
   label?: string

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { ShowPoster } from '../ShowPoster'
 import { ShowGenres } from '../ShowGenres'
 import { Heading } from '../Heading'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   show: MovieItem | TVShowItem

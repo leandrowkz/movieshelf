@@ -1,10 +1,10 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { Header } from '.'
 
 const { renderComponent, screen } = useTesting()
 
-jest.mock('src/hooks/useSupabase')
+jest.mock('../../hooks/useSupabase')
 
 test('Should render header properly', async () => {
   renderComponent(<Header />)

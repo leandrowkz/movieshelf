@@ -21,13 +21,13 @@ import {
   LoaderPoster,
 } from './loader'
 import styles from './styles.module.css'
-import { useHelpers } from 'src/hooks/useHelpers'
-import type { UserShowStates } from 'src/types'
+import { useHelpers } from '../../hooks/useHelpers'
+import type { UserShowStates } from '../../types'
 import { FavoriteButton } from '../FavoriteButton'
 import { WatchlistButton } from '../WatchlistButton'
 import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow

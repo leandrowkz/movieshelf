@@ -1,7 +1,6 @@
-import { authorize, dispatch } from '../../api'
-import { getShowStates } from '../../helpers'
+import { authorize, dispatch } from '../../../src/lib/api'
+import { getShowStates, addToList, validate } from '../../../src/lib/helpers'
 import type { ShowStatesPayload, UserListPayload } from '../../../src/types'
-import { addToList, validate } from './helpers'
 
 export const config = {
   runtime: 'edge',

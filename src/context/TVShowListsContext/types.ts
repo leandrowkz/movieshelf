@@ -1,5 +1,5 @@
 import type { TVShowItem } from '@leandrowkz/tmdb'
-import type { ListPaginated } from 'src/types'
+import type { ListPaginated } from '../../types'
 
 export type TVShowListsState = {
   similar: ListPaginated<TVShowItem>

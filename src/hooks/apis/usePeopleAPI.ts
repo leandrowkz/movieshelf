@@ -1,5 +1,5 @@
 import type { Image, MovieItem, Person, TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByJob } from 'src/types'
+import type { ListByJob } from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')

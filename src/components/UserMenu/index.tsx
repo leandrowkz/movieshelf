@@ -2,12 +2,12 @@ import React, { type HTMLAttributes, useContext } from 'react'
 import styles from './styles.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../Button'
-import { AuthContext } from 'src/context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 import { Dropdown } from '../Dropdown'
 import md5 from 'md5'
 import { Heading } from '../Heading'
 import { Text } from '../Text'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 export function UserMenu(props: HTMLAttributes<HTMLDivElement>) {
   const isMobile = useScreenSize('mobile')

@@ -4,7 +4,7 @@ import type {
   ShowType,
   UserListType,
   UserShowStates,
-} from 'src/types'
+} from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')

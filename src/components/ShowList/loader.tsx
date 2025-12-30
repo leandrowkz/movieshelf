@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import { Loader, Rectangle } from '../Loader'
 import { Motion } from '../Motion'
 import classNames from 'classnames'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 export function ShowListLoader() {
   const content = []

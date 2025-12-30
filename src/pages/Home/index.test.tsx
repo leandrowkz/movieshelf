@@ -1,9 +1,9 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { Home } from '.'
 
-jest.mock('src/hooks/apis/useMoviesAPI')
-jest.mock('src/hooks/apis/useTVShowsAPI')
+jest.mock('../../hooks/apis/useMoviesAPI')
+jest.mock('../../hooks/apis/useTVShowsAPI')
 
 const { renderComponent, screen } = useTesting()
 

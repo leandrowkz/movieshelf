@@ -1,6 +1,6 @@
 import type { MovieItem, TMDBResponseList } from '@leandrowkz/tmdb'
-import { tmdb, dispatch } from '../api'
-import { transformListResponse } from '../helpers'
+import { tmdb, dispatch } from '../../src/lib/api'
+import { transformListResponse } from '../../src/lib/helpers'
 
 export const config = {
   runtime: 'edge',

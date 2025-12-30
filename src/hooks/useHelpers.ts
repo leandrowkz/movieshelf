@@ -9,7 +9,7 @@ import type {
   TVShowItem,
   Video,
 } from '@leandrowkz/tmdb'
-import type { ListPaginated, Nullable } from 'src/types'
+import type { ListPaginated, Nullable } from '../types'
 
 type Show = Movie | TVShow | MovieItem | TVShowItem
 

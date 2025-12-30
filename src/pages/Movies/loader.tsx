@@ -1,8 +1,8 @@
 import React, { type HTMLAttributes } from 'react'
 import { Page } from '../../components/Page'
-import { Container } from 'src/components/Container'
-import { ShowListLoader } from 'src/components/ShowList/loader'
-import { Loader, Rectangle } from 'src/components/Loader'
+import { Container } from '../../components/Container'
+import { ShowListLoader } from '../../components/ShowList/loader'
+import { Loader, Rectangle } from '../../components/Loader'
 
 export function MoviesLoader(
   props: HTMLAttributes<HTMLDivElement>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { PersonDetails } from '.'
-import { mockPersonMoviesLists } from 'src/__mocks__/mockPersonMoviesLists'
-import { mockPersonTVShowsLists } from 'src/__mocks__/mockPersonTVShowsLists'
-import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
+import { mockPersonMoviesLists } from '../../__mocks__/mockPersonMoviesLists'
+import { mockPersonTVShowsLists } from '../../__mocks__/mockPersonTVShowsLists'
+import { usePeopleAPI } from '../../hooks/apis/usePeopleAPI'
 
-jest.mock('src/hooks/apis/usePeopleAPI')
+jest.mock('../../hooks/apis/usePeopleAPI')
 
 const { renderComponent, screen, user } = useTesting()
 const api = usePeopleAPI()

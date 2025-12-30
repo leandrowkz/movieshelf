@@ -50,7 +50,7 @@ module.exports = {
             name: '@testing-library/react',
             importNames: ['render', 'screen'],
             message:
-              "Import testing functions from useTesting() hook instead.\n\nUsage:\nimport { useTesting } from 'src/hooks/useTesting'\nconst { renderComponent, screen, user } = useTesting()\n",
+              "Import testing functions from useTesting() hook instead.\n\nUsage:\nimport { useTesting } from '../../hooks/useTesting'\nconst { renderComponent, screen, user } = useTesting()\n",
           },
         ],
       },

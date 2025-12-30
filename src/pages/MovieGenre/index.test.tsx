@@ -1,10 +1,10 @@
 import React from 'react'
 import { act } from '@testing-library/react'
-import { useTesting } from 'src/hooks/useTesting'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { useTesting } from '../../hooks/useTesting'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
 import { MovieGenre } from '.'
 
-jest.mock('src/hooks/apis/useMoviesAPI')
+jest.mock('../../hooks/apis/useMoviesAPI')
 
 const { renderComponent, screen } = useTesting()
 const api = useMoviesAPI()
@@ -16,7 +16,7 @@ async function safeRenderComponent() {
 }
 
 beforeEach(() => {
-  jest.unmock('src/context/GenresContext')
+  jest.unmock('../../context/GenresContext')
 })
 
 test('should render MovieGenre properly', async () => {

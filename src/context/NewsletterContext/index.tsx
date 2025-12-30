@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { NewsletterState } from './types'
 import { initialState } from './state'
-import { useNewsletterAPI } from 'src/hooks/apis/useNewsletterAPI'
+import { useNewsletterAPI } from '../../hooks/apis/useNewsletterAPI'
 
 export const NewsletterContext = createContext<NewsletterState>({
   ...initialState,

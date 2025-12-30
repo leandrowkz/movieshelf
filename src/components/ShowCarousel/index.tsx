@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowCarouselLoader } from './loader'
 import { Link } from 'react-router-dom'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]

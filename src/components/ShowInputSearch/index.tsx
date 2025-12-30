@@ -13,12 +13,12 @@ import { Text } from '../Text'
 import { Input } from '../Input'
 import { ShowPoster } from '../ShowPoster'
 import { Rating } from '../Rating'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import { ShowGenres } from '../ShowGenres'
 import { MdOutlineSearch } from 'react-icons/md'
-import { useClickOutside } from 'src/hooks/useClickOutside'
-import { useScreenSize } from 'src/hooks/useScreenSize'
-import { SearchContext } from 'src/context/SearchContext'
+import { useClickOutside } from '../../hooks/useClickOutside'
+import { useScreenSize } from '../../hooks/useScreenSize'
+import { SearchContext } from '../../context/SearchContext'
 
 const { getShowReleaseYear } = useHelpers()
 

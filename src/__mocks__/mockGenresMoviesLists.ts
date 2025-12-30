@@ -1,5 +1,5 @@
 import type { MovieItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'src/types'
+import type { ListByGenre, ListPaginated } from '../types'
 import { mockGenresMoviesCodes } from './mockGenresMoviesCodes'
 import { mockMoviesListPaginated } from './mockMoviesListPaginated'
 

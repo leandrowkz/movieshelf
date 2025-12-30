@@ -1,7 +1,7 @@
-import { mockPerson } from 'src/__mocks__/mockPerson'
-import { mockPersonMoviesLists } from 'src/__mocks__/mockPersonMoviesLists'
-import { mockPersonTVShowsLists } from 'src/__mocks__/mockPersonTVShowsLists'
-import { mockPersonImages } from 'src/__mocks__/mockPersonImages'
+import { mockPerson } from '../../../__mocks__/mockPerson'
+import { mockPersonMoviesLists } from '../../../__mocks__/mockPersonMoviesLists'
+import { mockPersonTVShowsLists } from '../../../__mocks__/mockPersonTVShowsLists'
+import { mockPersonImages } from '../../../__mocks__/mockPersonImages'
 
 async function fetchPerson() {
   return { ...mockPerson }

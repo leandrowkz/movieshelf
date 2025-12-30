@@ -2,7 +2,7 @@ import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { Image, Person } from '@leandrowkz/tmdb'
 import type { PeopleState } from './types'
 import { initialState } from './state'
-import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
+import { usePeopleAPI } from '../../hooks/apis/usePeopleAPI'
 
 export const PeopleContext = createContext<PeopleState>({
   ...initialState,

@@ -1,11 +1,11 @@
 import React from 'react'
 import { act } from '@testing-library/react'
-import { useTesting } from 'src/hooks/useTesting'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { useTesting } from '../../hooks/useTesting'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 import { TVShowGenre } from '.'
 
-jest.mock('src/hooks/apis/useGenresAPI')
-jest.mock('src/hooks/apis/useTVShowsAPI')
+jest.mock('../../hooks/apis/useGenresAPI')
+jest.mock('../../hooks/apis/useTVShowsAPI')
 
 const { renderComponent, screen } = useTesting()
 const api = useTVShowsAPI()

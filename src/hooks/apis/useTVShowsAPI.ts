@@ -6,7 +6,7 @@ import type {
   Video,
   WatchProvider,
 } from '@leandrowkz/tmdb'
-import type { ListPaginated, UserShowStates } from 'src/types'
+import type { ListPaginated, UserShowStates } from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')

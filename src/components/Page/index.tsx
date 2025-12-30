@@ -3,7 +3,7 @@ import { Footer } from '../Footer'
 import styles from './styles.module.css'
 import { Header } from '../Header'
 import classNames from 'classnames'
-import { AuthContext } from 'src/context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

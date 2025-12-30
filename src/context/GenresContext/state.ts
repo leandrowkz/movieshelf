@@ -1,4 +1,4 @@
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import type { GenresState } from './types'
 
 const { getEmptyListPaginated } = useHelpers()

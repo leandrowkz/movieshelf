@@ -1,7 +1,7 @@
 import React, { type HTMLAttributes } from 'react'
 import { Circle, Loader, Paragraph, Rectangle } from '../Loader'
 import css from './styles.module.css'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
 import { PersonImagesLoader } from '../PersonImages/loader'
 

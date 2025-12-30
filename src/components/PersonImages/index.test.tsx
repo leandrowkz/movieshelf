@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { PersonImages } from '.'
-import { mockPersonImages } from 'src/__mocks__/mockPersonImages'
+import { mockPersonImages } from '../../__mocks__/mockPersonImages'
 
 const { renderComponent, screen } = useTesting()
 

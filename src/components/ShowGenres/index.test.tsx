@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Movie } from '@leandrowkz/tmdb'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { ShowGenres } from '.'
 
 const { renderComponent, getMockMovies, screen } = useTesting()

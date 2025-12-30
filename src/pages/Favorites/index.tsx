@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import type { ShowType } from 'src/types'
+import type { ShowType } from '../../types'
 import styles from './styles.module.css'
 import { Page } from '../../components/Page'
-import { Heading } from 'src/components/Heading'
-import { Container } from 'src/components/Container'
-import { ShowList } from 'src/components/ShowList'
-import { useScreenSize } from 'src/hooks/useScreenSize'
-import { Pagination } from 'src/components/Pagination'
-import { UserListsContext } from 'src/context/UserListsContext'
-import { ShowTypeFilters } from 'src/components/ShowTypeFilters'
+import { Heading } from '../../components/Heading'
+import { Container } from '../../components/Container'
+import { ShowList } from '../../components/ShowList'
+import { useScreenSize } from '../../hooks/useScreenSize'
+import { Pagination } from '../../components/Pagination'
+import { UserListsContext } from '../../context/UserListsContext'
+import { ShowTypeFilters } from '../../components/ShowTypeFilters'
 
 export function Favorites(): JSX.Element {
   const isMobile = useScreenSize('mobile')

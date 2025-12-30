@@ -1,5 +1,9 @@
-import { dispatch, tmdb } from '../api'
-import { type ShowLists, getCastItems, getCrewItems } from './helpers'
+import { dispatch, tmdb } from '../../src/lib/api'
+import {
+  type ShowLists,
+  getCastItems,
+  getCrewItems,
+} from '../../src/lib/helpers'
 
 export const config = {
   runtime: 'edge',

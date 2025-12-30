@@ -3,14 +3,14 @@ import classNames from 'classnames'
 import css from './styles.module.css'
 import { Text } from '../Text'
 import { Motion } from '../Motion'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useHelpers } from '../../hooks/useHelpers'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import { Avatar } from '../Avatar'
 import { Heading } from '../Heading'
 import { MdCake, MdPlace } from 'react-icons/md'
 import { PersonLoader } from './loader'
 import { PersonImages } from '../PersonImages'
-import { PeopleContext } from 'src/context/PeopleContext'
+import { PeopleContext } from '../../context/PeopleContext'
 
 export function PersonDetails(props: HTMLAttributes<HTMLDivElement>) {
   const { person, images, isLoading } = useContext(PeopleContext)

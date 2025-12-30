@@ -4,11 +4,11 @@ import { type CountryCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { ShowCarousel } from '../../components/ShowCarousel'
-import { ShowDetails } from 'src/components/ShowDetails'
+import { ShowDetails } from '../../components/ShowDetails'
 import { NotFound } from '../404'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { MovieDetailsContext } from 'src/context/MovieDetailsContext'
-import { ShowProviders } from 'src/components/ShowProviders'
+import { useHelpers } from '../../hooks/useHelpers'
+import { MovieDetailsContext } from '../../context/MovieDetailsContext'
+import { ShowProviders } from '../../components/ShowProviders'
 
 export function MovieDetails(): JSX.Element {
   const { getCreditsDirector, getUserGeolocationCountry } = useHelpers()

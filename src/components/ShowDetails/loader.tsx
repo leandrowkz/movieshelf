@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './styles.module.css'
 import { Circle, Loader, Paragraph, Rectangle } from '../../components/Loader'
 import { Motion } from '../../components/Motion'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 export function LoaderDetails() {
   const isMobile = useScreenSize('mobile')
