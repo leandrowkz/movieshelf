@@ -7,7 +7,7 @@ import { PeopleContext } from '../../context/PeopleContext'
 import { mockImage } from '../../__mocks__/mockImage'
 import { act } from '@testing-library/react'
 
-jest.mock('src/hooks/apis/usePeopleAPI')
+jest.mock('../../hooks/apis/usePeopleAPI')
 
 const { renderComponent, screen, user } = useTesting()
 

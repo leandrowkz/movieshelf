@@ -5,7 +5,7 @@ import { mockPersonMoviesLists } from '../../__mocks__/mockPersonMoviesLists'
 import { mockPersonTVShowsLists } from '../../__mocks__/mockPersonTVShowsLists'
 import { usePeopleAPI } from '../../hooks/apis/usePeopleAPI'
 
-jest.mock('src/hooks/apis/usePeopleAPI')
+jest.mock('../../hooks/apis/usePeopleAPI')
 
 const { renderComponent, screen, user } = useTesting()
 const api = usePeopleAPI()

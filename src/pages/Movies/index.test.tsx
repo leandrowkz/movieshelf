@@ -3,8 +3,8 @@ import { useTesting } from '../../hooks/useTesting'
 import { mockGenresMoviesLists } from '../../__mocks__/mockGenresMoviesLists'
 import { Movies } from '.'
 
-jest.mock('src/hooks/apis/useGenresAPI')
-jest.mock('src/hooks/apis/useMoviesAPI')
+jest.mock('../../hooks/apis/useGenresAPI')
+jest.mock('../../hooks/apis/useMoviesAPI')
 
 const { renderComponent, screen, user } = useTesting()
 

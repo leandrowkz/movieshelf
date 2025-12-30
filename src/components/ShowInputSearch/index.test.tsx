@@ -2,8 +2,8 @@ import React from 'react'
 import { useTesting } from '../../hooks/useTesting'
 import { ShowInputSearch } from '.'
 
-jest.mock('src/hooks/apis/useMoviesAPI')
-jest.mock('src/hooks/apis/useTVShowsAPI')
+jest.mock('../../hooks/apis/useMoviesAPI')
+jest.mock('../../hooks/apis/useTVShowsAPI')
 
 const { renderComponent, screen, user } = useTesting()
 

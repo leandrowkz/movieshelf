@@ -4,7 +4,7 @@ import { Header } from '.'
 
 const { renderComponent, screen } = useTesting()
 
-jest.mock('src/hooks/useSupabase')
+jest.mock('../../hooks/useSupabase')
 
 test('Should render header properly', async () => {
   renderComponent(<Header />)

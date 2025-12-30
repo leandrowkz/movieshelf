@@ -3,8 +3,8 @@ import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 import { useTesting } from '../../hooks/useTesting'
 import { TVShowDetails } from '.'
 
-jest.mock('src/hooks/apis/useTVShowsAPI')
-jest.mock('src/hooks/apis/useTVSeasonsAPI')
+jest.mock('../../hooks/apis/useTVShowsAPI')
+jest.mock('../../hooks/apis/useTVSeasonsAPI')
 
 const { renderComponent, screen } = useTesting()
 const api = useTVShowsAPI()

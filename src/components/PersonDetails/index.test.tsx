@@ -8,7 +8,7 @@ import { useHelpers } from '../../hooks/useHelpers'
 import { PeopleContext } from '../../context/PeopleContext'
 import { waitForElementToBeRemoved } from '@testing-library/react'
 
-jest.mock('src/hooks/apis/usePeopleAPI')
+jest.mock('../../hooks/apis/usePeopleAPI')
 
 const { renderComponent, screen } = useTesting()
 const { formatDate, getAgeFromDate, getJobByDepartment } = useHelpers()

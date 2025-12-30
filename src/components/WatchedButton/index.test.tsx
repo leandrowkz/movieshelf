@@ -5,7 +5,7 @@ import { useTesting } from '../../hooks/useTesting'
 import { WatchedButton } from '.'
 import { mockShowStates } from '../../__mocks__/mockShowStates'
 
-jest.mock('src/hooks/apis/useMoviesAPI')
+jest.mock('../../hooks/apis/useMoviesAPI')
 
 const api = useMoviesAPI()
 const { renderComponent, getMockMovies, getMockShowStates, screen } =

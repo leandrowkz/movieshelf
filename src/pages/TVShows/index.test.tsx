@@ -5,8 +5,8 @@ import { TVShows } from '.'
 
 const { renderComponent, screen, user } = useTesting()
 
-jest.mock('src/hooks/apis/useGenresAPI')
-jest.mock('src/hooks/apis/useTVShowsAPI')
+jest.mock('../../hooks/apis/useGenresAPI')
+jest.mock('../../hooks/apis/useTVShowsAPI')
 
 test('Should render TVShows page properly', async () => {
   renderComponent(<TVShows />)
