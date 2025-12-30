@@ -47,7 +47,7 @@ export async function dispatch(action: (...args: any) => Promise<any>) {
 
   try {
     response.data = await action()
-  } catch (e) {
+  } catch (e: unknown) {
     if (e instanceof AuthorizationError) {
       response.data = e.message
       response.status = 401

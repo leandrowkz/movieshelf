@@ -1,4 +1,4 @@
-import { mockSession } from 'src/__mocks__/mockSession'
+import { mockSession } from '../../__mocks__/mockSession'
 
 export const useSupabase = () => ({
   supabase: {

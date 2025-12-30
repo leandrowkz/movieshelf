@@ -1,7 +1,7 @@
 import React from 'react'
 import { act } from '@testing-library/react'
-import { useTesting } from 'src/hooks/useTesting'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { useTesting } from '../../hooks/useTesting'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 import { TVShowGenre } from '.'
 
 jest.mock('src/hooks/apis/useGenresAPI')

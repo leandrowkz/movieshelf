@@ -1,5 +1,5 @@
 import type { MovieItem } from '@leandrowkz/tmdb'
-import type { ListByJob } from 'src/types'
+import type { ListByJob } from '../types'
 import { mockMoviesListPaginated } from './mockMoviesListPaginated'
 
 export const mockPersonMoviesLists: ListByJob<MovieItem[]>[] = [

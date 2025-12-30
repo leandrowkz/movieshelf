@@ -2,8 +2,8 @@ import React, { type PropsWithChildren, createContext, useState } from 'react'
 import { GenreCode } from '@leandrowkz/tmdb'
 import type { MovieListsState } from './types'
 import { initialState } from './state'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
+import { useHelpers } from '../../hooks/useHelpers'
 
 export const MovieListsContext = createContext<MovieListsState>({
   ...initialState,

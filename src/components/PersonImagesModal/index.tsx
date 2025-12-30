@@ -1,9 +1,9 @@
 import React, { type HTMLAttributes, useContext } from 'react'
 import classNames from 'classnames'
 import css from './styles.module.css'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import { Image } from '../Image'
-import { PeopleContext } from 'src/context/PeopleContext'
+import { PeopleContext } from '../../context/PeopleContext'
 import { Avatar } from '../Avatar'
 
 export function PersonImagesModal(props: HTMLAttributes<HTMLDivElement>) {

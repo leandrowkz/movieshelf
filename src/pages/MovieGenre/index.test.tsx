@@ -1,7 +1,7 @@
 import React from 'react'
 import { act } from '@testing-library/react'
-import { useTesting } from 'src/hooks/useTesting'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
+import { useTesting } from '../../hooks/useTesting'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
 import { MovieGenre } from '.'
 
 jest.mock('src/hooks/apis/useMoviesAPI')

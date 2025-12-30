@@ -1,6 +1,6 @@
 import React from 'react'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
+import { useTesting } from '../../hooks/useTesting'
 import { TVShowDetails } from '.'
 
 jest.mock('src/hooks/apis/useTVShowsAPI')

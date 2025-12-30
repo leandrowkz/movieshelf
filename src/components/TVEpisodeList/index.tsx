@@ -3,7 +3,7 @@ import type { TVEpisode } from '@leandrowkz/tmdb'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { TVEpisodeListLoader } from './loader'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import { TVEpisodeItem } from '../TVEpisodeItem'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { AuthContext } from 'src/context/AuthContext'
-import { GenresContext } from 'src/context/GenresContext'
-import { useNewRelic } from 'src/hooks/useNewRelic'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { AuthContext } from '../../context/AuthContext'
+import { GenresContext } from '../../context/GenresContext'
+import { useNewRelic } from '../../hooks/useNewRelic'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 export const Root = () => {
   const location = useLocation()

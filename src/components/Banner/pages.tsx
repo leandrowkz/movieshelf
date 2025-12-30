@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import { Motion } from '../Motion'
 import { Text } from '../Text'
 import { useScreenSize } from '../../hooks/useScreenSize'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../../src/hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLElement> {
   shows: MovieItem[]

@@ -10,8 +10,8 @@ import { Heading } from '../Heading'
 import classNames from 'classnames'
 import { Button } from '../Button'
 import { TVSeasonDetails } from '../TVSeasonDetails'
-import { TVSeasonDetailsContext } from 'src/context/TVSeasonDetailsContext'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { TVSeasonDetailsContext } from '../../context/TVSeasonDetailsContext'
+import { useHelpers } from '../../hooks/useHelpers'
 import { Text } from '../Text'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {

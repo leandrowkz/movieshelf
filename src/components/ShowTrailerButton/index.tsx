@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Video } from '@leandrowkz/tmdb'
 import { Button, type ButtonProps } from '../../components/Button'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import { IoPlay } from 'react-icons/io5'
 
 interface Props extends ButtonProps {

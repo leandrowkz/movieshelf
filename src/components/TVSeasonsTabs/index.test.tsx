@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { TVSeasonsTabs } from '.'
 import type { TVShow } from '@leandrowkz/tmdb'
 import { act } from '@testing-library/react'

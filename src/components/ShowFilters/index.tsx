@@ -8,9 +8,9 @@ import classNames from 'classnames'
 import styles from './styles.module.css'
 import { Button } from '../Button'
 import { Container } from '../Container'
-import { useScreenSize } from 'src/hooks/useScreenSize'
-import { GenresContext } from 'src/context/GenresContext'
-import type { ShowType } from 'src/types'
+import { useScreenSize } from '../../hooks/useScreenSize'
+import { GenresContext } from '../../context/GenresContext'
+import type { ShowType } from '../../types'
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   type: ShowType

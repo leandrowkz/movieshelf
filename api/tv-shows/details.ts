@@ -1,4 +1,4 @@
-import { tmdb, dispatch } from '../api'
+import { tmdb, dispatch } from '../../src/lib/api'
 
 export const config = {
   runtime: 'edge',

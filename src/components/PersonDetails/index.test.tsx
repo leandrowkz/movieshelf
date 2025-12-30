@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { PersonDetails } from '.'
-import { usePeopleAPI } from 'src/hooks/apis/usePeopleAPI'
-import { mockPerson } from 'src/__mocks__/mockPerson'
+import { usePeopleAPI } from '../../hooks/apis/usePeopleAPI'
+import { mockPerson } from '../../__mocks__/mockPerson'
 import type { Person } from '@leandrowkz/tmdb'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { PeopleContext } from 'src/context/PeopleContext'
+import { useHelpers } from '../../hooks/useHelpers'
+import { PeopleContext } from '../../context/PeopleContext'
 import { waitForElementToBeRemoved } from '@testing-library/react'
 
 jest.mock('src/hooks/apis/usePeopleAPI')

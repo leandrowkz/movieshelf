@@ -1,6 +1,6 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
-import { mockGenresMoviesLists } from 'src/__mocks__/mockGenresMoviesLists'
+import { useTesting } from '../../hooks/useTesting'
+import { mockGenresMoviesLists } from '../../__mocks__/mockGenresMoviesLists'
 import { Movies } from '.'
 
 jest.mock('src/hooks/apis/useGenresAPI')

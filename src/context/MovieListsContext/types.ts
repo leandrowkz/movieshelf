@@ -1,5 +1,5 @@
 import type { MovieItem } from '@leandrowkz/tmdb'
-import type { ListPaginated } from 'src/types'
+import type { ListPaginated } from '../../types'
 
 export type MovieListsState = {
   similar: ListPaginated<MovieItem>

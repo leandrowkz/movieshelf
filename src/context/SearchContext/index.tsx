@@ -1,10 +1,10 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
-import type { ListFilters } from 'src/types'
+import type { ListFilters } from '../../types'
 import type { SearchState } from './types'
 import { initialState } from './state'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
+import { useHelpers } from '../../hooks/useHelpers'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 
 export const SearchContext = createContext<SearchState>({
   ...initialState,

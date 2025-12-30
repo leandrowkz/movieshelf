@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 import { Page } from '../../components/Page'
 import { MovieListsContext } from '../../context/MovieListsContext'
 import { Container } from '../../components/Container'
-import { ShowList } from 'src/components/ShowList'
-import { GenresContext } from 'src/context/GenresContext'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { ShowList } from '../../components/ShowList'
+import { GenresContext } from '../../context/GenresContext'
+import { useScreenSize } from '../../hooks/useScreenSize'
 import { NotFound } from '../404'
-import { Pagination } from 'src/components/Pagination'
+import { Pagination } from '../../components/Pagination'
 import styles from './styles.module.css'
-import { ShowCarousel } from 'src/components/ShowCarousel'
+import { ShowCarousel } from '../../components/ShowCarousel'
 
 export function MovieGenre() {
   const { genreId } = useParams()

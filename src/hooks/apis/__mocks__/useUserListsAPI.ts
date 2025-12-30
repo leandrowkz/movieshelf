@@ -1,4 +1,4 @@
-import { mockMoviesListPaginated } from 'src/__mocks__/mockMoviesListPaginated'
+import { mockMoviesListPaginated } from '../../../__mocks__/mockMoviesListPaginated'
 
 async function fetchList() {
   return { ...mockMoviesListPaginated }

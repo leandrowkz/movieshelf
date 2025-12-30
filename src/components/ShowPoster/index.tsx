@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import type { Movie, MovieItem, TVShowItem } from '@leandrowkz/tmdb'
 import { Image } from '../Image'
 import css from './styles.module.css'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: MovieItem | Movie | TVShowItem

@@ -4,12 +4,12 @@ import type { CountryCode } from '@leandrowkz/tmdb'
 import { Page } from '../../components/Page'
 import { ShowCarousel } from '../../components/ShowCarousel'
 import { NotFound } from '../404'
-import { ShowDetails } from 'src/components/ShowDetails'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { TVSeasonsTabs } from 'src/components/TVSeasonsTabs'
-import { TVShowDetailsContext } from 'src/context/TVShowDetailsContext'
-import { TVShowListsContext } from 'src/context/TVShowListsContext'
-import { ShowProviders } from 'src/components/ShowProviders'
+import { ShowDetails } from '../../components/ShowDetails'
+import { useHelpers } from '../../hooks/useHelpers'
+import { TVSeasonsTabs } from '../../components/TVSeasonsTabs'
+import { TVShowDetailsContext } from '../../context/TVShowDetailsContext'
+import { TVShowListsContext } from '../../context/TVShowListsContext'
+import { ShowProviders } from '../../components/ShowProviders'
 
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer, getUserGeolocationCountry } = useHelpers()

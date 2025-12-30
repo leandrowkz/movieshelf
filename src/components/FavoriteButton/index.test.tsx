@@ -1,9 +1,9 @@
 import React from 'react'
 import type { Movie } from '@leandrowkz/tmdb'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { useTesting } from 'src/hooks/useTesting'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
+import { useTesting } from '../../hooks/useTesting'
 import { FavoriteButton } from '.'
-import { mockShowStates } from 'src/__mocks__/mockShowStates'
+import { mockShowStates } from '../../__mocks__/mockShowStates'
 
 jest.mock('src/hooks/apis/useMoviesAPI')
 

@@ -2,9 +2,9 @@ import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { GenreCode } from '@leandrowkz/tmdb'
 import type { GenresState } from './types'
 import { initialState } from './state'
-import { useGenresAPI } from 'src/hooks/apis/useGenresAPI'
-import { useMoviesAPI } from 'src/hooks/apis/useMoviesAPI'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { useGenresAPI } from '../../hooks/apis/useGenresAPI'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 
 export const GenresContext = createContext<GenresState>({ ...initialState })
 

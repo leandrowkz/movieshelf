@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { SignUp } from '.'
 
 const { renderComponent, screen, user } = useTesting()

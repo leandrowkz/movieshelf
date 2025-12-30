@@ -1,4 +1,4 @@
-import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
+import { mockTVSeason } from '../../../__mocks__/mockTVSeason'
 
 async function fetchDetails() {
   return { ...mockTVSeason }

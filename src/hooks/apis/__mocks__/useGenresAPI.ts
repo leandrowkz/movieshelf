@@ -1,7 +1,7 @@
-import { mockGenresMoviesCodes } from 'src/__mocks__/mockGenresMoviesCodes'
-import { mockGenresMoviesLists } from 'src/__mocks__/mockGenresMoviesLists'
-import { mockGenresTVShowsCodes } from 'src/__mocks__/mockGenresTVShowsCodes'
-import { mockGenresTVShowsLists } from 'src/__mocks__/mockGenresTVShowsLists'
+import { mockGenresMoviesCodes } from '../../../__mocks__/mockGenresMoviesCodes'
+import { mockGenresMoviesLists } from '../../../__mocks__/mockGenresMoviesLists'
+import { mockGenresTVShowsCodes } from '../../../__mocks__/mockGenresTVShowsCodes'
+import { mockGenresTVShowsLists } from '../../../__mocks__/mockGenresTVShowsLists'
 
 async function fetchMoviesGenresCodes() {
   return [...mockGenresMoviesCodes]

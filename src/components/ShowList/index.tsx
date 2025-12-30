@@ -6,7 +6,7 @@ import { ShowItem } from '../ShowItem'
 import classNames from 'classnames'
 import { Motion } from '../Motion'
 import { ShowListLoader } from './loader'
-import { useScreenSize } from 'src/hooks/useScreenSize'
+import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   shows: MovieItem[] | TVShowItem[]

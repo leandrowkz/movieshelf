@@ -1,8 +1,8 @@
 import React from 'react'
-import { useTesting } from 'src/hooks/useTesting'
+import { useTesting } from '../../hooks/useTesting'
 import { ShowFilters } from '.'
-import { mockGenresTVShowsCodes } from 'src/__mocks__/mockGenresTVShowsCodes'
-import { mockGenresMoviesCodes } from 'src/__mocks__/mockGenresMoviesCodes'
+import { mockGenresTVShowsCodes } from '../../__mocks__/mockGenresTVShowsCodes'
+import { mockGenresMoviesCodes } from '../../__mocks__/mockGenresMoviesCodes'
 
 const { renderComponent, screen, user } = useTesting()
 

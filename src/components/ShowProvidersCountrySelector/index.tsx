@@ -1,6 +1,6 @@
 import React, { useState, type HTMLAttributes, useRef } from 'react'
 import type { CountryCode } from '@leandrowkz/tmdb'
-import { CountryFlag, Country } from 'src/types'
+import { CountryFlag, Country } from '../../types'
 import styles from './styles.module.css'
 import classNames from 'classnames'
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'

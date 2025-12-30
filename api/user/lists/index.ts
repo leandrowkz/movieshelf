@@ -1,6 +1,6 @@
 import type { MovieItem, TVShowItem } from '@leandrowkz/tmdb'
-import { tmdb, authorize, dispatch } from '../../api'
-import { getShowList } from './helpers'
+import { tmdb, authorize, dispatch } from '../../../src/lib/api'
+import { getShowList } from '../../../src/lib/helpers'
 import type {
   ListPaginated,
   UserListPayload,

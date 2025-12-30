@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react'
 import { MovieListsContextProvider } from '../context/MovieListsContext'
 import { MovieDetailsContextProvider } from '../context/MovieDetailsContext'
 import { BrowserRouter } from 'react-router-dom'
-import { TVShowListsContextProvider } from 'src/context/TVShowListsContext'
-import { TVShowDetailsContextProvider } from 'src/context/TVShowDetailsContext'
-import { TVSeasonDetailsContextProvider } from 'src/context/TVSeasonDetailsContext'
+import { TVShowListsContextProvider } from '../../context/TVShowListsContext'
+import { TVShowDetailsContextProvider } from '../../context/TVShowDetailsContext'
+import { TVSeasonDetailsContextProvider } from '../../context/TVSeasonDetailsContext'
 import type {
   MovieItem,
   PersonCast,
@@ -17,24 +17,24 @@ import type {
   Video,
   WatchProvider,
 } from '@leandrowkz/tmdb'
-import { mockMovieDetails } from 'src/__mocks__/mockMovieDetails'
-import { mockTVShow } from 'src/__mocks__/mockTVShow'
-import { mockPerson } from 'src/__mocks__/mockPerson'
-import { mockVideo } from 'src/__mocks__/mockVideo'
-import { mockTVEpisode } from 'src/__mocks__/mockTVEpisode'
-import { mockTVSeason } from 'src/__mocks__/mockTVSeason'
-import { mockWatchProvider } from 'src/__mocks__/mockWatchProvider'
+import { mockMovieDetails } from '../../__mocks__/mockMovieDetails'
+import { mockTVShow } from '../../__mocks__/mockTVShow'
+import { mockPerson } from '../../__mocks__/mockPerson'
+import { mockVideo } from '../../__mocks__/mockVideo'
+import { mockTVEpisode } from '../../__mocks__/mockTVEpisode'
+import { mockTVSeason } from '../../__mocks__/mockTVSeason'
+import { mockWatchProvider } from '../../__mocks__/mockWatchProvider'
 import {
   AuthContext as MockAuthContext,
   AuthContextProvider as MockAuthContextProvider,
-} from 'src/context/__mocks__/AuthContext'
-import { UserListsContextProvider } from 'src/context/UserListsContext'
-import type { UserShowStates } from 'src/types'
-import { mockShowStates } from 'src/__mocks__/mockShowStates'
-import { GenresContextProvider } from 'src/context/GenresContext'
-import type { GenresState } from 'src/context/GenresContext/types'
-import { SearchContextProvider } from 'src/context/SearchContext'
-import { PeopleContextProvider } from 'src/context/PeopleContext'
+} from '../../context/__mocks__/AuthContext'
+import { UserListsContextProvider } from '../../context/UserListsContext'
+import type { UserShowStates } from '../../types'
+import { mockShowStates } from '../../__mocks__/mockShowStates'
+import { GenresContextProvider } from '../../context/GenresContext'
+import type { GenresState } from '../../context/GenresContext/types'
+import { SearchContextProvider } from '../../context/SearchContext'
+import { PeopleContextProvider } from '../../context/PeopleContext'
 
 jest.mock('src/hooks/useSupabase')
 

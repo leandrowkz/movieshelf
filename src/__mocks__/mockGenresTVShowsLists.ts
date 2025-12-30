@@ -1,5 +1,5 @@
 import type { TVShowItem } from '@leandrowkz/tmdb'
-import type { ListByGenre, ListPaginated } from 'src/types'
+import type { ListByGenre, ListPaginated } from '../types'
 import { mockGenresTVShowsCodes } from './mockGenresTVShowsCodes'
 import { mockTVShowsListPaginated } from './mockTVShowsListPaginated'
 

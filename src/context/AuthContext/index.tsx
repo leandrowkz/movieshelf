@@ -4,9 +4,9 @@ import React, {
   useCallback,
   useState,
 } from 'react'
-import type { User, Nullable, Session } from 'src/types'
+import type { User, Nullable, Session } from '../../types'
 import type { AuthState, SupabaseSession } from './types'
-import { useSupabase } from 'src/hooks/useSupabase'
+import { useSupabase } from '../../hooks/useSupabase'
 import { initialState } from './state'
 
 export const AuthContext = createContext<AuthState>({ ...initialState })

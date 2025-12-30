@@ -9,8 +9,8 @@ import classNames from 'classnames'
 import {
   DropdownContext,
   DropdownContextProvider,
-} from 'src/context/DropdownContext'
-import { useClickOutside } from 'src/hooks/useClickOutside'
+} from '../../context/DropdownContext'
+import { useClickOutside } from '../../hooks/useClickOutside'
 
 interface DropdownMenuProps extends HTMLAttributes<HTMLDivElement> {
   onOpen?: () => void

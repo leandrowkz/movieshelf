@@ -2,8 +2,8 @@ import React, { type PropsWithChildren, createContext, useState } from 'react'
 import { GenreCode } from '@leandrowkz/tmdb'
 import type { TVShowListsState } from './types'
 import { initialState } from './state'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { useTVShowsAPI } from 'src/hooks/apis/useTVShowsAPI'
+import { useHelpers } from '../../hooks/useHelpers'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
 
 export const TVShowListsContext = createContext<TVShowListsState>({
   ...initialState,

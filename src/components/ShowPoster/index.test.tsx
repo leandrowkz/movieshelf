@@ -1,6 +1,6 @@
 import React from 'react'
-import { useHelpers } from 'src/hooks/useHelpers'
-import { useTesting } from 'src/hooks/useTesting'
+import { useHelpers } from '../../hooks/useHelpers'
+import { useTesting } from '../../hooks/useTesting'
 import { ShowPoster } from '.'
 import type { Movie } from '@leandrowkz/tmdb'
 

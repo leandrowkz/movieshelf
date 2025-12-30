@@ -1,10 +1,10 @@
-import { useSupabase } from 'src/hooks/useSupabase'
+import { useSupabase } from '../../hooks/useSupabase'
 import type {
   Nullable,
   RequestBody,
   RequestPayload,
   RequestQuery,
-} from 'src/types'
+} from '../../types'
 
 export class APIClient {
   private headers: Headers

@@ -1,5 +1,5 @@
-import { dispatch, tmdb } from '../api'
-import { transformListResponse } from '../helpers'
+import { dispatch, tmdb } from '../../src/lib/api'
+import { transformListResponse } from '../../src/lib/helpers'
 
 export const config = {
   runtime: 'edge',

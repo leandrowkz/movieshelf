@@ -1,5 +1,5 @@
 import type { MovieListsState } from './types'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 
 const { getEmptyListPaginated } = useHelpers()
 

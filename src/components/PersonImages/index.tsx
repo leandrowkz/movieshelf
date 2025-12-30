@@ -4,9 +4,9 @@ import css from './styles.module.css'
 import { Text } from '../Text'
 import { Motion } from '../Motion'
 import type { Image as PersonImage } from '@leandrowkz/tmdb'
-import { useHelpers } from 'src/hooks/useHelpers'
+import { useHelpers } from '../../hooks/useHelpers'
 import { PersonImagesLoader } from './loader'
-import { PeopleContext } from 'src/context/PeopleContext'
+import { PeopleContext } from '../../context/PeopleContext'
 import { Avatar } from '../Avatar'
 
 interface PersonImagesProps extends HTMLAttributes<HTMLDivElement> {

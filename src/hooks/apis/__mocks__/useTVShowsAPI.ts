@@ -1,9 +1,9 @@
-import { mockTVShow } from 'src/__mocks__/mockTVShow'
-import { mockVideo } from 'src/__mocks__/mockVideo'
-import { mockTVShowCredits } from 'src/__mocks__/mockTVShowCredits'
-import { mockShowStates } from 'src/__mocks__/mockShowStates'
-import { mockWatchProvider } from 'src/__mocks__/mockWatchProvider'
-import { mockTVShowsListPaginated } from 'src/__mocks__/mockTVShowsListPaginated'
+import { mockTVShow } from '../../../__mocks__/mockTVShow'
+import { mockVideo } from '../../../__mocks__/mockVideo'
+import { mockTVShowCredits } from '../../../__mocks__/mockTVShowCredits'
+import { mockShowStates } from '../../../__mocks__/mockShowStates'
+import { mockWatchProvider } from '../../../__mocks__/mockWatchProvider'
+import { mockTVShowsListPaginated } from '../../../__mocks__/mockTVShowsListPaginated'
 
 async function fetchTVShow() {
   return { ...mockTVShow }
