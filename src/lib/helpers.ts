@@ -141,11 +141,13 @@ export function getCastItems(cast: Cast, showType: ShowType): ShowLists {
 export function getCrewItems(crew: Crew, showType: ShowType): ShowLists {
   const lists: ShowLists = []
 
-  crew.map((movie) => {
+  const crewItems = crew as Array<Crew[number]>
+
+  crewItems.map((movie) => {
     const found = lists.find((item) => item.job === movie.job)
 
     if (!found && movie.job) {
-      const data = crew
+      const data = crewItems
         .filter((item) => item.job === movie.job)
         .map((movie) => {
           movie.media_type = showType
