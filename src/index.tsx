@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { router } from './routes/root'
 import 'react-toastify/dist/ReactToastify.min.css'
 import './assets/styles.css'
@@ -32,6 +33,7 @@ const App = () => {
                         <SearchContextProvider>
                           <PeopleContextProvider>
                             <RouterProvider router={router} />
+                            <Analytics />
                           </PeopleContextProvider>
                         </SearchContextProvider>
                       </NewsletterContextProvider>
