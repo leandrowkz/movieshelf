@@ -78,7 +78,9 @@ export function getShowOriginalTitle(
 }
 
 export function getCreditsDirector(credits: MovieCredits | TVShowCredits) {
-  return credits.crew.find((person) => person.job === "Director")?.name ?? null
+  const director = credits.crew.find((person) => person.job === "Director")
+  if (!director) return null
+  return { id: director.id, name: director.name }
 }
 
 export function getCreditsCreators(credits: TVShowCredits | { created_by?: { name: string }[] }) {

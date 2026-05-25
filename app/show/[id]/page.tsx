@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getShowDetails } from "@/actions/shows/get-show-details"
 import { getShowCredits } from "@/actions/shows/get-show-credits"
@@ -70,7 +71,7 @@ export default async function ShowPage({
     getShowRecommended(showId),
   ])
 
-  const creators = show.created_by?.map((c) => c.name) ?? []
+  const creators = show.created_by ?? []
   const runtime = show.episode_run_time?.[0]
 
   return (
@@ -108,9 +109,17 @@ export default async function ShowPage({
             {creators.length > 0 && (
               <p className="text-muted-foreground mt-3 text-sm">
                 Created by{" "}
-                <span className="text-foreground font-medium">
-                  {creators.join(", ")}
-                </span>
+                {creators.map((c, i) => (
+                  <span key={c.id}>
+                    <Link
+                      href={`/person/${c.id}`}
+                      className="text-foreground font-medium hover:underline"
+                    >
+                      {c.name}
+                    </Link>
+                    {i < creators.length - 1 ? ", " : ""}
+                  </span>
+                ))}
               </p>
             )}
             <div className="mt-5">

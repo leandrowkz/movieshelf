@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getMovieDetails } from "@/actions/movies/get-movie-details"
 import { getMovieCredits } from "@/actions/movies/get-movie-credits"
@@ -100,7 +101,13 @@ export default async function MoviePage({
             )}
             {director && (
               <p className="text-muted-foreground mt-3 text-sm">
-                Directed by <span className="text-foreground font-medium">{director}</span>
+                Directed by{" "}
+                <Link
+                  href={`/person/${director.id}`}
+                  className="text-foreground font-medium hover:underline"
+                >
+                  {director.name}
+                </Link>
               </p>
             )}
             <div className="mt-5">
