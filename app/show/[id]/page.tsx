@@ -78,8 +78,8 @@ export default async function ShowPage({
     <>
       <BackdropShow path={show.backdrop_path} alt={show.name} />
       <article className="relative z-10 container mx-auto -mt-32 px-4 sm:-mt-48">
-        <div className="grid gap-6 sm:grid-cols-[200px_1fr] sm:gap-8">
-          <div className="hidden sm:block">
+        <div className="sm:grid sm:grid-cols-[200px_1fr] sm:gap-8">
+          <div className="mb-5 w-32 sm:mb-0 sm:w-auto">
             <PosterShow path={show.poster_path} alt={show.name} priority />
           </div>
           <div>
