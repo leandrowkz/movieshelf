@@ -5,7 +5,6 @@ import Image from "next/image"
 import Link from "next/link"
 import useEmblaCarousel from "embla-carousel-react"
 import type { MovieItem } from "@leandrowkz/tmdb"
-import { Button } from "@/components/ui/button"
 import { RatingScore } from "@/components/rating-score/rating-score"
 import { getTmdbImageUrl } from "@/lib/images"
 import { formatYear } from "@/lib/format"
@@ -47,7 +46,10 @@ export function BannerTrending({ movies, className }: BannerTrendingProps) {
             const backdrop = getTmdbImageUrl(movie.backdrop_path, "w1280")
             return (
               <li key={movie.id} className="min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative aspect-[4/5] w-full sm:aspect-[21/9]">
+                <Link
+                  href={`/movie/${movie.id}`}
+                  className="relative block aspect-[4/5] w-full sm:aspect-[21/9]"
+                >
                   {backdrop && (
                     <Image
                       src={backdrop}
@@ -76,14 +78,9 @@ export function BannerTrending({ movies, className }: BannerTrendingProps) {
                           {movie.overview}
                         </p>
                       )}
-                      <div className="mt-4">
-                        <Button asChild>
-                          <Link href={`/movie/${movie.id}`}>View details</Link>
-                        </Button>
-                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </li>
             )
           })}

@@ -12,14 +12,14 @@ export function Logo({ className }: LogoProps) {
       href="/"
       aria-label={SITE_NAME}
       className={cn(
-        "inline-flex items-center gap-2 font-semibold tracking-tight",
+        "inline-flex items-baseline gap-1.5 font-semibold tracking-tight",
         className,
       )}
     >
-      <span className="text-xl leading-none" aria-hidden>
+      <span className="text-lg leading-none" aria-hidden>
         🍿
       </span>
-      <span className="text-lg">{SITE_NAME}</span>
+      <span className="text-lg leading-none">{SITE_NAME}</span>
     </Link>
   )
 }
