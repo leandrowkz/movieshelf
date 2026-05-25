@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/providers/theme-provider/theme-provider"
+import { CleanupLegacySw } from "@/components/cleanup-legacy-sw/cleanup-legacy-sw"
 import { Header } from "@/components/layout/header/header"
 import { Footer } from "@/components/layout/footer/footer"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants"
@@ -50,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <body className="font-sans">
+        <CleanupLegacySw />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

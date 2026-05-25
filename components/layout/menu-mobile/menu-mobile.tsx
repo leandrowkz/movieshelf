@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -27,10 +26,12 @@ export function MenuMobile() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Open menu">
-          <Menu className="size-5" />
-        </Button>
+      <SheetTrigger
+        type="button"
+        aria-label="Open menu"
+        className="hover:bg-accent inline-flex size-9 items-center justify-center rounded-md transition-colors"
+      >
+        <Menu className="size-5" />
       </SheetTrigger>
       <SheetContent side="left" className="w-72">
         <SheetHeader>
