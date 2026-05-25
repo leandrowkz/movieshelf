@@ -14,7 +14,7 @@ export function BackdropShow({ path, alt, className }: BackdropShowProps) {
   return (
     <div
       className={cn(
-        "bg-muted relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]",
+        "bg-muted relative z-0 aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]",
         className,
       )}
     >

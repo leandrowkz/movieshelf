@@ -48,7 +48,7 @@ export function CarouselShows({
 
   return (
     <section className={cn("relative", className)}>
-      <div className="mb-3 flex items-end justify-between">
+      <div className="container mx-auto mb-3 flex items-end justify-between px-4">
         <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
         <div className="flex items-center gap-2">
           {viewAllHref && (
@@ -84,11 +84,11 @@ export function CarouselShows({
         </div>
       </div>
       <div className="overflow-hidden" ref={emblaRef}>
-        <ul className="flex gap-4">
+        <ul className="flex gap-3 pl-4 pr-4 sm:gap-4 sm:pl-6 sm:pr-6 lg:pl-8 lg:pr-8">
           {shows.map((show, idx) => (
             <li
               key={`${show.media_type ?? "show"}-${show.id}`}
-              className="min-w-0 shrink-0 basis-1/2 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-[14%]"
+              className="min-w-0 shrink-0 basis-[42%] sm:basis-[28%] md:basis-[22%] lg:basis-[16%] xl:basis-[13%]"
             >
               {"title" in show ? (
                 <CardMovie movie={show as MovieItem} priority={idx < 3} />

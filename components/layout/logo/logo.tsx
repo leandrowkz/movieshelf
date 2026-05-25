@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Film } from "lucide-react"
 import { cn } from "@/lib/cn"
 import { SITE_NAME } from "@/lib/constants"
 
@@ -17,7 +16,9 @@ export function Logo({ className }: LogoProps) {
         className,
       )}
     >
-      <Film className="size-5" aria-hidden />
+      <span className="text-xl leading-none" aria-hidden>
+        🍿
+      </span>
       <span className="text-lg">{SITE_NAME}</span>
     </Link>
   )

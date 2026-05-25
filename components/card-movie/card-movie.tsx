@@ -19,7 +19,6 @@ export function CardMovie({ movie, className, priority }: CardMovieProps) {
           path={movie.poster_path}
           alt={movie.title}
           priority={priority}
-          className="transition-transform group-hover:scale-[1.02]"
         />
         <div className="mt-2">
           <h3 className="line-clamp-2 text-sm font-medium leading-tight">

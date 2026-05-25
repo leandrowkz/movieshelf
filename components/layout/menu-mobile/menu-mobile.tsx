@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -34,6 +35,9 @@ export function MenuMobile() {
       <SheetContent side="left" className="w-72">
         <SheetHeader>
           <SheetTitle>Navigation</SheetTitle>
+          <SheetDescription className="sr-only">
+            Browse movies, TV shows and search.
+          </SheetDescription>
         </SheetHeader>
         <nav className="px-2">
           <ul className="flex flex-col gap-1">

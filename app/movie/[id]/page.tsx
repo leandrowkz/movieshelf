@@ -75,7 +75,7 @@ export default async function MoviePage({
   return (
     <>
       <BackdropShow path={movie.backdrop_path} alt={movie.title} />
-      <article className="container mx-auto -mt-32 px-4 sm:-mt-48">
+      <article className="relative z-10 container mx-auto -mt-32 px-4 sm:-mt-48">
         <div className="grid gap-6 sm:grid-cols-[200px_1fr] sm:gap-8">
           <div className="hidden sm:block">
             <PosterShow path={movie.poster_path} alt={movie.title} priority />

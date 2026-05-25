@@ -6,7 +6,7 @@ import { ButtonThemeToggle } from "@/components/button-theme-toggle/button-theme
 
 export function Header() {
   return (
-    <header className="bg-background/85 sticky top-0 z-40 w-full border-b backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="container mx-auto flex h-16 items-center gap-3 px-4">
         <div className="flex items-center gap-2 sm:hidden">
           <MenuMobile />

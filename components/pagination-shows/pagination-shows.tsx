@@ -32,35 +32,35 @@ export function PaginationShows({
       aria-label="Pagination"
       className={cn("mt-8 flex items-center justify-center gap-3", className)}
     >
-      <Button asChild={hasPrev} variant="outline" size="sm" disabled={!hasPrev}>
-        {hasPrev ? (
+      {hasPrev ? (
+        <Button variant="outline" size="sm" asChild>
           <Link href={link(prevPage)} prefetch={false}>
-            <ChevronLeft className="size-4" />
+            <ChevronLeft />
             Previous
           </Link>
-        ) : (
-          <span>
-            <ChevronLeft className="size-4" />
-            Previous
-          </span>
-        )}
-      </Button>
+        </Button>
+      ) : (
+        <Button variant="outline" size="sm" disabled>
+          <ChevronLeft />
+          Previous
+        </Button>
+      )}
       <span className="text-muted-foreground text-sm">
         Page {page} of {capped}
       </span>
-      <Button asChild={hasNext} variant="outline" size="sm" disabled={!hasNext}>
-        {hasNext ? (
+      {hasNext ? (
+        <Button variant="outline" size="sm" asChild>
           <Link href={link(nextPage)} prefetch={false}>
             Next
-            <ChevronRight className="size-4" />
+            <ChevronRight />
           </Link>
-        ) : (
-          <span>
-            Next
-            <ChevronRight className="size-4" />
-          </span>
-        )}
-      </Button>
+        </Button>
+      ) : (
+        <Button variant="outline" size="sm" disabled>
+          Next
+          <ChevronRight />
+        </Button>
+      )}
     </nav>
   )
 }

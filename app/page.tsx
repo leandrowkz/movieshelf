@@ -21,8 +21,10 @@ export default async function HomePage() {
     ])
 
   return (
-    <main className="container mx-auto px-4 py-6 sm:py-8">
-      <BannerTrending movies={trending.data} />
+    <main className="py-6 sm:py-8">
+      <div className="container mx-auto px-4">
+        <BannerTrending movies={trending.data} />
+      </div>
 
       <div className="mt-10 space-y-12">
         <CarouselShows
