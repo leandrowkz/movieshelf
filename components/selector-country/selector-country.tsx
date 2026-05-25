@@ -62,14 +62,14 @@ export function SelectorCountry() {
                     setOpen(false)
                   }}
                 >
+                  <span className="mr-2">{c.flag}</span>
+                  <span className="flex-1">{c.name}</span>
                   <Check
                     className={cn(
-                      "mr-2 size-4",
+                      "ml-auto size-4",
                       country === c.code ? "opacity-100" : "opacity-0",
                     )}
                   />
-                  <span className="mr-2">{c.flag}</span>
-                  {c.name}
                 </CommandItem>
               ))}
             </CommandGroup>
