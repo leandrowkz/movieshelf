@@ -4,6 +4,7 @@ import { getPersonDetails } from "@/actions/people/get-person-details"
 import { getPersonImages } from "@/actions/people/get-person-images"
 import { getPersonMovies } from "@/actions/people/get-person-movies"
 import { getPersonShows } from "@/actions/people/get-person-shows"
+import { BackdropShow } from "@/components/backdrop-show/backdrop-show"
 import { PosterShow } from "@/components/poster-show/poster-show"
 import { ImagesPerson } from "@/components/images-person/images-person"
 import { FiltersShowType } from "@/components/filters-show-type/filters-show-type"
@@ -56,78 +57,83 @@ export default async function PersonPage({
     getPersonShows(personId),
   ])
 
+  const backdropPath = images[1]?.file_path ?? images[0]?.file_path ?? person.profile_path
+
   return (
-    <main className="container mx-auto px-4 py-8">
-      <article className="grid gap-8 sm:grid-cols-[200px_1fr]">
-        <div>
-          <PosterShow path={person.profile_path} alt={person.name} priority />
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {person.name}
-          </h1>
-          <p className="text-muted-foreground mt-1 text-sm">
-            {person.known_for_department}
-          </p>
-          <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
-            {person.birthday && (
-              <div>
-                <dt className="text-muted-foreground">Born</dt>
-                <dd>
-                  <time dateTime={person.birthday}>
-                    {formatDate(person.birthday)}
-                  </time>
-                </dd>
+    <>
+      <BackdropShow path={backdropPath} alt={person.name} />
+      <main className="relative z-10 container mx-auto -mt-32 px-4 pb-8 sm:-mt-48">
+        <article className="sm:grid sm:grid-cols-[200px_1fr] sm:gap-8">
+          <div className="mb-5 w-32 sm:mb-0 sm:w-auto">
+            <PosterShow path={person.profile_path} alt={person.name} priority />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              {person.name}
+            </h1>
+            <p className="text-muted-foreground mt-1 text-sm">
+              {person.known_for_department}
+            </p>
+            <dl className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+              {person.birthday && (
+                <div>
+                  <dt className="text-muted-foreground">Born</dt>
+                  <dd>
+                    <time dateTime={person.birthday}>
+                      {formatDate(person.birthday)}
+                    </time>
+                  </dd>
+                </div>
+              )}
+              {person.deathday && (
+                <div>
+                  <dt className="text-muted-foreground">Died</dt>
+                  <dd>
+                    <time dateTime={person.deathday}>
+                      {formatDate(person.deathday)}
+                    </time>
+                  </dd>
+                </div>
+              )}
+              {person.place_of_birth && (
+                <div>
+                  <dt className="text-muted-foreground">Place of birth</dt>
+                  <dd>{person.place_of_birth}</dd>
+                </div>
+              )}
+            </dl>
+            {person.biography && (
+              <div className="mt-6">
+                <h2 className="mb-2 text-lg font-semibold">Biography</h2>
+                <p className="max-w-3xl text-sm leading-relaxed whitespace-pre-line">
+                  {person.biography}
+                </p>
               </div>
             )}
-            {person.deathday && (
-              <div>
-                <dt className="text-muted-foreground">Died</dt>
-                <dd>
-                  <time dateTime={person.deathday}>
-                    {formatDate(person.deathday)}
-                  </time>
-                </dd>
-              </div>
-            )}
-            {person.place_of_birth && (
-              <div>
-                <dt className="text-muted-foreground">Place of birth</dt>
-                <dd>{person.place_of_birth}</dd>
-              </div>
-            )}
-          </dl>
-          {person.biography && (
-            <div className="mt-6">
-              <h2 className="mb-2 text-lg font-semibold">Biography</h2>
-              <p className="max-w-3xl whitespace-pre-line text-sm leading-relaxed">
-                {person.biography}
-              </p>
-            </div>
-          )}
-        </div>
-      </article>
+          </div>
+        </article>
 
-      {images.length > 0 && (
-        <>
-          <Separator className="my-10" />
-          <section>
-            <h2 className="mb-4 text-xl font-semibold">Photos</h2>
-            <ImagesPerson images={images} personName={person.name} />
-          </section>
-        </>
-      )}
+        {images.length > 0 && (
+          <>
+            <Separator className="my-10" />
+            <section>
+              <h2 className="mb-4 text-xl font-semibold">Photos</h2>
+              <ImagesPerson images={images} personName={person.name} />
+            </section>
+          </>
+        )}
 
-      <Separator className="my-10" />
-      <section>
-        <h2 className="mb-4 text-xl font-semibold">Filmography</h2>
-        <FiltersShowType movies={movies} shows={shows} />
-      </section>
+        <Separator className="my-10" />
+        <section>
+          <h2 className="mb-4 text-xl font-semibold">Filmography</h2>
+          <FiltersShowType movies={movies} shows={shows} />
+        </section>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPersonJsonLd(person)) }}
-      />
-    </main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPersonJsonLd(person)) }}
+        />
+      </main>
+    </>
   )
 }
