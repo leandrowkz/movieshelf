@@ -41,15 +41,18 @@ export function CarouselShows({
     if (!emblaApi) return
     updateButtons()
     emblaApi.on("select", updateButtons)
+    emblaApi.on("scroll", updateButtons)
     emblaApi.on("reInit", updateButtons)
   }, [emblaApi, updateButtons])
 
   if (!shows.length) return null
 
   return (
-    <section className={cn("relative", className)}>
+    <section className={cn(className)}>
       <div className="container mx-auto mb-3 flex items-end justify-between px-4">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h2>
+        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+          {title}
+        </h2>
         <div className="flex items-center gap-2">
           {viewAllHref && (
             <Link
@@ -83,21 +86,39 @@ export function CarouselShows({
           </div>
         </div>
       </div>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <ul className="flex gap-3 pl-4 pr-4 sm:gap-4 sm:pl-6 sm:pr-6 lg:pl-8 lg:pr-8">
-          {shows.map((show, idx) => (
-            <li
-              key={`${show.media_type ?? "show"}-${show.id}`}
-              className="min-w-0 shrink-0 basis-[42%] sm:basis-[28%] md:basis-[22%] lg:basis-[16%] xl:basis-[13%]"
-            >
-              {"title" in show ? (
-                <CardMovie movie={show as MovieItem} priority={idx < 3} />
-              ) : (
-                <CardShow show={show as TVShowItem} priority={idx < 3} />
-              )}
-            </li>
-          ))}
-        </ul>
+      <div className="sm:container sm:mx-auto sm:px-4">
+        <div className="relative">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <ul className="flex gap-3 pl-4 sm:gap-4 sm:pl-0">
+              {shows.map((show, idx) => (
+                <li
+                  key={`${show.media_type ?? "show"}-${show.id}`}
+                  className="min-w-0 shrink-0 basis-[42%] sm:basis-[28%] md:basis-[22%] lg:basis-[16%] xl:basis-[13%]"
+                >
+                  {"title" in show ? (
+                    <CardMovie movie={show as MovieItem} priority={idx < 3} />
+                  ) : (
+                    <CardShow show={show as TVShowItem} priority={idx < 3} />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            aria-hidden
+            className={cn(
+              "from-background pointer-events-none absolute inset-y-0 left-0 hidden w-20 bg-linear-to-r to-transparent transition-opacity duration-200 sm:block",
+              canPrev ? "opacity-100" : "opacity-0",
+            )}
+          />
+          <div
+            aria-hidden
+            className={cn(
+              "from-background pointer-events-none absolute inset-y-0 right-0 hidden w-20 bg-linear-to-l to-transparent transition-opacity duration-200 sm:block",
+              canNext ? "opacity-100" : "opacity-0",
+            )}
+          />
+        </div>
       </div>
     </section>
   )

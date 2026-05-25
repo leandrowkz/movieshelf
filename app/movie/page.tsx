@@ -35,19 +35,21 @@ export default async function MoviesPage({
   ])
 
   return (
-    <main className="container mx-auto px-4 py-8">
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Movies</h1>
-        <p className="text-muted-foreground mt-2">
-          Browse popular movies and discover by genre.
-        </p>
-      </header>
+    <main className="py-8">
+      <div className="container mx-auto px-4">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Movies</h1>
+          <p className="text-muted-foreground mt-2">
+            Browse popular movies and discover by genre.
+          </p>
+        </header>
 
-      <section>
-        <h2 className="mb-4 text-xl font-semibold">Popular</h2>
-        <ListShows shows={popular.data} />
-        <PaginationShows page={popular.page} pages={popular.pages} basePath="/movie" />
-      </section>
+        <section>
+          <h2 className="mb-4 text-xl font-semibold">Popular</h2>
+          <ListShows shows={popular.data} />
+          <PaginationShows page={popular.page} pages={popular.pages} basePath="/movie" />
+        </section>
+      </div>
 
       {page === 1 && genreLists.length > 0 && (
         <div className="mt-16 space-y-12">

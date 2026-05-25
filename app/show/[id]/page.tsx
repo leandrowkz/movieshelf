@@ -151,17 +151,18 @@ export default async function ShowPage({
           </>
         )}
 
-        {similar.data.length > 0 && (
-          <div className="mt-10">
-            <CarouselShows title="Similar shows" shows={similar.data} />
-          </div>
-        )}
-        {recommended.data.length > 0 && (
-          <div className="mt-10">
-            <CarouselShows title="You might also like" shows={recommended.data} />
-          </div>
-        )}
       </article>
+
+      {(similar.data.length > 0 || recommended.data.length > 0) && (
+        <div className="mt-10 space-y-10">
+          {similar.data.length > 0 && (
+            <CarouselShows title="Similar shows" shows={similar.data} />
+          )}
+          {recommended.data.length > 0 && (
+            <CarouselShows title="You might also like" shows={recommended.data} />
+          )}
+        </div>
+      )}
 
       <script
         type="application/ld+json"
