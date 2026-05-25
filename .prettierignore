@@ -1,6 +1,0 @@
-build
-dist
-coverage
-*.html
-public
-node_modules
