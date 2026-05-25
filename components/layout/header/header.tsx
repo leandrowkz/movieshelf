@@ -1,0 +1,30 @@
+import { Logo } from "@/components/layout/logo/logo"
+import { MenuMain } from "@/components/layout/menu-main/menu-main"
+import { MenuMobile } from "@/components/layout/menu-mobile/menu-mobile"
+import { ButtonOpenSearch } from "@/components/button-open-search/button-open-search"
+import { ButtonThemeToggle } from "@/components/button-theme-toggle/button-theme-toggle"
+
+export function Header() {
+  return (
+    <header className="bg-background sticky top-0 z-40 w-full border-b">
+      <div className="container mx-auto flex h-16 items-center gap-3 px-4">
+        <Logo />
+        <div className="ml-6 hidden sm:block">
+          <MenuMain />
+        </div>
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+          <div className="hidden sm:block">
+            <ButtonOpenSearch variant="input" />
+          </div>
+          <div className="hidden sm:block">
+            <ButtonThemeToggle />
+          </div>
+          <div className="flex items-center gap-1 sm:hidden">
+            <ButtonOpenSearch variant="icon" />
+            <MenuMobile />
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
