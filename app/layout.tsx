@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/providers/theme-provider/theme-provider"
+import { Header } from "@/components/layout/header/header"
+import { Footer } from "@/components/layout/footer/footer"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants"
 import { buildWebsiteJsonLd } from "@/lib/seo"
 import "./globals.css"
@@ -54,7 +56,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
         </ThemeProvider>
         <script
           type="application/ld+json"
