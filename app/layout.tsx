@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/providers/theme-provider/theme-provider"
 import { CleanupLegacySw } from "@/components/cleanup-legacy-sw/cleanup-legacy-sw"
+import { FormSearch } from "@/components/form-search/form-search"
 import { Header } from "@/components/layout/header/header"
 import { Footer } from "@/components/layout/footer/footer"
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants"
@@ -63,6 +64,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <Footer />
           </div>
+          <FormSearch />
         </ThemeProvider>
         <script
           type="application/ld+json"

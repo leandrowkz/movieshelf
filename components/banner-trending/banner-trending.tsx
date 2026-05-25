@@ -47,7 +47,7 @@ export function BannerTrending({ movies, className }: BannerTrendingProps) {
             const backdrop = getTmdbImageUrl(movie.backdrop_path, "w1280")
             return (
               <li key={movie.id} className="min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative aspect-[16/8] w-full sm:aspect-[21/9]">
+                <div className="relative aspect-[4/5] w-full sm:aspect-[21/9]">
                   {backdrop && (
                     <Image
                       src={backdrop}

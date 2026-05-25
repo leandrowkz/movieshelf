@@ -4,7 +4,7 @@ export default function Loading() {
   return (
     <main className="py-6 sm:py-8">
       <div className="container mx-auto px-4">
-        <Skeleton className="aspect-[16/8] w-full rounded-xl sm:aspect-[21/9]" />
+        <Skeleton className="aspect-[4/5] w-full rounded-xl sm:aspect-[21/9]" />
       </div>
       <div className="mt-10 space-y-12">
         {Array.from({ length: 3 }).map((_, i) => (

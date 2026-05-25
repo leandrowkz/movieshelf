@@ -2,24 +2,32 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { Search } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Search, X } from "lucide-react"
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command"
-import { Button } from "@/components/ui/button"
+import { Command as CommandPrimitive } from "cmdk"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { useDebounce } from "@/hooks/use-debounce"
+import { useSearchStore } from "@/hooks/stores/use-search-store"
 import { searchMulti, type SearchMultiResult } from "@/actions/search/search-multi"
+import { cn } from "@/lib/cn"
 
 export function FormSearch() {
   const router = useRouter()
-  const [open, setOpen] = React.useState(false)
+  const open = useSearchStore((s) => s.open)
+  const setOpen = useSearchStore((s) => s.setOpen)
   const [query, setQuery] = React.useState("")
   const [results, setResults] = React.useState<SearchMultiResult>({
     movies: [],
@@ -33,12 +41,12 @@ export function FormSearch() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
-        setOpen((v) => !v)
+        setOpen(!open)
       }
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [])
+  }, [open, setOpen])
 
   React.useEffect(() => {
     if (!debounced.trim()) {
@@ -69,99 +77,104 @@ export function FormSearch() {
     results.movies.length + results.shows.length + results.people.length
 
   return (
-    <>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => setOpen(true)}
-        className="text-muted-foreground w-full justify-between gap-2 sm:w-auto sm:min-w-64"
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent
+        showCloseButton={false}
+        className="top-[8%] translate-y-0 overflow-hidden p-0 sm:top-[12%] sm:max-w-2xl"
       >
-        <span className="inline-flex items-center gap-2">
-          <Search className="size-4" />
-          <span>Search…</span>
-        </span>
-        <kbd className="bg-muted text-muted-foreground hidden rounded border px-1.5 font-mono text-xs sm:inline-block">
-          ⌘K
-        </kbd>
-      </Button>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="overflow-hidden p-0 sm:max-w-xl">
-          <DialogHeader className="sr-only">
-            <DialogTitle>Search</DialogTitle>
-            <DialogDescription>Search movies, shows, and people.</DialogDescription>
-          </DialogHeader>
-          <Command shouldFilter={false}>
-            <CommandInput
-              placeholder="Search movies, shows, people…"
+        <DialogHeader className="sr-only">
+          <DialogTitle>Search</DialogTitle>
+          <DialogDescription>Search movies, shows, and people.</DialogDescription>
+        </DialogHeader>
+        <Command shouldFilter={false}>
+          <div className="flex items-center gap-2 border-b px-4">
+            <Search className="text-muted-foreground size-5 shrink-0" />
+            <CommandPrimitive.Input
+              autoFocus
               value={query}
               onValueChange={setQuery}
-            />
-            <CommandList>
-              {loading && <div className="text-muted-foreground px-4 py-6 text-sm">Searching…</div>}
-              {!loading && query && totalResults === 0 && (
-                <CommandEmpty>No results.</CommandEmpty>
+              placeholder="Search movies, shows, people…"
+              className={cn(
+                "h-14 flex-1 bg-transparent text-base outline-none",
+                "placeholder:text-muted-foreground",
               )}
-              {results.movies.length > 0 && (
-                <CommandGroup heading="Movies">
-                  {results.movies.map((m) => (
+            />
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close search"
+              className="hover:bg-accent inline-flex size-8 shrink-0 items-center justify-center rounded-md"
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+          <CommandList className="max-h-[60vh]">
+            {loading && (
+              <div className="text-muted-foreground px-4 py-6 text-sm">Searching…</div>
+            )}
+            {!loading && query && totalResults === 0 && (
+              <CommandEmpty>No results.</CommandEmpty>
+            )}
+            {results.movies.length > 0 && (
+              <CommandGroup heading="Movies">
+                {results.movies.map((m) => (
+                  <CommandItem
+                    key={`m-${m.id}`}
+                    value={`movie-${m.id}`}
+                    onSelect={() => go(`/movie/${m.id}`)}
+                  >
+                    {m.title}
+                    {m.release_date && (
+                      <span className="text-muted-foreground ml-2 text-xs">
+                        {new Date(m.release_date).getUTCFullYear()}
+                      </span>
+                    )}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+            {results.shows.length > 0 && (
+              <>
+                {results.movies.length > 0 && <CommandSeparator />}
+                <CommandGroup heading="TV Shows">
+                  {results.shows.map((s) => (
                     <CommandItem
-                      key={`m-${m.id}`}
-                      value={`movie-${m.id}`}
-                      onSelect={() => go(`/movie/${m.id}`)}
+                      key={`s-${s.id}`}
+                      value={`show-${s.id}`}
+                      onSelect={() => go(`/show/${s.id}`)}
                     >
-                      {m.title}
-                      {m.release_date && (
+                      {s.name}
+                      {s.first_air_date && (
                         <span className="text-muted-foreground ml-2 text-xs">
-                          {new Date(m.release_date).getUTCFullYear()}
+                          {new Date(s.first_air_date).getUTCFullYear()}
                         </span>
                       )}
                     </CommandItem>
                   ))}
                 </CommandGroup>
-              )}
-              {results.shows.length > 0 && (
-                <>
-                  {results.movies.length > 0 && <CommandSeparator />}
-                  <CommandGroup heading="TV Shows">
-                    {results.shows.map((s) => (
-                      <CommandItem
-                        key={`s-${s.id}`}
-                        value={`show-${s.id}`}
-                        onSelect={() => go(`/show/${s.id}`)}
-                      >
-                        {s.name}
-                        {s.first_air_date && (
-                          <span className="text-muted-foreground ml-2 text-xs">
-                            {new Date(s.first_air_date).getUTCFullYear()}
-                          </span>
-                        )}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </>
-              )}
-              {results.people.length > 0 && (
-                <>
-                  {(results.movies.length > 0 || results.shows.length > 0) && (
-                    <CommandSeparator />
-                  )}
-                  <CommandGroup heading="People">
-                    {results.people.map((p) => (
-                      <CommandItem
-                        key={`p-${p.id}`}
-                        value={`person-${p.id}`}
-                        onSelect={() => go(`/person/${p.id}`)}
-                      >
-                        {p.name}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </>
-              )}
-            </CommandList>
-          </Command>
-        </DialogContent>
-      </Dialog>
-    </>
+              </>
+            )}
+            {results.people.length > 0 && (
+              <>
+                {(results.movies.length > 0 || results.shows.length > 0) && (
+                  <CommandSeparator />
+                )}
+                <CommandGroup heading="People">
+                  {results.people.map((p) => (
+                    <CommandItem
+                      key={`p-${p.id}`}
+                      value={`person-${p.id}`}
+                      onSelect={() => go(`/person/${p.id}`)}
+                    >
+                      {p.name}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </>
+            )}
+          </CommandList>
+        </Command>
+      </DialogContent>
+    </Dialog>
   )
 }
