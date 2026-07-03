@@ -1,6 +1,5 @@
 import React, { type PropsWithChildren, createContext, useState } from 'react'
 import type { CountryCode, TVShow, TVShowCredits } from '@leandrowkz/tmdb'
-import type { UserShowStates } from '../../types'
 import type { TVShowDetailsState } from './types'
 import { initialState } from './state'
 import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
@@ -15,7 +14,6 @@ export const TVShowDetailsContextProvider = ({
   const api = useTVShowsAPI()
 
   const [tvShow, setTVShow] = useState(initialState.tvShow)
-  const [states, setStates] = useState(initialState.states)
   const [credits, setCredits] = useState(initialState.credits)
   const [videos, setVideos] = useState(initialState.videos)
   const [providers, setProviders] = useState(initialState.providers)
@@ -35,22 +33,6 @@ export const TVShowDetailsContextProvider = ({
       setHasErrors((prev) => ({ ...prev, fetchTVShow: true }))
     } finally {
       setIsLoading((prev) => ({ ...prev, fetchTVShow: false }))
-    }
-  }
-
-  const fetchStates = async (showId: number) => {
-    try {
-      setStates({} as UserShowStates)
-      setIsLoading((prev) => ({ ...prev, fetchStates: true }))
-      setHasErrors((prev) => ({ ...prev, fetchStates: false }))
-
-      const data = await api.fetchStates(showId)
-
-      setStates(data)
-    } catch {
-      setHasErrors((prev) => ({ ...prev, fetchStates: true }))
-    } finally {
-      setIsLoading((prev) => ({ ...prev, fetchStates: false }))
     }
   }
 
@@ -107,16 +89,13 @@ export const TVShowDetailsContextProvider = ({
     tvShow,
     credits,
     videos,
-    states,
     providers,
     isLoading,
     hasErrors,
     fetchTVShow,
     fetchCredits,
     fetchVideos,
-    fetchStates,
     fetchProviders,
-    setStates,
   }
 
   return (

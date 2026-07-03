@@ -1,10 +1,8 @@
 import type { Movie, MovieCredits } from '@leandrowkz/tmdb'
 import type { MovieDetailsState } from './types'
-import type { UserShowStates } from '../../types'
 
 export const initialState: MovieDetailsState = {
   movie: {} as Movie,
-  states: {} as UserShowStates,
   credits: {} as MovieCredits,
   videos: [],
   providers: [],
@@ -12,7 +10,6 @@ export const initialState: MovieDetailsState = {
   isLoading: {
     fetchMovie: false,
     fetchCredits: false,
-    fetchStates: false,
     fetchVideos: false,
     fetchProviders: false,
   },
@@ -24,8 +21,5 @@ export const initialState: MovieDetailsState = {
   fetchMovie: () => null,
   fetchCredits: () => null,
   fetchVideos: () => null,
-  fetchStates: () => null,
   fetchProviders: () => null,
-
-  setStates: () => null,
 }

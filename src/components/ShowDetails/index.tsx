@@ -14,38 +14,24 @@ import { PeopleList } from '../../components/PeopleList'
 import { ShowCountries } from '../../components/ShowCountries'
 import { ShowPoster } from '../../components/ShowPoster'
 import { Motion } from '../../components/Motion'
-import {
-  LoaderActions,
-  LoaderCast,
-  LoaderDetails,
-  LoaderPoster,
-} from './loader'
+import { LoaderCast, LoaderDetails, LoaderPoster } from './loader'
 import styles from './styles.module.css'
 import { useHelpers } from '../../hooks/useHelpers'
-import type { UserShowStates } from '../../types'
-import { FavoriteButton } from '../FavoriteButton'
-import { WatchlistButton } from '../WatchlistButton'
-import { WatchedButton } from '../WatchedButton'
 import { ShowTrailerButton } from '../ShowTrailerButton'
-import { useScreenSize } from '../../hooks/useScreenSize'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   show: Movie | TVShow
   people: (PersonCast | PersonCrew)[]
   videos: Video[]
-  states: UserShowStates
   isLoadingShow: boolean
   isLoadingPeople: boolean
-  isLoadingActions: boolean
 }
 
 const state: Props = {
   show: {} as Movie | TVShow,
   videos: [],
   people: [],
-  states: {} as UserShowStates,
   isLoadingShow: false,
-  isLoadingActions: false,
   isLoadingPeople: false,
 }
 
@@ -55,10 +41,8 @@ export function ShowDetails({
   show,
   people,
   videos,
-  states,
   isLoadingShow,
   isLoadingPeople,
-  isLoadingActions,
   ...props
 }: Props): JSX.Element {
   if (!show) {
@@ -69,8 +53,6 @@ export function ShowDetails({
     show,
     people,
     videos,
-    states,
-    isLoadingActions,
     isLoadingPeople,
     isLoadingShow,
   }
@@ -161,35 +143,11 @@ function Cast(): JSX.Element {
 }
 
 function Actions(): JSX.Element {
-  const isMobile = useScreenSize('mobile')
-  const isTablet = useScreenSize('tablet')
-  const isSmallDevice = isMobile || isTablet
-  const { show, states, videos, isLoadingActions } =
-    useContext(ShowDetailsContext)
-
-  if (isLoadingActions) {
-    return <LoaderActions />
-  }
+  const { videos } = useContext(ShowDetailsContext)
 
   return (
     <Motion className={styles.actions}>
-      <div className={styles.leftActions}>
-        <WatchlistButton show={show} states={states} size="large" />
-        {!isSmallDevice && (
-          <WatchedButton show={show} states={states} size="large" />
-        )}
-      </div>
       <div className={styles.rightActions}>
-        <FavoriteButton show={show} states={states} size="medium" rounded />
-        {isSmallDevice && (
-          <WatchedButton
-            show={show}
-            states={states}
-            size="medium"
-            rounded
-            isSmallDevice
-          />
-        )}
         <ShowTrailerButton videos={videos} pill size="medium" />
       </div>
     </Motion>

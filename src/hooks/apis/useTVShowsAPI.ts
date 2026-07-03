@@ -6,7 +6,7 @@ import type {
   Video,
   WatchProvider,
 } from '@leandrowkz/tmdb'
-import type { ListPaginated, UserShowStates } from '../../types'
+import type { ListPaginated } from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')
@@ -27,12 +27,6 @@ async function fetchVideos(showId: number): Promise<Video[]> {
   const path = api.buildPath('/api/tv-shows/videos', { showId })
 
   return api.get<Video[]>(path)
-}
-
-async function fetchStates(showId: number): Promise<UserShowStates> {
-  const path = api.buildPath('/api/tv-shows/states', { showId })
-
-  return api.get(path)
 }
 
 async function fetchWatchProviders(
@@ -116,7 +110,6 @@ async function fetchListDiscover(
 export const useTVShowsAPI = () => ({
   fetchTVShow,
   fetchVideos,
-  fetchStates,
   fetchCredits,
   fetchWatchProviders,
   fetchListSearch,

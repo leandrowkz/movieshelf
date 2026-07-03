@@ -4,8 +4,6 @@ import { Header } from '.'
 
 const { renderComponent, screen } = useTesting()
 
-jest.mock('../../hooks/useSupabase')
-
 test('Should render header properly', async () => {
   renderComponent(<Header />)
 
@@ -19,13 +17,7 @@ test('Should render menu links properly', async () => {
 
   const menuMovies = screen.getByTestId('menu-movies') as HTMLLinkElement
   const menuTVShows = screen.getByTestId('menu-tv-shows') as HTMLLinkElement
-  const menuFavorites = screen.getByTestId('menu-favorites') as HTMLLinkElement
-  const menuWatchlist = screen.getByTestId('menu-watchlist') as HTMLLinkElement
-  const menuUser = screen.getByTestId('user-menu')
 
   expect(menuMovies.href).toEqual(`${window.location.href}movies`)
   expect(menuTVShows.href).toEqual(`${window.location.href}tv`)
-  expect(menuFavorites.href).toEqual(`${window.location.href}favorites`)
-  expect(menuWatchlist.href).toEqual(`${window.location.href}watchlist`)
-  expect(menuUser).toBeVisible()
 })

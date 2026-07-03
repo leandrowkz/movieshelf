@@ -14,23 +14,18 @@ export function MovieDetails(): JSX.Element {
   const { getCreditsDirector, getUserGeolocationCountry } = useHelpers()
   const { movieId } = useParams()
 
-  const storageCountry = localStorage.getItem(
-    'WATCH_PROVIDER_COUNTRY'
-  ) as CountryCode
   const [country, setCountry] = useState<CountryCode>('US')
 
   const {
     movie,
     credits,
     videos,
-    states,
     providers,
     isLoading,
     hasErrors,
     fetchMovie,
     fetchCredits,
     fetchVideos,
-    fetchStates,
     fetchProviders,
   } = useContext(MovieDetailsContext)
 
@@ -45,10 +40,12 @@ export function MovieDetails(): JSX.Element {
 
   useEffect(() => {
     const id = Number(movieId)
+    const storageCountry = localStorage.getItem(
+      'WATCH_PROVIDER_COUNTRY'
+    ) as CountryCode
 
     fetchMovie(id)
     fetchVideos(id)
-    fetchStates(id)
     fetchCredits(id)
 
     fetchSimilar(id)
@@ -88,10 +85,8 @@ export function MovieDetails(): JSX.Element {
         show={movie}
         people={people}
         videos={videos}
-        states={states}
         isLoadingShow={isLoading.fetchMovie}
         isLoadingPeople={isLoading.fetchCredits}
-        isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <ShowProviders

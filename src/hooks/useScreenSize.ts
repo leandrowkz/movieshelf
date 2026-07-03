@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Viewport = 'mobile' | 'tablet' | 'desktop'
 
@@ -17,24 +17,37 @@ const mediaMap = {
   },
 }
 
-const watchMedia = (Object.keys(mediaMap) as (keyof typeof mediaMap)[]).reduce(
-  (listeners, key) => {
-    listeners[key] = window.matchMedia(
-      mediaMap[key].max < Infinity
-        ? `(min-width: ${mediaMap[key].min}px) and (max-width: ${mediaMap[key].max}px)`
-        : `(max-width: ${mediaMap[key].max}px)`
-    )
+function getMediaQuery(viewport: Viewport) {
+  const { min, max } = mediaMap[viewport]
 
-    return listeners
-  },
-  {} as Record<Viewport, MediaQueryList>
-)
+  return max < Infinity
+    ? `(min-width: ${min}px) and (max-width: ${max}px)`
+    : `(max-width: ${max}px)`
+}
+
+// Built once, but only where a `window` exists. Under server-side rendering the
+// module still loads (Next evaluates it on the server), so guarding here is what
+// prevents the `window is not defined` crash. In the browser it captures the
+// MediaQueryList objects up front, exactly as before.
+const watchMedia: Partial<Record<Viewport, MediaQueryList>> =
+  typeof window === 'undefined'
+    ? {}
+    : (Object.keys(mediaMap) as Viewport[]).reduce((listeners, viewport) => {
+        listeners[viewport] = window.matchMedia(getMediaQuery(viewport))
+
+        return listeners
+      }, {} as Record<Viewport, MediaQueryList>)
 
 export function useScreenSize(viewport: Viewport) {
   const [matchedMedia, setMatchedMedia] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const matchMedia = watchMedia[viewport]
+
+    // Missing only when there is no `window` (SSR) — the effect never runs there.
+    if (!matchMedia) {
+      return
+    }
 
     setMatchedMedia(matchMedia.matches)
 

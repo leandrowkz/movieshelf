@@ -1,7 +1,6 @@
 import { mockTVShow } from '../../../__mocks__/mockTVShow'
 import { mockVideo } from '../../../__mocks__/mockVideo'
 import { mockTVShowCredits } from '../../../__mocks__/mockTVShowCredits'
-import { mockShowStates } from '../../../__mocks__/mockShowStates'
 import { mockWatchProvider } from '../../../__mocks__/mockWatchProvider'
 import { mockTVShowsListPaginated } from '../../../__mocks__/mockTVShowsListPaginated'
 
@@ -15,10 +14,6 @@ async function fetchCredits() {
 
 async function fetchVideos() {
   return [{ ...mockVideo }]
-}
-
-async function fetchStates() {
-  return { ...mockShowStates }
 }
 
 async function fetchWatchProviders() {
@@ -61,7 +56,6 @@ const apis = {
   fetchTVShow,
   fetchCredits,
   fetchVideos,
-  fetchStates,
   fetchWatchProviders,
   fetchListSearch,
   fetchListAiringToday,

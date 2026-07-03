@@ -6,7 +6,7 @@ import type {
   CountryCode,
   WatchProvider,
 } from '@leandrowkz/tmdb'
-import type { ListPaginated, UserShowStates } from '../../types'
+import type { ListPaginated } from '../../types'
 import { APIClient } from './APIClient'
 
 const api = new APIClient('')
@@ -27,12 +27,6 @@ async function fetchVideos(showId: number): Promise<Video[]> {
   const path = api.buildPath('/api/movies/videos', { showId })
 
   return api.get<Video[]>(path)
-}
-
-async function fetchStates(showId: number): Promise<UserShowStates> {
-  const path = api.buildPath('/api/movies/states', { showId })
-
-  return api.get(path)
 }
 
 async function fetchWatchProviders(
@@ -106,7 +100,6 @@ export const useMoviesAPI = () => ({
   fetchMovie,
   fetchCredits,
   fetchVideos,
-  fetchStates,
   fetchWatchProviders,
   fetchListSearch,
   fetchListInTheatres,

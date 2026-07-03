@@ -9,14 +9,7 @@ import { TVShowDetails } from '../pages/TVShowDetails'
 import { NotFound } from '../pages/404'
 import { TVShows } from '../pages/TVShows'
 import { TVShowGenre } from '../pages/TVShowGenre'
-import { SignUp } from '../pages/SignUp'
-import { SignIn } from '../pages/SignIn'
-import { Favorites } from '../pages/Favorites'
-import { Watchlist } from '../pages/Watchlist'
-import { Watched } from '../pages/Watched'
 import { PersonDetails } from '../pages/PersonDetails'
-import { PasswordReset } from '../pages/PasswordReset'
-import { PasswordUpdate } from '../pages/PasswordUpdate'
 
 export const router = createBrowserRouter([
   {
@@ -26,34 +19,6 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
-      },
-      {
-        path: '/sign-up',
-        element: <SignUp />,
-      },
-      {
-        path: '/sign-in',
-        element: <SignIn />,
-      },
-      {
-        path: '/password/reset',
-        element: <PasswordReset />,
-      },
-      {
-        path: '/password/update',
-        element: <PasswordUpdate />,
-      },
-      {
-        path: '/favorites',
-        element: <Favorites />,
-      },
-      {
-        path: '/watchlist',
-        element: <Watchlist />,
-      },
-      {
-        path: '/watched',
-        element: <Watched />,
       },
       {
         path: '/movies',

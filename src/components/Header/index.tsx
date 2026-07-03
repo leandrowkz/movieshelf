@@ -4,7 +4,6 @@ import styles from './styles.module.css'
 import { NavLink } from 'react-router-dom'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import classNames from 'classnames'
-import { UserMenu } from '../UserMenu'
 import { Heading } from '../Heading'
 import { ShowInputSearch } from '../ShowInputSearch'
 
@@ -31,7 +30,6 @@ export function Header({ darkBackground = false, className, ...props }: Props) {
       />
       <Menu data-testid="menu" />
       <ShowInputSearch className={styles.search} data-testid="search" />
-      <UserMenu className={styles.user} data-testid="user-menu" />
     </header>
   )
 }
@@ -71,20 +69,6 @@ function Menu(props: HTMLAttributes<HTMLDivElement>) {
           data-testid="menu-tv-shows"
         >
           TV Shows
-        </NavLink>
-        <NavLink
-          className={activeClassName}
-          to="/favorites"
-          data-testid="menu-favorites"
-        >
-          Favorites
-        </NavLink>
-        <NavLink
-          className={activeClassName}
-          to="/watchlist"
-          data-testid="menu-watchlist"
-        >
-          Watchlist
         </NavLink>
       </div>
     </div>

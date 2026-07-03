@@ -1,38 +1,14 @@
-import { useSupabase } from '../../hooks/useSupabase'
-import type {
-  Nullable,
-  RequestBody,
-  RequestPayload,
-  RequestQuery,
-} from '../../types'
+import type { RequestBody, RequestPayload, RequestQuery } from '../../types'
 
 export class APIClient {
   private headers: Headers
   private url: string
-  private accessToken: Nullable<string>
 
   constructor(url: string) {
     this.url = url
-    this.accessToken = null
     this.headers = new Headers({
       'Content-Type': 'application/json',
     })
-  }
-
-  public async authenticate() {
-    if (this.accessToken) {
-      return
-    }
-
-    const { supabase } = useSupabase()
-    const { data } = await supabase.auth.getSession()
-
-    if (data.session) {
-      const { session } = data
-
-      this.addHeader('Authorization', `Bearer ${session.access_token}`)
-      this.accessToken = session.access_token
-    }
   }
 
   public async get<T>(path: string) {
@@ -80,8 +56,6 @@ export class APIClient {
   }
 
   private async request<T>({ path, method, body }: RequestPayload) {
-    await this.authenticate()
-
     const url = `${this.url}/${path}`.replace('//', '/')
     const options: RequestInit = {
       method,

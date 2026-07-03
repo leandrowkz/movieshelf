@@ -24,14 +24,11 @@ The steps you need to run this locally:
 2. Create a [new Vercel project](https://vercel.com/new)
 3. Run `$ vercel link` to link your copied repository to your vercel created project
 4. Create a [TMDB apikey](https://developers.themoviedb.org/3/getting-started/introduction)
-5. Add the variable `REACT_APP_TMDB_API_ACCESS_TOKEN` to your Vercel project, with the value of TDMB apikey
+5. Add the variable `TMDB_API_ACCESS_TOKEN` to your Vercel project, with the value of TDMB apikey
 6. Run `$ yarn` to install dependencies
 7. Run `$ yarn start:dev` to start the project
 
 If everything went right then you will have the project running on the http://localhost:3000.
-
-## 🐞 Monitoring
-This project uses [New Relic](https://docs.newrelic.com/) as monitoring tool, to log errors and metrics. If you want to use it, just add the necessary env variables to enable it. Follow New Relic's quick start guide to create a Browser monitoring app on it, then copy the values inside generated script to your `.env` file. If you don't want to enable New Relic in your application, no worries, just leave the related env vars empty.
 
 ## ☕ Contribute to this project
 Help this project to be bigger by submitting a feature request, working on a new feature or

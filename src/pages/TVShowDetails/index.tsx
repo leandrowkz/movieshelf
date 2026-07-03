@@ -14,23 +14,18 @@ import { ShowProviders } from '../../components/ShowProviders'
 export function TVShowDetails(): JSX.Element {
   const { getCreditsProducer, getUserGeolocationCountry } = useHelpers()
   const { tvShowId } = useParams()
-  const storageCountry = localStorage.getItem(
-    'WATCH_PROVIDER_COUNTRY'
-  ) as CountryCode
   const [country, setCountry] = useState<CountryCode>('US')
 
   const {
     tvShow,
     credits,
     videos,
-    states,
     providers,
     isLoading,
     hasErrors,
     fetchTVShow,
     fetchCredits,
     fetchVideos,
-    fetchStates,
     fetchProviders,
   } = useContext(TVShowDetailsContext)
 
@@ -45,11 +40,13 @@ export function TVShowDetails(): JSX.Element {
 
   useEffect(() => {
     const id = Number(tvShowId)
+    const storageCountry = localStorage.getItem(
+      'WATCH_PROVIDER_COUNTRY'
+    ) as CountryCode
 
     fetchTVShow(id)
     fetchCredits(id)
     fetchVideos(id)
-    fetchStates(id)
     fetchSimilar(id)
     fetchRecommended(id)
     fetchPopular()
@@ -87,10 +84,8 @@ export function TVShowDetails(): JSX.Element {
         show={tvShow}
         people={people}
         videos={videos}
-        states={states}
         isLoadingShow={isLoading.fetchTVShow}
         isLoadingPeople={isLoading.fetchCredits}
-        isLoadingActions={isLoading.fetchStates}
         data-testid="show-details"
       />
       <ShowProviders

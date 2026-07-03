@@ -1,7 +1,6 @@
 import { mockMovieDetails } from '../../../__mocks__/mockMovieDetails'
 import { mockVideo } from '../../../__mocks__/mockVideo'
 import { mockMovieCredits } from '../../../__mocks__/mockMovieCredits'
-import { mockShowStates } from '../../../__mocks__/mockShowStates'
 import { mockWatchProvider } from '../../../__mocks__/mockWatchProvider'
 import { mockMoviesListPaginated } from '../../../__mocks__/mockMoviesListPaginated'
 
@@ -11,10 +10,6 @@ async function fetchCredits() {
 
 async function fetchVideos() {
   return [{ ...mockVideo }]
-}
-
-async function fetchStates() {
-  return { ...mockShowStates }
 }
 
 async function fetchWatchProviders() {
@@ -57,7 +52,6 @@ const actions = {
   fetchMovie,
   fetchCredits,
   fetchVideos,
-  fetchStates,
   fetchWatchProviders,
   fetchListSearch,
   fetchListPopular,

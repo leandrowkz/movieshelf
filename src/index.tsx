@@ -7,44 +7,35 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import './assets/styles.css'
 import reportWebVitals from './reportWebVitals'
 import { GenresContextProvider } from './context/GenresContext'
-import { AuthContextProvider } from './context/AuthContext'
-import { NewsletterContextProvider } from './context/NewsletterContext'
 import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
 import { MovieListsContextProvider } from './context/MovieListsContext'
 import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
 import { TVShowListsContextProvider } from './context/TVShowListsContext'
 import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
-import { UserListsContextProvider } from './context/UserListsContext'
 import { SearchContextProvider } from './context/SearchContext'
 import { PeopleContextProvider } from './context/PeopleContext'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <AuthContextProvider>
-        <GenresContextProvider>
-          <UserListsContextProvider>
-            <MovieDetailsContextProvider>
-              <MovieListsContextProvider>
-                <TVShowListsContextProvider>
-                  <TVSeasonDetailsContextProvider>
-                    <TVShowDetailsContextProvider>
-                      <NewsletterContextProvider>
-                        <SearchContextProvider>
-                          <PeopleContextProvider>
-                            <RouterProvider router={router} />
-                            <Analytics />
-                          </PeopleContextProvider>
-                        </SearchContextProvider>
-                      </NewsletterContextProvider>
-                    </TVShowDetailsContextProvider>
-                  </TVSeasonDetailsContextProvider>
-                </TVShowListsContextProvider>
-              </MovieListsContextProvider>
-            </MovieDetailsContextProvider>
-          </UserListsContextProvider>
-        </GenresContextProvider>
-      </AuthContextProvider>
+      <GenresContextProvider>
+        <MovieDetailsContextProvider>
+          <MovieListsContextProvider>
+            <TVShowListsContextProvider>
+              <TVSeasonDetailsContextProvider>
+                <TVShowDetailsContextProvider>
+                  <SearchContextProvider>
+                    <PeopleContextProvider>
+                      <RouterProvider router={router} />
+                      <Analytics />
+                    </PeopleContextProvider>
+                  </SearchContextProvider>
+                </TVShowDetailsContextProvider>
+              </TVSeasonDetailsContextProvider>
+            </TVShowListsContextProvider>
+          </MovieListsContextProvider>
+        </MovieDetailsContextProvider>
+      </GenresContextProvider>
     </React.StrictMode>
   )
 }

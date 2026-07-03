@@ -3,14 +3,8 @@ import { useTesting } from '../../hooks/useTesting'
 import { ShowDetails } from '.'
 import type { Movie } from '@leandrowkz/tmdb'
 
-const {
-  renderComponent,
-  getMockMovies,
-  getMockPeople,
-  getMockVideos,
-  getMockShowStates,
-  screen,
-} = useTesting()
+const { renderComponent, getMockMovies, getMockPeople, getMockVideos, screen } =
+  useTesting()
 
 test('Should render ShowDetails properly', async () => {
   renderComponent(
@@ -18,10 +12,8 @@ test('Should render ShowDetails properly', async () => {
       show={getMockMovies(1)[0] as Movie}
       people={getMockPeople()}
       videos={getMockVideos()}
-      states={getMockShowStates(1)[0]}
       isLoadingShow={false}
       isLoadingPeople={false}
-      isLoadingActions={false}
     />
   )
 

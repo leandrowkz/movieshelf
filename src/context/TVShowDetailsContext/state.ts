@@ -1,10 +1,8 @@
 import type { TVShow, TVShowCredits } from '@leandrowkz/tmdb'
 import type { TVShowDetailsState } from './types'
-import type { UserShowStates } from '../../types'
 
 export const initialState: TVShowDetailsState = {
   tvShow: {} as TVShow,
-  states: {} as UserShowStates,
   credits: {} as TVShowCredits,
   videos: [],
   providers: [],
@@ -12,7 +10,6 @@ export const initialState: TVShowDetailsState = {
   isLoading: {
     fetchTVShow: false,
     fetchCredits: false,
-    fetchStates: false,
     fetchVideos: false,
     fetchProviders: false,
   },
@@ -24,8 +21,5 @@ export const initialState: TVShowDetailsState = {
   fetchTVShow: () => null,
   fetchCredits: () => null,
   fetchVideos: () => null,
-  fetchStates: () => null,
   fetchProviders: () => null,
-
-  setStates: () => null,
 }

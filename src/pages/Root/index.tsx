@@ -1,9 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { AuthContext } from '../../context/AuthContext'
 import { GenresContext } from '../../context/GenresContext'
-import { useNewRelic } from '../../hooks/useNewRelic'
 import { useScreenSize } from '../../hooks/useScreenSize'
 
 export const Root = () => {
@@ -11,14 +9,6 @@ export const Root = () => {
   const isMobile = useScreenSize('mobile')
   const isTablet = useScreenSize('tablet')
   const isSmallDevice = isMobile || isTablet
-  const newRelic = useNewRelic({
-    agentID: String(process.env.REACT_APP_NEWRELIC_AGENT_ID),
-    accountID: String(process.env.REACT_APP_NEWRELIC_ACCOUNT_ID),
-    applicationID: String(process.env.REACT_APP_NEWRELIC_APPLICATION_ID),
-    licenseKey: String(process.env.REACT_APP_NEWRELIC_LICENSE_KEY),
-    trustKey: String(process.env.REACT_APP_NEWRELIC_TRUST_KEY),
-  })
-  const { autoSignIn } = useContext(AuthContext)
   const { fetchMoviesGenresCodes, fetchTVShowsGenresCodes } =
     useContext(GenresContext)
 
@@ -29,8 +19,6 @@ export const Root = () => {
   }, [location])
 
   useEffect(() => {
-    newRelic.initialize()
-    autoSignIn()
     fetchMoviesGenresCodes()
     fetchTVShowsGenresCodes()
   }, [])

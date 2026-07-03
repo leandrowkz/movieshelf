@@ -1,8 +1,4 @@
-import React, {
-  type ComponentPropsWithoutRef,
-  useContext,
-  useState,
-} from 'react'
+import React, { type ComponentPropsWithoutRef } from 'react'
 import classNames from 'classnames'
 import { Logo } from '../Logo'
 import styles from './styles.module.css'
@@ -10,14 +6,9 @@ import { Link } from 'react-router-dom'
 import { Text } from '../Text'
 import { Image } from '../Image'
 import { Container } from '../Container'
-import { Input } from '../Input'
-import { Button } from '../Button'
-import { Heading } from '../Heading'
 import tmdb from '../../assets/images/tmdb-logo.svg'
 import iconLinkedin from '../../assets/images/icon-linkedin.svg'
 import iconGithub from '../../assets/images/icon-github.svg'
-import iconTwitter from '../../assets/images/icon-twitter.png'
-import { NewsletterContext } from '../../context/NewsletterContext'
 import { useScreenSize } from '../../hooks/useScreenSize'
 
 export function Footer({
@@ -33,7 +24,6 @@ export function Footer({
   return (
     <footer className={classes} {...props}>
       <Container className={styles.container}>
-        <NewsletterSection />
         <LogoSection />
         <MenuSection />
         <DisclaimerSection />
@@ -63,61 +53,6 @@ function LogoSection() {
   )
 }
 
-function NewsletterSection() {
-  const [email, setEmail] = useState('')
-  const {
-    subscribeNewsletter,
-    clearSubscribeStatuses,
-    isLoadingSubscribe,
-    hasSubscribeErrors,
-    hasSubscribeSuccess,
-  } = useContext(NewsletterContext)
-
-  const updateEmail = (email: string) => {
-    clearSubscribeStatuses()
-    setEmail(email)
-  }
-
-  return (
-    <section className={styles.newsletter} data-testid="newsletter-section">
-      <div>
-        <Heading title="Sign up to our newsletter" level={2} />
-        <Text>
-          Stay up to date with the latest news, announcements, and updates.
-        </Text>
-      </div>
-      <div>
-        <div className={styles.input}>
-          <Input
-            placeholder="Enter your email"
-            value={email}
-            type="email"
-            onChange={(e) => updateEmail(e.target.value)}
-          />
-          <Button
-            onClick={() => subscribeNewsletter(email)}
-            disabled={isLoadingSubscribe}
-          >
-            Subscribe ✉️
-          </Button>
-        </div>
-        <div className={styles.inputMessage}>
-          {hasSubscribeErrors && (
-            <Text size="small" variant="error">
-              This email is invalid 😢
-            </Text>
-          )}
-          {hasSubscribeSuccess && (
-            <Text size="small" variant="success">
-              Thank you for subscribing ✅
-            </Text>
-          )}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function MenuSection() {
   return (
     <div className={styles.menuSection} data-testid="menu-section">
@@ -128,10 +63,6 @@ function MenuSection() {
         <Link to="/">Home</Link>
         <Link to="/movies">Movies</Link>
         <Link to="/tv">TV shows</Link>
-        <Link to="/favorites">Favorites</Link>
-        <Link to="/watchlist">Watchlist</Link>
-        <Link to="/sign-in">Sign in</Link>
-        <Link to="/sign-up">Sign up</Link>
       </div>
       <div className={styles.menu}>
         <Text size="small" isBold isMuted>
@@ -173,9 +104,6 @@ function DisclaimerSection() {
         </Link>
         <Link to="https://linkedin.com/in/leandrowkz" target="_blank">
           <Image src={iconLinkedin} className={styles.socialIcon} />
-        </Link>
-        <Link to="https://twitter.com/leandrowkzz" target="_blank">
-          <Image src={iconTwitter} className={styles.socialIcon} />
         </Link>
       </div>
     </div>
