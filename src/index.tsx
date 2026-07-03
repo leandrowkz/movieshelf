@@ -1,0 +1,52 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
+import { router } from './routes/root'
+import 'react-toastify/dist/ReactToastify.min.css'
+import './assets/styles.css'
+import reportWebVitals from './reportWebVitals'
+import { GenresContextProvider } from './context/GenresContext'
+import { MovieDetailsContextProvider } from './context/MovieDetailsContext'
+import { MovieListsContextProvider } from './context/MovieListsContext'
+import { TVShowDetailsContextProvider } from './context/TVShowDetailsContext'
+import { TVShowListsContextProvider } from './context/TVShowListsContext'
+import { TVSeasonDetailsContextProvider } from './context/TVSeasonDetailsContext'
+import { SearchContextProvider } from './context/SearchContext'
+import { PeopleContextProvider } from './context/PeopleContext'
+
+const App = () => {
+  return (
+    <React.StrictMode>
+      <GenresContextProvider>
+        <MovieDetailsContextProvider>
+          <MovieListsContextProvider>
+            <TVShowListsContextProvider>
+              <TVSeasonDetailsContextProvider>
+                <TVShowDetailsContextProvider>
+                  <SearchContextProvider>
+                    <PeopleContextProvider>
+                      <RouterProvider router={router} />
+                      <Analytics />
+                    </PeopleContextProvider>
+                  </SearchContextProvider>
+                </TVShowDetailsContextProvider>
+              </TVSeasonDetailsContextProvider>
+            </TVShowListsContextProvider>
+          </MovieListsContextProvider>
+        </MovieDetailsContextProvider>
+      </GenresContextProvider>
+    </React.StrictMode>
+  )
+}
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLDivElement
+)
+
+root.render(<App />)
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals(console.log)

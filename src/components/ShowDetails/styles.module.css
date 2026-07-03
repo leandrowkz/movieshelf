@@ -1,0 +1,214 @@
+.container {
+  position: relative;
+  box-sizing: content-box;
+  margin-top: calc(calc(var(--header-height) + var(--spacer-large)) * -1);
+  margin-bottom: var(--spacer-extra-large);
+  padding:
+    calc(var(--header-height) + calc(var(--spacer-extra-large) * 2))
+    var(--container-spacer)
+    var(--container-spacer)
+    var(--container-spacer);
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  grid-template-columns: 70% 1fr;
+  grid-template-areas:
+    "details poster"
+    "cast poster"
+    "actions actions";
+  gap: var(--spacer-large);
+}
+
+.backdrop {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: black;
+  background-size: cover;
+  background-position: top center;
+}
+
+.backdrop:before {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  background: rgba(0, 0, 0, 1);
+  background: -moz-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .5) 100%);
+}
+
+.cast {
+  grid-area: cast;
+  display: flex;
+  gap: var(--spacer-base);
+  padding: var(--spacer-base) 0;
+}
+
+.poster {
+  grid-area: poster;
+  justify-content: stretch;
+}
+
+.details {
+  grid-area: details;
+  align-self: self-end;
+}
+
+.details .title {
+  width: 100%;
+  color: white;
+}
+
+.details .metadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacer-large);
+}
+
+.details .overview {
+  display: block;
+  margin-top: var(--spacer-large);
+  margin-right: var(--spacer-large);
+  line-height: 1.6;
+}
+
+.actions {
+  grid-area: actions;
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  grid-template-areas: "left right";
+  gap: var(--spacer-large);
+}
+
+.actions .leftActions {
+  grid-area: left;
+  justify-self: start;
+  display: flex;
+  gap: var(--spacer-large);
+}
+
+.actions .rightActions {
+  grid-area: right;
+  justify-self: center;
+  place-items: center;
+  display: flex;
+  gap: var(--spacer-base);
+}
+
+.loaderTitle {
+  display: flex;
+  gap: var(--spacer-base);
+  height: var(--font-size-large);
+}
+
+.loaderMetadata {
+  margin-top: var(--spacer-large);
+  display: flex;
+  gap: var(--spacer-base);
+}
+
+.loaderOverview {
+  margin-top: var(--spacer-large);
+  width: 90%;
+}
+
+.loaderCastItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacer-base);
+}
+
+.loaderCastName {
+  height: var(--font-size-small);
+  width: calc(var(--avatar-size) * .7);
+}
+
+.loaderPoster {
+  width: 300px;
+  height: 400px;
+}
+
+.loaderAction {
+  width: 200px;
+  height: 64px;
+}
+
+.loaderActionPill {
+  border-radius: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding-top: calc(var(--header-height) + var(--spacer-large));
+    padding-bottom: var(--spacer-extra-large);
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+      "poster"
+      "actions"
+      "details"
+      "cast";
+  }
+
+  .cast {
+    justify-content: center;
+  }
+
+  .details .title {
+    text-align: center;
+  }
+
+  .details .metadata {
+    justify-content: center;
+  }
+
+  .details .overview {
+    text-align: justify;
+    margin-right: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    place-items: center;
+    gap: var(--spacer-base);
+  }
+
+  .actions .leftActions, .actions .rightActions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacer-base);
+  }
+
+  .loaderTitle {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .loaderMetadata {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .loaderOverview {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100% !important;
+  }
+
+  .loaderPoster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
+}

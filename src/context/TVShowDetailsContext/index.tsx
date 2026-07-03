@@ -1,0 +1,106 @@
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { CountryCode, TVShow, TVShowCredits } from '@leandrowkz/tmdb'
+import type { TVShowDetailsState } from './types'
+import { initialState } from './state'
+import { useTVShowsAPI } from '../../hooks/apis/useTVShowsAPI'
+
+export const TVShowDetailsContext = createContext<TVShowDetailsState>({
+  ...initialState,
+})
+
+export const TVShowDetailsContextProvider = ({
+  children,
+}: PropsWithChildren) => {
+  const api = useTVShowsAPI()
+
+  const [tvShow, setTVShow] = useState(initialState.tvShow)
+  const [credits, setCredits] = useState(initialState.credits)
+  const [videos, setVideos] = useState(initialState.videos)
+  const [providers, setProviders] = useState(initialState.providers)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
+  const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
+
+  const fetchTVShow = async (showId: number) => {
+    try {
+      setTVShow({} as TVShow)
+      setIsLoading((prev) => ({ ...prev, fetchTVShow: true }))
+      setHasErrors((prev) => ({ ...prev, fetchTVShow: false }))
+
+      const data = await api.fetchTVShow(showId)
+
+      setTVShow(data)
+    } catch (e) {
+      setHasErrors((prev) => ({ ...prev, fetchTVShow: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchTVShow: false }))
+    }
+  }
+
+  const fetchCredits = async (showId: number) => {
+    try {
+      setCredits({} as TVShowCredits)
+      setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
+      setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
+
+      const data = await api.fetchCredits(showId)
+
+      setCredits(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchCredits: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+    }
+  }
+
+  const fetchVideos = async (showId: number) => {
+    try {
+      setVideos([])
+      setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
+      setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
+
+      const data = await api.fetchVideos(showId)
+
+      setVideos(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchVideos: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
+    }
+  }
+
+  const fetchProviders = async (showId: number, country: CountryCode) => {
+    try {
+      localStorage.setItem('WATCH_PROVIDER_COUNTRY', country)
+      setProviders([])
+      setIsLoading((prev) => ({ ...prev, fetchProviders: true }))
+      setHasErrors((prev) => ({ ...prev, fetchProviders: false }))
+
+      const data = await api.fetchWatchProviders(showId, country)
+
+      setProviders(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchProviders: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchProviders: false }))
+    }
+  }
+
+  const state = {
+    tvShow,
+    credits,
+    videos,
+    providers,
+    isLoading,
+    hasErrors,
+    fetchTVShow,
+    fetchCredits,
+    fetchVideos,
+    fetchProviders,
+  }
+
+  return (
+    <TVShowDetailsContext.Provider value={state}>
+      {children}
+    </TVShowDetailsContext.Provider>
+  )
+}

@@ -1,0 +1,27 @@
+.avatar {
+  position: relative;
+  border-radius: 100%;
+  aspect-ratio: 1 / 1;
+  width: var(--avatar-size);
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.avatar:before {
+  z-index: -1;
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  content: '🙅';
+  font-size: var(--avatar-size);
+  text-align: center;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-gray-150);
+  background-position: center;
+}

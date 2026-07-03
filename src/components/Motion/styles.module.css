@@ -1,0 +1,26 @@
+.opacity {
+  animation-name: opacityAnimation;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-name: opacityAnimation;
+}
+
+@-webkit-keyframes opacityAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

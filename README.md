@@ -1,73 +1,50 @@
-# 🍿 MovieShelf
+# 🍿 Movieshelf
+Opensource movie, tv and cast catalog that uses The Movie Database API to fetch movies/tv data.
+Take a look at it running on https://movieshelf.app.
 
-Open-source movie, TV and cast catalog powered by The Movie Database (TMDB).
-Take a look at it running at https://movieshelf.app.
+![Movieshelf showcase](./docs/movieshelf.jpeg)
 
-![MovieShelf showcase](./docs/movieshelf.jpeg)
+## 📦 Dependencies
+This project uses Create React APP, React Router, CSS modules and Context API. It also uses the
+[@leandrowkz/tmdb](https://github.com/leandrowkz/tmdb) package to interact with the The Movie
+Database API.
 
-## Stack
+## ⏭️ Running locally
+Since this is an free project, you're able to clone this repository and run it locally. The outcome
+should be similar to the running website.
 
-- [Next.js 16](https://nextjs.org) (App Router, RSC, Turbopack)
-- [React 19](https://react.dev)
-- [Tailwind CSS 4](https://tailwindcss.com) + [Shadcn UI](https://ui.shadcn.com)
-- [Zustand](https://zustand-demo.pmnd.rs) (single store: watch-provider country, persisted)
-- [next-themes](https://github.com/pacocoursey/next-themes) for light/dark/system
-- [@leandrowkz/tmdb](https://github.com/leandrowkz/tmdb) to talk to TMDB
+This project relies on [Vercel](https://vercel.com), especially for proxying api calls.
+So before you start you'll need to [create a Vercel project](https://vercel.com/new) and attach it
+to this repository (the copy you made it). You can use it the [Vercel CLI](https://vercel.com/docs/cli)
+to do so. After creating and linking a Vercel project to the copy of this repository you need to
+create an TMDB apikey and set it on your vercel project.
 
-Data fetching is done via server actions in `actions/`, each wrapped with
-`unstable_cache` for tag-based revalidation. There are no client-side API
-hooks and no `app/api` route handlers — server components call actions directly.
+The steps you need to run this locally:
+1. Install the [Vercel CLI](https://vercel.com/docs/cli)
+2. Create a [new Vercel project](https://vercel.com/new)
+3. Run `$ vercel link` to link your copied repository to your vercel created project
+4. Create a [TMDB apikey](https://developers.themoviedb.org/3/getting-started/introduction)
+5. Add the variable `TMDB_API_ACCESS_TOKEN` to your Vercel project, with the value of TDMB apikey
+6. Run `$ yarn` to install dependencies
+7. Run `$ yarn start:dev` to start the project
 
-## Folder layout
+If everything went right then you will have the project running on the http://localhost:3000.
 
-```
-app/         routes (App Router)
-actions/     server actions wrapping TMDB
-components/  components (one folder per component, kebab-case)
-hooks/       hooks and zustand stores
-lib/         cross-app utilities (tmdb client, seo, images, formatting)
-types/       shared types
-public/      static assets
-```
+## ☕ Contribute to this project
+Help this project to be bigger by submitting a feature request, working on a new feature or
+sponsoring it. Check it out the [project roadmap](https://github.com/users/leandrowkz/projects/1/views/1)
+and the stay tuned for the upcoming features.
 
-Naming convention: `DOM + Action + Entity` (e.g. `CardMovie`, `ListPeople`,
-`ButtonTrailer`, `FormSearch`). One export per file matching the filename.
-
-## Running locally
-
-1. Install dependencies: `npm install`
-2. Create a `.env.local` with your [TMDB v3 API key](https://developer.themoviedb.org/docs/getting-started):
-   ```
-   TMDB_API_ACCESS_TOKEN=your_key_here
-   NEXT_PUBLIC_SITE_URL=http://localhost:3000
-   ```
-3. Start the dev server: `npm run dev`
-4. Open http://localhost:3000
-
-## Scripts
-
-| Command           | Description                                |
-| ----------------- | ------------------------------------------ |
-| `npm run dev`     | Start dev server (Turbopack)               |
-| `npm run build`   | Production build with SSG/SSR/SSG params   |
-| `npm start`       | Run the production build                   |
-| `npm run lint`    | Run ESLint                                 |
-| `npm run typecheck` | Run TypeScript without emitting           |
-
-## SEO
-
-- Per-page `generateMetadata` with canonical URLs, OpenGraph, Twitter card
-- Dynamic 1200×630 OpenGraph images per movie / show / person via `next/og`
-- JSON-LD: `WebSite` + `SearchAction` in root, `Movie` / `TVSeries` / `Person` per page
-- `app/sitemap.ts` (top movies/shows + all genres, revalidate 24h)
-- `app/robots.ts` allow-all + sitemap pointer
-- Top-20 trending movies + top-20 popular TV shows pre-rendered at build via
-  `generateStaticParams`; the rest are SSR'd on demand and cached
-
-## The Movie Database API
-
+## 🎦 The Movie Database API
 This product uses the TMDB API but is not endorsed or certified by TMDB.
-All movies, TV shows and cast information come from the TMDB API.
+
+All the information related to movies/tv displayed on carousels, lists, details, etc., comes from
+the TMDB API. This is an incredible project that provides overall movies, tv and cast information
+for those who need to their projects. A huge shout out to them for their amazing work and for making
+this kind of projects (movieshelf) possible.
+
+I recommend you to take a look at their [website](https://www.themoviedb.org/) and [join their
+community](https://www.themoviedb.org/signup).
 
 <p>
   <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" width="100">

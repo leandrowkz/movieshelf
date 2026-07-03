@@ -1,0 +1,30 @@
+.tvSeasonsTabs {
+  margin-bottom: var(--spacer-extra-large);
+}
+
+.header {
+  margin-bottom: var(--spacer-base);
+  margin-left: var(--container-spacer);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-x: auto;
+  gap: var(--spacer-small);
+  padding-top: var(--spacer-small);
+  padding-bottom: var(--spacer-large);
+  padding-left: calc(var(--container-spacer) - calc(var(--spacer-small) * 0.5));
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-small);
+}
+
+.active {
+  color: white;
+}

@@ -1,0 +1,31 @@
+.tvSeasonsTabs {
+  margin-bottom: var(--spacer-extra-large);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacer-base);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-x: auto;
+  gap: var(--spacer-small);
+  padding-top: var(--spacer-small);
+  padding-bottom: var(--spacer-large);
+  padding-left: calc(var(--container-spacer) - calc(var(--spacer-small) * 0.5));
+}
+
+.subtitle {
+  font-weight: bold !important;
+  font-size: 120%;
+  margin-bottom: var(--spacer-base);
+}
+
+.loaderEpisodeCount {
+  margin: var(--spacer-large) 0 var(--spacer-small);
+}

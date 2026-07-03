@@ -1,0 +1,29 @@
+.heading {
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.heading-1 {
+  font-size: var(--font-size-extra-large);
+  margin-bottom: var(--spacer-base);
+}
+
+.heading-2 {
+  font-size: var(--font-size-large);
+  margin-bottom: var(--spacer-small);
+}
+
+.heading-3 {
+  line-height: 1.4;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  font-stretch: 100%;
+}
+
+.headingThin {
+  font-weight: normal !important;
+}
+
+.heading-1.mobile {
+  font-size: calc(var(--font-size-extra-large) * .8);
+}

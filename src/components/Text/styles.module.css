@@ -1,0 +1,33 @@
+.text {
+  margin: 0;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.paragraph {
+  margin-bottom: var(--spacer-large);
+}
+
+.muted {
+  color: var(--font-color-muted);
+}
+
+.small {
+  font-size: var(--font-size-small);
+}
+
+.large {
+  font-size: var(--font-size-large);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.success {
+  color: var(--color-success);
+}

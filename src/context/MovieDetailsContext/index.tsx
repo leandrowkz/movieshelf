@@ -1,0 +1,106 @@
+import React, { type PropsWithChildren, createContext, useState } from 'react'
+import type { CountryCode, Movie, MovieCredits } from '@leandrowkz/tmdb'
+import type { MovieDetailsState } from './types'
+import { initialState } from './state'
+import { useMoviesAPI } from '../../hooks/apis/useMoviesAPI'
+
+export const MovieDetailsContext = createContext<MovieDetailsState>({
+  ...initialState,
+})
+
+export const MovieDetailsContextProvider = ({
+  children,
+}: PropsWithChildren) => {
+  const api = useMoviesAPI()
+
+  const [movie, setMovie] = useState(initialState.movie)
+  const [credits, setCredits] = useState(initialState.credits)
+  const [videos, setVideos] = useState(initialState.videos)
+  const [providers, setProviders] = useState(initialState.providers)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading)
+  const [hasErrors, setHasErrors] = useState(initialState.hasErrors)
+
+  const fetchMovie = async (showId: number) => {
+    try {
+      setMovie({} as Movie)
+      setIsLoading((prev) => ({ ...prev, fetchMovie: true }))
+      setHasErrors((prev) => ({ ...prev, fetchMovie: false }))
+
+      const data = await api.fetchMovie(showId)
+
+      setMovie(data)
+    } catch (e) {
+      setHasErrors((prev) => ({ ...prev, fetchMovie: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchMovie: false }))
+    }
+  }
+
+  const fetchCredits = async (showId: number) => {
+    try {
+      setCredits({} as MovieCredits)
+      setIsLoading((prev) => ({ ...prev, fetchCredits: true }))
+      setHasErrors((prev) => ({ ...prev, fetchCredits: false }))
+
+      const data = await api.fetchCredits(showId)
+
+      setCredits(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchCredits: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchCredits: false }))
+    }
+  }
+
+  const fetchVideos = async (showId: number) => {
+    try {
+      setVideos([])
+      setIsLoading((prev) => ({ ...prev, fetchVideos: true }))
+      setHasErrors((prev) => ({ ...prev, fetchVideos: false }))
+
+      const data = await api.fetchVideos(showId)
+
+      setVideos(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchVideos: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchVideos: false }))
+    }
+  }
+
+  const fetchProviders = async (showId: number, country: CountryCode) => {
+    try {
+      localStorage.setItem('WATCH_PROVIDER_COUNTRY', country)
+      setProviders([])
+      setIsLoading((prev) => ({ ...prev, fetchProviders: true }))
+      setHasErrors((prev) => ({ ...prev, fetchProviders: false }))
+
+      const data = await api.fetchWatchProviders(showId, country)
+
+      setProviders(data)
+    } catch {
+      setHasErrors((prev) => ({ ...prev, fetchProviders: true }))
+    } finally {
+      setIsLoading((prev) => ({ ...prev, fetchProviders: false }))
+    }
+  }
+
+  const state = {
+    movie,
+    credits,
+    videos,
+    providers,
+    isLoading,
+    hasErrors,
+    fetchMovie,
+    fetchCredits,
+    fetchVideos,
+    fetchProviders,
+  }
+
+  return (
+    <MovieDetailsContext.Provider value={state}>
+      {children}
+    </MovieDetailsContext.Provider>
+  )
+}

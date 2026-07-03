@@ -1,0 +1,25 @@
+.episodes, .loaderList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: var(--spacer-large);
+}
+
+.mobile.episodes, .mobile.loaderList {
+  grid-template-columns: 1fr;
+}
+
+.tablet.episodes, .tablet.loaderList {
+  grid-template-columns: 1fr 1fr;
+}
+
+.loaderItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-base);
+  margin-top: var(--spacer-base);
+}
+
+.loaderImage {
+  aspect-ratio: 16 / 9;
+}
+
